@@ -25,8 +25,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
                             <a href="#">
-                                <img src="{{ asset('assets/images/logo/pemkab1.png') }}" alt="Logo"
-                                    srcset="" />
+                                <img style="width:100%;height:80px;" src="{{ asset('assets/images/logo/pemkab1.png') }}"
+                                    alt="Logo" srcset="" />
                             </a>
                         </div>
                         <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
@@ -68,101 +68,105 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        {{-- Perda --}}
-                        <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
-                            <a href="{{ route('perda.index.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-stack"></i>
-                                <span>Perencanaan Kinerja</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item {{ Route::is('perda.strategis.page') ? 'active' : '' }}">
-                                    <a href="{{ route('perda.strategis.page') }}">Sasaran Strategis</a>
-                                </li>
-                                <li class="submenu-item {{ Route::is('perda.program.page') ? 'active' : '' }}">
-                                    <a href="{{ route('perda.program.page') }}">Sasaran Program</a>
-                                </li>
-                                <li class="submenu-item {{ Route::is('perda.kegiatan.page') ? 'active' : '' }}">
-                                    <a href="{{ route('perda.kegiatan.page') }}">Sasaran Kegiatan</a>
-                                </li>
-                                <li class="submenu-item {{ Route::is('perda.subkegiatan.page') ? 'active' : '' }}">
-                                    <a href="{{ route('perda.subkegiatan.page') }}">Sasaran Sub-Kegiatan</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item {{ Route::is('perda.pengukuran.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route('perda.pengukuran.kinerja.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Pengukuran Kinerja</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ Route::is('perda.pelaporan.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route('perda.pelaporan.kinerja.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Pelaporan Kinerja</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ Route::is('perda.evaluasi.internal.page') ? 'active' : '' }}">
-                            <a href="{{ route('perda.evaluasi.internal.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Evaluasi internal</span>
-                            </a>
-                        </li>
-
-                        {{-- Pemkab --}}
-                        <li class="sidebar-title">Pemkab</li>
-                        <li class="sidebar-item {{ Route::is('pemkab.index.page') ? 'active' : '' }}">
-                            <a href="{{ route('pemkab.index.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ Route::is('pemkab.perencanaan.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route('pemkab.perencanaan.kinerja.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Perencanaan Kinerja</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ Route::is('pemkab.pengukuran.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route('pemkab.pengukuran.kinerja.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Pengukuran Kinerja</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route('pemkab.pelaporan.kinerja.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Pelaporan Kinerja</span>
-                            </a>
-                        </li>
-
-                        {{-- Inspektorat --}}
-                        <li class="sidebar-title">Inspektorat</li>
-                        <li class="sidebar-item {{ Route::is('inspektorat.index.page') ? 'active' : '' }}">
-                            <a href="{{ route('inspektorat.index.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ Route::is('inspektorat.self.assessment.page') ? 'active' : '' }}">
-                            <a href="{{ route('inspektorat.self.assessment.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Self Assesment Perangkat Daerah</span>
-                            </a>
-                        </li>
-                        <li
-                            class="sidebar-item {{ Route::is('inspektorat.evaluasi.internal.page') ? 'active' : '' }}">
-                            <a href="{{ route('inspektorat.evaluasi.internal.page') }}" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Evaluasi Internal</span>
-                            </a>
-                        </li>
-
+                        @if (session('role') == 'perda')
+                            {{-- Perda --}}
+                            <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
+                                <a href="{{ route('perda.index.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item has-sub">
+                                <a href="#" class="sidebar-link">
+                                    <i class="bi bi-stack"></i>
+                                    <span>Perencanaan Kinerja</span>
+                                </a>
+                                <ul class="submenu">
+                                    <li class="submenu-item {{ Route::is('perda.strategis.page') ? 'active' : '' }}">
+                                        <a href="{{ route('perda.strategis.page') }}">Sasaran Strategis</a>
+                                    </li>
+                                    <li class="submenu-item {{ Route::is('perda.program.page') ? 'active' : '' }}">
+                                        <a href="{{ route('perda.program.page') }}">Sasaran Program</a>
+                                    </li>
+                                    <li class="submenu-item {{ Route::is('perda.kegiatan.page') ? 'active' : '' }}">
+                                        <a href="{{ route('perda.kegiatan.page') }}">Sasaran Kegiatan</a>
+                                    </li>
+                                    <li class="submenu-item {{ Route::is('perda.subkegiatan.page') ? 'active' : '' }}">
+                                        <a href="{{ route('perda.subkegiatan.page') }}">Sasaran Sub-Kegiatan</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="sidebar-item {{ Route::is('perda.pengukuran.kinerja.page') ? 'active' : '' }}">
+                                <a href="{{ route('perda.pengukuran.kinerja.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Pengukuran Kinerja</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item {{ Route::is('perda.pelaporan.kinerja.page') ? 'active' : '' }}">
+                                <a href="{{ route('perda.pelaporan.kinerja.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Pelaporan Kinerja</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item {{ Route::is('perda.evaluasi.internal.page') ? 'active' : '' }}">
+                                <a href="{{ route('perda.evaluasi.internal.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Evaluasi internal</span>
+                                </a>
+                            </li>
+                        @elseif (session('role') == 'pemkab')
+                            {{-- Pemkab --}}
+                            <li class="sidebar-title">Pemkab</li>
+                            <li class="sidebar-item {{ Route::is('pemkab.index.page') ? 'active' : '' }}">
+                                <a href="{{ route('pemkab.index.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li
+                                class="sidebar-item {{ Route::is('pemkab.perencanaan.kinerja.page') ? 'active' : '' }}">
+                                <a href="{{ route('pemkab.perencanaan.kinerja.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Perencanaan Kinerja</span>
+                                </a>
+                            </li>
+                            <li
+                                class="sidebar-item {{ Route::is('pemkab.pengukuran.kinerja.page') ? 'active' : '' }}">
+                                <a href="{{ route('pemkab.pengukuran.kinerja.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Pengukuran Kinerja</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.page') ? 'active' : '' }}">
+                                <a href="{{ route('pemkab.pelaporan.kinerja.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Pelaporan Kinerja</span>
+                                </a>
+                            </li>
+                        @else
+                            {{-- Inspektorat --}}
+                            <li class="sidebar-title">Inspektorat</li>
+                            <li class="sidebar-item {{ Route::is('inspektorat.index.page') ? 'active' : '' }}">
+                                <a href="{{ route('inspektorat.index.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li
+                                class="sidebar-item {{ Route::is('inspektorat.self.assessment.page') ? 'active' : '' }}">
+                                <a href="{{ route('inspektorat.self.assessment.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Self Assesment Perangkat Daerah</span>
+                                </a>
+                            </li>
+                            <li
+                                class="sidebar-item {{ Route::is('inspektorat.evaluasi.internal.page') ? 'active' : '' }}">
+                                <a href="{{ route('inspektorat.evaluasi.internal.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Evaluasi Internal</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -188,8 +192,8 @@
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">Perangkat Daerah</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Admin</p>
+                                            <h6 class="mb-0 text-gray-600">{{ session('name') }}</h6>
+                                            {{-- <p class="mb-0 text-sm text-gray-600"></p> --}}
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -201,13 +205,13 @@
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                                     style="min-width: 11rem">
                                     <li>
-                                        <h6 class="dropdown-header">Hello, John!</h6>
+                                        <h6 class="dropdown-header">Hello, {{ session('name') }}</h6>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a class="dropdown-item" href="#"><i
                                                 class="icon-mid bi bi-person me-2"></i> My
                                             Profile</a>
-                                    </li>
+                                    </li> --}}
                                     {{-- <li>
                                         <a class="dropdown-item" href="#"><i
                                                 class="icon-mid bi bi-gear me-2"></i>
@@ -222,7 +226,7 @@
                                         <hr class="dropdown-divider" />
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#"><i
+                                        <a class="dropdown-item" href="{{ route('logout.process') }}"><i
                                                 class="icon-mid bi bi-box-arrow-left me-2"></i>
                                             Logout</a>
                                     </li>
