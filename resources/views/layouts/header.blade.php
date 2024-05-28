@@ -122,14 +122,14 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="sidebar-item {{ Route::is('pemkab.perencanaan.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route('pemkab.perencanaan.kinerja.page') }}" class="sidebar-link">
+                        <li class="sidebar-item {{ Route::is('pemkab.perencanaan.kinerja.index') ? 'active' : '' }}">
+                            <a href="{{ route('pemkab.perencanaan.kinerja.index') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Perencanaan Kinerja</span>
                             </a>
                         </li>
-                        <li class="sidebar-item {{ Route::is('pemkab.pengukuran.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route('pemkab.pengukuran.kinerja.page') }}" class="sidebar-link">
+                        <li class="sidebar-item {{ Route::is('pemkab.pengukuran.kinerja.index') ? 'active' : '' }}">
+                            <a href="{{ route('pemkab.pengukuran.kinerja.index') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Pengukuran Kinerja</span>
                             </a>

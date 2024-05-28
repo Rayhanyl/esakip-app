@@ -41,15 +41,27 @@ Route::prefix('perangkat/daerah')->group(function () {
         ->name('perda.evaluasi.internal.page');
 });
 
-Route::prefix('pemerintah/kabupaten')->group(function () {
+Route::prefix('pemerintah/kabupaten')->name('pemkab.')->group(function () {
     Route::get('/index', [PemerintahKabupatenController::class, 'index'])
-        ->name('pemkab.index.page');
-    Route::get('/perencanaan/kinerja', [PemerintahKabupatenController::class, 'perencanaanKinerja'])
-        ->name('pemkab.perencanaan.kinerja.page');
-    Route::get('/pengukuran/kinerja', [PemerintahKabupatenController::class, 'pengukuranKinerja'])
-        ->name('pemkab.pengukuran.kinerja.page');
+        ->name('index.page');
+    Route::prefix('/perencanaan/kinerja')->name('perencanaan.kinerja.')->group(function () {
+        Route::get('/', [PemerintahKabupatenController::class, 'perencanaanKinerja'])
+            ->name('index');
+        Route::post('/store', [PemerintahKabupatenController::class, 'perencanaanKinerjaPost'])
+            ->name('store');
+    });
+    Route::prefix('/pengukuran/kinerja')->name('pengukuran.kinerja.')->group(function () {
+        Route::get('/', [PemerintahKabupatenController::class, 'pengukuranKinerja'])
+            ->name('index');
+        Route::get('/ajax', [PemerintahKabupatenController::class, 'pengukuranKinerjaAjax'])
+            ->name('ajax');
+        Route::post('/store', [PemerintahKabupatenController::class, 'pengukuranKinerjaPost'])
+            ->name('store');
+    });
     Route::get('/pelaporan/kinerja', [PemerintahKabupatenController::class, 'pelaporanKinerja'])
-        ->name('pemkab.pelaporan.kinerja.page');
+        ->name('pelaporan.kinerja.page');
+    Route::get('/perencanaan/kinerja/form-indikator', [PemerintahKabupatenController::class, 'addIndicator'])
+        ->name('perencanan.kinerja.form-indikator');
 });
 
 Route::prefix('inspektorat')->group(function () {
