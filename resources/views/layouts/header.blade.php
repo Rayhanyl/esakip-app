@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>e-SAKIP</title>
 
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main/app-dark.css') }}" />
     <link
         href="https://cdn.datatables.net/v/bs5/dt-2.0.6/date-1.5.2/fc-5.0.0/fh-4.0.1/r-3.0.2/rg-1.5.0/rr-1.5.0/sc-2.4.2/datatables.min.css"
         rel="stylesheet">
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon.svg') }}" type="image/x-icon" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon.svg') }}" type="image/png" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/png" />
 
-    <link rel="stylesheet" href="{{ asset('assets/css/shared/iconly.css') }} " />
+    <link rel="stylesheet" href="{{ asset('assets/images/logo/pemkab2.png') }}" />
 </head>
 
 <body>
@@ -24,8 +24,10 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="#"><img src="assets/images/logo/logo.svg" alt="Logo"
-                                    srcset="" /></a>
+                            <a href="#">
+                                <img src="{{ asset('assets/images/logo/pemkab1.png') }}" alt="Logo"
+                                    srcset="" />
+                            </a>
                         </div>
                         <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -66,369 +68,105 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item active">
-                            <a href="index.html" class="sidebar-link">
+                        {{-- Perda --}}
+                        <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
+                            <a href="{{ route ('perda.index.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
-
                         <li class="sidebar-item has-sub">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-stack"></i>
-                                <span>Components</span>
+                                <span>Perencanaan Kinerja</span>
                             </a>
                             <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="component-alert.html">Alert</a>
+                                <li class="submenu-item {{ Route::is('perda.strategis.page') ? 'active' : '' }}">
+                                    <a href="{{ route ('perda.strategis.page') }}"
+                                    >Sasaran Strategis</a>
                                 </li>
-                                <li class="submenu-item">
-                                    <a href="component-badge.html">Badge</a>
+                                <li class="submenu-item {{ Route::is('perda.program.page') ? 'active' : '' }}">
+                                    <a href="{{ route ('perda.program.page') }}"
+                                    >Sasaran Program</a>
                                 </li>
-                                <li class="submenu-item">
-                                    <a href="component-breadcrumb.html">Breadcrumb</a>
+                                <li class="submenu-item {{ Route::is('perda.kegiatan.page') ? 'active' : '' }}">
+                                    <a href="{{ route ('perda.kegiatan.page') }}"
+                                    >Sasaran Kegiatan</a>
                                 </li>
-                                <li class="submenu-item">
-                                    <a href="component-button.html">Button</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-card.html">Card</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-carousel.html">Carousel</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-collapse.html">Collapse</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-dropdown.html">Dropdown</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-list-group.html">List Group</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-modal.html">Modal</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-navs.html">Navs</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-pagination.html">Pagination</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-progress.html">Progress</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-spinner.html">Spinner</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="component-tooltip.html">Tooltip</a>
+                                <li class="submenu-item {{ Route::is('perda.subkegiatan.page') ? 'active' : '' }}">
+                                    <a href="{{ route ('perda.subkegiatan.page') }}"
+                                    >Sasaran Sub-Kegiatan</a>
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-collection-fill"></i>
-                                <span>Extra Components</span>
+                        <li class="sidebar-item {{ Route::is('perda.pengukuran.kinerja.page') ? 'active' : '' }}">
+                            <a href="{{ route ('perda.pengukuran.kinerja.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Pengukuran Kinerja</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="extra-component-avatar.html">Avatar</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="extra-component-toastify.html">Toastify</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="extra-component-rating.html">Rating</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="extra-component-divider.html">Divider</a>
-                                </li>
-                            </ul>
                         </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
+                        <li class="sidebar-item {{ Route::is('perda.pelaporan.kinerja.page') ? 'active' : '' }}">
+                            <a href="{{ route ('perda.pelaporan.kinerja.page') }}" class="sidebar-link"
+                            >
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Pelaporan Kinerja</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
                         </li>
-
-                        <li class="sidebar-title">Forms &amp; Tables</li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Form Elements</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="form-element-input.html">Input</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="form-element-input-group.html">Input Group</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="form-element-select.html">Select</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="form-element-radio.html">Radio</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="form-element-checkbox.html">Checkbox</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="form-element-textarea.html">Textarea</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="form-layout.html" class="sidebar-link">
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Form Layout</span>
+                        <li class="sidebar-item {{ Route::is('perda.evaluasi.internal.page') ? 'active' : '' }}">
+                            <a href="{{ route ('perda.evaluasi.internal.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Evaluasi internal</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-journal-check"></i>
-                                <span>Form Validation</span>
+                        {{-- Pemkab --}}
+                        <li class="sidebar-title">Pemkab</li>
+                        <li class="sidebar-item {{ Route::is('pemkab.index.page') ? 'active' : '' }}">
+                            <a href="{{ route ('pemkab.index.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="form-validation-parsley.html">Parsley</a>
-                                </li>
-                            </ul>
                         </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-pen-fill"></i>
-                                <span>Form Editor</span>
+                        <li class="sidebar-item {{ Route::is('pemkab.perencanaan.kinerja.page') ? 'active' : '' }}">
+                            <a href="{{ route ('pemkab.perencanaan.kinerja.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Perencanaan Kinerja</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="form-editor-quill.html">Quill</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="form-editor-ckeditor.html">CKEditor</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="form-editor-summernote.html">Summernote</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="form-editor-tinymce.html">TinyMCE</a>
-                                </li>
-                            </ul>
                         </li>
-
-                        <li class="sidebar-item">
-                            <a href="table.html" class="sidebar-link">
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Table</span>
+                        <li class="sidebar-item {{ Route::is('pemkab.pengukuran.kinerja.page') ? 'active' : '' }}">
+                            <a href="{{ route ('pemkab.pengukuran.kinerja.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Pengukuran Kinerja</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.page') ? 'active' : '' }}">
+                            <a href="{{ route ('pemkab.pelaporan.kinerja.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Pelaporan Kinerja</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Datatables</span>
+                        {{-- Inspektorat --}}
+                        <li class="sidebar-title">Inspektorat</li>
+                        <li class="sidebar-item {{ Route::is('inspektorat.index.page') ? 'active' : '' }}">
+                            <a href="{{ route ('inspektorat.index.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="table-datatable.html">Datatable</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="table-datatable-jquery.html">Datatable (jQuery)</a>
-                                </li>
-                            </ul>
                         </li>
-
-                        <li class="sidebar-title">Extra UI</li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-pentagon-fill"></i>
-                                <span>Widgets</span>
+                        <li class="sidebar-item {{ Route::is('inspektorat.self.assessment.page') ? 'active' : '' }}">
+                            <a href="{{ route ('inspektorat.self.assessment.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Self Assesment Perangkat Daerah</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="ui-widgets-chatbox.html">Chatbox</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="ui-widgets-pricing.html">Pricing</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="ui-widgets-todolist.html">To-do List</a>
-                                </li>
-                            </ul>
                         </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-egg-fill"></i>
-                                <span>Icons</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="ui-icons-bootstrap-icons.html">Bootstrap Icons </a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="ui-icons-fontawesome.html">Fontawesome</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="ui-icons-dripicons.html">Dripicons</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Charts</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="ui-chart-chartjs.html">ChartJS</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="ui-chart-apexcharts.html">Apexcharts</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="ui-file-uploader.html" class="sidebar-link">
-                                <i class="bi bi-cloud-arrow-up-fill"></i>
-                                <span>File Uploader</span>
+                        <li class="sidebar-item {{ Route::is('inspektorat.evaluasi.internal.page') ? 'active' : '' }}">
+                            <a href="{{ route ('inspektorat.evaluasi.internal.page') }}" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Evaluasi Internal</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-map-fill"></i>
-                                <span>Maps</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="ui-map-google-map.html">Google Map</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Pages</li>
-
-                        <li class="sidebar-item">
-                            <a href="application-email.html" class="sidebar-link">
-                                <i class="bi bi-envelope-fill"></i>
-                                <span>Email Application</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="application-chat.html" class="sidebar-link">
-                                <i class="bi bi-chat-dots-fill"></i>
-                                <span>Chat Application</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="application-gallery.html" class="sidebar-link">
-                                <i class="bi bi-image-fill"></i>
-                                <span>Photo Gallery</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="application-checkout.html" class="sidebar-link">
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Checkout Page</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-person-badge-fill"></i>
-                                <span>Authentication</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="auth-login.html">Login</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="auth-register.html">Register</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="auth-forgot-password.html">Forgot Password</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-x-octagon-fill"></i>
-                                <span>Errors</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="error-403.html">403</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="error-404.html">404</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="error-500.html">500</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-title">Raise Support</li>
-
-                        <li class="sidebar-item">
-                            <a href="https://zuramai.github.io/mazer/docs" class="sidebar-link">
-                                <i class="bi bi-life-preserver"></i>
-                                <span>Documentation</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="https://github.com/zuramai/mazer/blob/main/CONTRIBUTING.md" class="sidebar-link">
-                                <i class="bi bi-puzzle"></i>
-                                <span>Contribute</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="https://github.com/zuramai/mazer#donation" class="sidebar-link">
-                                <i class="bi bi-cash"></i>
-                                <span>Donate</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -448,72 +186,14 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mb-lg-0">
-                                <li class="nav-item dropdown me-1">
-                                    <a class="nav-link active dropdown-toggle text-gray-600" href="#"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-envelope bi-sub fs-4"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <h6 class="dropdown-header">Mail</h6>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">No new mail</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown me-3">
-                                    <a class="nav-link active dropdown-toggle text-gray-600" href="#"
-                                        data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                        <i class="bi bi-bell bi-sub fs-4"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end notification-dropdown"
-                                        aria-labelledby="dropdownMenuButton">
-                                        <li class="dropdown-header">
-                                            <h6>Notifications</h6>
-                                        </li>
-                                        <li class="dropdown-item notification-item">
-                                            <a class="d-flex align-items-center" href="#">
-                                                <div class="notification-icon bg-primary">
-                                                    <i class="bi bi-cart-check"></i>
-                                                </div>
-                                                <div class="notification-text ms-4">
-                                                    <p class="notification-title font-bold">
-                                                        Successfully check out
-                                                    </p>
-                                                    <p class="notification-subtitle font-thin text-sm">
-                                                        Order ID #256
-                                                    </p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="dropdown-item notification-item">
-                                            <a class="d-flex align-items-center" href="#">
-                                                <div class="notification-icon bg-success">
-                                                    <i class="bi bi-file-earmark-check"></i>
-                                                </div>
-                                                <div class="notification-text ms-4">
-                                                    <p class="notification-title font-bold">
-                                                        Homework submitted
-                                                    </p>
-                                                    <p class="notification-subtitle font-thin text-sm">
-                                                        Algebra math homework
-                                                    </p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <p class="text-center py-2 mb-0">
-                                                <a href="#">See all notification</a>
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </li>
+
                             </ul>
                             <div class="dropdown">
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">John Ducky</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                            <h6 class="mb-0 text-gray-600">Perangkat Daerah</h6>
+                                            <p class="mb-0 text-sm text-gray-600">Admin</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -532,7 +212,7 @@
                                                 class="icon-mid bi bi-person me-2"></i> My
                                             Profile</a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a class="dropdown-item" href="#"><i
                                                 class="icon-mid bi bi-gear me-2"></i>
                                             Settings</a>
@@ -541,7 +221,7 @@
                                         <a class="dropdown-item" href="#"><i
                                                 class="icon-mid bi bi-wallet me-2"></i>
                                             Wallet</a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <hr class="dropdown-divider" />
                                     </li>
