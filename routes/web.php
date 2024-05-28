@@ -19,6 +19,10 @@ use App\Http\Controllers\PemerintahKabupaten\PemerintahKabupatenController;
 
 Route::get('/', [AuthenticationController::class, 'loginView'])
     ->name('view.login.page');
+Route::post('/login/process', [AuthenticationController::class, 'loginProcess'])
+    ->name('login.process');
+Route::get('/logout/process', [AuthenticationController::class, 'logutProcess'])
+    ->name('logout.process');
 
 Route::prefix('perangkat/daerah')->group(function () {
     Route::get('/index', [PerangkatDaerahController::class, 'index'])
