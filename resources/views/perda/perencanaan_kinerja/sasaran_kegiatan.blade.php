@@ -30,7 +30,89 @@
                         <h4 class="card-title">Sasaran Kegiatan</h4>
                     </div>
                     <div class="card-body">
+                        <form class="row g-3" action="#" action="#" enctype="multipart/form-data">
+                            @csrf
+                            <div class="col-12 col-lg-6 form-group">
+                                <h6>Tahun</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select" id="basicSelect">
+                                        <option value="" selected>- Pilih Tahun -</option>
+                                        @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
+                                            <option value="{{ $i }}">
+                                                {{ $i }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-lg-6 form-group">
+                                <h6>Sasaran Strategis</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select" id="basicSelect">
+                                        <option value="" selected>- Pilih Sasaran Strategis -</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Pengampu</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Sasaran Kegiatan</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Indikator Program</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Target</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Satuan</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Program</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="anggaran" class="form-label">Anggaran</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="anggaran">
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary w-50">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Tabel Sasaran Kegiatan</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table w-100" id="data-table-sasaran-kegiatan">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Sasaran Kegiatan</th>
+                                        <th>Tahun</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -41,7 +123,18 @@
     {{-- Modal --}}
     @push('scripts')
         <script>
-            // 
+            $(document).ready(function() {
+                $('#data-table-sasaran-kegiatan').DataTable({
+                    responsive: true,
+                    lengthMenu: [
+                        [5, 10, 15, -1],
+                        [5, 10, 15, 'All'],
+                    ],
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
         </script>
     @endpush
 @endsection
