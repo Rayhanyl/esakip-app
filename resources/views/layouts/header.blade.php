@@ -70,7 +70,7 @@
 
                         {{-- Perda --}}
                         <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
-                            <a href="{{ route ('perda.index.page') }}" class="sidebar-link">
+                            <a href="{{ route('perda.index.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -82,38 +82,33 @@
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item {{ Route::is('perda.strategis.page') ? 'active' : '' }}">
-                                    <a href="{{ route ('perda.strategis.page') }}"
-                                    >Sasaran Strategis</a>
+                                    <a href="{{ route('perda.strategis.page') }}">Sasaran Strategis</a>
                                 </li>
                                 <li class="submenu-item {{ Route::is('perda.program.page') ? 'active' : '' }}">
-                                    <a href="{{ route ('perda.program.page') }}"
-                                    >Sasaran Program</a>
+                                    <a href="{{ route('perda.program.page') }}">Sasaran Program</a>
                                 </li>
                                 <li class="submenu-item {{ Route::is('perda.kegiatan.page') ? 'active' : '' }}">
-                                    <a href="{{ route ('perda.kegiatan.page') }}"
-                                    >Sasaran Kegiatan</a>
+                                    <a href="{{ route('perda.kegiatan.page') }}">Sasaran Kegiatan</a>
                                 </li>
                                 <li class="submenu-item {{ Route::is('perda.subkegiatan.page') ? 'active' : '' }}">
-                                    <a href="{{ route ('perda.subkegiatan.page') }}"
-                                    >Sasaran Sub-Kegiatan</a>
+                                    <a href="{{ route('perda.subkegiatan.page') }}">Sasaran Sub-Kegiatan</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item {{ Route::is('perda.pengukuran.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route ('perda.pengukuran.kinerja.page') }}" class="sidebar-link">
+                            <a href="{{ route('perda.pengukuran.kinerja.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Pengukuran Kinerja</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ Route::is('perda.pelaporan.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route ('perda.pelaporan.kinerja.page') }}" class="sidebar-link"
-                            >
+                            <a href="{{ route('perda.pelaporan.kinerja.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Pelaporan Kinerja</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ Route::is('perda.evaluasi.internal.page') ? 'active' : '' }}">
-                            <a href="{{ route ('perda.evaluasi.internal.page') }}" class="sidebar-link">
+                            <a href="{{ route('perda.evaluasi.internal.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Evaluasi internal</span>
                             </a>
@@ -122,25 +117,25 @@
                         {{-- Pemkab --}}
                         <li class="sidebar-title">Pemkab</li>
                         <li class="sidebar-item {{ Route::is('pemkab.index.page') ? 'active' : '' }}">
-                            <a href="{{ route ('pemkab.index.page') }}" class="sidebar-link">
+                            <a href="{{ route('pemkab.index.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ Route::is('pemkab.perencanaan.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route ('pemkab.perencanaan.kinerja.page') }}" class="sidebar-link">
+                            <a href="{{ route('pemkab.perencanaan.kinerja.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Perencanaan Kinerja</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ Route::is('pemkab.pengukuran.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route ('pemkab.pengukuran.kinerja.page') }}" class="sidebar-link">
+                            <a href="{{ route('pemkab.pengukuran.kinerja.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Pengukuran Kinerja</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.page') ? 'active' : '' }}">
-                            <a href="{{ route ('pemkab.pelaporan.kinerja.page') }}" class="sidebar-link">
+                            <a href="{{ route('pemkab.pelaporan.kinerja.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Pelaporan Kinerja</span>
                             </a>
@@ -149,19 +144,20 @@
                         {{-- Inspektorat --}}
                         <li class="sidebar-title">Inspektorat</li>
                         <li class="sidebar-item {{ Route::is('inspektorat.index.page') ? 'active' : '' }}">
-                            <a href="{{ route ('inspektorat.index.page') }}" class="sidebar-link">
+                            <a href="{{ route('inspektorat.index.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ Route::is('inspektorat.self.assessment.page') ? 'active' : '' }}">
-                            <a href="{{ route ('inspektorat.self.assessment.page') }}" class="sidebar-link">
+                            <a href="{{ route('inspektorat.self.assessment.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Self Assesment Perangkat Daerah</span>
                             </a>
                         </li>
-                        <li class="sidebar-item {{ Route::is('inspektorat.evaluasi.internal.page') ? 'active' : '' }}">
-                            <a href="{{ route ('inspektorat.evaluasi.internal.page') }}" class="sidebar-link">
+                        <li
+                            class="sidebar-item {{ Route::is('inspektorat.evaluasi.internal.page') ? 'active' : '' }}">
+                            <a href="{{ route('inspektorat.evaluasi.internal.page') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Evaluasi Internal</span>
                             </a>
@@ -197,7 +193,7 @@
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img src="assets/images/faces/1.jpg" />
+                                                <img src="{{ asset('assets/images/faces/1.jpg') }}" />
                                             </div>
                                         </div>
                                     </div>
