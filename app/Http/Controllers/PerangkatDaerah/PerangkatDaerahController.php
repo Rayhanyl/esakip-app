@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\PerangkatDaerahPengukuranKinerja;
 use App\Models\PerencanaanKinerjaStrategicTarget;
 use App\Models\PerangkatDaerahPerencanaanKinerjaStrategicTarget;
+use App\Models\PerangkatDaerahPerencanaanKinerjaStrategicTargetIndicator;
 
 class PerangkatDaerahController extends Controller
 {
@@ -25,22 +26,33 @@ class PerangkatDaerahController extends Controller
     }
     public function sasaranStrategisPost(Request $request)
     {
-        PerangkatDaerahPerencanaanKinerjaStrategicTarget::create([
+        $pdpkst = PerangkatDaerahPerencanaanKinerjaStrategicTarget::create([
             'perencanaan_kinerja_strategic_target_id' => $request->sasaran_bupati ?? '',
             'year' => $request->year ?? '',
             'pengampu' => $request->pengampu ?? '',
             'sasaran_strategis' => $request->sasaran_strategis ?? '',
-            'indikator_sasaran' => $request->indikator_sasaran ?? '',
-            'target1' => $request->target1 ?? '',
-            'target2' => $request->target2 ?? '',
-            'target3' => $request->target3 ?? '',
-            'satuan' => $request->satuan ?? '',
-            'penjelasan' => $request->penjelasan ?? '',
-            'tipe_perhitungan' => $request->tipe_perhitungan ?? '',
-            'sumber_data' => $request->sumber_data ?? '',
-            'penanggung_jawab' => $request->penanggung_jawab ?? '',
         ]);
+        foreach ($request->indikator_sasaran_bupati ?? [] as $value) {
+            PerangkatDaerahPerencanaanKinerjaStrategicTargetIndicator::create([
+                'perangkat_daerah_perencanaan_kinerja_strategic_target_id' => $pdpkst->id,
+                'indikator_sasaran' => $value->indikator_sasaran ?? '',
+                'target1' => $value->target1 ?? '',
+                'target2' => $value->target2 ?? '',
+                'target3' => $value->target3 ?? '',
+                'satuan' => $value->satuan ?? '',
+                'penjelasan' => $value->penjelasan ?? '',
+                'tipe_perhitungan' => $value->tipe_perhitungan ?? '',
+                'sumber_data' => $value->sumber_data ?? '',
+                'penanggung_jawab' => $value->penanggung_jawab ?? '',
+            ]);
+        }
         return redirect()->back();
+    }
+
+    public function sasaranStrategisAjax(Request $request)
+    {
+        $iter = $request->iter;
+        return view('perda.perencanaan_kinerja._partials.form-indikator-sasaran-bupati', compact('iter'));
     }
 
     public function sasaranProgram()

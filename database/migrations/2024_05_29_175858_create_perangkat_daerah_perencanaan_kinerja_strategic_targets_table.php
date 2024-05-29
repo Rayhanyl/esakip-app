@@ -17,15 +17,6 @@ return new class extends Migration
             $table->foreignId('perencanaan_kinerja_strategic_target_id');
             $table->string('pengampu')->nullable();
             $table->string('sasaran_strategis')->nullable();
-            $table->string('indikator_sasaran')->nullable();
-            $table->string('target1')->nullable();
-            $table->string('target2')->nullable();
-            $table->string('target3')->nullable();
-            $table->string('satuan')->nullable();
-            $table->string('penjelasan')->nullable();
-            $table->string('tipe_perhitungan')->nullable();
-            $table->string('sumber_data')->nullable();
-            $table->string('penanggung_jawab')->nullable();
             $table->timestamps();
         });
     }
