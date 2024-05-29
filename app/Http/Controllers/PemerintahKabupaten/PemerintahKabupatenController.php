@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PemerintahKabupaten;
 use Illuminate\Http\Request;
 use App\Models\PengukuranKinerja;
 use App\Http\Controllers\Controller;
+use App\Models\PelaporanKinerja;
 use App\Models\PerencanaanKinerjaStrategicTarget;
 use App\Models\PerencanaanKinerjaStrategicTargetIndicator;
 
@@ -71,6 +72,15 @@ class PemerintahKabupatenController extends Controller
     public function pelaporanKinerja()
     {
         return view('pemkab.pelaporan_kinerja');
+    }
+
+    public function pelaporanKinerjaPost(Request $request)
+    {
+        PelaporanKinerja::create([
+            'year' => $request->year ?? '',
+            'evidence' => $request->evidence ?? '',
+        ]);
+        return redirect()->back();
     }
 
     public function addIndicator(Request $request)

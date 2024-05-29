@@ -68,7 +68,7 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        @if (session('role') == 'perda')
+                        @if (session('role') == 'perda' || session('role') == 'superadmin')
                             {{-- Perda --}}
                             <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
                                 <a href="{{ route('perda.index.page') }}" class="sidebar-link">
@@ -114,7 +114,7 @@
                                     <span>Evaluasi internal</span>
                                 </a>
                             </li>
-                        @elseif (session('role') == 'pemkab')
+                        @elseif (session('role') == 'pemkab' || session('role') == 'superadmin')
                             {{-- Pemkab --}}
                             <li class="sidebar-title">Pemkab</li>
                             <li class="sidebar-item {{ Route::is('pemkab.index.page') ? 'active' : '' }}">
@@ -137,13 +137,13 @@
                                     <span>Pengukuran Kinerja</span>
                                 </a>
                             </li>
-                            <li class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.page') ? 'active' : '' }}">
-                                <a href="{{ route('pemkab.pelaporan.kinerja.page') }}" class="sidebar-link">
+                            <li class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.index') ? 'active' : '' }}">
+                                <a href="{{ route('pemkab.pelaporan.kinerja.index') }}" class="sidebar-link">
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Pelaporan Kinerja</span>
                                 </a>
                             </li>
-                        @else
+                        @elseif (session('role') == 'inspektorat' || session('role') == 'superadmin')
                             {{-- Inspektorat --}}
                             <li class="sidebar-title">Inspektorat</li>
                             <li class="sidebar-item {{ Route::is('inspektorat.index.page') ? 'active' : '' }}">

@@ -35,7 +35,7 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="basicSelect">
+                                    <select class="form-select" id="basicSelect" name="year">
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                             <option value="{{ $i }}">
@@ -48,12 +48,13 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Triwulan</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
+                                    <select class="form-select" id="triwulan" name="triwulan">
                                         <option value="" selected>- Pilih Triwulan -</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
-                                        <option value="tahun">tahun</option>
+                                        <option value="4">4</option>
+                                        <option value="tahun">Tahunan</option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -64,42 +65,56 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Sasaran Strategis</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
+                                    <select class="form-select" id="triwulan"
+                                        name="perencanaan_kinerja_strategic_target_id">
                                         <option value="" selected>- Pilih Sasaran Strategis -</option>
+                                        @foreach ($sasaran_bupati as $item)
+                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-6 form-group">
-                                <h6>Indikator Sasaran</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Indikator Sasaran -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="">Indikator Sasaran</label>
+                                <input type="text" name="indikator_sasaran" id="" class="form-control">
                             </div>
                             <div class="col-12 col-lg-4 form-group">
                                 <h6>Sasaran Sub-Kegiatan</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
+                                    <select class="form-select" id="triwulan" name="sub_activity_id">
                                         <option value="" selected>- Pilih Sasaran Sub-Kegiatan -</option>
+                                        @foreach ($sasaran_bupati as $item)
+                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <h6>Indikator Sub-Kegiatan</h6>
+                                <label for="">Indikator Sub-Kegiatan</label>
+                                <input type="text" name="indikator_sub_kegiatan" id="" class="form-control">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="">Target</label>
+                                <input type="number" name="target" id="" class="form-control">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="">Realisasi</label>
+                                <input type="number" name="realisasi" id="" class="form-control">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <h6>Karakteristik</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Indikator Sub-Kegiatan -</option>
+                                    <select class="form-select" id="triwulan" name="karakteristik">
+                                        <option value="" selected>- Pilih Karakteristik -</option>
+                                        @foreach ($sasaran_bupati as $item)
+                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <h6>Target</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih target -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="">Capaian</label>
+                                <input type="text" name="capaian" id="" class="form-control">
                             </div>
                             {{-- Anggaran --}}
                             <div class="col-12">
@@ -109,34 +124,25 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Sub-Kegiatan</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
+                                    <select class="form-select" id="triwulan" name="anggaran_sub_kegiatan">
                                         <option value="" selected>- Pilih Sub-Kegiatan -</option>
+                                        @foreach ($sasaran_bupati as $item)
+                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-6 form-group">
-                                <h6>Pagu</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Pagu -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="">Pagu</label>
+                                <input type="text" name="anggaran_pagu" id="" class="form-control">
                             </div>
                             <div class="col-12 col-lg-6 form-group">
-                                <h6>Realisasi</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Realisasi -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="">Realisasi</label>
+                                <input type="number" name="anggaran_realisasi" id="" class="form-control">
                             </div>
                             <div class="col-12 col-lg-6 form-group">
-                                <h6>Capaian</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Capaian -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="">Capaian</label>
+                                <input type="number" name="anggaran_capaian" id="" class="form-control">
                             </div>
                             {{-- Anggaran --}}
 
@@ -148,50 +154,41 @@
                             <div class="col-12 col-lg-4 form-group">
                                 <h6>Sasaran Strategis</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
+                                    <select class="form-select" id="triwulan" name="tahunan_sasaran_strategis">
                                         <option value="" selected>- Pilih Sasaran Strategis -</option>
+                                        @foreach ($sasaran_bupati as $item)
+                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <h6>Indikator Sasaran</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Indikator Sasaran -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="">Indikator Sasaran</label>
+                                <input type="number" name="tahunan_indikator_sasaran" id=""
+                                    class="form-control">
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <h6>Target</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Target -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="">Target</label>
+                                <input type="number" name="tahunan_target" id="" class="form-control">
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <h6>Realisasi</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Realisasi -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="">Realisasi</label>
+                                <input type="number" name="tahunan_realisasi" id="" class="form-control">
                             </div>
                             <div class="col-12 col-lg-4 form-group">
                                 <h6>Karakteristik</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
+                                    <select class="form-select" id="triwulan" name="tahunan_karateristik">
                                         <option value="" selected>- Pilih Karakteristik -</option>
+                                        @foreach ($sasaran_bupati as $item)
+                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <h6>Capaian</h6>
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan">
-                                        <option value="" selected>- Pilih Capaian -</option>
-                                    </select>
-                                </fieldset>
+                                <label for="Capaian">Capaian</label>
+                                <input type="text" name="tahunan_capaian" id="" class="form-control">
                             </div>
                             {{-- Tahunan --}}
                             <div class="col-12 text-center">

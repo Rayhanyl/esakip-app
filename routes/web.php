@@ -30,6 +30,8 @@ Route::prefix('perangkat/daerah')->group(function () {
     Route::prefix('perencanaan/kinerja')->group(function () {
         Route::get('/sasaran/strategis', [PerangkatDaerahController::class, 'sasaranStrategis'])
             ->name('perda.strategis.page');
+        Route::post('/sasaran/strategis/store', [PerangkatDaerahController::class, 'sasaranStrategisPost'])
+            ->name('perda.strategis.store');
         Route::get('/sasaran/program', [PerangkatDaerahController::class, 'sasaranProgram'])
             ->name('perda.program.page');
         Route::get('/sasaran/kegiatan', [PerangkatDaerahController::class, 'sasaranKegiatan'])
@@ -62,8 +64,12 @@ Route::prefix('pemerintah/kabupaten')->name('pemkab.')->group(function () {
         Route::post('/store', [PemerintahKabupatenController::class, 'pengukuranKinerjaPost'])
             ->name('store');
     });
-    Route::get('/pelaporan/kinerja', [PemerintahKabupatenController::class, 'pelaporanKinerja'])
-        ->name('pelaporan.kinerja.page');
+    Route::prefix('/pelaporan/kinerja')->name('pelaporan.kinerja.')->group(function () {
+        Route::get('/', [PemerintahKabupatenController::class, 'pelaporanKinerja'])
+            ->name('index');
+        Route::post('/', [PemerintahKabupatenController::class, 'pelaporanKinerjaPost'])
+            ->name('store');
+    });
     Route::get('/perencanaan/kinerja/form-indikator', [PemerintahKabupatenController::class, 'addIndicator'])
         ->name('perencanan.kinerja.form-indikator');
 });

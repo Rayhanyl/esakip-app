@@ -35,7 +35,7 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="basicSelect">
+                                    <select class="form-select" id="basicSelect" name="year">
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                             <option value="{{ $i }}">
@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Upload</h6>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" id="formFile" name="evidence">
                             </div>
                             <div class="col-12 text-center">
                                 <button class="btn btn-primary w-50">Submit</button>
