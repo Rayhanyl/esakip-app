@@ -83,10 +83,40 @@ class PerangkatDaerahController extends Controller
         return redirect()->back();
     }
 
+    public function storePengukuranKinerja(Request $request)
+    {
+        // Create a new instance of the PengukuranKinerja model and fill it with the validated data
+        PerangkatDaerahPengukuranKinerja::create([
+            'year' => $request->input('year'),
+            'triwulan' => $request->input('triwulan'),
+            'perencanaan_kinerja_strategic_target_id' => $request->input('perencanaan_kinerja_strategic_target_id'),
+            'indikator_sasaran' => $request->input('indikator_sasaran'),
+            'sub_activity_id' => $request->input('sub_activity_id'),
+            'indikator_sub_kegiatan' => $request->input('indikator_sub_kegiatan'),
+            'target' => $request->input('target'),
+            'realisasi' => $request->input('realisasi'),
+            'karakteristik' => $request->input('karakteristik'),
+            'capaian' => $request->input('capaian'),
+            'anggaran_sub_kegiatan' => $request->input('anggaran_sub_kegiatan'),
+            'anggaran_pagu' => $request->input('anggaran_pagu'),
+            'anggaran_realisasi' => $request->input('anggaran_realisasi'),
+            'anggaran_capaian' => $request->input('anggaran_capaian'),
+            'tahunan_sasaran_strategis' => $request->input('tahunan_sasaran_strategis'),
+            'tahunan_indikator_sasaran' => $request->input('tahunan_indikator_sasaran'),
+            'tahunan_target' => $request->input('tahunan_target'),
+            'tahunan_realisasi' => $request->input('tahunan_realisasi'),
+            'tahunan_karateristik' => $request->input('karakteristik_tahunan'),
+            'tahunan_capaian' => $request->input('tahunan_capaian'),
+        ]);
+
+        // Optionally, you can return a response or redirect the user
+        return redirect()->route('perda.pengukuran.kinerja.page')->with('success', 'Data stored successfully!');
+    }
+
+
     public function pelaporanKinerja()
     {
         $pelaporanKinerja = PelaporanKinerja::all();
-
         return view('perda.pelaporan_kinerja', compact('pelaporanKinerja'));
     }
 

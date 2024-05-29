@@ -36,7 +36,7 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="basicSelect" name="year">
+                                    <select class="form-select" id="basicSelect" name="tahun">
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                             <option value="{{ $i }}">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Upload</h6>
-                                <input class="form-control" type="file" id="formFile" name="evidence">
+                                <input class="form-control" type="file" id="formFile" name="file">
                             </div>
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary w-50">Submit</button>
@@ -63,18 +63,25 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="data-table-pelaporan-kinerja">
+                             <table class="table" id="data-table-pelaporan-kinerja-pemkab">
                                 <thead class="table-info">
                                     <tr>
+                                        <th>No</th>
                                         <th>Tahun</th>
-                                        <th>Created at</th>
+                                        <th>File</th>
+                                        <th>Create at</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pelaporan_kinerja as $item)
+                                    @foreach ($pelaporanKinerja as $index => $pelaporan)
                                         <tr>
-                                            <td>{{ $item->year }}</td>
-                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $pelaporan->year }}</td>
+                                            <td>
+                                                <a
+                                                    href="{{ route('perda.download.file', $pelaporan->evidence) }}">Download</a>
+                                            </td>
+                                            <td>{{ $pelaporan->created_at->format('Y-m-d') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -91,7 +98,7 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
-                $('#data-table-pelaporan-kinerja').DataTable({
+                $('#data-table-pelaporan-kinerja-pemkab').DataTable({
                     responsive: true,
                     lengthMenu: [
                         [5, 10, 15, -1],

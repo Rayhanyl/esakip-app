@@ -82,20 +82,20 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <label for="indikator_sasaran_bupati[1][target_1]"
-                                                        class="form-label">2023</label>
-                                                    <input type="text" name="indikator_sasaran_bupati[1][target_1]"
+                                                        class="form-label">2024</label>
+                                                    <input type="number" name="indikator_sasaran_bupati[1][target_1]"
                                                         class="form-control">
                                                 </div>
                                                 <div class="col-4">
                                                     <label for="indikator_sasaran_bupati[1][target_2]"
-                                                        class="form-label">2024</label>
-                                                    <input type="text" name="indikator_sasaran_bupati[1][target_2]"
+                                                        class="form-label">2025</label>
+                                                    <input type="number" name="indikator_sasaran_bupati[1][target_2]"
                                                         class="form-control">
                                                 </div>
                                                 <div class="col-4">
                                                     <label for="indikator_sasaran_bupati[1][target_3]"
-                                                        class="form-label">2025</label>
-                                                    <input type="text" name="indikator_sasaran_bupati[1][target_3]"
+                                                        class="form-label">2026</label>
+                                                    <input type="number" name="indikator_sasaran_bupati[1][target_3]"
                                                         class="form-control">
                                                 </div>
                                             </div>

@@ -22,7 +22,7 @@
                         <h4 class="card-title">Form Pelaporan Kinerja</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3" action="{{ route('store.perda.pelaporan.kinerja') }}" method="POST"
+                        <form class="row g-3" action="{{ route('perda.store.pelaporan.kinerja') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="col-12 col-lg-6 form-group">

@@ -93,7 +93,6 @@
             // })
 
             function getCapaian(karakteristik, realisasi, target) {
-                console.log(karakteristik, realisasi, target);
                 let capaian;
                 switch (karakteristik) {
                     case "1":

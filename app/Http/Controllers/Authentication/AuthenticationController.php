@@ -44,9 +44,9 @@ class AuthenticationController extends Controller
                 case 'pemkab':
                     return redirect()->route('pemkab.index.page');
                 case 'inspektorat':
-                        return redirect()->route('inspektorat.index.page');
+                    return redirect()->route('inspektorat.index.page');
                 case 'admin':
-                        return redirect()->route('admin.page');
+                    return redirect()->route('admin.page');
                 default:
                     return redirect()->route('');
             }
