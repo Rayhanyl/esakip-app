@@ -37,12 +37,30 @@ Route::prefix('perangkat/daerah')->name('perda.')->group(function () {
             Route::post('/store', [PerangkatDaerahController::class, 'sasaranStrategisPost'])
                 ->name('store');
         });
-        Route::get('/program', [PerangkatDaerahController::class, 'sasaranProgram'])
-            ->name('program.page');
-        Route::get('/kegiatan', [PerangkatDaerahController::class, 'sasaranKegiatan'])
-            ->name('kegiatan.page');
-        Route::get('/subkegiatan', [PerangkatDaerahController::class, 'sasaranSubKegiatan'])
-            ->name('subkegiatan.page');
+        Route::prefix('/program')->name('program.')->group(function () {
+            Route::get('/', [PerangkatDaerahController::class, 'sasaranProgram'])
+                ->name('page');
+            Route::get('/ajax', [PerangkatDaerahController::class, 'sasaranProgramAjax'])
+                ->name('ajax');
+            Route::post('/store', [PerangkatDaerahController::class, 'sasaranProgramPost'])
+                ->name('store');
+        });
+        Route::prefix('/kegiatan')->name('kegiatan.')->group(function () {
+            Route::get('/', [PerangkatDaerahController::class, 'sasaranKegiatan'])
+                ->name('page');
+            Route::get('/ajax', [PerangkatDaerahController::class, 'sasaranKegiatanAjax'])
+                ->name('ajax');
+            Route::post('/store', [PerangkatDaerahController::class, 'sasaranKegiatanPost'])
+                ->name('store');
+        });
+        Route::prefix('/subkegiatan')->name('subkegiatan.')->group(function () {
+            Route::get('/', [PerangkatDaerahController::class, 'sasaranSubKegiatan'])
+                ->name('page');
+            Route::get('/ajax', [PerangkatDaerahController::class, 'sasaranSubKegiatanAjax'])
+                ->name('ajax');
+            Route::post('/store', [PerangkatDaerahController::class, 'sasaranSubKegiatanPost'])
+                ->name('store');
+        });
     });
     Route::get('/pengukuran/kinerja', [PerangkatDaerahController::class, 'pengukuranKinerja'])
         ->name('pengukuran.kinerja.page');

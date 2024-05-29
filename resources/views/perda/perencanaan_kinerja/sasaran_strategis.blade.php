@@ -77,7 +77,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 d-flex justify-content-between my-3">
-                                            <h6>Indikator Sasaran Bupati</h6>
+                                            <h6>Indikator Sasaran Strategis</h6>
                                             <button class="btn btn-primary btn-add-indicator" type="button">Tambah</button>
                                         </div>
                                         <hr>
