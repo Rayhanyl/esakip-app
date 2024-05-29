@@ -53,29 +53,56 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="table-primary">
-                                    <tr>
-                                        <th>NO</th>
-                                        <th>Komponen/Sub Komponen/Kriteria</th>
-                                        <th>Keterangan</th>
-                                        <th>Eviden</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <form class="row g-3" action="#" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="table-info">
+                                        <tr>
+                                            <th>No</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Komponen/Sub Komponen/Kriteria</th>
+                                            <th>Keterangan</th>
+                                            <th>Eviden</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="bg-info fw-bold text-light" colspan="1">1</td>
+                                            <td class="bg-info fw-bold text-light" colspan="1"></td>
+                                            <td class="bg-info fw-bold text-light" colspan="4">PERENCANAAN KINERJA</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                            <td class="bg-secondary fw-bold text-light" colspan="1">1.a</td>
+                                            <td class="bg-secondary fw-bold text-light" colspan="4">Dokumen Perencanaan
+                                                kinerja telah tersedia</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                            <td class="bg-secondary fw-bold text-light" colspan="1">1</td>
+                                            <td class="bg-secondary fw-bold text-light" colspan="1">Terdapat pedoman
+                                                teknis perencanaan kinerja.</td>
+                                            <td>
+                                                <select class="form-select form-control-sm" aria-label="1a" name="1a">
+                                                    <option value="ya">Ya</option>
+                                                    <option value="tidak">Tidak</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input class="form-control form-control-sm" type="file" id="1a_file">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </section>
         </div>
     </div>

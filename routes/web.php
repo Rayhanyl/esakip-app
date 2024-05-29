@@ -48,6 +48,8 @@ Route::prefix('perangkat/daerah')->group(function () {
         ->name('store.perda.pelaporan.kinerja');
     Route::get('/evaluasi/internal', [PerangkatDaerahController::class, 'evaluasiInternal'])
         ->name('perda.evaluasi.internal.page');
+    Route::get('/download/{filename}', [PerangkatDaerahController::class, 'downloadPelaporan'])
+        ->name('perda.download.file');
 });
 
 Route::prefix('pemerintah/kabupaten')->name('pemkab.')->group(function () {

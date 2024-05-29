@@ -22,7 +22,8 @@
                         <h4 class="card-title">Form Pelaporan Kinerja</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3" action="{{ route('store.perda.pelaporan.kinerja') }}" method="POST" enctype="multipart/form-data">
+                        <form class="row g-3" action="{{ route('store.perda.pelaporan.kinerja') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
@@ -69,7 +70,8 @@
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $pelaporan->year }}</td>
                                             <td>
-                                                <a href="{{ Storage::url($pelaporan->file_path) }}" target="_blank">Download</a>
+                                                <a
+                                                    href="{{ route('perda.download.file', $pelaporan->evidence) }}">Download</a>
                                             </td>
                                             <td>{{ $pelaporan->created_at->format('Y-m-d') }}</td>
                                         </tr>
