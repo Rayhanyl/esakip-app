@@ -5,7 +5,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Sasaran Kegiatan</h3>
+                        <h3>Sasaran Porgram</h3>
                         {{-- <p class="text-subtitle text-muted">
                             Navbar will appear on the top of the page.
                         </p> --}}
@@ -25,6 +25,7 @@
                 </div>
             </div>
             <section class="section">
+<<<<<<< HEAD
                 <form class="row g-3" action="{{ route('perda.perencanaan.kinerja.kegiatan.store') }}"
                     enctype="multipart/form-data" method="POST">
                     @csrf
@@ -110,6 +111,63 @@
                                         </div>
                                     </div>
                                 </div>
+=======
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sasaran Program</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="row g-3" action="#" action="#" enctype="multipart/form-data">
+                            @csrf
+                            <div class="col-12 col-lg-6 form-group">
+                                <h6>Tahun</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select" id="basicSelect">
+                                        <option value="" selected>- Pilih Tahun -</option>
+                                        @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
+                                            <option value="{{ $i }}">
+                                                {{ $i }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-lg-6 form-group">
+                                <h6>Sasaran Program</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select" id="basicSelect">
+                                        <option value="" selected>- Pilih Sasaran Program -</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Pengampu</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Sasaran Program</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Indikator Program</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Target</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Satuan</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <label for="pengampu" class="form-label">Program</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="pengampu">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="anggaran" class="form-label">Anggaran</label>
+                                <input type="password" id="pengampu" class="form-control" aria-describedby="anggaran">
+>>>>>>> 79afa030668eb33112b11f44921d0facf367b351
                             </div>
                         </div>
                     </div>

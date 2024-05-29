@@ -71,15 +71,24 @@ class PemerintahKabupatenController extends Controller
 
     public function pelaporanKinerja()
     {
-        $pelaporan_kinerja = PelaporanKinerja::get();
-        return view('pemkab.pelaporan_kinerja', compact('pelaporan_kinerja'));
+        $pelaporanKinerja = PelaporanKinerja::all();
+        return view('pemkab.pelaporan_kinerja', compact('pelaporanKinerja'));
     }
 
     public function pelaporanKinerjaPost(Request $request)
     {
+        $request->validate([
+            'tahun' => 'required|integer',
+            'file' => 'required|file|mimes:pdf,doc,docx',
+        ]);
+
+        // Store the file in the 'public/media' directory
+        $path = $request->file('file')->store('public/media');
+
+        // Create a new record in the database
         PelaporanKinerja::create([
-            'year' => $request->year ?? '',
-            'evidence' => $request->evidence ?? '',
+            'year' => $request->tahun,
+            'evidence' => $request->file->hashName(),
         ]);
         return redirect()->back();
     }

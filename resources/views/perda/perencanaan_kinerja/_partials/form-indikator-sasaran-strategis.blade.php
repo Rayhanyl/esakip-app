@@ -16,17 +16,17 @@
                     <h6>Target</h6>
                     <div class="col-4 form-group">
                         <label for="pengampu" class="form-label">2024</label>
-                        <input type="text" name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target1]"
+                        <input type="number" name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target1]"
                             class="form-control" aria-describedby="pengampu">
                     </div>
                     <div class="col-4 form-group">
                         <label for="pengampu" class="form-label">2025</label>
-                        <input type="text" name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target2]"
+                        <input type="number" name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target2]"
                             class="form-control" aria-describedby="pengampu">
                     </div>
                     <div class="col-4 form-group">
                         <label for="pengampu" class="form-label">2026</label>
-                        <input type="text" name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target3]"
+                        <input type="number" name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target3]"
                             class="form-control" aria-describedby="pengampu">
                     </div>
                 </div>

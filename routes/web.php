@@ -64,12 +64,16 @@ Route::prefix('perangkat/daerah')->name('perda.')->group(function () {
     });
     Route::get('/pengukuran/kinerja', [PerangkatDaerahController::class, 'pengukuranKinerja'])
         ->name('pengukuran.kinerja.page');
+    Route::post('/store/pengukuran/kinerja', [PerangkatDaerahController::class, 'storePengukuranKinerja'])
+        ->name('store.pengukuran.kinerja');
     Route::get('/pelaporan/kinerja', [PerangkatDaerahController::class, 'pelaporanKinerja'])
         ->name('pelaporan.kinerja.page');
     Route::post('/store/pelaporan/kinerja', [PerangkatDaerahController::class, 'storePelaporan'])
         ->name('store.pelaporan.kinerja');
     Route::get('/evaluasi/internal', [PerangkatDaerahController::class, 'evaluasiInternal'])
         ->name('evaluasi.internal.page');
+    Route::get('/download/{filename}', [PerangkatDaerahController::class, 'downloadPelaporan'])
+        ->name('download.file');
 });
 
 Route::prefix('pemerintah/kabupaten')->name('pemkab.')->group(function () {

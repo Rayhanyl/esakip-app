@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PerangkatDaerah;
 use Illuminate\Http\Request;
 use App\Models\PelaporanKinerja;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Models\PerangkatDaerahPengukuranKinerja;
 use App\Models\PerangkatDaerahPerencanaanKinerjaActivityTarget;
 use App\Models\PerangkatDaerahPerencanaanKinerjaActivityTargetIndicator;
@@ -177,10 +178,40 @@ class PerangkatDaerahController extends Controller
         return redirect()->back();
     }
 
+    public function storePengukuranKinerja(Request $request)
+    {
+        // Create a new instance of the PengukuranKinerja model and fill it with the validated data
+        PerangkatDaerahPengukuranKinerja::create([
+            'year' => $request->input('year'),
+            'triwulan' => $request->input('triwulan'),
+            'perencanaan_kinerja_strategic_target_id' => $request->input('perencanaan_kinerja_strategic_target_id'),
+            'indikator_sasaran' => $request->input('indikator_sasaran'),
+            'sub_activity_id' => $request->input('sub_activity_id'),
+            'indikator_sub_kegiatan' => $request->input('indikator_sub_kegiatan'),
+            'target' => $request->input('target'),
+            'realisasi' => $request->input('realisasi'),
+            'karakteristik' => $request->input('karakteristik'),
+            'capaian' => $request->input('capaian'),
+            'anggaran_sub_kegiatan' => $request->input('anggaran_sub_kegiatan'),
+            'anggaran_pagu' => $request->input('anggaran_pagu'),
+            'anggaran_realisasi' => $request->input('anggaran_realisasi'),
+            'anggaran_capaian' => $request->input('anggaran_capaian'),
+            'tahunan_sasaran_strategis' => $request->input('tahunan_sasaran_strategis'),
+            'tahunan_indikator_sasaran' => $request->input('tahunan_indikator_sasaran'),
+            'tahunan_target' => $request->input('tahunan_target'),
+            'tahunan_realisasi' => $request->input('tahunan_realisasi'),
+            'tahunan_karateristik' => $request->input('karakteristik_tahunan'),
+            'tahunan_capaian' => $request->input('tahunan_capaian'),
+        ]);
+
+        // Optionally, you can return a response or redirect the user
+        return redirect()->route('perda.pengukuran.kinerja.page')->with('success', 'Data stored successfully!');
+    }
+
+
     public function pelaporanKinerja()
     {
         $pelaporanKinerja = PelaporanKinerja::all();
-
         return view('perda.pelaporan_kinerja', compact('pelaporanKinerja'));
     }
 
@@ -191,18 +222,35 @@ class PerangkatDaerahController extends Controller
             'file' => 'required|file|mimes:pdf,doc,docx',
         ]);
 
-        $path = $request->file('file')->store('pelaporan_kinerja_files');
+        // Store the file in the 'public/media' directory
+        $path = $request->file('file')->store('public/media');
 
+        // Create a new record in the database
         PelaporanKinerja::create([
             'year' => $request->tahun,
-            'evidence' => $path,
+            'evidence' => $request->file->hashName(),
         ]);
 
-        return redirect()->route('perda.pelaporan_kinerja')->with('success', 'Pelaporan Kinerja created successfully.');
+        return redirect()->route('perda.pelaporan.kinerja.page')->with('success', 'Pelaporan Kinerja created successfully.');
     }
 
     public function evaluasiInternal()
     {
+        
         return view('perda.evaluasi_internal');
+    }
+
+    public function downloadPelaporan($filename)
+    {
+        // Retrieve the file path from the storage
+        $filePath = storage_path('app/public/media/' . $filename);
+
+        // Check if the file exists
+        if (!Storage::exists('public/media/' . $filename)) {
+            abort(404);
+        }
+
+        // Return the file for download
+        return response()->download($filePath);
     }
 }
