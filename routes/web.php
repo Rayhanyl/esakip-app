@@ -44,6 +44,8 @@ Route::prefix('perangkat/daerah')->group(function () {
         ->name('perda.pengukuran.kinerja.page');
     Route::get('/pelaporan/kinerja', [PerangkatDaerahController::class, 'pelaporanKinerja'])
         ->name('perda.pelaporan.kinerja.page');
+    Route::post('/store/pelaporan/kinerja', [PerangkatDaerahController::class, 'storePelaporan'])
+        ->name('store.perda.pelaporan.kinerja');
     Route::get('/evaluasi/internal', [PerangkatDaerahController::class, 'evaluasiInternal'])
         ->name('perda.evaluasi.internal.page');
 });

@@ -6,19 +6,11 @@
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3>Pelaporan Kinerja</h3>
-                        {{-- <p class="text-subtitle text-muted">
-                            Navbar will appear on the top of the page.
-                        </p> --}}
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                {{-- <li class="breadcrumb-item">
-                                    <a href="index.html">Pengukuran Kinerja</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Layout Vertical Navbar
-                                </li> --}}
+                                {{-- Breadcrumb navigation if needed --}}
                             </ol>
                         </nav>
                     </div>
@@ -30,12 +22,12 @@
                         <h4 class="card-title">Form Pelaporan Kinerja</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3" action="#" action="#" enctype="multipart/form-data">
+                        <form class="row g-3" action="{{ route('store.perda.pelaporan.kinerja') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="basicSelect">
+                                    <select class="form-select" name="tahun" id="basicSelect">
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                             <option value="{{ $i }}">
@@ -47,10 +39,10 @@
                             </div>
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Upload</h6>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" name="file" id="formFile">
                             </div>
                             <div class="col-12 text-center">
-                                <button class="btn btn-primary w-50">Submit</button>
+                                <button type="submit" class="btn btn-primary w-50">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -65,17 +57,23 @@
                             <table class="table" id="data-table-pelaporan-kinerja">
                                 <thead class="table-info">
                                     <tr>
-                                        <th>Nama Kecamatan</th>
-                                        <th>Kode Pos</th>
-                                        <th>Action</th>
+                                        <th>No</th>
+                                        <th>Tahun</th>
+                                        <th>File</th>
+                                        <th>Create at</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    @foreach ($pelaporanKinerja as $index => $pelaporan)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $pelaporan->year }}</td>
+                                            <td>
+                                                <a href="{{ Storage::url($pelaporan->file_path) }}" target="_blank">Download</a>
+                                            </td>
+                                            <td>{{ $pelaporan->created_at->format('Y-m-d') }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -85,8 +83,6 @@
         </div>
     </div>
 
-    {{-- Modal --}}
-    {{-- Modal --}}
     @push('scripts')
         <script>
             $(document).ready(function() {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PerangkatDaerah;
 
 use Illuminate\Http\Request;
+use App\Models\PelaporanKinerja;
 use App\Http\Controllers\Controller;
 use App\Models\PerangkatDaerahPengukuranKinerja;
 use App\Models\PerencanaanKinerjaStrategicTarget;
@@ -71,7 +72,26 @@ class PerangkatDaerahController extends Controller
 
     public function pelaporanKinerja()
     {
-        return view('perda.pelaporan_kinerja');
+        $pelaporanKinerja = PelaporanKinerja::all();
+
+        return view('perda.pelaporan_kinerja', compact('pelaporanKinerja'));
+    }
+
+    public function storePelaporan(Request $request)
+    {
+        $request->validate([
+            'tahun' => 'required|integer',
+            'file' => 'required|file|mimes:pdf,doc,docx',
+        ]);
+
+        $path = $request->file('file')->store('pelaporan_kinerja_files');
+
+        PelaporanKinerja::create([
+            'year' => $request->tahun,
+            'evidence' => $path,
+        ]);
+
+        return redirect()->route('perda.pelaporan_kinerja')->with('success', 'Pelaporan Kinerja created successfully.');
     }
 
     public function evaluasiInternal()
