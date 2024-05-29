@@ -66,9 +66,17 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
-
+                        @if (session('role') == 'admin' || session('role') == 'superadmin')
+                            <li class="sidebar-title">Menu</li>
+                            <li class="sidebar-item {{ Route::is('admin.user.page') ? 'active' : '' }}">
+                                <a href="{{ route('admin.user.page') }}" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>User Management</span>
+                                </a>
+                            </li>
+                        @endif
                         @if (session('role') == 'perda' || session('role') == 'superadmin')
+                            <li class="sidebar-title">Menu</li>
                             {{-- Perda --}}
                             <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
                                 <a href="{{ route('perda.index.page') }}" class="sidebar-link">
@@ -137,7 +145,8 @@
                                     <span>Pengukuran Kinerja</span>
                                 </a>
                             </li>
-                            <li class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.index') ? 'active' : '' }}">
+                            <li
+                                class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.index') ? 'active' : '' }}">
                                 <a href="{{ route('pemkab.pelaporan.kinerja.index') }}" class="sidebar-link">
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Pelaporan Kinerja</span>

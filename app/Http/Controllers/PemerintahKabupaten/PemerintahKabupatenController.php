@@ -71,7 +71,8 @@ class PemerintahKabupatenController extends Controller
 
     public function pelaporanKinerja()
     {
-        return view('pemkab.pelaporan_kinerja');
+        $pelaporan_kinerja = PelaporanKinerja::get();
+        return view('pemkab.pelaporan_kinerja', compact('pelaporan_kinerja'));
     }
 
     public function pelaporanKinerjaPost(Request $request)

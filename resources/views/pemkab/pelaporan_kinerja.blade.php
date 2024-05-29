@@ -30,7 +30,8 @@
                         <h4 class="card-title">Form Pelaporan Kinerja</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3" action="#" action="#" enctype="multipart/form-data">
+                        <form class="row g-3" action="{{ route('pemkab.pelaporan.kinerja.store') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
@@ -50,7 +51,7 @@
                                 <input class="form-control" type="file" id="formFile" name="evidence">
                             </div>
                             <div class="col-12 text-center">
-                                <button class="btn btn-primary w-50">Submit</button>
+                                <button type="submit" class="btn btn-primary w-50">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -65,17 +66,17 @@
                             <table class="table" id="data-table-pelaporan-kinerja">
                                 <thead class="table-info">
                                     <tr>
-                                        <th>Nama Kecamatan</th>
-                                        <th>Kode Pos</th>
-                                        <th>Action</th>
+                                        <th>Tahun</th>
+                                        <th>Created at</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    @foreach ($pelaporan_kinerja as $item)
+                                        <tr>
+                                            <td>{{ $item->year }}</td>
+                                            <td>{{ $item->created_at }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
