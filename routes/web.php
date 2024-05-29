@@ -25,29 +25,33 @@ Route::post('/login/process', [AuthenticationController::class, 'loginProcess'])
 Route::get('/logout/process', [AuthenticationController::class, 'logutProcess'])
     ->name('logout.process');
 
-Route::prefix('perangkat/daerah')->group(function () {
+Route::prefix('perangkat/daerah')->name('perda.')->group(function () {
     Route::get('/index', [PerangkatDaerahController::class, 'index'])
-        ->name('perda.index.page');
-    Route::prefix('perencanaan/kinerja')->group(function () {
-        Route::get('/sasaran/strategis', [PerangkatDaerahController::class, 'sasaranStrategis'])
-            ->name('perda.strategis.page');
-        Route::post('/sasaran/strategis/store', [PerangkatDaerahController::class, 'sasaranStrategisPost'])
-            ->name('perda.strategis.store');
-        Route::get('/sasaran/program', [PerangkatDaerahController::class, 'sasaranProgram'])
-            ->name('perda.program.page');
-        Route::get('/sasaran/kegiatan', [PerangkatDaerahController::class, 'sasaranKegiatan'])
-            ->name('perda.kegiatan.page');
-        Route::get('/sasaran/subkegiatan', [PerangkatDaerahController::class, 'sasaranSubKegiatan'])
-            ->name('perda.subkegiatan.page');
+        ->name('index.page');
+    Route::prefix('/perencanaan/kinerja/sasaran')->name('perencanaan.kinerja.')->group(function () {
+        Route::prefix('/strategis')->name('strategis.')->group(function () {
+            Route::get('/', [PerangkatDaerahController::class, 'sasaranStrategis'])
+                ->name('page');
+            Route::get('/ajax', [PerangkatDaerahController::class, 'sasaranStrategisAjax'])
+                ->name('ajax');
+            Route::post('/store', [PerangkatDaerahController::class, 'sasaranStrategisPost'])
+                ->name('store');
+        });
+        Route::get('/program', [PerangkatDaerahController::class, 'sasaranProgram'])
+            ->name('program.page');
+        Route::get('/kegiatan', [PerangkatDaerahController::class, 'sasaranKegiatan'])
+            ->name('kegiatan.page');
+        Route::get('/subkegiatan', [PerangkatDaerahController::class, 'sasaranSubKegiatan'])
+            ->name('subkegiatan.page');
     });
     Route::get('/pengukuran/kinerja', [PerangkatDaerahController::class, 'pengukuranKinerja'])
-        ->name('perda.pengukuran.kinerja.page');
+        ->name('pengukuran.kinerja.page');
     Route::get('/pelaporan/kinerja', [PerangkatDaerahController::class, 'pelaporanKinerja'])
-        ->name('perda.pelaporan.kinerja.page');
+        ->name('pelaporan.kinerja.page');
     Route::post('/store/pelaporan/kinerja', [PerangkatDaerahController::class, 'storePelaporan'])
-        ->name('store.perda.pelaporan.kinerja');
+        ->name('store.pelaporan.kinerja');
     Route::get('/evaluasi/internal', [PerangkatDaerahController::class, 'evaluasiInternal'])
-        ->name('perda.evaluasi.internal.page');
+        ->name('evaluasi.internal.page');
 });
 
 Route::prefix('pemerintah/kabupaten')->name('pemkab.')->group(function () {

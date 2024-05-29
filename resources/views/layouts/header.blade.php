@@ -90,17 +90,25 @@
                                     <span>Perencanaan Kinerja</span>
                                 </a>
                                 <ul class="submenu">
-                                    <li class="submenu-item {{ Route::is('perda.strategis.page') ? 'active' : '' }}">
-                                        <a href="{{ route('perda.strategis.page') }}">Sasaran Strategis</a>
+                                    <li
+                                        class="submenu-item {{ Route::is('perda.perencanaan.kinerja.strategis.page') ? 'active' : '' }}">
+                                        <a href="{{ route('perda.perencanaan.kinerja.strategis.page') }}">Sasaran
+                                            Strategis</a>
                                     </li>
-                                    <li class="submenu-item {{ Route::is('perda.program.page') ? 'active' : '' }}">
-                                        <a href="{{ route('perda.program.page') }}">Sasaran Program</a>
+                                    <li
+                                        class="submenu-item {{ Route::is('perda.perencanaan.kinerja.program.page') ? 'active' : '' }}">
+                                        <a href="{{ route('perda.perencanaan.kinerja.program.page') }}">Sasaran
+                                            Program</a>
                                     </li>
-                                    <li class="submenu-item {{ Route::is('perda.kegiatan.page') ? 'active' : '' }}">
-                                        <a href="{{ route('perda.kegiatan.page') }}">Sasaran Kegiatan</a>
+                                    <li
+                                        class="submenu-item {{ Route::is('perda.perencanaan.kinerja.kegiatan.page') ? 'active' : '' }}">
+                                        <a href="{{ route('perda.perencanaan.kinerja.kegiatan.page') }}">Sasaran
+                                            Kegiatan</a>
                                     </li>
-                                    <li class="submenu-item {{ Route::is('perda.subkegiatan.page') ? 'active' : '' }}">
-                                        <a href="{{ route('perda.subkegiatan.page') }}">Sasaran Sub-Kegiatan</a>
+                                    <li
+                                        class="submenu-item {{ Route::is('perda.perencanaan.kinerja.subkegiatan.page') ? 'active' : '' }}">
+                                        <a href="{{ route('perda.perencanaan.kinerja.subkegiatan.page') }}">Sasaran
+                                            Sub-Kegiatan</a>
                                     </li>
                                 </ul>
                             </li>
