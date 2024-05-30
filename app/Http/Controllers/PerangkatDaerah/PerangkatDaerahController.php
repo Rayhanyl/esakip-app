@@ -30,6 +30,7 @@ class PerangkatDaerahController extends Controller
         $sasaran_strategis = PerangkatDaerahPerencanaanKinerjaStrategicTarget::all();
         return view('perda.perencanaan_kinerja.sasaran_strategis', compact('sasaran_bupati', 'sasaran_strategis'));
     }
+
     public function sasaranStrategisPost(Request $request)
     {
         $pdpkst = PerangkatDaerahPerencanaanKinerjaStrategicTarget::create([
@@ -207,7 +208,6 @@ class PerangkatDaerahController extends Controller
         // Optionally, you can return a response or redirect the user
         return redirect()->route('perda.pengukuran.kinerja.page')->with('success', 'Data stored successfully!');
     }
-
 
     public function pelaporanKinerja()
     {

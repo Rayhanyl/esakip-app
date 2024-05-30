@@ -59,7 +59,7 @@
                             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
                                 <li class="active"><a href="#">Beranda</a></li>
                                 <li><a href="{{ route('view.perencanaan.kinerja.page') }}">Perencanaan Kerja</a></li>
-                                <li><a href="#">Pengukuran Kinerja</a></li>
+                                <li><a href="{{ route ('view.pengukuran.kinerja.page') }}">Pengukuran Kinerja</a></li>
                                 <li><a href="#">Pelaporan Kinerja</a></li>
                                 <li><a href="#">Evaluasi Internal</a></li>
                             </ul>

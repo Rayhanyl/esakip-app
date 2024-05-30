@@ -119,6 +119,8 @@ Route::get('/', [LandingpageController::class, 'homeView'])
     ->name('view.home.page');
 Route::get('/perencanaan/kinerja', [LandingpageController::class, 'perencanaanKerjaView'])
     ->name('view.perencanaan.kinerja.page');
+Route::get('/pengukuran/kinerja', [LandingpageController::class, 'pengukuranKinerjaView'])
+    ->name('view.pengukuran.kinerja.page');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])

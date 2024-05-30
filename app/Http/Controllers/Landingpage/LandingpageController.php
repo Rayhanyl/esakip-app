@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Landingpage;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\PerangkatDaerahPengukuranKinerja;
+use App\Models\PerencanaanKinerjaStrategicTarget;
 
 class LandingpageController extends Controller
 {
@@ -17,9 +19,10 @@ class LandingpageController extends Controller
         return view('landingpage.perencana_kerja');
     }
 
-    public function pengukuranKinerjaView()
+    public function pengukuranKinerjaView(Request $request)
     {
-        return view('landingpage.index');
+        $data = PerangkatDaerahPengukuranKinerja::get();
+        return view('landingpage.pengukuran_kinerja.index', compact('data'));
     }
 
     public function pelaporanKinerjaView()
