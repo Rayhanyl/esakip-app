@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Inspektorat\InspektoratController;
 use App\Http\Controllers\Landingpage\LandingpageController;
@@ -17,7 +18,9 @@ use App\Http\Controllers\PemerintahKabupaten\PemerintahKabupatenController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/storage/link', function () {
+    Artisan::call('storage:link');
+});
 Route::get('/login/page', [AuthenticationController::class, 'loginView'])
     ->name('view.login.page');
 Route::post('/login/process', [AuthenticationController::class, 'loginProcess'])
