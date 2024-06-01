@@ -104,10 +104,10 @@
                                     </x-admin.list-sidebar-item>
                                 </ul>
                             </li>
-                            <x-admin.list-sidebar route="perda.pelaporan-kinerja.index" icon="house">
+                            <x-admin.list-sidebar route="perda.pelaporan-kinerja.index" icon="archive">
                                 Pelaporan Kinerja
                             </x-admin.list-sidebar>
-                            <x-admin.list-sidebar route="perda.evaluasi-internal.index" icon="house">
+                            <x-admin.list-sidebar route="perda.evaluasi-internal.index" icon="clipboard-data">
                                 Evaluasi internal
                             </x-admin.list-sidebar>
                         @elseif (session('role') == 'pemkab')

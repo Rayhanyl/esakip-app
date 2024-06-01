@@ -10,7 +10,6 @@
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                {{-- Breadcrumb navigation if needed --}}
                             </ol>
                         </nav>
                     </div>
@@ -22,15 +21,15 @@
                         <h4 class="card-title">Form Pelaporan Kinerja</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3" action="{{ route('perda.store.pelaporan.kinerja') }}" method="POST"
+                        <form class="row g-3" action="{{ route('perda.pelaporan-kinerja.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
-                                <h6>Tahun</h6>
+                                <label for="tahun" class="form-label fw-bold">Tahun</label>
                                 <fieldset class="form-group">
-                                    <select class="form-select" name="tahun" id="basicSelect">
+                                    <select class="form-select" name="tahun" id="tahun">
                                         <option value="" selected>- Pilih Tahun -</option>
-                                        @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
+                                        @for ($i = date('Y') + 10; $i >= date('Y') - 5; $i--)
                                             <option value="{{ $i }}">
                                                 {{ $i }}
                                             </option>
@@ -39,8 +38,9 @@
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-6 form-group">
-                                <h6>Upload</h6>
-                                <input class="form-control" type="file" name="file" id="formFile">
+                                <label for="file" class="form-label fw-bold">Upload</label>
+                                <input class="form-control" type="file" name="file" id="file"
+                                    accept=".doc, .docx, .pdf, .txt">
                             </div>
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary w-50">Submit</button>
@@ -55,25 +55,51 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="data-table-pelaporan-kinerja">
+                            <table class="table table-striped table-hover" id="data-table-pelaporan-kinerja-perda">
                                 <thead class="table-info">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Tahun</th>
-                                        <th>File</th>
-                                        <th>Create at</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Tahun</th>
+                                        <th class="text-center">File</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pelaporanKinerja as $index => $pelaporan)
+                                    @foreach ($data as $index => $pelaporan)
                                         <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $pelaporan->year }}</td>
-                                            <td>
-                                                <a
-                                                    href="{{ route('perda.download.file', $pelaporan->evidence) }}">Download</a>
+                                            <td class="text-center">{{ $index + 1 }}</td>
+                                            <td class="text-center">{{ $pelaporan->tahun }}</td>
+                                            <td class="text-center">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Download File Pelaporan Kinerja" class="text-primary"
+                                                    href="{{ route('pemkab.pelaporan-kinerja.download', $pelaporan->upload) }}">
+                                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                </a>
                                             </td>
-                                            <td>{{ $pelaporan->created_at->format('Y-m-d') }}</td>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="p-2">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Edit Pelaporan Kinerja" class="btn btn-warning btn-sm"
+                                                            href="{{ route('perda.pelaporan-kinerja.edit', $pelaporan->id) }}">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <button class="btn btn-danger btn-sm delete-laporan-kinerja"
+                                                            data-id="{{ $pelaporan->id }}" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Delete Pelaporan Kinerja">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
+                                                        <form id="delete-form-{{ $pelaporan->id }}"
+                                                            action="{{ route('perda.pelaporan-kinerja.destroy', $pelaporan->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -88,16 +114,36 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
-                $('#data-table-pelaporan-kinerja').DataTable({
+                $('#data-table-pelaporan-kinerja-perda').DataTable({
                     responsive: true,
                     lengthMenu: [
-                        [5, 10, 15, -1],
-                        [5, 10, 15, 'All'],
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
+
+                // SweetAlert delete confirmation
+                $('.delete-laporan-kinerja').on('click', function() {
+                    var userId = $(this).data('id');
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#delete-form-' + userId).submit();
+                        }
+                    });
+                });
+
+
             });
         </script>
     @endpush
