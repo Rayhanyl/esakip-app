@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('sasaran_kegiatans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('sasaran_program_id');
-            $table->foreignId('pengampu_id');
+            $table->foreignId('user_id')->onDelete('cascade');
+            $table->foreignId('sasaran_program_id')->onDelete('cascade');
+            $table->foreignId('pengampu_id')->onDelete('cascade');
             $table->integer('tahun')->nullable();
             $table->string('sasaran_kegiatan')->nullable();
             $table->timestamps();

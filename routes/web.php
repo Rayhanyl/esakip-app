@@ -116,8 +116,8 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
     Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
         Route::get('/', [PerdaEvaluasiInternalController::class, 'index'])
             ->name('index');
-        Route::get('/download/{filename}', [PerdaEvaluasiInternalController::class, 'download'])
-            ->name('download');
+        Route::put('/update/{id}', [PerdaEvaluasiInternalController::class, 'update'])
+            ->name('update');
     });
 });
 

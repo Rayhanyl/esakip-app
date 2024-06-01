@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('sasaran_program_indikators', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('sasaran_program_id');
+            $table->foreignId('user_id')->onDelete('cascade');
+            $table->foreignId('sasaran_program_id')->onDelete('cascade');
             $table->string('indikator_sasaran_program')->nullable();
             $table->double('target')->nullable();
             $table->string('satuan')->nullable();

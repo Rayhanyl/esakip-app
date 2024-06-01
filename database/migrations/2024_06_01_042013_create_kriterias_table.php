@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('kriterias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('sub_komponen_id');
+            $table->foreignId('user_id')->onDelete('cascade');
+            $table->foreignId('sub_komponen_id')->onDelete('cascade');
             $table->string('no')->nullable();
             $table->string('kriteria')->nullable();
             $table->enum('status', ['1', '2'])->nullable();

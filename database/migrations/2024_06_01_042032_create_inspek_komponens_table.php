@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('inspek_komponens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('inspek_evaluasi_internal_id');
+            $table->foreignId('user_id')->onDelete('cascade');
+            $table->foreignId('inspek_evaluasi_internal_id')->onDelete('cascade');
             $table->string('no')->nullable();
             $table->string('komponen')->nullable();
             $table->double('bobot')->nullable();

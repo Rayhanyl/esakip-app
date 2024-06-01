@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pelaporan_kinerjas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->onDelete('cascade');
             $table->integer('tahun')->nullable();
             $table->string('upload')->nullable();
             $table->integer('keterangan')->nullable();
