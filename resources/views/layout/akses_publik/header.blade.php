@@ -60,7 +60,8 @@
                                 <li class="{{ Route::is('aspu.index') ? 'active' : '' }}">
                                     <a href="{{ route ('aspu.index') }}">Beranda</a>
                                 </li>
-                                <li class="has-children">
+                                <li class="has-children
+                                {{ Route::is('aspu.renstra') || Route::is('aspu.renja') || Route::is('aspu.rencana.aksi') || Route::is('aspu.perjanjian.kinerja') || Route::is('aspu.indikator.kinerja.utama') ? 'active' : '' }}">
                                     <a href="#">Perencanaan Kerja</a>
                                     <ul class="dropdown">
                                         <li class="{{ Route::is('aspu.renstra') ? 'active' : '' }}">
