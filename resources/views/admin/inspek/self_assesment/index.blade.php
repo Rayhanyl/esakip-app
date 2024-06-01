@@ -5,7 +5,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Pelaporan Kinerja</h3>
+                        <h3>Self Assesment Perangkat Daerah</h3>
                         {{-- <p class="text-subtitle text-muted">
                             Navbar will appear on the top of the page.
                         </p> --}}
@@ -26,24 +26,21 @@
             </div>
             <section class="section">
                 <div class="card">
-                    <div class="card-header">
-                        <h3>Self Assesment</h3>
-                    </div>
                     <div class="card-body">
-                        <div class="row gap-1">
-                            <div class="col-4">Perangkat Daerah</div>
-                            <div class="col-8">
-                                <select name="" id="" class="form-select">
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-6">
+                                <label class="fw-bold" for="tahun">Perangkat Daerah</label>
+                                <select name="perda" id="perda" class="form-select select2">
                                     <option value="">
-                                        --Perangkat Daerah--
+                                        -- Pilih Perangkat Daerah --
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-4">Tahun</div>
-                            <div class="col-8">
-                                <select name="" id="" class="form-select">
-                                    <option value="">
-                                        --Tahun--
+                            <div class="col-12 col-lg-6">
+                                <label class="fw-bold" for="tahun">Tahun</label>
+                                <select name="tahun" id="tahun" class="form-select select2">
+                                    <option value="tahun">
+                                        -- Pilih Tahun --
                                     </option>
                                     @for ($i = 2029; $i > 2020; $i--)
                                         <option value="{{ $i }}">
@@ -53,7 +50,7 @@
                                 </select>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary">Cari</button>
+                                <button type="submit" class="btn btn-primary">Cari</button>
                             </div>
                         </div>
                     </div>
@@ -64,7 +61,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="data-table-pelaporan-kinerja">
+                            <table class="table" id="data-table-self-assesment">
                                 <thead class="table-info">
                                     <tr>
                                         <th>No</th>
