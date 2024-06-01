@@ -14,5 +14,4 @@ class SasaranBupatiIndikator extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }
