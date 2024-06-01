@@ -133,6 +133,8 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
             ->name('index');
         Route::post('/store', [PemkabPelaporanKinerjaController::class, 'store'])
             ->name('store');
+        Route::get('/download/{filename}', [PemkabPelaporanKinerjaController::class, 'download'])
+            ->name('download');
     });
 });
 

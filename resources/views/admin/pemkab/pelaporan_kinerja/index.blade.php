@@ -63,25 +63,28 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="data-table-pelaporan-kinerja-pemkab">
+                            <table class="table table-striped table-hover" id="data-table-pelaporan-kinerja-pemkab">
                                 <thead class="table-info">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Tahun</th>
-                                        <th>File</th>
-                                        <th>Create at</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Tahun</th>
+                                        <th class="text-center">File</th>
+                                        <th class="text-center">Created at</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $index => $pelaporan)
                                         <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $pelaporan->year }}</td>
-                                            <td>
-                                                <a
-                                                    href="{{ route('perda.download.file', $pelaporan->evidence) }}">Download</a>
+                                            <td class="text-center">{{ $index + 1 }}</td>
+                                            <td class="text-center">{{ $pelaporan->tahun }}</td>
+                                            <td class="text-center">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Download File Pelaporan Kinerja"
+                                                    href="{{ route('pemkab.pelaporan-kinerja.download', $pelaporan->upload) }}">
+                                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                </a>
                                             </td>
-                                            <td>{{ $pelaporan->created_at->format('Y-m-d') }}</td>
+                                            <td class="text-center">{{ $pelaporan->created_at->format('Y-m-d') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

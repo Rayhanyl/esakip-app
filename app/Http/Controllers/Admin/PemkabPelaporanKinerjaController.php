@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PelaporanKinerja;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PemkabPelaporanKinerjaController extends Controller
@@ -89,5 +90,28 @@ class PemkabPelaporanKinerjaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function download($filename)
+    {
+        // Retrieve the file path from the storage
+        $filePath = storage_path('app/public/pelaporan-kinerja/' . $filename);
+
+        // Check if the file exists
+        if (!Storage::exists('public/pelaporan-kinerja/' . $filename)) {
+            // Set an error message in the session
+            Alert::toast('Gagal download file', 'danger');
+            return redirect()->back()->with('error', 'File not found.');
+        }
+
+        // Set a success message in the session
+        Alert::toast('Berhasil download file', 'success');
+        session()->flash('success', 'File downloaded successfully.');
+
+        // Return the file for download
+        return response()->download($filePath);
     }
 }
