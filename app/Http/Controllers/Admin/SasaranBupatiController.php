@@ -26,7 +26,8 @@ class SasaranBupatiController extends Controller
      */
     public function index()
     {
-        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati.index');
+        $sasaran_bupati = SasaranBupati::all();
+        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati.index', compact('sasaran_bupati'));
     }
 
     /**

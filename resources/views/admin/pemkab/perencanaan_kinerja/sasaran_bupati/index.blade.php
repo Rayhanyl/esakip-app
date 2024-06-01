@@ -134,10 +134,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($sasaran_strategis ?? [] as $item)
+                                    @foreach ($sasaran_bupati ?? [] as $item)
                                         <tr>
                                             <td>{{ $item->sasaran_bupati }}</td>
-                                            <td>{{ $item->year }}</td>
+                                            <td>{{ $item->tahun }}</td>
                                             <td></td>
                                         </tr>
                                     @endforeach
