@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\SasaranProgram;
+use App\Models\SasaranKegiatan;
 use App\Models\SasaranStrategis;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\SasaranProgramIndikator;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreSasaranProgramRequest;
 use App\Http\Requests\UpdateSasaranProgramRequest;
 
@@ -67,7 +69,7 @@ class SasaranProgramController extends Controller
      */
     public function edit(SasaranProgram $sasaranProgram)
     {
-        //
+        return view('admin.perda.perencanaan_kinerja.sasaran_program.edit');
     }
 
     /**
@@ -83,7 +85,19 @@ class SasaranProgramController extends Controller
      */
     public function destroy(SasaranProgram $sasaranProgram)
     {
-        //
+        // Attempt to delete the record
+        try {
+            // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
+            $sasaranProgram->delete();
+
+            // Return a success message
+            Alert::toast('Berhasil menghapus data sasaran program', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            // Return an error message
+            Alert::toast('Error hubungi developer terkait!', 'danger');
+            return redirect()->back();
+        }
     }
 
     public function indicator(Request $request)

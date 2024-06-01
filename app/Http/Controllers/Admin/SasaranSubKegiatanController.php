@@ -9,6 +9,7 @@ use App\Models\SasaranSubKegiatan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\SasaranSubKegiatanIndikator;
 use App\Http\Requests\StoreSasaranSubKegiatanRequest;
 use App\Http\Requests\UpdateSasaranSubKegiatanRequest;
@@ -67,7 +68,7 @@ class SasaranSubKegiatanController extends Controller
      */
     public function edit(SasaranSubKegiatan $sasaranSubKegiatan)
     {
-        //
+        return view('admin.perda.perencanaan_kinerja.sasaran_sub_kegiatan.edit');
     }
 
     /**
@@ -83,9 +84,21 @@ class SasaranSubKegiatanController extends Controller
      */
     public function destroy(SasaranSubKegiatan $sasaranSubKegiatan)
     {
-        //
+        // Attempt to delete the record
+        try {
+            // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
+            $sasaranSubKegiatan->delete();
+
+            // Return a success message
+            Alert::toast('Berhasil menghapus data sasaran sub kegiatan', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            // Return an error message
+            Alert::toast('Error hubungi developer terkait!', 'danger');
+            return redirect()->back();
+        }
     }
-    
+
     public function indicator(Request $request)
     {
         $iter = $request->iter;

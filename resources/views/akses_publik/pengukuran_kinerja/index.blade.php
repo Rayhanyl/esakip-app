@@ -15,32 +15,44 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Perangkat Daerah</label>
-                    <select class="form-select" id="perda" name="perda">
-                        <option value="" selected>- Pilih Perangkat Daerah -</option>
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Tahun</label>
-                    <select class="form-select" id="year" name="year">
-                        <option value="" selected>- Pilih Tahun -</option>
-                        @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                            <option value="{{ $i }}">
-                                {{ $i }}
-                            </option>
-                        @endfor
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Triwulan</label>
-                    <select class="form-select" id="triwulan" name="triwulan">
-                        <option value="" selected>- Pilih Triwulan -</option>
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3 py-4">
-                    <button class="btn btn-primary btn-sm w-100 ">Seacrh</button>
-                </div>
+                <form class="row" action="{{ route('aspu.pengukuran.kinerja') }}" method="GET">
+                    @csrf
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
+                        <select class="form-select" id="tahun" name="tahun">
+                            <option value="" selected>-- All --</option>
+                            @for ($i = date('Y') + 10; $i >= date('Y') - 5; $i--)
+                                <option value="{{ $i }}" {{ $i == $tahun ? 'selected' : '' }}>
+                                    {{ $i }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
+                        <select class="form-select select2" id="perda" name="perda">
+                            <option value="" selected>-- All --</option>
+                            @foreach ($user as $item)
+                                <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
+                                    {{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label fs-5 fw-bold" for="triwulan">Triwulan</label>
+                        <select class="form-select" id="triwulan" name="triwulan">
+                            <option value="" selected>- Pilih Triwulan -</option>
+                            <option value="1" selected>1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3" selected>3</option>
+                            <option value="4" selected>4</option>
+                            <option value="tahun" selected>tahun</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3 py-4">
+                        <button type="submit" class="btn btn-primary btn-sm w-100">Seacrh</button>
+                    </div>
+                </form>
             </div>
             <div class="row mt-4">
                 <div class="col-12">
@@ -91,7 +103,7 @@
                         [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
             });

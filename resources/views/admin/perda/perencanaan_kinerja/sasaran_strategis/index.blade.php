@@ -35,9 +35,9 @@
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-12 col-lg-6 form-group">
-                                    <h6>Tahun</h6>
+                                    <label for="#" class="form-label fw-bold">Tahun</label>
                                     <fieldset class="form-group">
-                                        <select class="form-select" id="basicSelect" name="tahun">
+                                        <select class="form-select" id="" name="tahun">
                                             <option value="" selected>- Pilih Tahun -</option>
                                             @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                                 <option value="{{ $i }}">
@@ -48,7 +48,7 @@
                                     </fieldset>
                                 </div>
                                 <div class="col-12 col-lg-6 form-group">
-                                    <h6>Sasaran Bupati</h6>
+                                    <label for="#" class="form-label fw-bold">Sasaran Bupati</label>
                                     <fieldset class="form-group">
                                         <select class="form-select select2" id="sasaran_bupati" name="sasaran_bupati_id">
                                             <option value="" selected>- Pilih Sasaran Bupati -</option>
@@ -59,7 +59,7 @@
                                     </fieldset>
                                 </div>
                                 <div class="col-12 col-lg-6">
-                                    <label for="pengampu" class="form-label">Pengampu</label>
+                                    <label for="pengampu" class="form-label fw-bold">Pengampu</label>
                                     <select class="form-select select2" name="pengampu_id" id="pengampu_id">
                                         <option value="" selected disabled>--Pilih Pengampu--</option>
                                         @foreach ($user_options ?? [] as $id => $user)
@@ -68,9 +68,9 @@
                                     </select>
                                 </div>
                                 <div class="col-12 col-lg-6 form-group">
-                                    <label for="pengampu" class="form-label">Sasaran Strategis</label>
+                                    <label for="#" class="form-label fw-bold">Sasaran Strategis</label>
                                     <input type="text" name="sasaran_strategis" class="form-control"
-                                        aria-describedby="pengampu">
+                                        aria-describedby="Sasaran Strategis">
                                 </div>
                             </div>
                         </div>
@@ -86,42 +86,42 @@
                                         </div>
                                         <hr>
                                         <div class="col-12 form-group">
-                                            <label for="pengampu" class="form-label">Indikator Sasaran</label>
+                                            <label for="#" class="form-label fw-bold">Indikator Sasaran</label>
                                             <input type="text" name="indikator_sasaran[1][indikator_sasaran_strategis]"
-                                                id="pengampu" class="form-control" aria-describedby="pengampu">
+                                                id="" class="form-control" aria-describedby="Indikator Sasaran">
                                         </div>
                                         <div class="col-12 row my-3">
-                                            <h6>Target</h6>
+                                            <label for="#" class="form-label fw-bold">Target</label>
                                             <div class="col-4 form-group">
-                                                <label for="pengampu" class="form-label">2024</label>
+                                                <label for="#" class="form-label">2024</label>
                                                 <input type="number" name="indikator_sasaran[1][target1]"
-                                                    class="form-control" aria-describedby="pengampu">
+                                                    class="form-control" aria-describedby="2024">
                                             </div>
                                             <div class="col-4 form-group">
-                                                <label for="pengampu" class="form-label">2025</label>
+                                                <label for="#" class="form-label">2025</label>
                                                 <input type="number" name="indikator_sasaran[1][target2]"
-                                                    class="form-control" aria-describedby="pengampu">
+                                                    class="form-control" aria-describedby="2025">
                                             </div>
                                             <div class="col-4 form-group">
-                                                <label for="pengampu" class="form-label">2026</label>
+                                                <label for="#" class="form-label">2026</label>
                                                 <input type="number" name="indikator_sasaran[1][target3]"
-                                                    class="form-control" aria-describedby="pengampu">
+                                                    class="form-control" aria-describedby="2026">
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
-                                            <label for="pengampu" class="form-label">Satuan</label>
+                                            <label for="#" class="form-label fw-bold">Satuan</label>
                                             <input type="text" name="indikator_sasaran[1][satuan]" class="form-control"
-                                                aria-describedby="pengampu">
+                                                aria-describedby="Satuan">
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
-                                            <label for="pengampu" class="form-label">Penjelasan</label>
-                                            <input type="text" name="indikator_sasaran[1][penjelasan]""
-                                                class="form-control" aria-describedby="pengampu">
+                                            <label for="#" class="form-label fw-bold">Penjelasan</label>
+                                            <input type="text" name="indikator_sasaran[1][penjelasan]"
+                                                class="form-control" aria-describedby="Penjelasan">
                                         </div>
                                         <div class="col-12 col-lg-12 form-group">
-                                            <h6>Tipe Perhitungan</h6>
+                                            <label for="#" class="form-label fw-bold">Tipe Perhitungan</label>
                                             <fieldset class="form-group">
-                                                <select class="form-select" id="basicSelect"
+                                                <select class="form-select" id=""
                                                     name="indikator_sasaran[1][tipe_perhitungan]">
                                                     <option value="-" selected>- Pilih Tipe Perhitungan -</option>
                                                     <option value="1" selected>Kumulatif</option>
@@ -130,14 +130,14 @@
                                             </fieldset>
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <label for="pengampu" class="form-label">Sumber Data</label>
-                                            <input type="text" name="indikator_sasaran[1][sumber_data]" id="pengampu"
-                                                class="form-control" aria-describedby="pengampu">
+                                            <label for="#" class="form-label fw-bold">Sumber Data</label>
+                                            <input type="text" name="indikator_sasaran[1][sumber_data]" id=""
+                                                class="form-control" aria-describedby="Sumber Data">
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <label for="pengampu" class="form-label">Penanggung Jawab</label>
+                                            <label for="#" class="form-label fw-bold">Penanggung Jawab</label>
                                             <input type="text" name="indikator_sasaran[1][penanggung_jawab]"
-                                                id="pengampu" class="form-control" aria-describedby="pengampu">
+                                                id="" class="form-control" aria-describedby="Penanggung Jawab">
                                         </div>
                                     </div>
                                 </div>
@@ -152,28 +152,51 @@
                         </div>
                     </div>
                 </form>
+
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Tabel Sasaran Strategis</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="data-table-sasaran-strategis w-100">
+                            <table class="table table-striped table-hover" id="data-table-sasaran-strategis">
                                 <thead class="table-info">
                                     <tr>
-                                        <th>NO</th>
-                                        <th>Sasaran Strategis</th>
-                                        <th>Tahun</th>
-                                        <th>Action</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Sasaran Strategis</th>
+                                        <th class="text-center">Tahun</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($sasaran_strategis ?? [] as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->sasaran_strategis }}</td>
-                                            <td>{{ $item->tahun }}</td>
-                                            <td></td>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td class="text-center">{{ $item->sasaran_strategis }}</td>
+                                            <td class="text-center">{{ $item->tahun }}</td>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="p-2">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Edit Sasaran Strategis" class="btn btn-warning btn-sm"
+                                                            href="#">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <button class="btn btn-danger btn-sm delete-sasaran-strategis"
+                                                            data-id="{{ $item->id }}" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Delete Sasaran Strategis">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
+                                                        <form id="delete-form-{{ $item->id }}" action="{{ route ('perda.perencanaan-kinerja.sasaran-strategis.destroy', $item->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -190,25 +213,44 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
-                let iter = 1;
                 $('#data-table-sasaran-strategis').DataTable({
                     responsive: true,
                     lengthMenu: [
-                        [5, 10, 15, -1],
-                        [5, 10, 15, 'All'],
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
-                $('#sasaran_bupati').on('change', function() {
 
-                })
+                $('.delete-sasaran-strategis').click(function() {
+                    var id = $(this).data('id');
+                    var form = $('#delete-form-' + id);
+
+                    // SweetAlert confirmation dialog
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+
+                let iter = 1;
 
                 $('.btn-add-indicator').on('click', function() {
                     iter++;
                     add_indicator(iter);
                 })
+
                 $(document).on('click', '.btn-remove-indicator', function() {
                     remove_indicator($(this));
                 });
@@ -228,24 +270,6 @@
                         }
                     });
                 }
-
-                // function getAJaxData(el) {
-                //     $.ajax({
-                //         data: {
-                //             sasaran_bupati: el.val()
-                //         },
-                //         success: function(result) {
-                //             $.each(result.sasaran_strategis, function(index, test) {
-                //                 $(
-                //                     '#sasaran_bupati option'
-                //                 ) remove(); // first remove the old options
-                //                 $('#sasaran_bupati').append(
-                //                     $('<option></option>').attr("value", test.id).text(test)
-                //                 )
-                //             })
-                //         }
-                //     });
-                // }
             });
         </script>
     @endpush

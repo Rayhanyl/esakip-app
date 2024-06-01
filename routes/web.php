@@ -63,34 +63,58 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
         Route::prefix('/sasaran-strategis')->name('sasaran-strategis.')->group(function () {
             Route::get('/', [SasaranStrategisController::class, 'index'])
                 ->name('index');
+            Route::get('/edit', [SasaranStrategisController::class, 'edit'])
+                ->name('edit');
             Route::get('/indicator', [SasaranStrategisController::class, 'indicator'])
                 ->name('indicator');
             Route::post('/store', [SasaranStrategisController::class, 'store'])
                 ->name('store');
+            Route::post('/update', [SasaranStrategisController::class, 'update'])
+                ->name('update');
+            Route::delete('/destroy', [SasaranStrategisController::class, 'destroy'])
+                ->name('destroy');
         });
         Route::prefix('/sasaran-program')->name('sasaran-program.')->group(function () {
             Route::get('/', [SasaranProgramController::class, 'index'])
                 ->name('index');
+            Route::get('/edit', [SasaranProgramController::class, 'edit'])
+                ->name('edit');
             Route::get('/indicator', [SasaranProgramController::class, 'indicator'])
                 ->name('indicator');
             Route::post('/store', [SasaranProgramController::class, 'store'])
                 ->name('store');
+            Route::post('/update', [SasaranProgramController::class, 'update'])
+                ->name('update');
+            Route::delete('/destroy', [SasaranProgramController::class, 'destroy'])
+                ->name('destroy');
         });
         Route::prefix('/sasaran-kegiatan')->name('sasaran-kegiatan.')->group(function () {
             Route::get('/', [SasaranKegiatanController::class, 'index'])
                 ->name('index');
+            Route::get('/edit', [SasaranKegiatanController::class, 'edit'])
+                ->name('edit');
             Route::get('/indicator', [SasaranKegiatanController::class, 'indicator'])
                 ->name('indicator');
             Route::post('/store', [SasaranKegiatanController::class, 'store'])
                 ->name('store');
+            Route::post('/update', [SasaranKegiatanController::class, 'update'])
+                ->name('update');
+            Route::delete('/destroy', [SasaranKegiatanController::class, 'destroy'])
+                ->name('destroy');
         });
         Route::prefix('/sasaran-sub-kegiatan')->name('sasaran-sub-kegiatan.')->group(function () {
             Route::get('/', [SasaranSubKegiatanController::class, 'index'])
                 ->name('index');
+            Route::get('/edit', [SasaranSubKegiatanController::class, 'edit'])
+                ->name('edit');
             Route::get('/indicator', [SasaranSubKegiatanController::class, 'indicator'])
                 ->name('indicator');
             Route::post('/store', [SasaranSubKegiatanController::class, 'store'])
                 ->name('store');
+            Route::post('/update', [SasaranSubKegiatanController::class, 'update'])
+                ->name('update');
+            Route::delete('/destroy/{sasaranStrategis}', [SasaranSubKegiatanController::class, 'destroy'])
+                ->name('destroy');
         });
     });
     Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
