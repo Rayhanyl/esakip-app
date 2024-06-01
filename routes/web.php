@@ -63,12 +63,16 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
         Route::prefix('/sasaran-strategis')->name('sasaran-strategis.')->group(function () {
             Route::get('/', [SasaranStrategisController::class, 'index'])
                 ->name('index');
+            Route::get('/indicator', [SasaranStrategisController::class, 'indicator'])
+                ->name('indicator');
             Route::post('/store', [SasaranStrategisController::class, 'store'])
                 ->name('store');
         });
         Route::prefix('/sasaran-program')->name('sasaran-program.')->group(function () {
             Route::get('/', [SasaranProgramController::class, 'index'])
                 ->name('index');
+            Route::get('/indicator', [SasaranProgramController::class, 'indicator'])
+                ->name('indicator');
             Route::post('/store', [SasaranProgramController::class, 'store'])
                 ->name('store');
         });

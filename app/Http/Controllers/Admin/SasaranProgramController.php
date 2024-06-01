@@ -2,13 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Models\SasaranProgram;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 use App\Http\Requests\StoreSasaranProgramRequest;
 use App\Http\Requests\UpdateSasaranProgramRequest;
 
 class SasaranProgramController extends Controller
 {
+    public function __construct()
+    {
+        View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
+            return $user->name;
+        }));
+        View::share('sasaran_bupati_options', SasaranBupati::all()->keyBy('id')->transform(function ($sasaran_bupati) {
+            return $sasaran_bupati->sasaran_bupati;
+        }));
+        View::share('sasaran_strategis', SasaranStrategis::all());
+    }
     /**
      * Display a listing of the resource.
      */
@@ -63,5 +76,11 @@ class SasaranProgramController extends Controller
     public function destroy(SasaranProgram $sasaranProgram)
     {
         //
+    }
+
+    public function indicator(Request $request)
+    {
+        $iter = $request->iter;
+        return view('admin.perda.perencanaan_kinerja.sasaran_program._partials.indicator', compact('iter'));
     }
 }

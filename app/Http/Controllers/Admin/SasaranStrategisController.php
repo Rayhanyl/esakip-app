@@ -2,13 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\SasaranBupati;
 use App\Models\SasaranStrategis;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use App\Models\SasaranStrategisIndikator;
 use App\Http\Requests\StoreSasaranStrategisRequest;
 use App\Http\Requests\UpdateSasaranStrategisRequest;
 
+
 class SasaranStrategisController extends Controller
 {
+    public function __construct()
+    {
+        View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
+            return $user->name;
+        }));
+        View::share('sasaran_bupati_options', SasaranBupati::all()->keyBy('id')->transform(function ($sasaran_bupati) {
+            return $sasaran_bupati->sasaran_bupati;
+        }));
+        View::share('sasaran_strategis', SasaranStrategis::all());
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,9 +45,14 @@ class SasaranStrategisController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSasaranStrategisRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data =  SasaranStrategis::create(array_merge($request->except('indikator_sasaran'), ['user_id' => Auth::user()->id]));
+        foreach ($request->indikator_sasaran as $value) {
+            $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_strategis_id' => $data->id]);
+            SasaranStrategisIndikator::create($params);
+        }
+        return redirect()->back();
     }
 
     /**
@@ -63,5 +85,11 @@ class SasaranStrategisController extends Controller
     public function destroy(SasaranStrategis $sasaranStrategis)
     {
         //
+    }
+
+    public function indicator(Request $request)
+    {
+        $iter = $request->iter;
+        return view('admin.perda.perencanaan_kinerja.sasaran_strategis._partials.indicator', compact('iter'));
     }
 }

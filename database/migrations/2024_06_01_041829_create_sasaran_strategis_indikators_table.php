@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('sasaran_strategis_id');
+            $table->double('indikator_sasaran_strategis')->nullable();
             $table->double('target1')->nullable();
             $table->double('target2')->nullable();
             $table->double('target3')->nullable();
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->string('penjelasan')->nullable();
             $table->enum('tipe_perhitungan', ['1', '2'])->nullable();
             $table->string('sumber_data')->nullable();
-            $table->string('peanggung_jawab')->nullable();
+            $table->string('penanggung_jawab')->nullable();
             $table->timestamps();
         });
     }

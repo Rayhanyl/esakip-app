@@ -37,7 +37,7 @@
                                 <div class="col-12 col-lg-6 form-group">
                                     <h6>Tahun</h6>
                                     <fieldset class="form-group">
-                                        <select class="form-select" id="basicSelect" name="year">
+                                        <select class="form-select" id="basicSelect" name="tahun">
                                             <option value="" selected>- Pilih Tahun -</option>
                                             @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                                 <option value="{{ $i }}">
@@ -50,18 +50,22 @@
                                 <div class="col-12 col-lg-6 form-group">
                                     <h6>Sasaran Bupati</h6>
                                     <fieldset class="form-group">
-                                        <select class="form-select" id="sasaran_bupati" name="sasaran_bupati">
+                                        <select class="form-select select2" id="sasaran_bupati" name="sasaran_bupati_id">
                                             <option value="" selected>- Pilih Sasaran Bupati -</option>
-                                            @foreach ($sasaran_bupati ?? [] as $item)
-                                                <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                            @foreach ($sasaran_bupati_options ?? [] as $key => $item)
+                                                <option value="{{ $key }}">{{ $item }}</option>
                                             @endforeach
                                         </select>
                                     </fieldset>
                                 </div>
-                                <div class="col-12 col-lg-6 form-group">
+                                <div class="col-12 col-lg-6">
                                     <label for="pengampu" class="form-label">Pengampu</label>
-                                    <input type="text" name="pengampu" id="pengampu" class="form-control"
-                                        aria-describedby="pengampu">
+                                    <select class="form-select select2" name="pengampu_id" id="pengampu_id">
+                                        <option value="" selected disabled>--Pilih Pengampu--</option>
+                                        @foreach ($user_options ?? [] as $id => $user)
+                                            <option value="{{ $id }}">{{ $user }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-12 col-lg-6 form-group">
                                     <label for="pengampu" class="form-label">Sasaran Strategis</label>
@@ -83,31 +87,31 @@
                                         <hr>
                                         <div class="col-12 form-group">
                                             <label for="pengampu" class="form-label">Indikator Sasaran</label>
-                                            <input type="text" name="indikator_sasaran[1][indikator_sasaran]"
+                                            <input type="text" name="indikator_sasaran[1][indikator_sasaran_strategis]"
                                                 id="pengampu" class="form-control" aria-describedby="pengampu">
                                         </div>
                                         <div class="col-12 row my-3">
                                             <h6>Target</h6>
                                             <div class="col-4 form-group">
                                                 <label for="pengampu" class="form-label">2024</label>
-                                                <input type="text" name="indikator_sasaran[1][target1]"
+                                                <input type="number" name="indikator_sasaran[1][target1]"
                                                     class="form-control" aria-describedby="pengampu">
                                             </div>
                                             <div class="col-4 form-group">
                                                 <label for="pengampu" class="form-label">2025</label>
-                                                <input type="text" name="indikator_sasaran[1][target2]"
+                                                <input type="number" name="indikator_sasaran[1][target2]"
                                                     class="form-control" aria-describedby="pengampu">
                                             </div>
                                             <div class="col-4 form-group">
                                                 <label for="pengampu" class="form-label">2026</label>
-                                                <input type="text" name="indikator_sasaran[1][target3]"
+                                                <input type="number" name="indikator_sasaran[1][target3]"
                                                     class="form-control" aria-describedby="pengampu">
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="pengampu" class="form-label">Satuan</label>
-                                            <input type="text" name="indikator_sasaran[1][satuan]"
-                                                class="form-control" aria-describedby="pengampu">
+                                            <input type="text" name="indikator_sasaran[1][satuan]" class="form-control"
+                                                aria-describedby="pengampu">
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="pengampu" class="form-label">Penjelasan</label>
@@ -127,8 +131,8 @@
                                         </div>
                                         <div class="col-12 col-lg-6">
                                             <label for="pengampu" class="form-label">Sumber Data</label>
-                                            <input type="text" name="indikator_sasaran[1][sumber_data]"
-                                                id="pengampu" class="form-control" aria-describedby="pengampu">
+                                            <input type="text" name="indikator_sasaran[1][sumber_data]" id="pengampu"
+                                                class="form-control" aria-describedby="pengampu">
                                         </div>
                                         <div class="col-12 col-lg-6">
                                             <label for="pengampu" class="form-label">Penanggung Jawab</label>
@@ -164,11 +168,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($sasaran_strategis as $item)
+                                    @foreach ($sasaran_strategis ?? [] as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->sasaran_strategis }}</td>
-                                            <td>{{ $item->year }}</td>
+                                            <td>{{ $item->tahun }}</td>
                                             <td></td>
                                         </tr>
                                     @endforeach
@@ -203,7 +207,6 @@
 
                 $('.btn-add-indicator').on('click', function() {
                     iter++;
-                    console.log(iter);
                     add_indicator(iter);
                 })
                 $(document).on('click', '.btn-remove-indicator', function() {
@@ -216,7 +219,7 @@
 
                 function add_indicator(iter) {
                     $.ajax({
-                        url: "{{ route('perda.perencanaan.kinerja.strategis.ajax') }}",
+                        url: "{{ route('perda.perencanaan-kinerja.sasaran-strategis.indicator') }}",
                         data: {
                             iter
                         },
@@ -228,7 +231,6 @@
 
                 // function getAJaxData(el) {
                 //     $.ajax({
-                //         url: "{{ route('pemkab.pengukuran.kinerja.ajax') }}",
                 //         data: {
                 //             sasaran_bupati: el.val()
                 //         },
