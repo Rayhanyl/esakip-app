@@ -68,29 +68,19 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         @if (session('role') == 'admin')
-                            <li class="sidebar-title">Menu</li>
-                            <li class="sidebar-item {{ Route::is('admin.index') ? 'active' : '' }}">
-                                <a href="{{ route('admin.index') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Beranda</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item {{ Route::is('admin.user-management.index') ? 'active' : '' }}">
-                                <a href="{{ route('admin.user-management.index') }}" class="sidebar-link">
-                                    <i class="bi bi-person-fill"></i>
-                                    <span>User Management</span>
-                                </a>
-                            </li>
+                            <li class="sidebar-title">Menu Admin</li>
+                            <x-admin.list-sidebar route="admin.index" icon="house">
+                                Dashboard
+                            </x-admin.list-sidebar>
+                            <x-admin.list-sidebar route="admin.user-management.index" icon="person-fill">
+                                User Management
+                            </x-admin.list-sidebar>
                         @endif
-                        @if (session('role') == 'perda' || session('role') == 'superadmin')
-                            {{-- Perda --}}
-                            {{-- <li class="sidebar-title">Menu</li> --}}
-                            {{-- <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
-                                <a href="{{ route('perda.index.page') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Dashboard</span>
-                                </a>
-                            </li>
+                        @if (session('role') == 'perda')
+                            <li class="sidebar-title">Menu Pemerintah Daerah</li>
+                            <x-admin.list-sidebar route="perda.index" icon="house">
+                                Dashboard
+                            </x-admin.list-sidebar>
                             <li class="sidebar-item has-sub">
                                 <a href="#" class="sidebar-link">
                                     <i class="bi bi-stack"></i>
@@ -119,27 +109,14 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="sidebar-item {{ Route::is('perda.pengukuran.kinerja.page') ? 'active' : '' }}">
-                                <a href="{{ route('perda.pengukuran.kinerja.page') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Pengukuran Kinerja</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item {{ Route::is('perda.pelaporan.kinerja.page') ? 'active' : '' }}">
-                                <a href="{{ route('perda.pelaporan.kinerja.page') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Pelaporan Kinerja</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item {{ Route::is('perda.evaluasi.internal.page') ? 'active' : '' }}">
-                                <a href="{{ route('perda.evaluasi.internal.page') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Evaluasi internal</span>
-                                </a>
-                            </li> --}}
-                        @elseif (session('role') == 'pemkab' || session('role') == 'superadmin')
-                            {{-- Pemkab --}}
-                            <li class="sidebar-title">Pemkab</li>
+                            <x-admin.list-sidebar route="perda.pelaporan.kinerja.page" icon="house">
+                                Pelaporan Kinerja
+                            </x-admin.list-sidebar>
+                            <x-admin.list-sidebar route="perda.evaluasi.internal.page" icon="house">
+                                Evaluasi internal
+                            </x-admin.list-sidebar>
+                        @elseif (session('role') == 'pemkab')
+                            <li class="sidebar-title">Menu Pemerintah Kabupaten</li>
                             <x-admin.list-sidebar route="pemkab.index" icon="house">
                                 Dashboard
                             </x-admin.list-sidebar>
@@ -152,29 +129,17 @@
                             <x-admin.list-sidebar route="pemkab.pelaporan-kinerja.index" icon="archive">
                                 Pelaporan Kinerja
                             </x-admin.list-sidebar>
-                        @elseif (session('role') == 'inspektorat' || session('role') == 'superadmin')
-                            {{-- Inspektorat --}}
-                            {{-- <li class="sidebar-title">Inspektorat</li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Dashboard</span>
-                                </a>
-                            </li>
-                            <li
-                                class="sidebar-item">
-                                <a href="#" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Self Assesment Perangkat Daerah</span>
-                                </a>
-                            </li>
-                            <li
-                                class="sidebar-item">
-                                <a href="#" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Evaluasi Internal</span>
-                                </a>
-                            </li> --}}
+                        @elseif (session('role') == 'inspek')
+                            <li class="sidebar-title">Menu Inspektorat</li>
+                            <x-admin.list-sidebar route="inspek.index" icon="house">
+                                Dashboard
+                            </x-admin.list-sidebar>
+                            <x-admin.list-sidebar route="inspek.self-assesment.index" icon="clipboard2-check">
+                                Self Assesment Perangkat Daerah
+                            </x-admin.list-sidebar>
+                            <x-admin.list-sidebar route="inspek.evaluasi-internal.index" icon="clipboard-data">
+                                Evaluasi Internal
+                            </x-admin.list-sidebar>
                         @endif
                     </ul>
                 </div>
