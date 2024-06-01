@@ -26,14 +26,57 @@
     <div class="section">
         <div class="container">
             <div class="row">
-
+                <div class="col-12">
+                    <h3>Nilai SAKIP</h3>
+                </div>
+                <div class="col-12">
+                    <canvas id="myLineChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
-@push('script-landingpage')
-    <script>
+    @push('script-landingpage')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const labels = @json($labels);
+                const data = @json($data);
 
-    </script>
-@endpush
+                const ctx = document.getElementById('myLineChart').getContext('2d');
+                const myLineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Sample Data',
+                            data: data,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Month'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Value'
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    @endpush
 @endsection

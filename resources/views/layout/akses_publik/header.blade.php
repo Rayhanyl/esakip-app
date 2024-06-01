@@ -106,7 +106,7 @@
                                 <span></span>
                             </a>
 
-                            <a href="{{ route('auth.login') }}" class="call-us d-flex align-items-center">
+                            <a href="{{ route('auth.index') }}" class="call-us d-flex align-items-center">
                                 <span class="icon-arrow-right"></span>
                                 <span>Masuk</span>
                             </a>
