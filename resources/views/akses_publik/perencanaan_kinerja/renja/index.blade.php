@@ -15,32 +15,44 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Tahun</label>
-                    <select class="form-select" id="basicSelect" name="year">
-                        <option value="" selected>- Pilih Tahun -</option>
-                        @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                            <option value="{{ $i }}">
-                                {{ $i }}
-                            </option>
-                        @endfor
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Perangkat Daerah</label>
-                    <select class="form-select" id="basicSelect" name="year">
-                        <option value="" selected>- Pilih Perangkat Daerah -</option>
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Perencanaan Kinerja</label>
-                    <select class="form-select" id="basicSelect" name="year">
-                        <option value="" selected>- Pilih Perencanaan Kinerja -</option>
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3 py-4">
-                    <button class="btn btn-primary btn-sm w-100 ">Seacrh</button>
-                </div>
+                <form class="row" action="{{ route('aspu.renja') }}" method="GET">
+                    @csrf
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
+                        <select class="form-select" id="tahun" name="tahun">
+                            <option value="" selected>-- All --</option>
+                            @for ($i = date('Y') + 10; $i >= date('Y') - 5; $i--)
+                                <option value="{{ $i }}" {{ $i == $tahun ? 'selected' : '' }}>
+                                    {{ $i }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
+                        <select class="form-select select2" id="perda" name="perda">
+                            <option value="" selected>-- All --</option>
+                            @foreach ($user as $item)
+                                <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
+                                    {{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label fs-5 fw-bold" for="perki">Perencanaan Kinerja</label>
+                        <select class="form-select select2" id="perki" name="perki">
+                            <option value="" selected>- All -</option>
+                            {{-- @foreach ($data as $item)
+                                <option value="{{ $item->id }}" {{ $item->id == $perki ? 'selected' : '' }}>
+                                    {{ $item->sasaran_strategis }}
+                                </option>
+                            @endforeach --}}
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3 py-4">
+                        <button type="submit" class="btn btn-primary btn-sm w-100">Seacrh</button>
+                    </div>
+                </form>
             </div>
             <div class="row mt-4">
                 <div class="col-12">

@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers\AksesPublik;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\SasaranStrategisIndikator;
 
 class AspuRenjaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('akses_publik.perencanaan_kinerja.renja.index');
+        $user = User::where('role', 'perda')->get();
+
+        $perda = $request->perda;
+        $tahun = $request->tahun;
+        $perki = $request->perki;
+
+        return view('akses_publik.perencanaan_kinerja.renja.index', compact('user', 'perda', 'tahun', 'perki'));
     }
 }

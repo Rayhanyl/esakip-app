@@ -19,4 +19,10 @@ class SasaranStrategis extends Model
     {
         return $this->hasMany(SasaranStrategisIndikator::class);
     }
+
+    public function sasaran_program()
+    {
+        return $this->belongsTo(SasaranProgram::class);
+    }
+
 }

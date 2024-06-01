@@ -129,22 +129,44 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="data-table-sasaran-strategis w-100">
+                            <table class="table table-striped table-hover" id="data-table-sasaran-program">
                                 <thead class="table-info">
                                     <tr>
-                                        <th>NO</th>
-                                        <th>Sasaran Program</th>
-                                        <th>Tahun</th>
-                                        <th>Action</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Sasaran Program</th>
+                                        <th class="text-center">Tahun</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($sasaran_program ?? [] as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->sasaran_program }}</td>
-                                            <td>{{ $item->tahun }}</td>
-                                            <td></td>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td class="text-center">{{ $item->sasaran_program }}</td>
+                                            <td class="text-center">{{ $item->tahun }}</td>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="p-2">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Edit Sasaran Program" class="btn btn-warning btn-sm"
+                                                            href="#">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <button class="btn btn-danger btn-sm delete-sasaran-program"
+                                                            data-id="{{ $item->id }}" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Delete Sasaran Program">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
+                                                        <form id="delete-form-{{ $item->id }}" action="{{ route ('perda.perencanaan-kinerja.sasaran-program.destroy', $item->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -162,19 +184,36 @@
         <script>
             $(document).ready(function() {
                 let iter = 1;
-                $('#data-table-sasaran-strategis').DataTable({
+                $('#data-table-sasaran-program').DataTable({
                     responsive: true,
                     lengthMenu: [
-                        [5, 10, 15, -1],
-                        [5, 10, 15, 'All'],
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
-                $('#sasaran_bupati').on('change', function() {
 
-                })
+                $('.delete-sasaran-program').click(function() {
+                    var id = $(this).data('id');
+                    var form = $('#delete-form-' + id);
+
+                    // SweetAlert confirmation dialog
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
 
                 $('.btn-add-indicator').on('click', function() {
                     iter++;
@@ -199,24 +238,6 @@
                         }
                     });
                 }
-
-                // function getAJaxData(el) {
-                //     $.ajax({
-                //         data: {
-                //             sasaran_bupati: el.val()
-                //         },
-                //         success: function(result) {
-                //             $.each(result.sasaran_strategis, function(index, test) {
-                //                 $(
-                //                     '#sasaran_bupati option'
-                //                 ) remove(); // first remove the old options
-                //                 $('#sasaran_bupati').append(
-                //                     $('<option></option>').attr("value", test.id).text(test)
-                //                 )
-                //             })
-                //         }
-                //     });
-                // }
             });
         </script>
     @endpush

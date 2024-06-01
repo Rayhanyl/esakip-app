@@ -94,13 +94,6 @@ class SasaranBupatiController extends Controller
      */
     public function destroy(SasaranBupati $sasaranBupati)
     {
-        // Check if the SasaranBupati is associated with any PengukuranKinerja records
-        if (PemkabPengukuranKinerja::where('sasaran_bupati_id', $sasaranBupati->id)->exists()) {
-            // If associated records exist, display an error message
-            Alert::toast('Sasaran Bupati ini sudah digunakan dalam pengukuran kinerja dan tidak dapat dihapus.', 'error');
-            return redirect()->back();
-        }
-
         // Attempt to delete the record
         try {
             // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
