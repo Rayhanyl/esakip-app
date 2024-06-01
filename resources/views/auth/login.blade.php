@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-SAKIP</title>
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pages/auth.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/x-icon" />
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/png" />
@@ -51,7 +51,7 @@
                             Majalengka</p>
                     </div>
                     <div class="col-12">
-                        <form class="row g-3 d-flex justify-content-center" action="{{ route('login.process') }}"
+                        <form class="row g-3 d-flex justify-content-center" action="{{ route('auth.login') }}"
                             method="POST">
                             @csrf
                             <div class="col-10">
@@ -71,6 +71,7 @@
             </div>
         </div>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
 </body>
+
 </html>

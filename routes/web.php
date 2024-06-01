@@ -18,6 +18,9 @@ use App\Http\Controllers\Admin\SasaranSubKegiatanController;
 use App\Http\Controllers\Admin\PerdaPengukuranKinerjaController;
 use App\Http\Controllers\Admin\SasaranBupatiController;
 use App\Http\Controllers\Admin\SelfAssesmentController;
+use App\Http\Controllers\Admin\UsermanagementController;
+use App\Http\Controllers\Admin\AdminBerandaControllerer;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +42,11 @@ Route::get('/storage/link', function () {
 });
 
 Route::prefix('authentication')->name('auth.')->group(function () {
-    Route::get('/login', AuthController::class)
+    Route::get('/index', [AuthController::class, 'index'])
         ->name('index');
-    Route::post('/login', AuthController::class)
+    Route::get('/login', [AuthController::class, 'login'])
         ->name('login');
-    Route::get('/logout', AuthController::class)
+    Route::get('/logout', [AuthController::class, 'logout'])
         ->name('logout');
 });
 
@@ -135,3 +138,23 @@ Route::prefix('inspektorat')->name('inspek.')->group(function () {
             ->name('store');
     });
 });
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/index', AdminBerandaControllerer::class)
+        ->name('index');
+    Route::prefix('/user/management')->name('user-management.')->group(function () {
+        Route::get('/', [UsermanagementController::class, 'index'])
+            ->name('index');
+        Route::get('/create', [UsermanagementController::class, 'create'])
+            ->name('create');
+        Route::get('/edit', [UsermanagementController::class, 'edit'])
+            ->name('edit');
+        Route::post('/store', [UsermanagementController::class, 'store'])
+            ->name('store');
+        Route::post('/update', [UsermanagementController::class, 'update'])
+            ->name('update');
+        Route::post('/delete', [UsermanagementController::class, 'delete'])
+            ->name('delete');
+    });
+});
+
