@@ -13,7 +13,7 @@ class AspuPelaporanKinerjaController extends Controller
     {
         $perda = $request->perda;
         $tahun = $request->tahun;
-        
+
         $data = PelaporanKinerja::with('user')->whereHas('user', function ($q) use ($request) {
             $q->where('role', 'perda');
 
@@ -27,6 +27,20 @@ class AspuPelaporanKinerjaController extends Controller
         })->get();
 
         $user = User::where('role', 'perda')->get();
-        return view('akses_publik.pelaporan_kinerja.index', compact('data', 'user','perda','tahun'));
+        return view('akses_publik.pelaporan_kinerja.index', compact('data', 'user', 'perda', 'tahun'));
+    }
+
+    public function count(Request $request)
+    {
+        $pelaporan = PelaporanKinerja::find($request->id);
+
+        if ($pelaporan) {
+            $pelaporan->keterangan += 1;
+            $pelaporan->save();
+
+            return response()->json(['success' => true, 'keterangan' => $pelaporan->keterangan]);
+        }
+
+        return response()->json(['success' => false], 400);
     }
 }
