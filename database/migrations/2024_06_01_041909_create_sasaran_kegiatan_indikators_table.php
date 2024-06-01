@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('sasaran_kegiatan_id');
-            $table->double('indikator_kegiatan')->nullable();
+            $table->string('indikator_kegiatan')->nullable();
             $table->double('target')->nullable();
             $table->string('satuan')->nullable();
             $table->string('kegiatan')->nullable();

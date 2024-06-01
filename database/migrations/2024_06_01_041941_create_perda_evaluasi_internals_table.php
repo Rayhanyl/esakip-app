@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluasi_internals', function (Blueprint $table) {
+        Schema::create('perda_evaluasi_internals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->integer('tahun')->nullable();

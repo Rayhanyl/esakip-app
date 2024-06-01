@@ -46,7 +46,6 @@ class SasaranSubKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $data =  SasaranSubKegiatan::create(array_merge($request->except('indikator_sasaran'), ['user_id' => Auth::user()->id]));
         foreach ($request->indikator_sasaran as $value) {
             $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_sub_kegiatan_id' => $data->id]);
