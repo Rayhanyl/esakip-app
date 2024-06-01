@@ -1,15 +1,23 @@
 <?php
 
+use App\Http\Controllers\Admin\InspekBerandaController;
+use App\Http\Controllers\Admin\InspekEvaluasiInternalController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\PemkabBerandaController;
+use App\Http\Controllers\Admin\PemkabPelaporanKinerjaController;
+use App\Http\Controllers\Admin\PemkabPengukuranKinerjaController;
 use App\Http\Controllers\Admin\PerdaBerandaController;
-use App\Http\Controllers\Admin\PerdaPelaporanKinerja;
+use App\Http\Controllers\Admin\PerdaEvaluasiInternalController;
+use App\Http\Controllers\Admin\PerdaPelaporanKinerjaController;
 use App\Http\Controllers\Admin\SasaranProgramController;
 use App\Http\Controllers\Admin\SasaranKegiatanController;
 use App\Http\Controllers\Admin\SasaranStrategisController;
 use App\Http\Controllers\Admin\SasaranSubKegiatanController;
-use App\Models\PerdaPengukuranKinerja;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\PerdaPengukuranKinerjaController;
+use App\Http\Controllers\Admin\SasaranBupatiController;
+use App\Http\Controllers\Admin\SelfAssesmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,17 +77,61 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
         });
     });
     Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
-        Route::get('/', [PerdaPengukuranKinerja::class, 'index'])
+        Route::get('/', [PerdaPengukuranKinerjaController::class, 'index'])
             ->name('index');
-        Route::post('/store', [PerdaPengukuranKinerja::class, 'store'])
+        Route::post('/store', [PerdaPengukuranKinerjaController::class, 'store'])
             ->name('store');
     });
     Route::prefix('/pelaporan-kinerja')->name('pelaporan-kinerja.')->group(function () {
-        Route::get('/', [PerdaPelaporanKinerja::class, 'index'])
+        Route::get('/', [PerdaPelaporanKinerjaController::class, 'index'])
             ->name('index');
+        Route::post('/store', [PerdaPelaporanKinerjaController::class, 'store'])
+            ->name('store');
     });
-    // Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
-    //     Route::get('/', [evaluasi::class, 'index'])
-    //         ->name('index');
-    // });
+    Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
+        Route::get('/', [PerdaEvaluasiInternalController::class, 'index'])
+            ->name('index');
+        Route::get('/download/{filename}', [PerdaEvaluasiInternalController::class, 'download'])
+            ->name('download');
+    });
+});
+
+Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
+    Route::get('/index', PemkabBerandaController::class)
+        ->name('index');
+    Route::prefix('/perencanaan-kinerja')->name('perencanaan-kinerja.')->group(function () {
+        Route::get('/', [SasaranBupatiController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [SasaranBupatiController::class, 'store'])
+            ->name('store');
+    });
+    Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
+        Route::get('/', [PemkabPengukuranKinerjaController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [PemkabPengukuranKinerjaController::class, 'store'])
+            ->name('store');
+    });
+    Route::prefix('/pelaporan-kinerja')->name('pelaporan-kinerja.')->group(function () {
+        Route::get('/', [PemkabPelaporanKinerjaController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [PemkabPelaporanKinerjaController::class, 'store'])
+            ->name('store');
+    });
+});
+
+Route::prefix('inspektorat')->name('inspek.')->group(function () {
+    Route::get('/index', InspekBerandaController::class)
+        ->name('index');
+    Route::prefix('/self-assesment')->name('self-assesment.')->group(function () {
+        Route::get('/', [SelfAssesmentController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [SelfAssesmentController::class, 'store'])
+            ->name('store');
+    });
+    Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
+        Route::get('/', [InspekEvaluasiInternalController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [InspekEvaluasiInternalController::class, 'store'])
+            ->name('store');
+    });
 });

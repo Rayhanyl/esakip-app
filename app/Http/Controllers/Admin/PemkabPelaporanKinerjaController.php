@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\EvaluasiInternal;
-use App\Http\Requests\StoreEvaluasiInternalRequest;
-use App\Http\Requests\UpdateEvaluasiInternalRequest;
+use Illuminate\Http\Request;
 
-class EvaluasiInternalController extends Controller
+class PemkabPelaporanKinerjaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +26,7 @@ class EvaluasiInternalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEvaluasiInternalRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -36,7 +34,7 @@ class EvaluasiInternalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EvaluasiInternal $evaluasiInternal)
+    public function show(string $id)
     {
         //
     }
@@ -44,7 +42,7 @@ class EvaluasiInternalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EvaluasiInternal $evaluasiInternal)
+    public function edit(string $id)
     {
         //
     }
@@ -52,7 +50,7 @@ class EvaluasiInternalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEvaluasiInternalRequest $request, EvaluasiInternal $evaluasiInternal)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -60,7 +58,7 @@ class EvaluasiInternalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EvaluasiInternal $evaluasiInternal)
+    public function destroy(string $id)
     {
         //
     }
