@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.admin.app')
 @section('content')
     <div id="main-content">
         <div class="page-heading">
@@ -19,7 +19,9 @@
             <section class="section">
                 <div class="card shadow rounded-4">
                     <div class="card-header">
-                        <a href="{{ route('admin.user-management.create') }}" class="btn btn-success">Create User</a>
+                        <a href="{{ route('admin.user-management.create') }}" class="btn btn-success">
+                            <i class="bi bi-person-fill-add"></i>
+                            Create User</a>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -44,11 +46,15 @@
                                                 <td>
                                                     <div class="d-flex">
                                                         <div class="p-2">
-                                                            <a href="{{ route('admin.user-management.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                                            <a href="{{ route('admin.user-management.edit', $user->id) }}"
+                                                                class="btn btn-warning"><i class="bi bi-person-fill-gear"></i> Edit</a>
                                                         </div>
                                                         <div class="p-2">
-                                                            <button class="btn btn-danger delete-user" data-id="{{ $user->id }}">Delete</button>
-                                                            <form id="delete-form-{{ $user->id }}" action="{{ route('admin.user-management.delete', $user->id) }}" method="POST" style="display: none;">
+                                                            <button class="btn btn-danger delete-user"
+                                                                data-id="{{ $user->id }}"><i class="bi bi-person-fill-x"></i> Delete</button>
+                                                            <form id="delete-form-{{ $user->id }}"
+                                                                action="{{ route('admin.user-management.delete', $user->id) }}"
+                                                                method="POST" style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
                                                             </form>

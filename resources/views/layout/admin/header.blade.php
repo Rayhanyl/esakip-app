@@ -65,16 +65,22 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        {{-- @if (session('role') == 'admin' || session('role') == 'superadmin')
+                        @if (session('role') == 'admin')
                             <li class="sidebar-title">Menu</li>
-                            <li class="sidebar-item {{ Route::is('admin.user.page') ? 'active' : '' }}">
-                                <a href="{{ route('admin.user.page') }}" class="sidebar-link">
+                            <li class="sidebar-item {{ Route::is('admin.index') ? 'active' : '' }}">
+                                <a href="{{ route('admin.index') }}" class="sidebar-link">
                                     <i class="bi bi-grid-fill"></i>
+                                    <span>Beranda</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item {{ Route::is('admin.user-management.index') ? 'active' : '' }}">
+                                <a href="{{ route('admin.user-management.index') }}" class="sidebar-link">
+                                    <i class="bi bi-person-fill"></i>
                                     <span>User Management</span>
                                 </a>
                             </li>
                         @endif
-                        @if (session('role') == 'perda' || session('role') == 'superadmin')
+                        {{-- @if (session('role') == 'perda' || session('role') == 'superadmin')
                         <li class="sidebar-title">Menu</li> --}}
                         {{-- Perda --}}
                         {{-- <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
@@ -242,7 +248,7 @@
                                         <hr class="dropdown-divider" />
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#"><i
+                                        <a class="dropdown-item" href="{{ route('auth.logout') }}"><i
                                                 class="icon-mid bi bi-box-arrow-left me-2"></i>
                                             Logout</a>
                                     </li>

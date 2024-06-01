@@ -47,7 +47,7 @@
                                     <option selected>-- Select Role --</option>
                                     <option value="perda">Perangkat Daerah</option>
                                     <option value="pemkab">Pemerintah Kabupaten</option>
-                                    <option value="inspektorat">Inspektorat</option>
+                                    <option value="inspek">Inspektorat</option>
                                     <option value="admin">Admin</option>
                                 </select>
                             </div>

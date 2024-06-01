@@ -21,6 +21,16 @@ use App\Http\Controllers\Admin\SelfAssesmentController;
 use App\Http\Controllers\Admin\UsermanagementController;
 use App\Http\Controllers\Admin\AdminBerandaControllerer;
 
+use App\Http\Controllers\AksesPublik\AspuBerandaController;
+use App\Http\Controllers\AksesPublik\AspuEvaluasiInternalController;
+use App\Http\Controllers\AksesPublik\AspuIndikatorKinerjaUtamaController;
+use App\Http\Controllers\AksesPublik\AspuPelaporanKinerjaController;
+use App\Http\Controllers\AksesPublik\AspuPengukuranKinerjaController;
+use App\Http\Controllers\AksesPublik\AspuPerangkatDaerahDetailController;
+use App\Http\Controllers\AksesPublik\AspuPerjanjianKinerjaController;
+use App\Http\Controllers\AksesPublik\AspuRencanaAksiController;
+use App\Http\Controllers\AksesPublik\AspuRenjaController;
+use App\Http\Controllers\AksesPublik\AspuRenstraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +43,6 @@ use App\Http\Controllers\Admin\AdminBerandaControllerer;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/storage/link', function () {
     Artisan::call('storage:link');
 });
@@ -44,7 +50,7 @@ Route::get('/storage/link', function () {
 Route::prefix('authentication')->name('auth.')->group(function () {
     Route::get('/index', [AuthController::class, 'index'])
         ->name('index');
-    Route::get('/login', [AuthController::class, 'login'])
+    Route::post('/login', [AuthController::class, 'login'])
         ->name('login');
     Route::get('/logout', [AuthController::class, 'logout'])
         ->name('logout');
@@ -147,14 +153,36 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->name('index');
         Route::get('/create', [UsermanagementController::class, 'create'])
             ->name('create');
-        Route::get('/edit', [UsermanagementController::class, 'edit'])
+        Route::get('/edit/{user}', [UsermanagementController::class, 'edit'])
             ->name('edit');
         Route::post('/store', [UsermanagementController::class, 'store'])
             ->name('store');
-        Route::put('/update', [UsermanagementController::class, 'update'])
+        Route::put('/update/{user}', [UsermanagementController::class, 'update'])
             ->name('update');
-        Route::delete('/delete', [UsermanagementController::class, 'delete'])
+        Route::delete('/delete/{user}', [UsermanagementController::class, 'delete'])
             ->name('delete');
     });
 });
 
+Route::prefix('/')->name('aspu.')->group(function () {
+    Route::get('/', AspuBerandaController::class)
+        ->name('index');
+    Route::get('/pengukuran/kinerja', [AspuPengukuranKinerjaController::class, 'index'])
+        ->name('pengukuran.kinerja');
+    Route::get('/perangkat/daerah/detail', [AspuPerangkatDaerahDetailController::class, 'index'])
+        ->name('perangkat.daerah.detail');
+    Route::get('/renstra', [AspuRenstraController::class, 'index'])
+        ->name('renstra');
+    Route::get('/renja', [AspuRenjaController::class, 'index'])
+        ->name('renja');
+    Route::get('/rencana/aksi', [AspuRencanaAksiController::class, 'index'])
+        ->name('rencana.aksi');
+    Route::get('/perjanjian/kinerja', [AspuPerjanjianKinerjaController::class, 'index'])
+        ->name('perjanjian.kinerja');
+    Route::get('/indikator/kinerja/utama', [AspuIndikatorKinerjaUtamaController::class, 'index'])
+        ->name('indikator.kinerja.utama');
+    Route::get('/pelaporan/kinerja', [AspuPelaporanKinerjaController::class, 'index'])
+        ->name('pelaporan.kinerja');
+    Route::get('/evaluasi/internal', [AspuEvaluasiInternalController::class, 'index'])
+        ->name('evaluasi.internal');
+});
