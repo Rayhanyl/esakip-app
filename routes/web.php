@@ -31,11 +31,11 @@ Route::get('/storage/link', function () {
 });
 
 Route::prefix('authentication')->name('auth.')->group(function () {
-    Route::get('/login', AuthController::class)
+    Route::get('/index', [AuthController::class, 'index'])
         ->name('index');
-    Route::post('/login', AuthController::class)
+    Route::get('/login', [AuthController::class, 'login'])
         ->name('login');
-    Route::get('/logout', AuthController::class)
+    Route::get('/logout', [AuthController::class, 'logout'])
         ->name('logout');
 });
 
@@ -70,9 +70,9 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
     });
     Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
         Route::get('/', [PerdaPengukuranKinerja::class, 'index'])
-        ->name('index');
+            ->name('index');
         Route::post('/store', [PerdaPengukuranKinerja::class, 'store'])
-        ->name('store');
+            ->name('store');
     });
     Route::prefix('/pelaporan-kinerja')->name('pelaporan-kinerja.')->group(function () {
         Route::get('/', [PerdaPelaporanKinerja::class, 'index'])
