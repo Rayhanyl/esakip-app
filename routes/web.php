@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SasaranKegiatanController;
 use App\Http\Controllers\Admin\SasaranStrategisController;
 use App\Http\Controllers\Admin\SasaranSubKegiatanController;
 use App\Models\PerdaPengukuranKinerja;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,20 +30,14 @@ Route::get('/storage/link', function () {
     Artisan::call('storage:link');
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::prefix('authentication')->name('auth.')->group(function () {
+    Route::get('/login', AuthController::class)
+        ->name('index');
+    Route::post('/login', AuthController::class)
+        ->name('login');
+    Route::get('/logout', AuthController::class)
+        ->name('logout');
+});
 
 Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
     Route::get('/index', PerdaBerandaController::class)
