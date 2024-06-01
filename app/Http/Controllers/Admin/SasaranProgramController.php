@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\SasaranProgram;
+use App\Models\SasaranStrategis;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use App\Models\SasaranProgramIndikator;
 use App\Http\Requests\StoreSasaranProgramRequest;
 use App\Http\Requests\UpdateSasaranProgramRequest;
 
@@ -17,10 +20,10 @@ class SasaranProgramController extends Controller
         View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
             return $user->name;
         }));
-        View::share('sasaran_bupati_options', SasaranBupati::all()->keyBy('id')->transform(function ($sasaran_bupati) {
-            return $sasaran_bupati->sasaran_bupati;
+        View::share('sasaran_strategis_options', SasaranStrategis::all()->keyBy('id')->transform(function ($sasaran_strategis) {
+            return $sasaran_strategis->sasaran_strategis;
         }));
-        View::share('sasaran_strategis', SasaranStrategis::all());
+        View::share('sasaran_program', SasaranProgram::all());
     }
     /**
      * Display a listing of the resource.
@@ -41,9 +44,14 @@ class SasaranProgramController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSasaranProgramRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data =  SasaranProgram::create(array_merge($request->except('indikator_sasaran'), ['user_id' => Auth::user()->id]));
+        foreach ($request->indikator_sasaran as $value) {
+            $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_program_id' => $data->id]);
+            SasaranProgramIndikator::create($params);
+        }
+        return redirect()->back();
     }
 
     /**
