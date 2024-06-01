@@ -119,6 +119,12 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
     Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
         Route::get('/', [PemkabPengukuranKinerjaController::class, 'index'])
             ->name('index');
+        Route::get('/indicator', [PemkabPengukuranKinerjaController::class, 'indicator'])
+            ->name('indicator');
+        Route::get('/get-indicator', [PemkabPengukuranKinerjaController::class, 'get_indicator'])
+            ->name('get-indicator');
+        Route::get('/get-target', [PemkabPengukuranKinerjaController::class, 'get_target'])
+            ->name('get-target');
         Route::post('/store', [PemkabPengukuranKinerjaController::class, 'store'])
             ->name('store');
     });
