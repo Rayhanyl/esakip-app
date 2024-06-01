@@ -25,7 +25,7 @@
                 </div>
             </div>
             <section class="section">
-                <div class="card">
+                <div class="card shadow rounded-4">
                     <div class="card-header">
                         <h4 class="card-title">Form Pengukuran Kinerja</h4>
                     </div>
@@ -34,10 +34,9 @@
                             enctype="multipart/form-data" method="POST">
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
-                                <h6>Sasaran Bupati</h6>
+                                <label for="sasaran_bupati" class="form-label fw-bold">Sasaran Bupati</label>
                                 <fieldset class="form-group">
-                                    <select class="form-select select2" name="sasaran_bupati_id"
-                                        id="sasaran_bupati">
+                                    <select class="form-select select2" name="sasaran_bupati_id" id="sasaran_bupati">
                                         <option value="-" selected disabled>- Pilih Sasaran Bupati -</option>
                                         @foreach ($sasaran_bupati_options ?? [] as $key => $item)
                                             <option value="{{ $key }}">{{ $item }}
@@ -47,23 +46,24 @@
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-6 form-group">
-                                <label for="indikator_sasaran">Indikator Sasaran</label>
-                                <select name="sasaran_bupati_indikator_id" id="indikator_sasaran" class="form-select select2">
+                                <label for="indikator_sasaran" class="form-label fw-bold">Indikator Sasaran</label>
+                                <select name="sasaran_bupati_indikator_id" id="indikator_sasaran"
+                                    class="form-select select2">
                                     <option value="" selected disabled>--Pilih Indikator--</option>
                                 </select>
                             </div>
                             <div class="col-12 col-lg-3 form-group">
-                                <label for="target_sasaran">Target Sasaran</label>
+                                <label for="target_sasaran" class="form-label fw-bold">Target Sasaran</label>
                                 <select name="target" id="target_sasaran" class="form-select select2">
                                     <option value="" selected disabled>--Pilih Target--</option>
                                 </select>
                             </div>
                             <div class="col-12 col-lg-3 form-group">
-                                <label for="realisasi" class="form-label">Realisasi</label>
+                                <label for="realisasi" class="form-label fw-bold">Realisasi</label>
                                 <input type="number" name="realisasi" id="realisasi" class="form-control">
                             </div>
                             <div class="col-12 col-lg-3 form-group">
-                                <h6>Karakteristik</h6>
+                                <label for="karakteristik" class="form-label fw-bold">Karakteristik</label>
                                 <fieldset class="form-group">
                                     <select class="form-select" name="karakteristik" id="karakteristik">
                                         <option value="" selected>- Pilih Karakteristik -</option>
@@ -73,7 +73,7 @@
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-3 form-group">
-                                <label for="capaian">Capaian</label>
+                                <label for="capaian" class="form-label fw-bold">Capaian</label>
                                 <input type="text" name="capaian" id="capaian" class="form-control">
                             </div>
                             <div class="col-12 text-center">
@@ -83,14 +83,62 @@
                     </div>
                 </div>
 
+                <div class="card shadow rounded-4">
+                    <div class="card-header">
+                        <h5>Tabel Pengukuran Kinerja</h5>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="data-table-pelaporan-kinerja-pemkab">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Tahun</th>
+                                        <th class="text-center">File</th>
+                                        <th class="text-center">Created at</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $index => $pelaporan)
+                                        <tr>
+                                            <td class="text-center">{{ $index + 1 }}</td>
+                                            <td class="text-center">{{ $pelaporan->tahun }}</td>
+                                            <td class="text-center">
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Download File Pelaporan Kinerja"
+                                                    href="{{ route('pemkab.pelaporan-kinerja.download', $pelaporan->upload) }}">
+                                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">{{ $pelaporan->created_at->format('Y-m-d') }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
     @push('scripts')
         <script>
+            $(document).ready(function() {
+                $('#data-table-pengukuran-kinerja').DataTable({
+                    responsive: true,
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
+                    ],
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
             $('#indikator_sasaran, #target_sasaran, #karakteristik').on('change', function() {
                 const capaian = getCapaian($('#karakteristik').val(), $('#realisasi').val(), $('#target_sasaran')
-            .val());
+                    .val());
                 $('#capaian').val(capaian);
             });
 
