@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -31,17 +32,17 @@ class AuthController extends Controller
                 'name' => Auth::user()->name,
                 'role' => Auth::user()->role,
             ]);
-
+            Alert::toast('Berhasil login', 'success');
             // Redirect based on user role
             switch (session('role')) {
                 case 'perda':
-                    return redirect()->route('perda.index.page');
+                    return redirect()->route('perda.index');
                 case 'pemkab':
-                    return redirect()->route('pemkab.index.page');
+                    return redirect()->route('pemkab.index');
                 case 'inspek':
-                    return redirect()->route('inspektorat.index.page');
+                    return redirect()->route('inspek.index');
                 case 'admin':
-                    return redirect()->route('admin.page');
+                    return redirect()->route('admin.index');
                 default:
                     return redirect()->route('');
             }
