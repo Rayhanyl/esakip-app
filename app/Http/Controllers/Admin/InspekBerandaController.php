@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-class InspektoratBerandaController extends Controller
+class InspekBerandaController extends Controller
 {
     /**
      * Display a listing of the resource.

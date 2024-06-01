@@ -34,6 +34,16 @@ Route::get('/storage/link', function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
 Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
     Route::get('/index', PerdaBerandaController::class)
         ->name('index');
@@ -73,4 +83,8 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
         Route::get('/', [PerdaPelaporanKinerja::class, 'index'])
             ->name('index');
     });
+    // Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
+    //     Route::get('/', [evaluasi::class, 'index'])
+    //         ->name('index');
+    // });
 });
