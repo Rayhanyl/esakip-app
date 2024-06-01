@@ -68,7 +68,7 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
         });
         Route::prefix('/sasaran-program')->name('sasaran-program.')->group(function () {
             Route::get('/', [SasaranProgramController::class, 'index'])
-                ->name('page');
+                ->name('index');
             Route::post('/store', [SasaranProgramController::class, 'store'])
                 ->name('store');
         });
