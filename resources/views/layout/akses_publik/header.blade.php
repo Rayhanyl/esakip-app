@@ -81,16 +81,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="has-children {{ Route::is('aspu.pengukuran.kinerja') || Route::is('aspu.perangkat.daerah.detail') ? 'active' : '' }}">
-                                    <a href="#">Pengukuran Kinerja</a>
-                                    <ul class="dropdown">
-                                        <li class="{{ Route::is('aspu.pengukuran.kinerja') ? 'active' : '' }}">
-                                            <a href="{{ route ('aspu.pengukuran.kinerja') }}">Pengukuran Kinerja</a>
-                                        </li>
-                                        <li class="{{ Route::is('aspu.perangkat.daerah.detail') ? 'active' : '' }}">
-                                            <a href="{{ route ('aspu.perangkat.daerah.detail') }}">Perangkat Daerah Detail</a>
-                                        </li>
-                                    </ul>
+                                <li class="{{ Route::is('aspu.pengukuran.kinerja') ? 'active' : '' }}">
+                                    <a href="{{ route ('aspu.pengukuran.kinerja') }}">Pengukuran Kinerja</a>
                                 </li>
                                 <li class="{{ Route::is('aspu.pelaporan.kinerja') ? 'active' : '' }}">
                                     <a href="{{ route ('aspu.pelaporan.kinerja') }}">Pelaporan Kinerja</a>
@@ -101,7 +93,7 @@
                             </ul>
                         </div>
                         <div class="col-2 text-end">
-                            <a href="#"
+                            <a href="{{ route('auth.index') }}"
                                 class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
                                 <span></span>
                             </a>

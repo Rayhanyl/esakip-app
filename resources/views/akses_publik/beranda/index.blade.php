@@ -27,10 +27,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h3>Nilai SAKIP</h3>
+                    <h3>Nilai SAKIP <i class="bi bi-graph-down"></i></h3>
+                    <hr>
                 </div>
                 <div class="col-12">
-                    <canvas id="myLineChart"></canvas>
+                    <div class="card shadow rounded-5">
+                        <div class="card-body rounded-5">
+                            <canvas id="myLineChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

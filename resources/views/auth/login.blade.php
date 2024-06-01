@@ -17,7 +17,6 @@
         <div class="row">
             <div class="col-12 col-lg-7 bg-dark">
                 <div class="row py-5 px-5 d-flex algin-items-center justify-content-center">
-                    {{-- <h4 class="text-center">Wonderful Majalengka</h4> --}}
                     <div class="col-12">
                         <div class="row p-3 g-3">
                             <div class="col-12 col-lg-6">
@@ -62,8 +61,13 @@
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" required>
                             </div>
+                            <div class="col-10 form-check">
+                                <a href="{{ route('aspu.index') }}" class="form-check-label fw-bold text-success"
+                                    for="exampleCheck1" style="text-decoration:d-none;">
+                                    <i class="bi bi-arrow-left-circle-fill"></i> Back to landing page</a>
+                            </div>
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-success rounded-5 w-50">Masuk</button>
+                                <a type="submit" class="btn btn-success rounded-5 w-50">Masuk</a>
                             </div>
                         </form>
                     </div>
