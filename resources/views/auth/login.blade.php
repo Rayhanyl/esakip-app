@@ -54,8 +54,8 @@
                             method="POST">
                             @csrf
                             <div class="col-10">
-                                <label for="username">Username</label>
-                                <input type="email" class="form-control" name="email" id="username" required>
+                                <label for="email">Username</label>
+                                <input type="email" class="form-control" name="email" id="email" required>
                             </div>
                             <div class="col-10">
                                 <label for="password">Password</label>
@@ -67,7 +67,7 @@
                                     <i class="bi bi-arrow-left-circle-fill"></i> Back to landing page</a>
                             </div>
                             <div class="col-12 text-center">
-                                <a type="submit" class="btn btn-success rounded-5 w-50">Masuk</a>
+                                <button type="submit" class="btn btn-success rounded-5 w-50">Masuk</button>
                             </div>
                         </form>
                     </div>

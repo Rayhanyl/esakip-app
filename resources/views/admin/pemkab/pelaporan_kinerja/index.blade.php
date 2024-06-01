@@ -30,15 +30,15 @@
                         <h4 class="card-title">Form Pelaporan Kinerja</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3" action="{{ route('pemkab.pelaporan.kinerja.store') }}" method="POST"
+                        <form class="row g-3" action="{{ route('pemkab.pelaporan-kinerja.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="basicSelect" name="tahun">
+                                    <select class="form-select select2" id="tahun" name="tahun">
                                         <option value="" selected>- Pilih Tahun -</option>
-                                        @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
+                                        @for ($i = date('Y') + 10; $i >= date('Y') - 10; $i--)
                                             <option value="{{ $i }}">
                                                 {{ $i }}
                                             </option>
@@ -73,7 +73,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pelaporanKinerja as $index => $pelaporan)
+                                    @foreach ($data as $index => $pelaporan)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $pelaporan->year }}</td>
@@ -101,8 +101,8 @@
                 $('#data-table-pelaporan-kinerja-pemkab').DataTable({
                     responsive: true,
                     lengthMenu: [
-                        [5, 10, 15, -1],
-                        [5, 10, 15, 'All'],
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
                     ],
                     order: [
                         [0, 'desc']

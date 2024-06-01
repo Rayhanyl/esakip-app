@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\PelaporanKinerja;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PemkabPelaporanKinerjaController extends Controller
 {
@@ -12,7 +15,10 @@ class PemkabPelaporanKinerjaController extends Controller
      */
     public function index()
     {
-        return view('admin.pemkab.pelaporan_kinerja.index');
+        $data = PelaporanKinerja::with('user')->whereHas('user', function ($q) {
+            return $q->where('role', '=', session('role'));
+        })->get();
+        return view('admin.pemkab.pelaporan_kinerja.index', compact('data'));
     }
 
     /**
@@ -28,7 +34,29 @@ class PemkabPelaporanKinerjaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tahun' => 'required|integer',
+            'file' => 'required|file|mimes:pdf,doc,docx',
+        ]);
+
+        try {
+            // Store the file in the 'public/media' directory
+            $path = $request->file('file')->store('public/pelaporan-kinerja');
+
+            // Create a new record in the database
+            PelaporanKinerja::create([
+                'user_id' => Auth::user()->id,
+                'tahun' => $request->tahun,
+                'upload' => $request->file->hashName(),
+            ]);
+
+            Alert::toast('Berhasil menambahkan laporan kinerja', 'success');
+            return redirect()->route('pemkab.pelaporan-kinerja.index')->with('success', 'Pelaporan Kinerja created successfully.');
+        } catch (\Exception $e) {
+            // Handle the error if file storage fails
+            Alert::toast('Error hubungi developer terkait!', 'danger');
+            return redirect()->back()->withErrors(['file' => 'Failed to upload the file. Please try again.']);
+        }
     }
 
     /**
