@@ -12,7 +12,7 @@ class PerdaEvaluasiInternalController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.perda.evaluasi_internal.index');
     }
 
     /**

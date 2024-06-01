@@ -14,7 +14,7 @@ class PemkabPengukuranKinerjaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.pemkab.pengukuran_kinerja.index');
     }
 
     /**

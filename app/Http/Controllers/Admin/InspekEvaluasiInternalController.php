@@ -14,7 +14,7 @@ class InspekEvaluasiInternalController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.inspek.evaluasi_internal.index');
     }
 
     /**

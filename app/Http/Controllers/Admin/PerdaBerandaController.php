@@ -10,6 +10,6 @@ class PerdaBerandaController extends Controller
      */
     public function __invoke()
     {
-        //
+        return view('admin.perda.beranda.index');
     }
 }

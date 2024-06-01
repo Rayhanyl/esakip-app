@@ -10,6 +10,6 @@ class PemkabBerandaController extends Controller
      */
     public function __invoke()
     {
-        //
+        return view('admin.pemkab.beranda.index');
     }
 }
