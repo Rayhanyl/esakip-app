@@ -63,7 +63,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                             <table class="table" id="data-table-pelaporan-kinerja-pemkab">
+                            <table class="table" id="data-table-pelaporan-kinerja-pemkab">
                                 <thead class="table-info">
                                     <tr>
                                         <th>No</th>
