@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->integer('tahun')->nullable();
             $table->string('upload')->nullable();
+            $table->integer('keterangan')->nullable();
             $table->timestamps();
         });
     }

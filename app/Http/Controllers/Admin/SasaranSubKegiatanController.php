@@ -2,13 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\SasaranKegiatan;
 use App\Models\SasaranSubKegiatan;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use App\Models\SasaranSubKegiatanIndikator;
 use App\Http\Requests\StoreSasaranSubKegiatanRequest;
 use App\Http\Requests\UpdateSasaranSubKegiatanRequest;
 
 class SasaranSubKegiatanController extends Controller
 {
+    public function __construct()
+    {
+        View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
+            return $user->name;
+        }));
+        View::share('sasaran_kegiatan_options', SasaranKegiatan::all()->keyBy('id')->transform(function ($sasaran) {
+            return $sasaran->sasaran_kegiatan;
+        }));
+        View::share('sasaran_sub_kegiatan', SasaranSubKegiatan::all());
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,9 +44,15 @@ class SasaranSubKegiatanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSasaranSubKegiatanRequest $request)
+    public function store(Request $request)
     {
-        //
+        dd($request->all());
+        $data =  SasaranSubKegiatan::create(array_merge($request->except('indikator_sasaran'), ['user_id' => Auth::user()->id]));
+        foreach ($request->indikator_sasaran as $value) {
+            $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_sub_kegiatan_id' => $data->id]);
+            SasaranSubKegiatanIndikator::create($params);
+        }
+        return redirect()->back();
     }
 
     /**
@@ -63,5 +85,11 @@ class SasaranSubKegiatanController extends Controller
     public function destroy(SasaranSubKegiatan $sasaranSubKegiatan)
     {
         //
+    }
+    
+    public function indicator(Request $request)
+    {
+        $iter = $request->iter;
+        return view('admin.perda.perencanaan_kinerja.sasaran_sub_kegiatan._partials.indicator', compact('iter'));
     }
 }

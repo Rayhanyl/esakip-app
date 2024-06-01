@@ -87,6 +87,8 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
         Route::prefix('/sasaran-sub-kegiatan')->name('sasaran-sub-kegiatan.')->group(function () {
             Route::get('/', [SasaranSubKegiatanController::class, 'index'])
                 ->name('index');
+            Route::get('/indicator', [SasaranSubKegiatanController::class, 'indicator'])
+                ->name('indicator');
             Route::post('/store', [SasaranSubKegiatanController::class, 'store'])
                 ->name('store');
         });
