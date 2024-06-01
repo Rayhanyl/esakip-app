@@ -86,33 +86,28 @@
                                     <i class="bi bi-stack"></i>
                                     <span>Perencanaan Kinerja</span>
                                 </a>
-                                <ul class="submenu">
-                                    <li
-                                        class="submenu-item {{ Route::is('perda.perencanaan.kinerja.strategis.page') ? 'active' : '' }}">
-                                        <a href="{{ route('perda.perencanaan.kinerja.strategis.page') }}">Sasaran
-                                            Strategis</a>
-                                    </li>
-                                    <li
-                                        class="submenu-item {{ Route::is('perda.perencanaan.kinerja.program.page') ? 'active' : '' }}">
-                                        <a href="{{ route('perda.perencanaan.kinerja.program.page') }}">Sasaran
-                                            Program</a>
-                                    </li>
-                                    <li
-                                        class="submenu-item {{ Route::is('perda.perencanaan.kinerja.kegiatan.page') ? 'active' : '' }}">
-                                        <a href="{{ route('perda.perencanaan.kinerja.kegiatan.page') }}">Sasaran
-                                            Kegiatan</a>
-                                    </li>
-                                    <li
-                                        class="submenu-item {{ Route::is('perda.perencanaan.kinerja.subkegiatan.page') ? 'active' : '' }}">
-                                        <a href="{{ route('perda.perencanaan.kinerja.subkegiatan.page') }}">Sasaran
-                                            Sub-Kegiatan</a>
-                                    </li>
+                                <ul
+                                    class="submenu {{ Route::is('perda.perencanaan-kinerja.sasaran-strategis.index') || Route::is('perda.perencanaan-kinerja.sasaran-program.index') || Route::is('perda.perencanaan-kinerja.sasaran-kegiatan.index') || Route::is('perda.perencanaan-kinerja.sasaran-sub-kegiatan.index') ? 'active' : '' }}">
+                                    <x-admin.list-sidebar-item
+                                        route="perda.perencanaan-kinerja.sasaran-strategis.index">
+                                        Sasaran Strategis
+                                    </x-admin.list-sidebar-item>
+                                    <x-admin.list-sidebar-item route="perda.perencanaan-kinerja.sasaran-program.index">
+                                        Sasaran Program
+                                    </x-admin.list-sidebar-item>
+                                    <x-admin.list-sidebar-item route="perda.perencanaan-kinerja.sasaran-kegiatan.index">
+                                        Sasaran Kegiatan
+                                    </x-admin.list-sidebar-item>
+                                    <x-admin.list-sidebar-item
+                                        route="perda.perencanaan-kinerja.sasaran-sub-kegiatan.index">
+                                        Sasaran Sub-Kegiatan
+                                    </x-admin.list-sidebar-item>
                                 </ul>
                             </li>
-                            <x-admin.list-sidebar route="perda.pelaporan.kinerja.page" icon="house">
+                            <x-admin.list-sidebar route="perda.pelaporan-kinerja.index" icon="house">
                                 Pelaporan Kinerja
                             </x-admin.list-sidebar>
-                            <x-admin.list-sidebar route="perda.evaluasi.internal.page" icon="house">
+                            <x-admin.list-sidebar route="perda.evaluasi-internal.index" icon="house">
                                 Evaluasi internal
                             </x-admin.list-sidebar>
                         @elseif (session('role') == 'pemkab')
