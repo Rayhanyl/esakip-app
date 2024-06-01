@@ -25,7 +25,7 @@
                 </div>
             </div>
             <section class="section">
-                <form class="row g-3" action="{{ route('perda.perencanaan.kinerja.strategis.store') }}"
+                <form class="row g-3" action="{{ route('perda.perencanaan-kinerja.sasaran-strategis.store') }}"
                     enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="card">

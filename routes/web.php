@@ -111,6 +111,8 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
     Route::prefix('/perencanaan-kinerja')->name('perencanaan-kinerja.')->group(function () {
         Route::get('/', [SasaranBupatiController::class, 'index'])
             ->name('index');
+        Route::get('/indicator', [SasaranBupatiController::class, 'indicator'])
+            ->name('indicator');
         Route::post('/store', [SasaranBupatiController::class, 'store'])
             ->name('store');
     });

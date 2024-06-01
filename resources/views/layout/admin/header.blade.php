@@ -14,6 +14,8 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/x-icon" />
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/png" />
     <link rel="stylesheet" href="{{ asset('assets/images/logo/pemkab2.png') }}" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 </head>
 
 <body>
@@ -80,10 +82,10 @@
                                 </a>
                             </li>
                         @endif
-                        {{-- @if (session('role') == 'perda' || session('role') == 'superadmin')
-                        <li class="sidebar-title">Menu</li> --}}
-                        {{-- Perda --}}
-                        {{-- <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
+                        @if (session('role') == 'perda' || session('role') == 'superadmin')
+                            {{-- Perda --}}
+                            {{-- <li class="sidebar-title">Menu</li> --}}
+                            {{-- <li class="sidebar-item {{ Route::is('perda.index.page') ? 'active' : '' }}">
                                 <a href="{{ route('perda.index.page') }}" class="sidebar-link">
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Dashboard</span>
@@ -134,40 +136,25 @@
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Evaluasi internal</span>
                                 </a>
-                            </li>
-                        @elseif (session('role') == 'pemkab' || session('role') == 'superadmin') --}}
-                        {{-- Pemkab --}}
-                        {{-- <li class="sidebar-title">Pemkab</li>
-                            <li class="sidebar-item {{ Route::is('pemkab.index.page') ? 'active' : '' }}">
-                                <a href="{{ route('pemkab.index.page') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Dashboard</span>
-                                </a>
-                            </li>
-                            <li
-                                class="sidebar-item {{ Route::is('pemkab.perencanaan.kinerja.index') ? 'active' : '' }}">
-                                <a href="{{ route('pemkab.perencanaan.kinerja.index') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Perencanaan Kinerja</span>
-                                </a>
-                            </li>
-                            <li
-                                class="sidebar-item {{ Route::is('pemkab.pengukuran.kinerja.index') ? 'active' : '' }}">
-                                <a href="{{ route('pemkab.pengukuran.kinerja.index') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Pengukuran Kinerja</span>
-                                </a>
-                            </li>
-                            <li
-                                class="sidebar-item {{ Route::is('pemkab.pelaporan.kinerja.index') ? 'active' : '' }}">
-                                <a href="{{ route('pemkab.pelaporan.kinerja.index') }}" class="sidebar-link">
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Pelaporan Kinerja</span>
-                                </a>
-                            </li>
-                        @elseif (session('role') == 'inspektorat' || session('role') == 'superadmin') --}}
-                        {{-- Inspektorat --}}
-                        {{-- <li class="sidebar-title">Inspektorat</li>
+                            </li> --}}
+                        @elseif (session('role') == 'pemkab' || session('role') == 'superadmin')
+                            {{-- Pemkab --}}
+                            <li class="sidebar-title">Pemkab</li>
+                            <x-admin.list-sidebar route="pemkab.index" icon="house">
+                                Dashboard
+                            </x-admin.list-sidebar>
+                            <x-admin.list-sidebar route="pemkab.perencanaan-kinerja.index" icon="person-lines-fill">
+                                Perencanaan Kinerja
+                            </x-admin.list-sidebar>
+                            <x-admin.list-sidebar route="pemkab.pengukuran-kinerja.index" icon="card-checklist">
+                                Pengukuran Kinerja
+                            </x-admin.list-sidebar>
+                            <x-admin.list-sidebar route="pemkab.pelaporan-kinerja.index" icon="archive">
+                                Pelaporan Kinerja
+                            </x-admin.list-sidebar>
+                        @elseif (session('role') == 'inspektorat' || session('role') == 'superadmin')
+                            {{-- Inspektorat --}}
+                            {{-- <li class="sidebar-title">Inspektorat</li>
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">
                                     <i class="bi bi-grid-fill"></i>
@@ -187,8 +174,8 @@
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Evaluasi Internal</span>
                                 </a>
-                            </li>
-                        @endif --}}
+                            </li> --}}
+                        @endif
                     </ul>
                 </div>
             </div>
