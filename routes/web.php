@@ -151,9 +151,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->name('edit');
         Route::post('/store', [UsermanagementController::class, 'store'])
             ->name('store');
-        Route::post('/update', [UsermanagementController::class, 'update'])
+        Route::put('/update', [UsermanagementController::class, 'update'])
             ->name('update');
-        Route::post('/delete', [UsermanagementController::class, 'delete'])
+        Route::delete('/delete', [UsermanagementController::class, 'delete'])
             ->name('delete');
     });
 });

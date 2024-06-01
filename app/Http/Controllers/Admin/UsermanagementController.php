@@ -35,7 +35,8 @@ class UsermanagementController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('admin.user-management.index')
+            Alert::toast('Gagal membuat user', 'danger');
+            return redirect()->route('admin.user-management.create')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -58,7 +59,8 @@ class UsermanagementController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('admin.edit.user.page', $user)
+            Alert::toast('Gagal mengubah data user', 'danger');
+            return redirect()->route('admin.user-management.edit', $user)
                 ->withErrors($validator)
                 ->withInput();
         }
