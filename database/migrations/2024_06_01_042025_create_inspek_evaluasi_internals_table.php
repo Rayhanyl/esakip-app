@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('inspek_evaluasi_internals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->integer('tahun')->nullable();
             $table->timestamps();
         });
     }

@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('evaluasi_internals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->integer('tahun')->nullable();
+            $table->enum('status', ['1', '2'])->nullable();
             $table->timestamps();
         });
     }

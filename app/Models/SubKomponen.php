@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class SubKomponen extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+
+
+    public function kriterias()
+    {
+        $this->hasMany(Kriteria::class);
+    }
+
 }

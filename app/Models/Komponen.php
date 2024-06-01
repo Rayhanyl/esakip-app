@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Komponen extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+
+    public function sub_komponens()
+    {
+        $this->hasMany(SubKomponen::class);
+    }
+
 }

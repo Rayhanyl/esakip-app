@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('komponens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('perda_evaluasi_internal_id');
+            $table->string('no')->nullable();
+            $table->string('komponen')->nullable();
+            $table->double('bobot')->nullable();
+            $table->double('nilai')->nullable();
             $table->timestamps();
         });
     }

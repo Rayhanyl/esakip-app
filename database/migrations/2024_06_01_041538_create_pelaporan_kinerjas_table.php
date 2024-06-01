@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('pelaporan_kinerjas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->integer('tahun')->nullable();
+            $table->string('upload')->nullable();
             $table->timestamps();
         });
     }

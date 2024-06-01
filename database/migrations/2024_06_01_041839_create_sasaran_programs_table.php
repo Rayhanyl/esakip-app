@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('sasaran_programs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('pengampu_id');
+            $table->foreignId('sasaran_strategis_id');
+            $table->integer('tahun')->nullable();
+            $table->string('sasaran_program')->nullable();
             $table->timestamps();
         });
     }

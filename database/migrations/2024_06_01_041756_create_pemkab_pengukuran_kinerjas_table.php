@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('pemkab_pengukuran_kinerjas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('sasaran_bupati_id');
+            $table->foreignId('sasaran_bupati_indikator_id');
+            $table->double('target')->nullable();
+            $table->double('realisasi')->nullable();
+            $table->enum('karakteristik', ['1', '2'])->nullable();
+            $table->double('capaian')->nullable();
             $table->timestamps();
         });
     }
