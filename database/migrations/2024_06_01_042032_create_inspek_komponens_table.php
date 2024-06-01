@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('inspek_komponens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('inspek_evaluasi_internal_id');
+            $table->string('no')->nullable();
+            $table->string('komponen')->nullable();
+            $table->double('bobot')->nullable();
+            $table->double('nilai')->nullable();
+            $table->string('jawaban')->nullable();
+            $table->string('catatan')->nullable();
+            $table->string('rekomendasi')->nullable();
+            $table->enum('status', ['1', '2'])->nullable();
             $table->timestamps();
         });
     }

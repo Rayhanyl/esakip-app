@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\InspekSubKriteria;
+use App\Models\InspekKriteria;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class InspekSubKriteriaPolicy
+class InspekKriteriaPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class InspekSubKriteriaPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, InspekSubKriteria $inspekSubKriteria): bool
+    public function view(User $user, InspekKriteria $inspekKriteria): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class InspekSubKriteriaPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, InspekSubKriteria $inspekSubKriteria): bool
+    public function update(User $user, InspekKriteria $inspekKriteria): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class InspekSubKriteriaPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, InspekSubKriteria $inspekSubKriteria): bool
+    public function delete(User $user, InspekKriteria $inspekKriteria): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class InspekSubKriteriaPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, InspekSubKriteria $inspekSubKriteria): bool
+    public function restore(User $user, InspekKriteria $inspekKriteria): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class InspekSubKriteriaPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, InspekSubKriteria $inspekSubKriteria): bool
+    public function forceDelete(User $user, InspekKriteria $inspekKriteria): bool
     {
         //
     }

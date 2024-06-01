@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inspek_sub_komponens', function (Blueprint $table) {
+        Schema::create('inspek_kriterias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('inspek_komponen_id');
+            $table->foreignId('inspek_sub_komponen_id');
             $table->string('no')->nullable();
-            $table->string('sub_komponen')->nullable();
-            $table->double('bobot')->nullable();
-            $table->double('nilai')->nullable();
-            $table->string('jawaban')->nullable();
+            $table->string('kriteria')->nullable();
+            $table->enum('status', ['1', '2'])->nullable();
+            $table->string('upload')->nullable();
             $table->string('catatan')->nullable();
             $table->string('rekomendasi')->nullable();
-            $table->enum('status', ['1', '2'])->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inspek_sub_komponens');
+        Schema::dropIfExists('inspek_kriterias');
     }
 };

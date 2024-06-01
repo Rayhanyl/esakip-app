@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class SasaranBupatiIndikator extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+
 }

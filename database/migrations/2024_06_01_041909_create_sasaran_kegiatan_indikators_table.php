@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('sasaran_kegiatan_indikators', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('sasaran_kegiatan_id');
+            $table->foreignId('indikator_kegiatan');
+            $table->double('target')->nullable();
+            $table->string('satuan')->nullable();
+            $table->string('kegiatan')->nullable();
+            $table->double('anggaran')->nullable();
             $table->timestamps();
         });
     }

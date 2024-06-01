@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('sasaran_bupatis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('pengampu_id');
+            $table->integer('tahun')->nullable();
+            $table->string('sasaran_bupati')->nullable();
             $table->timestamps();
         });
     }

@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('sasaran_strategis_indikators', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('sasaran_strategis_id');
+            $table->double('target1')->nullable();
+            $table->double('target2')->nullable();
+            $table->double('target3')->nullable();
+            $table->string('satuan')->nullable();
+            $table->string('penjelasan')->nullable();
+            $table->enum('tipe_perhitungan', ['1', '2'])->nullable();
+            $table->string('sumber_data')->nullable();
+            $table->string('peanggung_jawab')->nullable();
             $table->timestamps();
         });
     }

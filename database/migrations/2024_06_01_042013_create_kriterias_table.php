@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('kriterias', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('sub_komponen_id');
+            $table->string('no')->nullable();
+            $table->string('kriteria')->nullable();
+            $table->enum('status', ['1', '2'])->nullable();
+            $table->string('upload')->nullable();
             $table->timestamps();
         });
     }
