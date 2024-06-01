@@ -12,7 +12,7 @@ class PerdaPelaporanKinerjaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.perda.pelaporan_kinerja.index');
     }
 
     /**

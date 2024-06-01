@@ -14,7 +14,7 @@ class SasaranKegiatanController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.perda.perencanaan_kinerja.sasaran_kegiatan.index');
     }
 
     /**

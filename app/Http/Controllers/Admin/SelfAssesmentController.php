@@ -12,7 +12,7 @@ class SelfAssesmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.inspek.self_assesment.index');
     }
 
     /**

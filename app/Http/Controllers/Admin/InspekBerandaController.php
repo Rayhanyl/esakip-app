@@ -10,6 +10,6 @@ class InspekBerandaController extends Controller
      */
     public function __invoke()
     {
-        //
+        return view('admin.inspek.beranda.index');
     }
 }
