@@ -73,7 +73,9 @@ class PemkabPelaporanKinerjaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Fetch the PelaporanKinerja record by id
+        $data = PelaporanKinerja::where('id', $id)->first();
+        return view('admin.pemkab.pelaporan_kinerja.edit',compact('data'));
     }
 
     /**
@@ -81,7 +83,37 @@ class PemkabPelaporanKinerjaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'tahun' => 'required|integer',
+            'file' => 'nullable|file|mimes:pdf,doc,docx',
+        ]);
+
+        try {
+            // Fetch the existing record
+            $pelaporanKinerja = PelaporanKinerja::findOrFail($id);
+
+            // Update the record fields
+            $pelaporanKinerja->tahun = $request->tahun;
+
+            // Check if a new file is uploaded
+            if ($request->hasFile('file')) {
+                // Store the new file in the 'public/pelaporan-kinerja' directory
+                $path = $request->file('file')->store('public/pelaporan-kinerja');
+
+                // Update the 'upload' field with the new file name
+                $pelaporanKinerja->upload = $request->file('file')->hashName();
+            }
+
+            // Save the updated record
+            $pelaporanKinerja->save();
+
+            Alert::toast('Berhasil memperbarui laporan kinerja', 'success');
+            return redirect()->route('pemkab.pelaporan-kinerja.index')->with('success', 'Pelaporan Kinerja updated successfully.');
+        } catch (\Exception $e) {
+            // Handle the error if the update fails
+            Alert::toast('Error hubungi developer terkait!', 'danger');
+            return redirect()->back()->withErrors(['file' => 'Failed to update the record. Please try again.']);
+        }
     }
 
     /**
@@ -89,7 +121,25 @@ class PemkabPelaporanKinerjaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            // Fetch the existing record
+            $pelaporanKinerja = PelaporanKinerja::findOrFail($id);
+
+            // Optionally, delete the file from the storage if needed
+            if ($pelaporanKinerja->upload) {
+                Storage::delete('public/pelaporan-kinerja/' . $pelaporanKinerja->upload);
+            }
+
+            // Delete the record from the database
+            $pelaporanKinerja->delete();
+
+            Alert::toast('Berhasil menghapus laporan kinerja', 'success');
+            return redirect()->route('pemkab.pelaporan-kinerja.index')->with('success', 'Pelaporan Kinerja deleted successfully.');
+        } catch (\Exception $e) {
+            // Handle the error if the deletion fails
+            Alert::toast('Error hubungi developer terkait!', 'danger');
+            return redirect()->back()->withErrors(['file' => 'Failed to delete the record. Please try again.']);
+        }
     }
 
     /**

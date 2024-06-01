@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SasaranBupatiIndikator;
 
 class PemkabPengukuranKinerja extends Model
 {
@@ -12,16 +13,16 @@ class PemkabPengukuranKinerja extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function bupati()
+    public function sasaran_bupati()
     {
-        $this->belongsTo(SasaranBupati::class);
+        return $this->belongsTo(SasaranBupati::class);
     }
 
-    public function bupati_indikator()
+    public function sasaran_bupati_indikator()
     {
-        $this->belongsTo(SasaranBupatiIndikator::class);
+        return $this->belongsTo(SasaranBupatiIndikator::class);
     }
 }

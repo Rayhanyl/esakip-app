@@ -115,14 +115,22 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
     Route::prefix('/perencanaan-kinerja')->name('perencanaan-kinerja.')->group(function () {
         Route::get('/', [SasaranBupatiController::class, 'index'])
             ->name('index');
+        Route::get('/edit', [SasaranBupatiController::class, 'edit'])
+            ->name('edit');
         Route::get('/indicator', [SasaranBupatiController::class, 'indicator'])
             ->name('indicator');
         Route::post('/store', [SasaranBupatiController::class, 'store'])
             ->name('store');
+        Route::post('/update', [SasaranBupatiController::class, 'update'])
+            ->name('update');
+        Route::delete('/destroy/{sasaranBupati}', [SasaranBupatiController::class, 'destroy'])
+            ->name('destroy');
     });
     Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
         Route::get('/', [PemkabPengukuranKinerjaController::class, 'index'])
             ->name('index');
+        Route::get('/edit/{id}', [PemkabPengukuranKinerjaController::class, 'edit'])
+            ->name('edit');
         Route::get('/indicator', [PemkabPengukuranKinerjaController::class, 'indicator'])
             ->name('indicator');
         Route::get('/get-indicator', [PemkabPengukuranKinerjaController::class, 'get_indicator'])
@@ -131,12 +139,22 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
             ->name('get-target');
         Route::post('/store', [PemkabPengukuranKinerjaController::class, 'store'])
             ->name('store');
+        Route::post('/update/{id}', [PemkabPengukuranKinerjaController::class, 'update'])
+            ->name('update');
+        Route::delete('/destroy/{id}', [PemkabPengukuranKinerjaController::class, 'destroy'])
+            ->name('destroy');
     });
     Route::prefix('/pelaporan-kinerja')->name('pelaporan-kinerja.')->group(function () {
         Route::get('/', [PemkabPelaporanKinerjaController::class, 'index'])
             ->name('index');
+        Route::get('/edit/{id}', [PemkabPelaporanKinerjaController::class, 'edit'])
+            ->name('edit');
         Route::post('/store', [PemkabPelaporanKinerjaController::class, 'store'])
             ->name('store');
+        Route::post('/update/{id}', [PemkabPelaporanKinerjaController::class, 'update'])
+            ->name('update');
+        Route::delete('/destroy/{id}', [PemkabPelaporanKinerjaController::class, 'destroy'])
+            ->name('destroy');
         Route::get('/download/{filename}', [PemkabPelaporanKinerjaController::class, 'download'])
             ->name('download');
     });

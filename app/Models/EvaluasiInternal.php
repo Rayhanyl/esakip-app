@@ -12,12 +12,12 @@ class EvaluasiInternal extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function komponens()
     {
-        $this->hasMany(Komponen::class);
+        return $this->hasMany(Komponen::class);
     }
 
 

@@ -12,16 +12,16 @@ class SasaranBupati extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function pengampu()
     {
-        $this->belongsTo(User::class, 'id', 'pengampu_id');
+        return $this->belongsTo(User::class, 'id', 'pengampu_id');
     }
 
     public function indicators()
     {
-        $this->belongsTo(SasaranBupatiIndikator::class);
+        return $this->belongsTo(SasaranBupatiIndikator::class);
     }
 }

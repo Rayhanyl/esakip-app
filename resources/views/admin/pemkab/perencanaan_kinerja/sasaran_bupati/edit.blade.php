@@ -1,35 +1,39 @@
+
 @extends('layout.admin.app')
 @section('content')
     <div id="main-content">
         <div class="page-heading">
             <div class="page-title">
-                <div class="row">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <a href="{{ route('pemkab.perencanaan-kinerja.index') }}" class="text-subtitle text-muted">
+                            <i class="bi bi-arrow-left-circle"></i> Back to Sasaran Bupati
+                        </a>
+                    </div>
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Sasaran Bupati</h3>
-                        {{-- <p class="text-subtitle text-muted">
-                            Navbar will appear on the top of the page.
-                        </p> --}}
+                        <h3>Edit Sasaran Bupati</h3>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                {{-- <li class="breadcrumb-item">
-                                    <a href="index.html">Pengukuran Kinerja</a>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('pemkab.perencanaan-kinerja.index') }}">Sasaran Bupati</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Layout Vertical Navbar
-                                </li> --}}
+                                    Edit Sasaran Bupati
+                                </li>
                             </ol>
                         </nav>
                     </div>
                 </div>
             </div>
-            <section class="section">
-                <form action="{{ route('pemkab.perencanaan-kinerja.store') }}" enctype="multipart/form-data" method="POST">
+
+            {{-- <section class="section">
+                <form action="{{ route('pemkab.perencanaan-kinerja.update') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Form Sasaran Bupati</h4>
+                            <h4 class="card-title">Edit Sasaran Bupati</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -141,9 +145,9 @@
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center">
                                                     <div class="p-2">
-                                                       <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Edit Sasaran Bupati" class="btn btn-warning btn-sm"
-                                                            href="{{ route('pemkab.perencanaan-kinerja.edit', $item->id) }}">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Edit Perencanaan Kinerja" class="text-warning"
+                                                            href="#">
                                                             <i class="bi bi-pencil-square"></i>
                                                         </a>
                                                     </div>
@@ -153,6 +157,7 @@
                                                             data-bs-placement="top" title="Delete Sasaran Bupati">
                                                             <i class="bi bi-trash3"></i>
                                                         </button>
+
                                                         <form id="delete-form-{{ $item->id }}"
                                                             action="{{ route('pemkab.perencanaan-kinerja.destroy', $item->id) }}"
                                                             method="POST" style="display: none;">
@@ -169,7 +174,8 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
+
         </div>
     </div>
 
@@ -178,44 +184,12 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
-
-                $('#data-table-pemkab-sasaran-bupati').DataTable({
-                    responsive: true,
-                    lengthMenu: [
-                        [10, 25, 50, -1],
-                        [10, 25, 50, 'All'],
-                    ],
-                    order: [
-                        [0, 'asc']
-                    ],
-                });
-
-                $('.delete-sasaran-bupati').click(function() {
-                    var id = $(this).data('id');
-                    var form = $('#delete-form-' + id);
-
-                    // SweetAlert confirmation dialog
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
-                    });
-                });
-
                 let iter = 1;
                 $('.btn-add-indicator').on('click', function() {
                     iter++;
                     add_indicator(iter);
                 })
-
+                
                 $(document).on('click', '.btn-remove-indicator', function() {
                     remove_indicator($(this));
                 });
