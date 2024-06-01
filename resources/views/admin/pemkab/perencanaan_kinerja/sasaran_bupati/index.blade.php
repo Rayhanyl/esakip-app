@@ -34,7 +34,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 col-lg-4">
-                                    <label for="tahun" class="form-label">Tahun</label>
+                                    <label for="tahun" class="form-label fw-bold">Tahun</label>
                                     <select class="form-select select2" id="tahun" name="tahun">
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
@@ -46,7 +46,7 @@
                                 </div>
                                 <x-admin.form.text col="col-12 col-lg-4" label="Sasaran Bupati" name="sasaran_bupati" />
                                 <div class="col-12 col-lg-4">
-                                    <label for="pengampu" class="form-label">Pengampu</label>
+                                    <label for="pengampu" class="form-label fw-bold">Pengampu</label>
                                     <select class="form-select select2" name="pengampu_id" id="pengampu_id">
                                         <option value="" selected disabled>--Pilih Pengampu--</option>
                                         @foreach ($user_options ?? [] as $id => $user)
@@ -62,7 +62,7 @@
                         <div class="col-indikator-sasaran-bupati mt-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
+                                    <div class="row g-3">
                                         <div class="col-12 d-flex justify-content-between my-3">
                                             <h6>Indikator Sasaran Bupati</h6>
                                             <button class="btn btn-primary btn-add-indicator" type="button">Tambah</button>
@@ -72,8 +72,8 @@
                                             name="indikator_sasaran_bupati[1][indikator_sasaran_bupati]" />
                                         <div class="col-12">
                                             <div class="row">
-                                                <div class="col-12 my-2">
-                                                    <label class="text-primary fw-bold">Target</label>
+                                                <div class="col-12">
+                                                    <label class="fw-bold">Target</label>
                                                 </div>
                                                 <x-admin.form.text col="col-4" label="2024"
                                                     name="indikator_sasaran_bupati[1][target1]" type="number" />
@@ -87,9 +87,9 @@
                                             name="indikator_sasaran_bupati[1][satuan]" />
                                         <x-admin.form.text col="col-12 col-lg-6" label="Penjelasan"
                                             name="indikator_sasaran_bupati[1][penjelasan]" />
-                                        <div class="col-12 col-lg-6 my-2">
+                                        <div class="col-12 col-lg-6">
                                             <label for="indikator_sasaran_bupati[1][tipe_perhitungan]"
-                                                class="text-primary fw-bold">
+                                                class="form-label fw-bold">
                                                 Tipe Perhitungan
                                             </label>
                                             <select class="form-select"
@@ -128,17 +128,34 @@
                             <table class="table" id="data-table-pemkab-sasaran-strategis">
                                 <thead class="table-info">
                                     <tr>
-                                        <th>Sasaran Bupati</th>
-                                        <th>Tahun</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Sasaran Bupati</th>
+                                        <th class="text-center">Tahun</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($sasaran_bupati ?? [] as $item)
                                         <tr>
-                                            <td>{{ $item->sasaran_bupati }}</td>
-                                            <td>{{ $item->tahun }}</td>
-                                            <td></td>
+                                            <td class="text-center">{{ $item->sasaran_bupati }}</td>
+                                            <td class="text-center">{{ $item->tahun }}</td>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="p-2">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Edit Perencanaan Kinerja" class="text-warning"
+                                                            href="#">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Delete Perencanaan Kinerja" class="text-danger"
+                                                            href="#">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

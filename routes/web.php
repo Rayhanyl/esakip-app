@@ -131,8 +131,14 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
     Route::prefix('/pelaporan-kinerja')->name('pelaporan-kinerja.')->group(function () {
         Route::get('/', [PemkabPelaporanKinerjaController::class, 'index'])
             ->name('index');
+        Route::get('/edit/{id}', [PemkabPelaporanKinerjaController::class, 'edit'])
+            ->name('edit');
         Route::post('/store', [PemkabPelaporanKinerjaController::class, 'store'])
             ->name('store');
+        Route::post('/update/{id}', [PemkabPelaporanKinerjaController::class, 'update'])
+            ->name('update');
+        Route::delete('/destroy/{id}', [PemkabPelaporanKinerjaController::class, 'destroy'])
+            ->name('destroy');
         Route::get('/download/{filename}', [PemkabPelaporanKinerjaController::class, 'download'])
             ->name('download');
     });

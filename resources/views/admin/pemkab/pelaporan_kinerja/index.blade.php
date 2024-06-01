@@ -69,7 +69,7 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">Tahun</th>
                                         <th class="text-center">File</th>
-                                        <th class="text-center">Created at</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,12 +79,35 @@
                                             <td class="text-center">{{ $pelaporan->tahun }}</td>
                                             <td class="text-center">
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Download File Pelaporan Kinerja"
+                                                    title="Download File Pelaporan Kinerja" class="text-primary"
                                                     href="{{ route('pemkab.pelaporan-kinerja.download', $pelaporan->upload) }}">
                                                     <i class="bi bi-file-earmark-arrow-down-fill"></i>
                                                 </a>
                                             </td>
-                                            <td class="text-center">{{ $pelaporan->created_at->format('Y-m-d') }}</td>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="p-2">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Edit Pelaporan Kinerja" class="btn btn-warning btn-sm"
+                                                            href="{{ route('pemkab.pelaporan-kinerja.edit', $pelaporan->id) }}">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <button class="btn btn-danger btn-sm delete-laporan-kinerja"
+                                                            data-id="{{ $pelaporan->id }}" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Delete Pelaporan Kinerja">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
+                                                        <form id="delete-form-{{ $pelaporan->id }}"
+                                                            action="{{ route('pemkab.pelaporan-kinerja.destroy', $pelaporan->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -108,8 +131,26 @@
                         [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
+                });
+
+                // SweetAlert delete confirmation
+                $('.delete-laporan-kinerja').on('click', function() {
+                    var userId = $(this).data('id');
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#delete-form-' + userId).submit();
+                        }
+                    });
                 });
             });
         </script>

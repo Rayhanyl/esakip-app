@@ -25,7 +25,8 @@ class PemkabPengukuranKinerjaController extends Controller
      */
     public function index()
     {
-        return view('admin.pemkab.pengukuran_kinerja.index');
+        $data = PemkabPengukuranKinerja::with('sasaran_bupati', 'sasaran_bupati_indikator')->get();
+        return view('admin.pemkab.pengukuran_kinerja.index', compact('data'));
     }
 
     /**
@@ -58,7 +59,7 @@ class PemkabPengukuranKinerjaController extends Controller
      */
     public function edit(PemkabPengukuranKinerja $pemkabPengukuranKinerja)
     {
-        //
+        
     }
 
     /**

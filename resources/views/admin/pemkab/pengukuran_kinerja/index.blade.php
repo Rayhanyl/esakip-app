@@ -90,28 +90,69 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="data-table-pelaporan-kinerja-pemkab">
+                            <table class="table table-striped table-hover" id="data-table-pengukuran-kinerja">
                                 <thead class="table-info">
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Tahun</th>
-                                        <th class="text-center">File</th>
-                                        <th class="text-center">Created at</th>
+                                        <th class="text-center">Sasaran Bupati</th>
+                                        <th class="text-center">Indikator Sasaran</th>
+                                        <th class="text-center">Target Sasaran</th>
+                                        <th class="text-center">Realisasi</th>
+                                        <th class="text-center">Karakteristik</th>
+                                        <th class="text-center">Capaian</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $index => $pelaporan)
+                                    @foreach ($data as $item)
                                         <tr>
-                                            <td class="text-center">{{ $index + 1 }}</td>
-                                            <td class="text-center">{{ $pelaporan->tahun }}</td>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center">
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Download File Pelaporan Kinerja"
-                                                    href="{{ route('pemkab.pelaporan-kinerja.download', $pelaporan->upload) }}">
-                                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                                </a>
+                                                <p data-bs-toggle="tooltip" data-bs-placement="top" title=''>
+                                                    {{-- {{ Str::limit($item->sasaran_bupati->sasaran_bupati, 10, '...') }} --}}
+                                                    {{ $item->sasaran_bupati->sasaran_bupati }}
+                                                </p>
                                             </td>
-                                            <td class="text-center">{{ $pelaporan->created_at->format('Y-m-d') }}</td>
+                                            <td class="text-center">
+                                                <p data-bs-toggle="tooltip" data-bs-placement="top" title=''>
+                                                    {{-- {{ Str::limit($item->sasaran_bupati_indikator->indikator_sasaran_bupati, 10, '...') }} --}}
+                                                    {{ $item->sasaran_bupati_indikator->indikator_sasaran_bupati }}
+                                                </p>
+                                            </td>
+                                            <td class="text-center">{{ $item->target }}</td>
+                                            <td class="text-center">{{ $item->realisasi }}</td>
+                                            <td class="text-center">
+                                                @if ($item->karakteristik == '1')
+                                                    <p data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Semakin tinggi realisasi maka capaian semakin bagus">
+                                                        {{ Str::limit('Semakin tinggi realisasi maka capaian semakin bagus', 10, '...') }}
+                                                    </p>
+                                                @else
+                                                    <p data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Semakin rendah realisasi maka capaian semakin bagus">
+                                                        {{ Str::limit('Semakin rendah realisasi maka capaian semakin bagus', 10, '...') }}
+                                                    </p>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $item->capaian }} %</td>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="p-2">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Edit Pengukuran Kinerja" class="text-warning"
+                                                            href="#">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Delete Pengukuran Kinerja" class="text-danger"
+                                                            href="#">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -132,10 +173,11 @@
                         [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
             });
+            
             $('#indikator_sasaran, #target_sasaran, #karakteristik').on('change', function() {
                 const capaian = getCapaian($('#karakteristik').val(), $('#realisasi').val(), $('#target_sasaran')
                     .val());

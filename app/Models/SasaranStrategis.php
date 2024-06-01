@@ -12,11 +12,11 @@ class SasaranStrategis extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function indikators()
     {
-        $this->hasMany(SasaranStrategisIndikator::class);
+        return $this->hasMany(SasaranStrategisIndikator::class);
     }
 }
