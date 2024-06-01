@@ -227,6 +227,8 @@ Route::prefix('/')->name('aspu.')->group(function () {
         ->name('indikator.kinerja.utama');
     Route::get('/pelaporan/kinerja', [AspuPelaporanKinerjaController::class, 'index'])
         ->name('pelaporan.kinerja');
+    Route::post('/pelaporan/kinerja/count', [AspuPelaporanKinerjaController::class, 'count'])
+        ->name('pelaporan.kinerja.count');
     Route::get('/evaluasi/internal', [AspuEvaluasiInternalController::class, 'index'])
         ->name('evaluasi.internal');
 });

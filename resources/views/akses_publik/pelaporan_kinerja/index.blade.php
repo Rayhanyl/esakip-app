@@ -73,12 +73,19 @@
                                                 <td class="text-center">{{ $pelaporan->tahun }}</td>
                                                 <td class="text-center">
                                                     <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Download File Pelaporan Kinerja" class="text-primary"
+                                                        title="Download File Pelaporan Kinerja"
+                                                        class="text-primary btn-count-file" data-id="{{ $pelaporan->id }}"
                                                         href="{{ route('perda.pelaporan-kinerja.download', $pelaporan->upload) }}">
                                                         <i class="bi bi-file-earmark-arrow-down-fill"></i>
                                                     </a>
                                                 </td>
-                                                <td>(X) kali dilihat</td>
+                                                <td class="text-center">
+                                                    <span class="keterangan-count" id="keterangan-{{ $pelaporan->id }}">
+                                                        <b class="text-primary">
+                                                            ({{ $pelaporan->keterangan ?? '0' }})
+                                                        </b>
+                                                        Kali didownload</span>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -102,6 +109,39 @@
                     order: [
                         [0, 'asc']
                     ],
+                });
+
+                // Penanganan klik untuk tombol unduh
+                $('.btn-count-file').on('click', function(event) {
+                    // Dapatkan URL unduhan
+                    var downloadUrl = $(this).attr('href');
+                    // Buka tautan unduhan dalam tab/baru
+                    window.open(downloadUrl, '_blank');
+                });
+
+                $('.btn-count-file').on('click', function(event) {
+                    event.preventDefault(); // Mencegah tindakan default link
+
+                    var pelaporanId = $(this).data('id');
+
+                    $.ajax({
+                        url: '{{ route('aspu.pelaporan.kinerja.count') }}',
+                        type: 'POST',
+                        data: {
+                            id: pelaporanId,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                $('#keterangan-' + pelaporanId).text(response.keterangan);
+                            } else {
+                                console.log('Gagal menambahkan keterangan.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error: ' + error);
+                        }
+                    });
                 });
             });
         </script>
