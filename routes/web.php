@@ -102,8 +102,16 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
     Route::prefix('/pelaporan-kinerja')->name('pelaporan-kinerja.')->group(function () {
         Route::get('/', [PerdaPelaporanKinerjaController::class, 'index'])
             ->name('index');
+        Route::get('/edit/{id}', [PerdaPelaporanKinerjaController::class, 'edit'])
+            ->name('edit');
         Route::post('/store', [PerdaPelaporanKinerjaController::class, 'store'])
             ->name('store');
+        Route::post('/update', [PerdaPelaporanKinerjaController::class, 'update'])
+            ->name('update');
+        Route::delete('/destroy/{id}', [PerdaPelaporanKinerjaController::class, 'destroy'])
+            ->name('destroy');
+        Route::get('/download/{filename}', [PemkabPelaporanKinerjaController::class, 'download'])
+            ->name('download');
     });
     Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
         Route::get('/', [PerdaEvaluasiInternalController::class, 'index'])

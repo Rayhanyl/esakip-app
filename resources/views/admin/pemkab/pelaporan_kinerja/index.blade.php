@@ -6,19 +6,10 @@
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3>Pelaporan Kinerja</h3>
-                        {{-- <p class="text-subtitle text-muted">
-                            Navbar will appear on the top of the page.
-                        </p> --}}
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                {{-- <li class="breadcrumb-item">
-                                    <a href="index.html">Pengukuran Kinerja</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Layout Vertical Navbar
-                                </li> --}}
                             </ol>
                         </nav>
                     </div>
@@ -48,7 +39,7 @@
                             </div>
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Upload</h6>
-                                <input class="form-control" type="file" id="formFile" name="file">
+                                <input class="form-control" type="file" id="formFile" name="file" accept=".doc, .docx, .pdf, .txt">
                             </div>
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary w-50">Submit</button>

@@ -18,26 +18,34 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Perangkat Daerah</label>
-                    <select class="form-select" id="perda" name="perda">
-                        <option value="" selected>- Pilih Perangkat Daerah -</option>
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Tahun</label>
-                    <select class="form-select" id="year" name="year">
-                        <option value="" selected>- Pilih Tahun -</option>
-                        @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                            <option value="{{ $i }}">
-                                {{ $i }}
-                            </option>
-                        @endfor
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3 py-4">
-                    <button class="btn btn-primary btn-sm w-100 ">Seacrh</button>
-                </div>
+                <form class="row g-3" action="{{ route('aspu.pelaporan.kinerja') }}" method="GET">
+                    @csrf
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
+                        <select class="form-select select2" id="perda" name="perda">
+                            <option value="" selected>-- All --</option>
+                            @foreach ($user as $item)
+                                <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
+                                    {{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
+                        <select class="form-select" id="tahun" name="tahun">
+                            <option value="" selected>-- All --</option>
+                            @for ($i = date('Y') + 10; $i >= date('Y') - 5; $i--)
+                                <option value="{{ $i }}" {{ $i == $tahun ? 'selected' : '' }}>
+                                    {{ $i }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col-12 col-lg-3 py-4">
+                        <button class="btn btn-primary btn-sm w-100"><i class="bi bi-search"></i>
+                            Seacrh</button>
+                    </div>
+                </form>
             </div>
             <div class="row mt-4">
                 <div class="col-12">
@@ -50,21 +58,29 @@
                                 <table class="table table-striped table-hover" id="data-pelaporan-kinerja">
                                     <thead class="table-info">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Perangkat Daerah</th>
-                                            <th>Tahun</th>
-                                            <th>Pelaporan Kinerja</th>
-                                            <th>keterangan</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Perangkat Daerah</th>
+                                            <th class="text-center">Tahun</th>
+                                            <th class="text-center">Pelaporan Kinerja</th>
+                                            <th class="text-center">keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>(X) kali dilihat</td>
-                                        </tr>
+                                        @foreach ($data as $index => $pelaporan)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $pelaporan->user->name }}</td>
+                                                <td class="text-center">{{ $pelaporan->tahun }}</td>
+                                                <td class="text-center">
+                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Download File Pelaporan Kinerja" class="text-primary"
+                                                        href="{{ route('perda.pelaporan-kinerja.download', $pelaporan->upload) }}">
+                                                        <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                    </a>
+                                                </td>
+                                                <td>(X) kali dilihat</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -84,7 +100,7 @@
                         [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
             });
