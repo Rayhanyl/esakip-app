@@ -74,7 +74,7 @@
                                 <tbody>
                                     <form
                                         action="{{ route('perda.evaluasi-internal.update', $perda_evaluasi_internal[0]->id ?? 0) }}"
-                                        method="post" id="form_perda_evaluasi_internal">
+                                        method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
                                         @csrf
                                         @method('put')
                                         @foreach ($perda_evaluasi_internal as $pei)
@@ -108,7 +108,7 @@
                                                                 {{ $kriteria->kriteria }}
                                                             </td>
                                                             <td>
-                                                                <select class="form-select form-control-sm" aria-label="1a"
+                                                                <select class="form-select form-select-sm" aria-label="1a"
                                                                     name="kriteria[{{ $kriteria->id }}][status]">
                                                                     <option value="1"
                                                                         {{ $kriteria->status == '1' ? 'selected' : '' }}>Ya
@@ -119,8 +119,22 @@
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                <input class="form-control form-control-sm" type="file"
-                                                                    name="kriteria[{{ $kriteria->id }}][upload]">
+                                                                <div class="input-group">
+                                                                    <input class="form-control form-control-sm"
+                                                                        type="file"
+                                                                        name="kriteria[{{ $kriteria->id }}][upload]">
+                                                                    @if ($kriteria->upload)
+                                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                            title="Download File Kriteria"
+                                                                            class="btn btn-success btn-sm"
+                                                                            href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
+                                                                            <i
+                                                                                class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                                            Download
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+
                                                             </td>
                                                         </tr>
                                                     @endforeach

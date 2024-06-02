@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\PerdaEvaluasiInternal;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PerdaEvaluasiInternalController extends Controller
 {
@@ -68,9 +70,14 @@ class PerdaEvaluasiInternalController extends Controller
     public function update(Request $request, string $id)
     {
         foreach ($request->kriteria as $key => $kriteria) {
-            Kriteria::find($key)->update([
+            $params = [
                 'status' => $kriteria['status'],
-            ]);
+            ];
+            if (isset($kriteria['upload'])) {
+                $kriteria['upload']->store('public/evaluasi-internal/' . Auth::user()->id);
+                $params = array_merge($params, ['upload' => $kriteria['upload']->hashName()]);
+            }
+            Kriteria::find($key)->update($params);
         }
 
         return redirect()->back();
@@ -82,6 +89,20 @@ class PerdaEvaluasiInternalController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function download($filename)
+    {
+        $filePath = storage_path('app/public/evaluasi-internal/' . Auth::user()->id . '/' . $filename);
+        if (!Storage::exists('public/evaluasi-internal/' . Auth::user()->id . '/' . $filename)) {
+            Alert::toast('Gagal download file', 'danger');
+            return redirect()->back()->with('error', 'File not found.');
+        }
+
+        Alert::toast('Berhasil download file', 'success');
+        session()->flash('success', 'File downloaded successfully.');
+
+        return response()->download($filePath);
     }
 
     public function generate_evaluasi($tahun)
