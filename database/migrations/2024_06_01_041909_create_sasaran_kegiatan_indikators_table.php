@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('sasaran_kegiatan_id')->onDelete('cascade');
             $table->string('indikator_kegiatan')->nullable();
             $table->double('target')->nullable();
-            $table->string('satuan')->nullable();
+            $table->foreignId('satuan_id')->onDelete('cascade');
             $table->string('kegiatan')->nullable();
             $table->double('anggaran')->nullable();
             $table->timestamps();

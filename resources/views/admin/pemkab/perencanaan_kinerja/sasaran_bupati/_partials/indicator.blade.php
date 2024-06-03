@@ -22,27 +22,31 @@
                             name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target3]" type="number" />
                     </div>
                 </div>
-                <x-admin.form.text col="col-12 col-lg-6" label="Satuan"
-                    name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][satuan]" />
+                <x-admin.form.select col="col-12 col-lg-6" label="Satuan"
+                    name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][satuan_id]" :lists="$satuan_options" />
                 <x-admin.form.text col="col-12 col-lg-6" label="Penjelasan"
                     name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][penjelasan]" />
-                <div class="col-12 col-lg-6 my-2">
-                    <label for="indikator_sasaran_bupati[{{ $iter ?? 0 }}][tipe_perhitungan]"
-                        class="text-primary fw-bold">
-                        Tipe Perhitungan
-                    </label>
-                    <select class="form-select" name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][tipe_perhitungan]">
-                        <option value="-" selected disabled>- Pilih Tipe Perhitungan -</option>
-                        <option value="1">Kumulatif</option>
-                        <option value="2">Non-Kumulatif</option>
-                    </select>
-                </div>
+                <x-admin.form.select col="col-12 col-lg-6" label="Tipe Perhitungan"
+                    name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][tipe_perhitungan]" :lists="$tipe_perhitungan_options" />
                 <x-admin.form.text col="col-12 col-lg-6" label="Sumber Data"
                     name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][sumber_data]" />
-                <x-admin.form.text col="col-12 col-lg-6" label="Penanggung Jawab"
-                    name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][penanggung_jawab]" />
-                <x-admin.form.text col="col-12 col-lg-6" label="Simple Action"
-                    name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][simple_action]" />
+                <x-admin.form.select col="col-12 col-lg-6" label="Penanggung Jawab"
+                    name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][penanggung_jawab_id]" :lists="$penanggung_jawab_options" />
+                <div class="col-12" id="col-simple-action{{ $iter ?? 0 }}">
+                    <div class="row row-simple-action">
+                        <x-admin.form.text col="col-11" label="Simple Action"
+                            name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][simple_action][]" />
+                        <div class="col-1">
+                            <label for="" class="form-label fw-bold">&nbsp;</label>
+                            <div>
+                                <button class="btn btn-success btn-add-simple-action" type="button"
+                                    data-id="{{ $iter ?? 0 }}">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
