@@ -122,6 +122,10 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
     Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
         Route::get('/', [PerdaPengukuranKinerjaController::class, 'index'])
             ->name('index');
+        Route::get('/get-indicator', [PerdaPengukuranKinerjaController::class, 'get_indicator'])
+            ->name('get-indicator');
+        Route::get('/get-target', [PerdaPengukuranKinerjaController::class, 'get_target'])
+            ->name('get-target');
         Route::post('/store', [PerdaPengukuranKinerjaController::class, 'store'])
             ->name('store');
     });
