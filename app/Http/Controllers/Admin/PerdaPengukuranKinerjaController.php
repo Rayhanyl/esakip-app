@@ -32,7 +32,6 @@ class PerdaPengukuranKinerjaController extends Controller
     public function index()
     {
         $data = PerdaPengukuranKinerja::all();
-        dd($data);
         return view('admin.perda.pengukuran_kinerja.index', compact('data'));
     }
 
