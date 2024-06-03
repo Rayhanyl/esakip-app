@@ -23,7 +23,7 @@ return new class extends Migration
             $table->double('triwulan4')->nullable();
             $table->string('sub_kegiatan')->nullable();
             $table->double('anggaran')->nullable();
-            $table->string('satuan')->nullable();
+            $table->foreignId('satuan_id')->onDelete('cascade');
             $table->timestamps();
         });
     }

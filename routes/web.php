@@ -159,6 +159,8 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
             ->name('edit');
         Route::get('/indicator', [SasaranBupatiController::class, 'indicator'])
             ->name('indicator');
+        Route::get('/simple-action', [SasaranBupatiController::class, 'simple_action'])
+            ->name('simple-action');
         Route::post('/store', [SasaranBupatiController::class, 'store'])
             ->name('store');
         Route::post('/update', [SasaranBupatiController::class, 'update'])

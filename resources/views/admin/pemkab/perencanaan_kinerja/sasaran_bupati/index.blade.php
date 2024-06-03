@@ -83,28 +83,31 @@
                                                     name="indikator_sasaran_bupati[1][target3]" type="number" />
                                             </div>
                                         </div>
-                                        <x-admin.form.text col="col-12 col-lg-6" label="Satuan"
-                                            name="indikator_sasaran_bupati[1][satuan]" />
+                                        <x-admin.form.select col="col-12 col-lg-6" label="Satuan"
+                                            name="indikator_sasaran_bupati[1][satuan_id]" :lists="$satuan_options" />
                                         <x-admin.form.text col="col-12 col-lg-6" label="Penjelasan"
                                             name="indikator_sasaran_bupati[1][penjelasan]" />
-                                        <div class="col-12 col-lg-6">
-                                            <label for="indikator_sasaran_bupati[1][tipe_perhitungan]"
-                                                class="form-label fw-bold">
-                                                Tipe Perhitungan
-                                            </label>
-                                            <select class="form-select"
-                                                name="indikator_sasaran_bupati[1][tipe_perhitungan]">
-                                                <option value="-" selected disabled>- Pilih Tipe Perhitungan -</option>
-                                                <option value="1">Kumulatif</option>
-                                                <option value="2">Non-Kumulatif</option>
-                                            </select>
-                                        </div>
+                                        <x-admin.form.select col="col-12 col-lg-6" label="Tipe Perhitungan"
+                                            name="indikator_sasaran_bupati[1][tipe_perhitungan]" :lists="$tipe_perhitungan_options" />
                                         <x-admin.form.text col="col-12 col-lg-6" label="Sumber Data"
                                             name="indikator_sasaran_bupati[1][sumber_data]" />
-                                        <x-admin.form.text col="col-12 col-lg-6" label="Penanggung Jawab"
-                                            name="indikator_sasaran_bupati[1][penanggung_jawab]" />
-                                        <x-admin.form.text col="col-12 col-lg-6" label="Simple Action"
-                                            name="indikator_sasaran_bupati[1][simple_action]" />
+                                        <x-admin.form.select col="col-12 col-lg-6" label="Penanggung Jawab"
+                                            name="indikator_sasaran_bupati[1][penanggung_jawab_id]" :lists="$penanggung_jawab_options" />
+                                        <div class="col-12" id="col-simple-action1">
+                                            <div class="row row-simple-action">
+                                                <x-admin.form.text col="col-11" label="Simple Action"
+                                                    name="indikator_sasaran_bupati[1][simple_action][]" />
+                                                <div class="col-1">
+                                                    <label for="" class="form-label fw-bold">&nbsp;</label>
+                                                    <div>
+                                                        <button class="btn btn-success btn-add-simple-action" type="button"
+                                                            data-id="1">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +144,7 @@
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center">
                                                     <div class="p-2">
-                                                       <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="Edit Sasaran Bupati" class="btn btn-warning btn-sm"
                                                             href="{{ route('pemkab.perencanaan-kinerja.edit', $item->id) }}">
                                                             <i class="bi bi-pencil-square"></i>
@@ -220,6 +223,30 @@
                     remove_indicator($(this));
                 });
 
+                $(document).on('click', '.btn-add-simple-action', function() {
+                    const i = $(this).data('id');
+                    add_simple_action(i);
+                });
+                $(document).on('click', '.btn-remove-simple-action', function() {
+                    remove_simple_action($(this));
+                });
+
+                function remove_simple_action(el) {
+                    el.parents('.row-simple-action').remove();
+                }
+
+                function add_simple_action(iter) {
+                    $.ajax({
+                        url: "{{ route('pemkab.perencanaan-kinerja.simple-action') }}",
+                        data: {
+                            iter
+                        },
+                        success: function(result) {
+                            $(`#col-simple-action${iter}`).append(result);
+                        }
+                    });
+                }
+
                 function remove_indicator(el) {
                     el.parents('.col-indikator-sasaran-bupati').remove();
                 }
@@ -232,6 +259,9 @@
                         },
                         success: function(result) {
                             $('#row-indikator-sasaran-bupati').append(result);
+                            $('.select2').select2({
+                                theme: 'bootstrap-5'
+                            });
                         }
                     });
                 }

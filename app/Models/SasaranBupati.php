@@ -20,8 +20,9 @@ class SasaranBupati extends Model
         return $this->belongsTo(User::class, 'id', 'pengampu_id');
     }
 
-    public function indicators()
+    public function sasaran_bupati_indikators()
     {
-        return $this->belongsTo(SasaranBupatiIndikator::class);
+        return $this->hasMany(SasaranBupatiIndikator::class);
     }
+
 }

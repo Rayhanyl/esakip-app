@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Satuan;
 use Illuminate\Http\Request;
 use App\Models\SasaranBupati;
 use App\Http\Controllers\Controller;
@@ -13,13 +14,27 @@ use App\Models\PemkabPengukuranKinerja;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreSasaranBupatiRequest;
 use App\Http\Requests\UpdateSasaranBupatiRequest;
+use App\Models\PenanggungJawab;
+use App\Models\SimpleAction;
 
 class SasaranBupatiController extends Controller
 {
     public function __construct()
     {
-        View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
-            return $user->name;
+        View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($list) {
+            return $list->name;
+        }));
+        View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {
+            return $list->satuan;
+        }));
+        View::share('penanggung_jawab_options', PenanggungJawab::all()->keyBy('id')->transform(function ($list) {
+            return $list->penanggung_jawab;
+        }));
+        View::share('tipe_perhitungan_options', collect(array_combine(
+            ["1", "2"],
+            ["Kumulatif", "Non-Kumulatif"],
+        ))->transform(function ($list) {
+            return $list;
         }));
         View::share('sasaran_bupati', SasaranBupati::all());
     }
@@ -46,20 +61,29 @@ class SasaranBupatiController extends Controller
     public function store(Request $request)
     {
         try {
-            // Attempt to create the SasaranBupati record
             $data = SasaranBupati::create(array_merge($request->except(['indikator_sasaran_bupati']), ['user_id' => Auth::user()->id]));
 
             // Create associated SasaranBupatiIndikator records
             foreach ($request->indikator_sasaran_bupati as $value) {
+                $simple_actions = $value['simple_action'];
+                unset($value['simple_action']);
                 $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_bupati_id' => $data->id]);
-                SasaranBupatiIndikator::create($params);
+                $data_indikator = SasaranBupatiIndikator::create($params);
+                foreach ($simple_actions as $simple_action) {
+                    SimpleAction::create([
+                        'sasaran_bupati_indikator_id' => $data_indikator->id,
+                        'simple_action' => $simple_action
+                    ]);
+                }
             }
 
             // Return a success message
             Alert::toast('Data sasaran bupati berhasil dibuat', 'success');
             return redirect()->back();
+            // Attempt to create the SasaranBupati record
         } catch (\Exception $e) {
             // Return a failure message
+            dd($e);
             Alert::toast('Gagal membuat data sasaran bupati. Silakan coba lagi.', 'error');
             return redirect()->back();
         }
@@ -113,5 +137,11 @@ class SasaranBupatiController extends Controller
     {
         $iter = $request->iter;
         return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati._partials.indicator', compact('iter'));
+    }
+
+    public function simple_action(Request $request)
+    {
+        $iter = $request->iter;
+        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati._partials.simple-action', compact('iter'));
     }
 }
