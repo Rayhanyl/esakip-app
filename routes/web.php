@@ -67,6 +67,8 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
                 ->name('edit');
             Route::get('/indicator', [SasaranStrategisController::class, 'indicator'])
                 ->name('indicator');
+            Route::get('/get-indicator', [SasaranStrategisController::class, 'get_indicator'])
+                ->name('get-indicator');
             Route::post('/store', [SasaranStrategisController::class, 'store'])
                 ->name('store');
             Route::post('/update', [SasaranStrategisController::class, 'update'])

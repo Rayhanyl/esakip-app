@@ -114,4 +114,10 @@ class SasaranStrategisController extends Controller
         $iter = $request->iter;
         return view('admin.perda.perencanaan_kinerja.sasaran_strategis._partials.indicator', compact('iter'));
     }
+
+    public function get_indicator(Request $request)
+    {
+        $indicators = SasaranStrategisIndikator::whereSasaranStrategisId($request->id)->get();
+        return response()->json($indicators);
+    }
 }

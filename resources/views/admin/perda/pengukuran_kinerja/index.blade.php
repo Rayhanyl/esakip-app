@@ -30,13 +30,13 @@
                         <h4 class="card-title">Form</h4>
                     </div> --}}
                     <div class="card-body">
-                        <form class="row g-3" action="{{ route('perda.store.pengukuran.kinerja') }}" method="POST"
+                        <form class="row g-3" action="{{ route('perda.pengukuran-kinerja.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="basicSelect" name="year">
+                                    <select class="form-select select2" id="basicSelect" name="tahun">
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                             <option value="{{ $i }}">
@@ -49,7 +49,7 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Triwulan</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan" name="triwulan">
+                                    <select class="form-select select2" {{-- name="triwulan" --}}>
                                         <option value="" selected>- Pilih Triwulan -</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -66,39 +66,64 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Sasaran Strategis</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan"
-                                        name="perencanaan_kinerja_strategic_target_id">
+                                    <select class="form-select select2" name="sasaran_strategis_id"
+                                        id="sasaran_strategis_id">
                                         <option value="" selected>- Pilih Sasaran Strategis -</option>
-                                        @foreach ($sasaran_bupati as $item)
-                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @foreach ($sasaran_strategis_options ?? [] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-6 form-group">
-                                <label for="">Indikator Sasaran</label>
-                                <input type="text" name="indikator_sasaran" id="indikator_sasaran" class="form-control">
-                            </div>
-                            <div class="col-12 col-lg-4 form-group">
-                                <h6>Sasaran Sub-Kegiatan</h6>
+                                <h6>Indikator Sasaran</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan" name="sub_activity_id">
-                                        <option value="" selected>- Pilih Sasaran Sub-Kegiatan -</option>
-                                        @foreach ($sasaran_bupati as $item)
-                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                    <select class="form-select select2" name="sasaran_strategis_indikator_id"
+                                        id="sasaran_strategis_indikator_id">
+                                        <option value="" selected>- Pilih Indikator Sasaran Strategis -</option>
+                                        @foreach ($sasaran_strategis_indikator_options ?? [] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <label for="">Indikator Sub-Kegiatan</label>
-                                <input type="text" name="indikator_sub_kegiatan" id="indikator_sub_kegiatan"
-                                    class="form-control">
+                                <h6>Sasaran Sub-Kegiatan</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select select2" name="sasaran_sub_kegiatan_id">
+                                        <option value="" selected>- Pilih Sasaran Sub-Kegiatan -</option>
+                                        @foreach ($sasaran_sub_kegiatan_options ?? [] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </fieldset>
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <label for="">Target</label>
-                                <input type="number" name="target" id="target" class="form-control">
+                                <h6>Indikator Sasaran Sub-Kegiatan</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select select2" name="sasaran_sub_kegiatan_indikator_id">
+                                        <option value="" selected>- Pilih Indikator Sasaran Sub-Kegiatan -</option>
+                                        @foreach ($sasaran_sub_kegiatan_indikator_options ?? [] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </fieldset>
                             </div>
+                            <div class="col-12 col-lg-4 form-group">
+                                <h6>Target Sasaran Sub-Kegiatan</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select select2" name="sasaran_sub_kegiatan_target">
+                                        <option value="" selected>- Pilih Indikator Sasaran Sub-Kegiatan -</option>
+                                        @foreach ($sasaran_sub_kegiatan_target_options ?? [] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </fieldset>
+                            </div>
+                            {{-- <div class="col-12 col-lg-4 form-group">
+                                <label for="">Target</label>
+                                <input type="number" name="target" id="sasaran_sub_kegiatan_target" class="form-control">
+                            </div> --}}
                             <div class="col-12 col-lg-4 form-group">
                                 <label for="">Realisasi</label>
                                 <input type="number" name="realisasi" id="realisasi" class="form-control">
@@ -106,7 +131,7 @@
                             <div class="col-12 col-lg-4 form-group">
                                 <h6>Karakteristik</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" name="karakteristik" id="karakteristik">
+                                    <select class="form-select select2" name="karakteristik" id="karakteristik">
                                         <option value="" selected>- Pilih Karakteristik -</option>
                                         <option value="1">Semakin tinggi realisasi maka capaian semakin bagus</option>
                                         <option value="2">Semakin rendah realisasi maka capaian semakin bagus</option>
@@ -125,10 +150,10 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Sub-Kegiatan</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan" name="anggaran_sub_kegiatan">
+                                    <select class="form-select select2" name="anggaran_sub_kegiatan">
                                         <option value="" selected>- Pilih Sub-Kegiatan -</option>
-                                        @foreach ($sasaran_bupati as $item)
-                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @foreach ($sasaran_sub_kegiatan_options ?? [] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
                                 </fieldset>
@@ -157,18 +182,26 @@
                             <div class="col-12 col-lg-4 form-group">
                                 <h6>Sasaran Strategis</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" id="triwulan" name="tahunan_sasaran_strategis">
+                                    <select class="form-select select2" name="tahunan_sasaran_strategis_id"
+                                        id="tahunan_sasaran_strategis_id">
                                         <option value="" selected>- Pilih Sasaran Strategis -</option>
-                                        @foreach ($sasaran_bupati as $item)
-                                            <option value="{{ $item->id }}">{{ $item->sasaran_bupati }}</option>
+                                        @foreach ($sasaran_strategis_options ?? [] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item }}</option>
                                         @endforeach
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-lg-4 form-group">
-                                <label for="">Indikator Sasaran</label>
-                                <input type="text" name="tahunan_indikator_sasaran" id="tahunan_indikator_sasaran"
-                                    class="form-control">
+                                <h6>Indikator Sasaran</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select select2" name="tahunan_sasaran_strategis_indikator_id"
+                                        id="tahunan_sasaran_strategis_indikator_id">
+                                        <option value="" selected>- Pilih Indikator Sasaran Strategis -</option>
+                                        @foreach ($sasaran_strategis_indikator_options ?? [] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </fieldset>
                             </div>
                             <div class="col-12 col-lg-4 form-group">
                                 <label for="">Target</label>
@@ -182,7 +215,8 @@
                             <div class="col-12 col-lg-4 form-group">
                                 <h6>Karakteristik</h6>
                                 <fieldset class="form-group">
-                                    <select class="form-select" name="karakteristik_tahunan" id="karakteristik_tahunan">
+                                    <select class="form-select select2" name="karakteristik_tahunan"
+                                        id="karakteristik_tahunan">
                                         <option value="" selected>- Pilih Karakteristik -</option>
                                         <option value="1">Semakin tinggi realisasi maka capaian semakin bagus</option>
                                         <option value="2">Semakin rendah realisasi maka capaian semakin bagus</option>
@@ -210,6 +244,65 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                $('#sasaran_strategis_id').on("select2:select", function(e) {
+                    const el = "#sasaran_strategis_indikator_id";
+                    getIndikator($(this).val(), el);
+                });
+                $('#tahunan_sasaran_strategis_id').on("select2:select", function(e) {
+                    const el = "#tahunan_sasaran_strategis_indikator_id";
+                    getIndikator($(this).val(), el);
+                });
+                $('#sasaran_sub_kegiatan_indikator_id').on("select2:select", function(e) {
+                    const el = "#sasaran_sub_kegiatan_target";
+                    getTarget($(this).val(), el);
+                });
+
+                function getTarget(id, element) {
+                    $.ajax({
+                        url: "{{ route('perda.perencanaan-kinerja.sasaran-strategis.get-indicator') }}",
+                        data: {
+                            id
+                        },
+                        success: function(result) {
+                            let list = result.map(el => ({
+                                id: el.id,
+                                text: el.indikator_sasaran_strategis,
+                            }));
+                            $(element).html('').select2({
+                                data: list,
+                                theme: 'bootstrap-5'
+                            });
+                            if (list.length === 1) {
+                                $(element).val(list[0].id).trigger(
+                                    'select2:select');
+                            }
+                        }
+                    });
+                }
+
+                function getIndikator(id, element) {
+                    $.ajax({
+                        url: "{{ route('perda.perencanaan-kinerja.sasaran-strategis.get-indicator') }}",
+                        data: {
+                            id
+                        },
+                        success: function(result) {
+                            let list = result.map(el => ({
+                                id: el.id,
+                                text: el.indikator_sasaran_strategis,
+                            }));
+                            $(element).html('').select2({
+                                data: list,
+                                theme: 'bootstrap-5'
+                            });
+                            if (list.length === 1) {
+                                $(element).val(list[0].id).trigger(
+                                    'select2:select');
+                            }
+                        }
+                    });
+                }
+
                 // Event listener for input fields
                 $('#anggaran_realisasi, #anggaran_pagu').on('input', function() {
                     // Get the values of realisasi and pagu

@@ -104,6 +104,9 @@
                                     </x-admin.list-sidebar-item>
                                 </ul>
                             </li>
+                            <x-admin.list-sidebar route="perda.pengukuran-kinerja.index" icon="card-checklist">
+                                Pengukuran Kinerja
+                            </x-admin.list-sidebar>
                             <x-admin.list-sidebar route="perda.pelaporan-kinerja.index" icon="archive">
                                 Pelaporan Kinerja
                             </x-admin.list-sidebar>
