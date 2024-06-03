@@ -14,6 +14,8 @@ use App\Models\SasaranProgramIndikator;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreSasaranProgramRequest;
 use App\Http\Requests\UpdateSasaranProgramRequest;
+use App\Models\PenanggungJawab;
+use App\Models\Satuan;
 
 class SasaranProgramController extends Controller
 {
@@ -32,7 +34,9 @@ class SasaranProgramController extends Controller
      */
     public function index()
     {
-        return view('admin.perda.perencanaan_kinerja.sasaran_program.index');
+        $satuan = Satuan::all();
+        $penanggung_jawab = PenanggungJawab::all();
+        return view('admin.perda.perencanaan_kinerja.sasaran_program.index', compact('satuan', 'penanggung_jawab'));
     }
 
     /**
@@ -69,7 +73,9 @@ class SasaranProgramController extends Controller
      */
     public function edit(SasaranProgram $sasaranProgram)
     {
-        return view('admin.perda.perencanaan_kinerja.sasaran_program.edit');
+        $satuan = Satuan::all();
+        $penanggung_jawab = PenanggungJawab::all();
+        return view('admin.perda.perencanaan_kinerja.sasaran_program.edit', compact('satuan', 'penanggung_jawab'));
     }
 
     /**

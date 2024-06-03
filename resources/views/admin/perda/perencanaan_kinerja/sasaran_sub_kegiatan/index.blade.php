@@ -118,14 +118,20 @@
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="pengampu" class="form-label">Satuan</label>
-                                            <input type="text" id="pengampu" class="form-control"
-                                                aria-describedby="pengampu" name="indikator_sasaran[1][satuan]">
+                                            <fieldset class="form-group">
+                                                <select class="form-select select2" id="satuan"
+                                                    name="indikator_sasaran[1][satuan]">
+                                                    <option value="" selected>- Pilih Satuan -</option>
+                                                    @foreach ($satuan as $key)
+                                                        <option value="{{ $key->satuan }}">{{ $key->satuan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="pengampu" class="form-label">Sub-Kegiatan</label>
                                             <input type="text" id="pengampu" class="form-control"
-                                                aria-describedby="pengampu"
-                                                name="indikator_sasaran[1][sub_kegiatan]">
+                                                aria-describedby="pengampu" name="indikator_sasaran[1][sub_kegiatan]">
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="anggaran" class="form-label">Anggaran</label>
@@ -171,8 +177,8 @@
                                                 <div class="d-flex justify-content-center">
                                                     <div class="p-2">
                                                         <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Edit Sasaran Sub-Kegiatan" class="btn btn-warning btn-sm"
-                                                            href="#">
+                                                            title="Edit Sasaran Sub-Kegiatan"
+                                                            class="btn btn-warning btn-sm" href="#">
                                                             <i class="bi bi-pencil-square"></i>
                                                         </a>
                                                     </div>
@@ -182,7 +188,8 @@
                                                             data-bs-placement="top" title="Delete Sasaran Sub-Kegiatan">
                                                             <i class="bi bi-trash3"></i>
                                                         </button>
-                                                        <form id="delete-form-{{ $item->id }}" action="{{ route ('perda.perencanaan-kinerja.sasaran-sub-kegiatan.destroy', $item->id) }}"
+                                                        <form id="delete-form-{{ $item->id }}"
+                                                            action="{{ route('perda.perencanaan-kinerja.sasaran-sub-kegiatan.destroy', $item->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')

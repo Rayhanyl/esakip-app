@@ -110,8 +110,15 @@
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="#" class="form-label fw-bold">Satuan</label>
-                                            <input type="text" name="indikator_sasaran[1][satuan]" class="form-control"
-                                                aria-describedby="Satuan">
+                                            <fieldset class="form-group">
+                                                <select class="form-select select2" id="satuan"
+                                                    name="indikator_sasaran[1][satuan]">
+                                                    <option value="" selected>- Pilih Satuan -</option>
+                                                    @foreach ($satuan as $key)
+                                                        <option value="{{ $key->satuan }}">{{ $key->satuan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="#" class="form-label fw-bold">Penjelasan</label>
@@ -135,9 +142,16 @@
                                                 class="form-control" aria-describedby="Sumber Data">
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <label for="#" class="form-label fw-bold">Penanggung Jawab</label>
-                                            <input type="text" name="indikator_sasaran[1][penanggung_jawab]"
-                                                id="" class="form-control" aria-describedby="Penanggung Jawab">
+                                            <label for="penanggung_jawab" class="form-label fw-bold">Penanggung Jawab</label>
+                                            <fieldset class="form-group">
+                                                <select class="form-select select2" id="penanggung_jawab"
+                                                    name="indikator_sasaran[1][penanggung_jawab]">
+                                                    <option value="" selected>- Pilih Penanggung Jawab -</option>
+                                                    @foreach ($penanggung_jawab as $key)
+                                                        <option value="{{ $key->penanggung_jawab }}">{{ $key->penanggung_jawab }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +203,8 @@
                                                             data-bs-placement="top" title="Delete Sasaran Strategis">
                                                             <i class="bi bi-trash3"></i>
                                                         </button>
-                                                        <form id="delete-form-{{ $item->id }}" action="{{ route ('perda.perencanaan-kinerja.sasaran-strategis.destroy', $item->id) }}"
+                                                        <form id="delete-form-{{ $item->id }}"
+                                                            action="{{ route('perda.perencanaan-kinerja.sasaran-strategis.destroy', $item->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Satuan;
 use Illuminate\Http\Request;
 use App\Models\SasaranBupati;
 use App\Models\SasaranProgram;
+use App\Models\PenanggungJawab;
 use App\Models\SasaranStrategis;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +35,9 @@ class SasaranStrategisController extends Controller
      */
     public function index()
     {
-        return view('admin.perda.perencanaan_kinerja.sasaran_strategis.index');
+        $satuan = Satuan::all();
+        $penanggung_jawab = PenanggungJawab::all();
+        return view('admin.perda.perencanaan_kinerja.sasaran_strategis.index', compact('satuan', 'penanggung_jawab'));
     }
 
     /**
@@ -78,6 +82,8 @@ class SasaranStrategisController extends Controller
      */
     public function edit(SasaranStrategis $sasaranStrategis)
     {
+        $satuan = Satuan::all();
+        $penanggung_jawab = PenanggungJawab::all();
         return view('admin.perda.perencanaan_kinerja.sasaran_kegiatan.edit');
     }
 

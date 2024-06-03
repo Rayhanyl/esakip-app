@@ -96,9 +96,16 @@
                                                 aria-describedby="pengampu">
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
-                                            <label for="pengampu" class="form-label">Satuan</label>
-                                            <input type="text" name="indikator_sasaran[1][satuan]" class="form-control"
-                                                aria-describedby="pengampu">
+                                            <label for="satuan" class="form-label">Satuan</label>
+                                            <fieldset class="form-group">
+                                                <select class="form-select select2" id="satuan"
+                                                    name="indikator_sasaran[1][satuan]">
+                                                    <option value="" selected>- Pilih Satuan -</option>
+                                                    @foreach ($satuan as $key)
+                                                        <option value="{{ $key->satuan }}">{{ $key->satuan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="pengampu" class="form-label">Program</label>
@@ -159,7 +166,8 @@
                                                             data-bs-placement="top" title="Delete Sasaran Program">
                                                             <i class="bi bi-trash3"></i>
                                                         </button>
-                                                        <form id="delete-form-{{ $item->id }}" action="{{ route ('perda.perencanaan-kinerja.sasaran-program.destroy', $item->id) }}"
+                                                        <form id="delete-form-{{ $item->id }}"
+                                                            action="{{ route('perda.perencanaan-kinerja.sasaran-program.destroy', $item->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')

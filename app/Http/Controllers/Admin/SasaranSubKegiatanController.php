@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Satuan;
 use Illuminate\Http\Request;
+use App\Models\PenanggungJawab;
 use App\Models\SasaranKegiatan;
 use App\Models\SasaranSubKegiatan;
 use App\Http\Controllers\Controller;
@@ -31,7 +33,9 @@ class SasaranSubKegiatanController extends Controller
      */
     public function index()
     {
-        return view('admin.perda.perencanaan_kinerja.sasaran_sub_kegiatan.index');
+        $satuan = Satuan::all();
+        $penanggung_jawab = PenanggungJawab::all();
+        return view('admin.perda.perencanaan_kinerja.sasaran_sub_kegiatan.index',compact('satuan', 'penanggung_jawab'));
     }
 
     /**

@@ -98,8 +98,15 @@
                                         </div>
                                         <div class="col-12 col-lg-4 form-group">
                                             <label for="pengampu" class="form-label">Satuan</label>
-                                            <input type="text" id="pengampu" class="form-control"
-                                                aria-describedby="pengampu" name="indikator_sasaran[1][satuan]">
+                                            <fieldset class="form-group">
+                                                <select class="form-select select2" id="satuan"
+                                                    name="indikator_sasaran[1][satuan]">
+                                                    <option value="" selected>- Pilih Satuan -</option>
+                                                    @foreach ($satuan as $key)
+                                                        <option value="{{ $key->satuan }}">{{ $key->satuan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
                                         </div>
                                         <div class="col-12 col-lg-4 form-group">
                                             <label for="pengampu" class="form-label">Kegiatan</label>
@@ -160,7 +167,8 @@
                                                             data-bs-placement="top" title="Delete Sasaran Kegiatan">
                                                             <i class="bi bi-trash3"></i>
                                                         </button>
-                                                        <form id="delete-form-{{ $item->id }}" action="{{ route ('perda.perencanaan-kinerja.sasaran-kegiatan.destroy', $item->id) }}"
+                                                        <form id="delete-form-{{ $item->id }}"
+                                                            action="{{ route('perda.perencanaan-kinerja.sasaran-kegiatan.destroy', $item->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
@@ -214,7 +222,7 @@
                         }
                     });
                 });
-                
+
                 let iter;
                 $('.btn-add-indicator').on('click', function() {
                     iter++;
