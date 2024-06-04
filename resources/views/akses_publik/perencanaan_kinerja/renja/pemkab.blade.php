@@ -18,14 +18,14 @@
                 <div class="col-12 mb-5">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route ('aspu.renja') }}">Perangkat Daerah</a>
+                            <a class="nav-link" href="{{ route ('aspu.renja') }}">Perangkat Daerah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route ('aspu.pemkab-renja') }}">Pemerintah Kabupaten</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route ('aspu.pemkab-renja') }}">Pemerintah Kabupaten</a>
                         </li>
                     </ul>
                 </div>
-                <form class="row" action="{{ route('aspu.renja') }}" method="GET">
+                <form class="row" action="{{ route('aspu.pemkab-renja') }}" method="GET">
                     @csrf
                     <div class="col-12 col-lg-3">
                         <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
@@ -39,11 +39,11 @@
                         </select>
                     </div>
                     <div class="col-12 col-lg-3">
-                        <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
-                        <select class="form-select select2" id="perda" name="perda">
+                        <label class="form-label fs-5 fw-bold" for="pemkab">Pemerintah Kabupaten</label>
+                        <select class="form-select select2" id="pemkab" name="pemkab">
                             <option value="" selected>-- All --</option>
                             @foreach ($user as $item)
-                                <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}" {{ $item->id == $pemkab ? 'selected' : '' }}>
                                     {{ $item->name }}</option>
                             @endforeach
                         </select>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-table-renja">
+                                <table class="table table-striped table-hover" id="data-table-renja-pemkab">
                                     <thead class="table-info">
                                         <tr>
                                             <th>No</th>
@@ -97,14 +97,14 @@
     @push('script-landingpage')
         <script>
             $(document).ready(function() {
-                $('#data-table-renja').DataTable({
+                $('#data-table-renja-pemkab').DataTable({
                     responsive: true,
                     lengthMenu: [
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
             });

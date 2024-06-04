@@ -253,13 +253,23 @@ Route::prefix('/')->name('aspu.')->group(function () {
         ->name('perangkat.daerah.detail');
     Route::get('/renstra', [AspuRenstraController::class, 'index'])
         ->name('renstra');
+    Route::get('/pemkab/renstra', [AspuRenstraController::class, 'pemkabIndex'])
+        ->name('pemkab-renstra');
     Route::get('/renja', [AspuRenjaController::class, 'index'])
         ->name('renja');
+    Route::get('/pemkab/renja', [AspuRenjaController::class, 'pemkabIndex'])
+        ->name('pemkab-renja');
+    Route::get('/pemkab/rencana/aksi', [AspuRencanaAksiController::class, 'pemkabIndex'])
+        ->name('pemkab-rencana.aksi');
     Route::get('/rencana/aksi', [AspuRencanaAksiController::class, 'index'])
         ->name('rencana.aksi');
     Route::get('/perjanjian/kinerja', [AspuPerjanjianKinerjaController::class, 'index'])
         ->name('perjanjian.kinerja');
+    Route::get('/pemkab/perjanjian/kinerja', [AspuPerjanjianKinerjaController::class, 'pemkabIndex'])
+        ->name('pemkab-perjanjian.kinerja');
     Route::get('/indikator/kinerja/utama', [AspuIndikatorKinerjaUtamaController::class, 'index'])
+        ->name('indikator.kinerja.utama');
+    Route::get('pemkab/indikator/kinerja/utama', [AspuIndikatorKinerjaUtamaController::class, 'index'])
         ->name('indikator.kinerja.utama');
     Route::get('/pelaporan/kinerja', [AspuPelaporanKinerjaController::class, 'index'])
         ->name('pelaporan.kinerja');

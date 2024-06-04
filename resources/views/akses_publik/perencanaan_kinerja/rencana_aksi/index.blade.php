@@ -15,31 +15,44 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Tahun</label>
-                    <select class="form-select" id="basicSelect" name="year">
-                        <option value="" selected>- Pilih Tahun -</option>
-                        @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                            <option value="{{ $i }}">
-                                {{ $i }}
-                            </option>
-                        @endfor
-                    </select>
+                <div class="col-12 mb-5">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route ('aspu.rencana.aksi') }}">Perangkat Daerah</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route ('aspu.pemkab-rencana.aksi') }}">Pemerintah Kabupaten</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Perangkat Daerah</label>
-                    <select class="form-select" id="basicSelect" name="year">
-                        <option value="" selected>- Pilih Perangkat Daerah -</option>
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3">
-                    <label class="form-label fs-5 fw-bold" for="">Perencanaan Kinerja</label>
-                    <select class="form-select" id="basicSelect" name="year">
-                        <option value="" selected>- Pilih Perencanaan Kinerja -</option>
-                    </select>
-                </div>
-                <div class="col-12 col-lg-3 py-4">
-                    <button class="btn btn-primary btn-sm w-100 ">Seacrh</button>
+                <div class="col-12">
+                    <form class="row" action="{{ route ('aspu.rencana.aksi') }}" method="get">
+                        @csrf
+                        <div class="col-12 col-lg-3">
+                            <label class="form-label fs-5 fw-bold" for="">Tahun</label>
+                            <select class="form-select" id="basicSelect" name="year">
+                                <option value="" selected>- Pilih Tahun -</option>
+                                @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
+                                    <option value="{{ $i }}">
+                                        {{ $i }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-3">
+                            <label class="form-label fs-5 fw-bold" for="">Perangkat Daerah</label>
+                            <select class="form-select select2" id="perda" name="perda">
+                                <option value="" selected>-- All --</option>
+                                @foreach ($user as $item)
+                                    <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
+                                        {{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-3 py-4">
+                            <button class="btn btn-primary btn-sm w-100 ">Seacrh</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="row mt-4">
@@ -57,32 +70,23 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th colspan="4">Target Sub-kegiatan</th>
-                                            <th></th>
+                                            <th colspan="4">Target</th>
                                             <th></th>
                                         </tr>
                                         <tr>
                                             <th>No</th>
-                                            <th>Indikator Sasaran</th>
-                                            <th>Target</th>
-                                            <th>Sasaran Program</th>
-                                            <th>Sasaran Kegiatan</th>
-                                            <th>Sasaran Sub-kegiatan</th>
+                                            <th>IKU</th>
+                                            <th>Rencana Aksi</th>
+                                            <th>Indikator</th>
                                             <th>I</th>
                                             <th>II</th>
                                             <th>III</th>
                                             <th>IV</th>
-                                            <th>Anggaran</th>
                                             <th>Penanggung Jawab</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
