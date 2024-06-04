@@ -95,7 +95,7 @@
                                             <div class="col-4 form-group">
                                                 <label for="#" class="form-label">2024</label>
                                                 <input type="number" name="indikator_sasaran[1][target1]"
-                                                    class="form-control" aria-describedby="2024">
+                                                    id="decimal-input" class="form-control" aria-describedby="2024">
                                             </div>
                                             <div class="col-4 form-group">
                                                 <label for="#" class="form-label">2025</label>
@@ -142,13 +142,15 @@
                                                 class="form-control" aria-describedby="Sumber Data">
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <label for="penanggung_jawab" class="form-label fw-bold">Penanggung Jawab</label>
+                                            <label for="penanggung_jawab" class="form-label fw-bold">Penanggung
+                                                Jawab</label>
                                             <fieldset class="form-group">
                                                 <select class="form-select select2" id="penanggung_jawab"
                                                     name="indikator_sasaran[1][penanggung_jawab]">
                                                     <option value="" selected>- Pilih Penanggung Jawab -</option>
                                                     @foreach ($penanggung_jawab as $key)
-                                                        <option value="{{ $key->penanggung_jawab }}">{{ $key->penanggung_jawab }}</option>
+                                                        <option value="{{ $key->penanggung_jawab }}">
+                                                            {{ $key->penanggung_jawab }}</option>
                                                     @endforeach
                                                 </select>
                                             </fieldset>
@@ -237,6 +239,17 @@
                     order: [
                         [0, 'asc']
                     ],
+                });
+
+                $('#decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
                 });
 
                 $('.delete-sasaran-strategis').click(function() {

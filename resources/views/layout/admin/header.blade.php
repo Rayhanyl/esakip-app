@@ -7,6 +7,7 @@
     <title>e-SAKIP</title>
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main/app-dark.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main/colormask.css') }}" />
     <link
         href="https://cdn.datatables.net/v/bs5/dt-2.0.6/date-1.5.2/fc-5.0.0/fh-4.0.1/r-3.0.2/rg-1.5.0/rr-1.5.0/sc-2.4.2/datatables.min.css"
         rel="stylesheet">

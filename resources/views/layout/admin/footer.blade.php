@@ -3,6 +3,10 @@
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('assets/js/inputmask.binding.js') }}"></script>
+<script src="{{ asset('assets/js/inputmask.js') }}"></script>
+<script src="{{ asset('assets/js/colormask.js') }}"></script>
 
 <!-- Need: Apexcharts -->
 <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
