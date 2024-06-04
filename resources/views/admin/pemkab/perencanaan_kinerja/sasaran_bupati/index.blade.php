@@ -47,6 +47,7 @@
                                 <x-admin.form.text col="col-12 col-lg-4" label="Sasaran Bupati" name="sasaran_bupati" />
                                 <x-admin.form.select col="col-12 col-lg-4" label="Pengampu" name="pengampu_id"
                                     :lists="$user_options" readonly="true" />
+                                <input type="hidden" name="pengampu_id" value="1">
                             </div>
                         </div>
                     </div>
