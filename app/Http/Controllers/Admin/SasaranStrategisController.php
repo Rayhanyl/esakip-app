@@ -27,7 +27,7 @@ class SasaranStrategisController extends Controller
             return $user->name;
         }));
         View::share('pengampu_sementara', PengampuSementara::all()->keyBy('id')->transform(function ($list) {
-            $position = $list->jabatan ?? $list->pelaksana ?? $list->fungsional;
+            $position = !empty($list->jabatan) ? $list->jabatan : (!empty($list->pelaksana) ? $list->pelaksana : $list->fungsional);
             return $list->nip_baru . ' - ' . $list->nama_pegawai . ' - ' . $position;
         }));
         View::share('sasaran_bupati_options', SasaranBupati::all()->keyBy('id')->transform(function ($sasaran_bupati) {
