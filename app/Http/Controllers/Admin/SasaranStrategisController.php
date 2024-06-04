@@ -9,6 +9,7 @@ use App\Models\SasaranBupati;
 use App\Models\SasaranProgram;
 use App\Models\PenanggungJawab;
 use App\Models\SasaranStrategis;
+use App\Models\PengampuSementara;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -24,6 +25,9 @@ class SasaranStrategisController extends Controller
     {
         View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
             return $user->name;
+        }));
+        View::share('pengampu_sementara', PengampuSementara::all()->keyBy('id')->transform(function ($list) {
+            return $list->nama_pegawai;
         }));
         View::share('sasaran_bupati_options', SasaranBupati::all()->keyBy('id')->transform(function ($sasaran_bupati) {
             return $sasaran_bupati->sasaran_bupati;

@@ -62,7 +62,7 @@
                                     <label for="pengampu" class="form-label fw-bold">Pengampu</label>
                                     <select class="form-select select2" name="pengampu_id" id="pengampu_id">
                                         <option value="" selected disabled>--Pilih Pengampu--</option>
-                                        @foreach ($user_options ?? [] as $id => $user)
+                                        @foreach ($pengampu_sementara ?? [] as $id => $user)
                                             <option value="{{ $id }}">{{ $user }}</option>
                                         @endforeach
                                     </select>
@@ -145,7 +145,8 @@
                                         <div class="col-12 col-lg-6">
                                             <label for="penanggung_jawab" class="form-label fw-bold">Penanggung
                                                 Jawab</label>
-                                            <fieldset class="form-group">
+                                            <input type="text" class="form-control" name="indikator_sasaran[1][penanggung_jawab]" id="penanggung_jawab">
+                                            {{-- <fieldset class="form-group">
                                                 <select class="form-select select2" id="penanggung_jawab"
                                                     name="indikator_sasaran[1][penanggung_jawab_id]">
                                                     <option value="" selected>- Pilih Penanggung Jawab -</option>
@@ -154,7 +155,7 @@
                                                             {{ $key->penanggung_jawab }}</option>
                                                     @endforeach
                                                 </select>
-                                            </fieldset>
+                                            </fieldset> --}}
                                         </div>
                                     </div>
                                 </div>

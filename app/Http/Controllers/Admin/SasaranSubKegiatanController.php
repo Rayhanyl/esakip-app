@@ -7,6 +7,7 @@ use App\Models\Satuan;
 use Illuminate\Http\Request;
 use App\Models\PenanggungJawab;
 use App\Models\SasaranKegiatan;
+use App\Models\PengampuSementara;
 use App\Models\SasaranSubKegiatan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,9 @@ class SasaranSubKegiatanController extends Controller
     {
         View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
             return $user->name;
+        }));
+        View::share('pengampu_sementara', PengampuSementara::all()->keyBy('id')->transform(function ($list) {
+            return $list->nama_pegawai;
         }));
         View::share('sasaran_kegiatan_options', SasaranKegiatan::all()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran_kegiatan;

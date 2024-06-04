@@ -45,6 +45,10 @@
                                     </select>
                                 </div>
                                 <x-admin.form.text col="col-12 col-lg-4" label="Sasaran Bupati" name="sasaran_bupati" />
+                                {{-- <div class="col-12 col-lg-4">
+                                    <label for="pengampu" class="form-label fw-bold">Pengampu</label>
+                                    <input type="text" class="form-control" name="pengampu" value="Bupati" readonly>
+                                </div> --}}
                                 <x-admin.form.select col="col-12 col-lg-4" label="Pengampu" name="pengampu_id"
                                     :lists="$user_options" readonly="true" />
                                 <input type="hidden" name="pengampu_id" value="1">
@@ -70,11 +74,14 @@
                                                     <label class="fw-bold">Target</label>
                                                 </div>
                                                 <x-admin.form.text col="col-4" label="2024"
-                                                    name="indikator_sasaran_bupati[1][target1]" decimal="true" type="text" />
+                                                    name="indikator_sasaran_bupati[1][target1]" decimal="true"
+                                                    type="text" />
                                                 <x-admin.form.text col="col-4" label="2025"
-                                                    name="indikator_sasaran_bupati[1][target2]" decimal="true" type="text" />
+                                                    name="indikator_sasaran_bupati[1][target2]" decimal="true"
+                                                    type="text" />
                                                 <x-admin.form.text col="col-4" label="2026"
-                                                    name="indikator_sasaran_bupati[1][target3]" decimal="true" type="text" />
+                                                    name="indikator_sasaran_bupati[1][target3]" decimal="true"
+                                                    type="text" />
                                             </div>
                                         </div>
                                         <x-admin.form.select col="col-12 col-lg-6" label="Satuan"
@@ -85,8 +92,10 @@
                                             name="indikator_sasaran_bupati[1][tipe_perhitungan]" :lists="$tipe_perhitungan_options" />
                                         <x-admin.form.text col="col-12 col-lg-6" label="Sumber Data"
                                             name="indikator_sasaran_bupati[1][sumber_data]" />
-                                        <x-admin.form.select col="col-12 col-lg-6" label="Penanggung Jawab"
-                                            name="indikator_sasaran_bupati[1][penanggung_jawab_id]" :lists="$penanggung_jawab_options" />
+                                        <x-admin.form.text col="col-12 col-lg-12" label="Penanggung Jawab"
+                                            name="indikator_sasaran_bupati[1][penanggung_jawab]" />
+                                        {{-- <x-admin.form.select col="col-12 col-lg-6" label="Penanggung Jawab"
+                                            name="indikator_sasaran_bupati[1][penanggung_jawab_id]" :lists="$penanggung_jawab_options" /> --}}
                                         <div class="col-12" id="col-simple-action1">
                                             <div class="row row-simple-action">
                                                 <x-admin.form.text col="col-11" label="Simple Action"

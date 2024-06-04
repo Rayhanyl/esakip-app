@@ -62,7 +62,7 @@
                                     <label for="pengampu" class="form-label">Pengampu</label>
                                     <select class="form-select select2" name="pengampu_id" id="pengampu_id">
                                         <option value="" selected disabled>--Pilih Pengampu--</option>
-                                        @foreach ($user_options ?? [] as $id => $user)
+                                        @foreach ($pengampu_sementara ?? [] as $id => $user)
                                             <option value="{{ $id }}">{{ $user }}</option>
                                         @endforeach
                                     </select>

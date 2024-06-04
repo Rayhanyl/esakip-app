@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Satuan;
+use App\Models\SimpleAction;
 use Illuminate\Http\Request;
 use App\Models\SasaranBupati;
+use App\Models\PenanggungJawab;
+use App\Models\PengampuSementara;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -14,8 +17,6 @@ use App\Models\PemkabPengukuranKinerja;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreSasaranBupatiRequest;
 use App\Http\Requests\UpdateSasaranBupatiRequest;
-use App\Models\PenanggungJawab;
-use App\Models\SimpleAction;
 
 class SasaranBupatiController extends Controller
 {
