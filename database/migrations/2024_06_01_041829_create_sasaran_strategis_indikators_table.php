@@ -20,7 +20,7 @@ return new class extends Migration
             $table->double('target2')->nullable();
             $table->double('target3')->nullable();
             $table->foreignId('satuan_id')->onDelete('cascade');
-            $table->foreignId('penanggung_jawab_id')->onDelete('cascade');
+            $table->string('penanggung_jawab');
             $table->string('penjelasan')->nullable();
             $table->enum('tipe_perhitungan', ['1', '2'])->nullable();
             $table->string('sumber_data')->nullable();

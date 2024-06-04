@@ -111,8 +111,6 @@
                                                         class="form-control"
                                                         value="{{ $inspek_evaluasi_internal[0]->nilai_akuntabilitas_kinerja ?? 0 }}"
                                                         readonly>
-
-                                                    <span class="input-group-text" id="basic-addon2">%</span>
                                                 </div>
                                                 <input type="hidden" name="total_bobot" id="total-bobot"
                                                     class="form-control" value="{{ $total }}" readonly disabled>
