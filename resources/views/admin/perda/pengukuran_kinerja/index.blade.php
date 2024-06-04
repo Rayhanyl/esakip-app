@@ -136,7 +136,8 @@
                                     </div> --}}
                                     <div class="col-12 col-lg-4 form-group">
                                         <label for="">Realisasi</label>
-                                        <input type="number" name="realisasi" id="realisasi" class="form-control">
+                                        <input type="text" name="realisasi" id="realisasi"
+                                            class="form-control decimal-input">
                                     </div>
                                     <div class="col-12 col-lg-4 form-group">
                                         <h6>Karakteristik</h6>
@@ -172,12 +173,13 @@
                                     </div>
                                     <div class="col-12 col-lg-6 form-group">
                                         <label for="">Pagu</label>
-                                        <input type="number" name="anggaran_pagu" id="anggaran_pagu" class="form-control">
+                                        <input type="text" name="anggaran_pagu" id="anggaran_pagu"
+                                            class="form-control idr-currency">
                                     </div>
                                     <div class="col-12 col-lg-6 form-group">
                                         <label for="">Realisasi</label>
-                                        <input type="number" name="anggaran_realisasi" id="anggaran_realisasi"
-                                            class="form-control">
+                                        <input type="text" name="anggaran_realisasi" id="anggaran_realisasi"
+                                            class="form-control idr-currency">
                                     </div>
                                     <div class="col-12 col-lg-6 form-group">
                                         <label for="">Capaian</label>
@@ -219,13 +221,13 @@
                                     </div>
                                     <div class="col-12 col-lg-4 form-group">
                                         <label for="">Target</label>
-                                        <input type="number" name="tahunan_target" id="tahunan_target"
-                                            class="form-control">
+                                        <input type="text" name="tahunan_target" id="tahunan_target"
+                                            class="form-control decimal-input">
                                     </div>
                                     <div class="col-12 col-lg-4 form-group">
                                         <label for="">Realisasi</label>
-                                        <input type="number" name="tahunan_realisasi" id="tahunan_realisasi"
-                                            class="form-control">
+                                        <input type="text" name="tahunan_realisasi" id="tahunan_realisasi"
+                                            class="form-control decimal-input">
                                     </div>
                                     <div class="col-12 col-lg-4 form-group">
                                         <h6>Karakteristik</h6>
@@ -337,6 +339,31 @@
                     ],
                 });
 
+                $('.decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+
+
+                // Initialize Inputmask for currency input in IDR format
+                $('.idr-currency').inputmask('numeric', {
+                    radixPoint: ',', // Decimal separator
+                    groupSeparator: '.', // Thousand separator
+                    alias: 'numeric',
+                    digits: 0,
+                    autoGroup: true,
+                    autoUnmask: true,
+                    prefix: 'Rp ', // IDR currency symbol
+                    rightAlign: false,
+                    removeMaskOnSubmit: true // Remove mask when form submitted
+                });
+
                 $('#sasaran_strategis_id').on("select2:select", function(e) {
                     const el = "#sasaran_strategis_indikator_id";
                     getIndikator($(this).val(), el);
@@ -399,11 +426,12 @@
                 // Event listener for input fields
                 $('#anggaran_realisasi, #anggaran_pagu').on('input', function() {
                     // Get the values of realisasi and pagu
-                    var realisasi = parseFloat($('#anggaran_realisasi').val()) || 0;
-                    var pagu = parseFloat($('#anggaran_pagu').val()) || 0;
+                    var realisasi = parseFloat($('#anggaran_realisasi').val().replace(/\./g, '').replace(',',
+                        '.')) || 0;
+                    var pagu = parseFloat($('#anggaran_pagu').val().replace(/\D/g, '').replace(',', '.')) || 0;
 
                     // Calculate the achievement percentage
-                    var achievement = (realisasi / pagu) * 100 || 0;
+                    var achievement = pagu !== 0 ? (realisasi / pagu) * 100 : 0;
 
                     // Update the value of the capaian input field
                     $('#anggaran_capaian').val(achievement.toFixed(2));

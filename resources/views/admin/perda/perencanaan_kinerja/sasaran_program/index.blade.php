@@ -92,8 +92,8 @@
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="pengampu" class="form-label">Target</label>
-                                            <input type="number" name="indikator_sasaran[1][target]" class="form-control"
-                                                aria-describedby="pengampu">
+                                            <input type="text" name="indikator_sasaran[1][target]"
+                                                class="form-control decimal-input" aria-describedby="pengampu">
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="satuan" class="form-label">Satuan</label>
@@ -114,8 +114,8 @@
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="pengampu" class="form-label">Anggaran</label>
-                                            <input type="number" name="indikator_sasaran[1][anggaran]" class="form-control"
-                                                aria-describedby="pengampu">
+                                            <input type="text" name="indikator_sasaran[1][anggaran]"
+                                                class="form-control idr-currency" aria-describedby="pengampu">
                                         </div>
                                     </div>
                                 </div>
@@ -201,6 +201,31 @@
                     order: [
                         [0, 'asc']
                     ],
+                });
+
+                $('.decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+
+
+                // Initialize Inputmask for currency input in IDR format
+                $('.idr-currency').inputmask('numeric', {
+                    radixPoint: ',', // Decimal separator
+                    groupSeparator: '.', // Thousand separator
+                    alias: 'numeric',
+                    digits: 0,
+                    autoGroup: true,
+                    autoUnmask: true,
+                    prefix: 'Rp ', // IDR currency symbol
+                    rightAlign: false,
+                    removeMaskOnSubmit: true // Remove mask when form submitted
                 });
 
                 $('.delete-sasaran-program').click(function() {

@@ -57,6 +57,7 @@ class SasaranKegiatanController extends Controller
             $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_kegiatan_id' => $data->id]);
             SasaranKegiatanIndikator::create($params);
         }
+        Alert::toast('Berhasil menambahkan data sasaran kegiatan', 'success');
         return redirect()->back();
     }
 

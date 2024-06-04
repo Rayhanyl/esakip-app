@@ -94,18 +94,19 @@
                                             <label for="#" class="form-label fw-bold">Target</label>
                                             <div class="col-4 form-group">
                                                 <label for="#" class="form-label">2024</label>
-                                                <input type="number" name="indikator_sasaran[1][target1]"
-                                                    id="decimal-input" class="form-control" aria-describedby="2024">
+                                                <input type="text" name="indikator_sasaran[1][target1]"
+                                                    id="decimal-input" class="form-control decimal-input"
+                                                    aria-describedby="2024">
                                             </div>
                                             <div class="col-4 form-group">
                                                 <label for="#" class="form-label">2025</label>
-                                                <input type="number" name="indikator_sasaran[1][target2]"
-                                                    class="form-control" aria-describedby="2025">
+                                                <input type="text" name="indikator_sasaran[1][target2]" id=""
+                                                    class="form-control decimal-input" aria-describedby="2025">
                                             </div>
                                             <div class="col-4 form-group">
                                                 <label for="#" class="form-label">2026</label>
-                                                <input type="number" name="indikator_sasaran[1][target3]"
-                                                    class="form-control" aria-describedby="2026">
+                                                <input type="text" name="indikator_sasaran[1][target3]" id=""
+                                                    class="form-control decimal-input" aria-describedby="2026">
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
@@ -241,7 +242,7 @@
                     ],
                 });
 
-                $('#decimal-input').inputmask({
+                $('.decimal-input').inputmask({
                     alias: 'decimal',
                     groupSeparator: ',',
                     autoGroup: true,

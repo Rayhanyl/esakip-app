@@ -57,6 +57,7 @@ class SasaranProgramController extends Controller
             $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_program_id' => $data->id]);
             SasaranProgramIndikator::create($params);
         }
+        Alert::toast('Berhasil menambahkan data sasaran program','success');
         return redirect()->back();
     }
 
