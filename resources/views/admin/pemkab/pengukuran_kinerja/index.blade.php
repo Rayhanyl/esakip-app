@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-12 col-lg-3 form-group">
                                 <label for="realisasi" class="form-label fw-bold">Realisasi</label>
-                                <input type="number" name="realisasi" id="realisasi" class="form-control" min="0">
+                                <input type="text" name="realisasi" id="realisasi" class="form-control decimal-input" min="0">
                             </div>
                             <div class="col-12 col-lg-3 form-group">
                                 <label for="karakteristik" class="form-label fw-bold">Karakteristik</label>
@@ -156,6 +156,31 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+
+                $('.decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+
+
+                // Initialize Inputmask for currency input in IDR format
+                $('.idr-currency').inputmask('numeric', {
+                    radixPoint: ',', // Decimal separator
+                    groupSeparator: '.', // Thousand separator
+                    alias: 'numeric',
+                    digits: 0,
+                    autoGroup: true,
+                    autoUnmask: true,
+                    prefix: 'Rp ', // IDR currency symbol
+                    rightAlign: false,
+                    removeMaskOnSubmit: true // Remove mask when form submitted
+                });
 
                 $('#data-table-pengukuran-kinerja').DataTable({
                     responsive: true,
