@@ -99,10 +99,10 @@
                                             <label for="satuan" class="form-label">Satuan</label>
                                             <fieldset class="form-group">
                                                 <select class="form-select select2" id="satuan"
-                                                    name="indikator_sasaran[1][satuan]">
+                                                    name="indikator_sasaran[1][satuan_id]">
                                                     <option value="" selected>- Pilih Satuan -</option>
                                                     @foreach ($satuan as $key)
-                                                        <option value="{{ $key->satuan }}">{{ $key->satuan }}</option>
+                                                        <option value="{{ $key->id }}">{{ $key->satuan }}</option>
                                                     @endforeach
                                                 </select>
                                             </fieldset>
