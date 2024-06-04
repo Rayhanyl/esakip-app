@@ -1582,8 +1582,8 @@ class PerdaEvaluasiInternalController extends Controller
                         $answers = Answer::create([
                             'user_id' => Auth::user()->id,
                             'kriteria_id' => $kriterias->id,
-                            'bobot' => $list_kriteria['bobot'],
-                            'jawaban' => $list_kriteria['jawaban'],
+                            'bobot' => $list_answer['bobot'],
+                            'jawaban' => $list_answer['jawaban'],
                         ]);
                     }
                 }
