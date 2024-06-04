@@ -214,6 +214,8 @@ Route::prefix('inspektorat')->name('inspek.')->group(function () {
             ->name('index');
         Route::post('/store', [SelfAssesmentController::class, 'store'])
             ->name('store');
+        Route::put('/update/{id}', [SelfAssesmentController::class, 'update'])
+            ->name('update');
     });
     Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
         Route::get('/', [InspekEvaluasiInternalController::class, 'index'])

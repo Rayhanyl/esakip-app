@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->onDelete('cascade');
             $table->integer('tahun')->nullable();
-            $table->enum('status', ['1', '2'])->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

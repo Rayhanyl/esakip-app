@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('jawaban')->nullable();
             $table->string('catatan')->nullable();
             $table->string('rekomendasi')->nullable();
-            $table->enum('status', ['1', '2'])->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

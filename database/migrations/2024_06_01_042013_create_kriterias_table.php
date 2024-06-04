@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('sub_komponen_id')->onDelete('cascade');
             $table->string('no')->nullable();
             $table->string('kriteria')->nullable();
-            $table->enum('status', ['1', '2'])->nullable();
+            $table->string('status')->nullable();
             $table->string('upload')->nullable();
             $table->timestamps();
         });

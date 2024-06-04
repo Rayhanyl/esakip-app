@@ -9,8 +9,10 @@ use App\Models\Kriteria;
 use App\Models\SubKomponen;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\PerdaEvaluasiInternal;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SelfAssesmentController extends Controller
 {
@@ -76,7 +78,18 @@ class SelfAssesmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        foreach ($request->kriteria as $key => $kriteria) {
+            $params = [
+                'status' => $kriteria['status'],
+            ];
+            if (isset($kriteria['upload'])) {
+                $kriteria['upload']->store('public/self-assesment/' . Auth::user()->id);
+                $params = array_merge($params, ['upload' => $kriteria['upload']->hashName()]);
+            }
+            Kriteria::find($key)->update($params);
+        }
+        Alert::toast('Berhasil memperbarui Self Assesment', 'success');
+        return redirect()->back();
     }
 
     /**

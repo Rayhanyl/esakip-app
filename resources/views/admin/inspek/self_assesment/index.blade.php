@@ -59,7 +59,7 @@
                                 </thead>
                                 <tbody>
                                     <form
-                                        action="{{ route('perda.evaluasi-internal.update', $perda_evaluasi_internal[0]->id ?? 0) }}"
+                                        action="{{ route('inspek.self-assesment.update', $perda_evaluasi_internal[0]->id ?? 0) }}"
                                         method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
                                         @csrf
                                         @method('put')
@@ -104,7 +104,8 @@
                                                                 <select class="form-select form-select-sm" aria-label="1a"
                                                                     name="kriteria[{{ $kriteria->id }}][status]">
                                                                     @foreach ($kriteria->answers as $answer)
-                                                                        <option value="{{ $answer->bobot }}" selected>
+                                                                        <option value="{{ $answer->id }}"
+                                                                            {{ $answer->id == $kriteria->status ? 'selected' : '' }}>
                                                                             {{ $answer->jawaban }} ({{ $answer->bobot }})
                                                                         </option>
                                                                     @endforeach
