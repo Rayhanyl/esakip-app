@@ -53,7 +53,7 @@
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Sample Data',
+                            label: 'Grafik Nilai SAKIP',
                             data: data,
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             borderColor: 'rgba(75, 192, 192, 1)',
@@ -68,7 +68,7 @@
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Month'
+                                    text: 'Year'
                                 }
                             },
                             y: {
