@@ -16,13 +16,17 @@ class Select extends Component
     public $label;
     public $name;
     public $lists;
+    public $readonly;
+    public $value;
 
-    public function __construct($col = '12', $label = '', $name = '', $lists = [])
+    public function __construct($col = '12', $label = '', $name = '', $lists = [], $value = '', $readonly = false)
     {
         $this->col = $col;
         $this->label = $label;
         $this->name = $name;
         $this->lists = $lists;
+        $this->value = $value;
+        $this->readonly = $readonly;
     }
 
     /**

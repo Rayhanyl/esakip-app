@@ -45,15 +45,8 @@
                                     </select>
                                 </div>
                                 <x-admin.form.text col="col-12 col-lg-4" label="Sasaran Bupati" name="sasaran_bupati" />
-                                <div class="col-12 col-lg-4">
-                                    <label for="pengampu" class="form-label fw-bold">Pengampu</label>
-                                    <select class="form-select select2" name="pengampu_id" id="pengampu_id">
-                                        <option value="" selected disabled>--Pilih Pengampu--</option>
-                                        @foreach ($user_options ?? [] as $id => $user)
-                                            <option value="{{ $id }}">{{ $user }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <x-admin.form.select col="col-12 col-lg-4" label="Pengampu" name="pengampu_id"
+                                    :lists="$user_options" readonly="true" />
                             </div>
                         </div>
                     </div>
