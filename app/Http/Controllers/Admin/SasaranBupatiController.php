@@ -21,7 +21,7 @@ class SasaranBupatiController extends Controller
 {
     public function __construct()
     {
-        View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($list) {
+        View::share('user_options', User::whereRole('pemkab')->get()->keyBy('id')->transform(function ($list) {
             return $list->name;
         }));
         View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {

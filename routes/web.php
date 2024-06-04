@@ -220,6 +220,8 @@ Route::prefix('inspektorat')->name('inspek.')->group(function () {
             ->name('index');
         Route::post('/store', [InspekEvaluasiInternalController::class, 'store'])
             ->name('store');
+        Route::put('/update', [InspekEvaluasiInternalController::class, 'update'])
+            ->name('update');
     });
 });
 

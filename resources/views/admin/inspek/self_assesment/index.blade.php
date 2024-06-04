@@ -27,32 +27,17 @@
             <section class="section">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-12 col-lg-6">
-                                <label class="fw-bold" for="tahun">Perangkat Daerah</label>
-                                <select name="perda" id="perda" class="form-select select2">
-                                    <option value="">
-                                        -- Pilih Perangkat Daerah --
-                                    </option>
-                                </select>
+                        <form action="{{ route('inspek.self-assesment.index') }}" method="get">
+                            <div class="row g-3">
+                                <x-admin.form.select col="col-12 col-lg-6" label="Tahun" name="tahun"
+                                    value="{{ $tahun }}" :lists="$tahun_options" />
+                                <x-admin.form.select col="col-12 col-lg-6" label="Perangkat Daerah" name="perangkat_daerah"
+                                    value="{{ $perangkat_daerah }}" :lists="$user_options" />
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                </div>
                             </div>
-                            <div class="col-12 col-lg-6">
-                                <label class="fw-bold" for="tahun">Tahun</label>
-                                <select name="tahun" id="tahun" class="form-select select2">
-                                    <option value="tahun">
-                                        -- Pilih Tahun --
-                                    </option>
-                                    @for ($i = 2029; $i > 2020; $i--)
-                                        <option value="{{ $i }}">
-                                            {{ $i }}
-                                        </option>
-                                    @endfor
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Cari</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="card">
@@ -61,23 +46,92 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="data-table-self-assesment">
+                            <table class="table">
                                 <thead class="table-info">
                                     <tr>
                                         <th>No</th>
+                                        <th></th>
+                                        <th></th>
                                         <th>Komponen/Sub Komponen/Kriteria</th>
-                                        <th>Bobot</th>
-                                        <th>Nilai</th>
+                                        <th>Keterangan</th>
+                                        <th>Eviden</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>PERNECANAAN KINERJA</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    <form
+                                        action="{{ route('perda.evaluasi-internal.update', $perda_evaluasi_internal[0]->id ?? 0) }}"
+                                        method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('put')
+                                        @foreach ($perda_evaluasi_internal as $pei)
+                                            @foreach ($pei->komponens as $komponen)
+                                                <tr>
+                                                    <td class="bg-info fw-bold text-light" colspan="1">
+                                                        {{ $komponen->no }}</td>
+                                                    <td class="bg-info fw-bold text-light" colspan="1"></td>
+                                                    <td class="bg-info fw-bold text-light" colspan="4">
+                                                        {{ $komponen->komponen }}
+                                                    </td>
+                                                </tr>
+                                                @foreach ($komponen->sub_komponens as $sub_komponen)
+                                                    <tr>
+                                                        <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                                        <td class="bg-secondary fw-bold text-light" colspan="1">
+                                                            {{ $sub_komponen->no }}
+                                                        </td>
+                                                        <td class="bg-secondary fw-bold text-light" colspan="4">
+                                                            {{ $sub_komponen->sub_komponen }}
+                                                        </td>
+                                                    </tr>
+                                                    @foreach ($sub_komponen->kriterias as $kriteria)
+                                                        <tr>
+                                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                                            <td class="bg-secondary fw-bold text-light" colspan="1">
+                                                                {{ $kriteria->no }}
+                                                            </td>
+                                                            <td class="bg-secondary fw-bold text-light" colspan="1">
+                                                                {{ $kriteria->kriteria }}
+                                                            </td>
+                                                            <td>
+                                                                <select class="form-select form-select-sm" aria-label="1a"
+                                                                    name="kriteria[{{ $kriteria->id }}][status]">
+                                                                    <option value="1"
+                                                                        {{ $kriteria->status == '1' ? 'selected' : '' }}>Ya
+                                                                    </option>
+                                                                    <option value="2"
+                                                                        {{ $kriteria->status == '2' ? 'selected' : '' }}>
+                                                                        Tidak</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    @if ($kriteria->upload)
+                                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                            title="Download File Kriteria"
+                                                                            class="btn btn-success btn-sm"
+                                                                            href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
+                                                                            <i
+                                                                                class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                                            Download
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
+                                    </form>
                                 </tbody>
+                                <tfoot>
+                                    <td colspan="6" class="text-end">
+                                        <button class="btn btn-primary btn-lg" type="submit"
+                                            form="form_perda_evaluasi_internal">Submit</button>
+                                    </td>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
