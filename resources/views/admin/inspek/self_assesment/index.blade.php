@@ -53,7 +53,7 @@
                                         <th></th>
                                         <th></th>
                                         <th>Komponen/Sub Komponen/Kriteria</th>
-                                        <th>Keterangan</th>
+                                        <th width="10%">Keterangan</th>
                                         <th>Eviden</th>
                                     </tr>
                                 </thead>
@@ -68,9 +68,13 @@
                                                 <tr>
                                                     <td class="bg-info fw-bold text-light" colspan="1">
                                                         {{ $komponen->no }}</td>
-                                                    <td class="bg-info fw-bold text-light" colspan="1"></td>
-                                                    <td class="bg-info fw-bold text-light" colspan="4">
+                                                    <td class="bg-info fw-bold text-light" colspan="3">
                                                         {{ $komponen->komponen }}
+                                                    </td>
+                                                    <td class="bg-info fw-bold text-light" colspan="1">
+                                                        {{ $komponen->bobot }}
+                                                    </td>
+                                                    <td class="bg-info fw-bold text-light" colspan="1">
                                                     </td>
                                                 </tr>
                                                 @foreach ($komponen->sub_komponens as $sub_komponen)
@@ -79,8 +83,11 @@
                                                         <td class="bg-secondary fw-bold text-light" colspan="1">
                                                             {{ $sub_komponen->no }}
                                                         </td>
-                                                        <td class="bg-secondary fw-bold text-light" colspan="4">
+                                                        <td class="bg-secondary fw-bold text-light" colspan="2">
                                                             {{ $sub_komponen->sub_komponen }}
+                                                        </td>
+                                                        <td class="bg-secondary fw-bold text-light" colspan="2">
+                                                            {{ $sub_komponen->bobot }}
                                                         </td>
                                                     </tr>
                                                     @foreach ($sub_komponen->kriterias as $kriteria)
@@ -96,12 +103,11 @@
                                                             <td>
                                                                 <select class="form-select form-select-sm" aria-label="1a"
                                                                     name="kriteria[{{ $kriteria->id }}][status]">
-                                                                    <option value="1"
-                                                                        {{ $kriteria->status == '1' ? 'selected' : '' }}>Ya
-                                                                    </option>
-                                                                    <option value="2"
-                                                                        {{ $kriteria->status == '2' ? 'selected' : '' }}>
-                                                                        Tidak</option>
+                                                                    @foreach ($kriteria->answers as $answer)
+                                                                        <option value="{{ $answer->bobot }}" selected>
+                                                                            {{ $answer->jawaban }} ({{ $answer->bobot }})
+                                                                        </option>
+                                                                    @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
