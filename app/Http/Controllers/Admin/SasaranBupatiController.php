@@ -61,6 +61,7 @@ class SasaranBupatiController extends Controller
     public function store(Request $request)
     {
         try {
+            dd($request->all());
             $data = SasaranBupati::create(array_merge($request->except(['indikator_sasaran_bupati']), ['user_id' => Auth::user()->id]));
 
             // Create associated SasaranBupatiIndikator records
