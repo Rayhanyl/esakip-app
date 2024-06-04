@@ -18,15 +18,14 @@
                 <div class="col-12 mb-5">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('aspu.renstra') }}">Perangkat
-                                Daerah</a>
+                            <a class="nav-link" href="{{ route ('aspu.renstra') }}">Perangkat Daerah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('aspu.pemkab-renstra') }}">Pemerintah Kabupaten</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route ('aspu.pemkab-renstra') }}">Pemerintah Kabupaten</a>
                         </li>
                     </ul>
                 </div>
-                <form class="row" action="{{ route('aspu.renstra') }}" method="GET">
+                <form class="row" action="{{ route('aspu.pemkab-renstra') }}" method="GET">
                     @csrf
                     <div class="col-12 col-lg-3">
                         <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
@@ -40,24 +39,13 @@
                         </select>
                     </div>
                     <div class="col-12 col-lg-3">
-                        <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
-                        <select class="form-select select2" id="perda" name="perda">
+                        <label class="form-label fs-5 fw-bold" for="pemkab">Pemerintah Kabutan</label>
+                        <select class="form-select select2" id="pemkab" name="pemkab">
                             <option value="" selected>-- All --</option>
                             @foreach ($user as $item)
-                                <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
+                                <option value="{{ $item->id }}" {{ $item->id == $pemkab ? 'selected' : '' }}>
                                     {{ $item->name }}</option>
                             @endforeach
-                        </select>
-                    </div>
-                    <div class="col-12 col-lg-3">
-                        <label class="form-label fs-5 fw-bold" for="perki">Perencanaan Kinerja</label>
-                        <select class="form-select select2" id="perki" name="perki">
-                            <option value="" selected>- All -</option>
-                            {{-- @foreach ($data as $item)
-                                <option value="{{ $item->id }}" {{ $item->id == $perki ? 'selected' : '' }}>
-                                    {{ $item->sasaran_strategis }}
-                                </option>
-                            @endforeach --}}
                         </select>
                     </div>
                     <div class="col-12 col-lg-3 py-4">
@@ -73,7 +61,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-table-renstra">
+                                <table class="table table-striped table-hover" id="data-table-renstra-pemkab">
                                     <thead class="table-info">
                                         <tr>
                                             <th class="text-center">No</th>
@@ -127,7 +115,7 @@
     @push('script-landingpage')
         <script>
             $(document).ready(function() {
-                $('#data-table-renstra').DataTable({
+                $('#data-table-renstra-pemkab').DataTable({
                     responsive: true,
                     lengthMenu: [
                         [10, 25, 50, -1],
