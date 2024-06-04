@@ -26,7 +26,8 @@ class SasaranProgramController extends Controller
             return $user->name;
         }));
         View::share('pengampu_sementara', PengampuSementara::all()->keyBy('id')->transform(function ($list) {
-            return $list->nama_pegawai;
+            $position = $list->jabatan ?? $list->pelaksana ?? $list->fungsional;
+            return $list->nip_baru . ' - ' . $list->nama_pegawai . ' - ' . $position;
         }));
         View::share('sasaran_strategis_options', SasaranStrategis::all()->keyBy('id')->transform(function ($sasaran_strategis) {
             return $sasaran_strategis->sasaran_strategis;
