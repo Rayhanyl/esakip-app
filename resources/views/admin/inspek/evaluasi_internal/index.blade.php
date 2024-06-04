@@ -51,11 +51,13 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Komponen/Sub Komponen/Kriteria</th>
-                                        <th>Bobot</th>
+                                        <th width="10%">Bobot</th>
                                         <th width="15%">Nilai</th>
                                     </tr>
                                 </thead>
-                                <form action="{{ route('inspek.evaluasi-internal.update') }}" method="post">
+                                <form
+                                    action="{{ route('inspek.evaluasi-internal.update', $inspek_evaluasi_internal[0]->id) }}"
+                                    method="post">
                                     @method('put')
                                     @csrf
                                     <tbody>
@@ -97,12 +99,42 @@
                                         @endforeach
                                     </tbody>
                                     <tfoot>
-                                        <td colspan="6">
-                                            <button class="btn btn-success float-end btn-lg">
-                                                <i class="bi bi-save"></i>
-                                                Submit
-                                            </button>
-                                        </td>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="1" class="text-end">
+                                                Nilai Akuntabilitas Kinerja :
+                                            </td>
+                                            <td colspan="1"
+                                                class="d-flex justify-content-center align-items-center gap-1">
+                                                <div class="input-group">
+                                                    <input type="number" name="total_nilai" id="total-nilai"
+                                                        class="form-control"
+                                                        value="{{ $inspek_evaluasi_internal[0]->nilai_akuntabilitas_kinerja ?? 0 }}"
+                                                        readonly>
+
+                                                    <span class="input-group-text" id="basic-addon2">%</span>
+                                                </div>
+                                                <input type="hidden" name="total_bobot" id="total-bobot"
+                                                    class="form-control" value="{{ $total }}" readonly disabled>
+                                            </td>
+                                            <td colspan="1" rowspan="2">
+                                                <button class="btn btn-success btn-lg">
+                                                    <i class="bi bi-save"></i>
+                                                    Submit
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="1" class="text-end">
+                                                Predikat :
+                                            </td>
+                                            <td colspan="1">
+                                                <input type="text" name="predikat_nilai" id="predikat-nilai"
+                                                    class="form-control"
+                                                    value="{{ $inspek_evaluasi_internal[0]->predikat ?? '-' }}" readonly>
+                                            </td>
+                                        </tr>
                                     </tfoot>
                                 </form>
                             </table>
@@ -120,7 +152,38 @@
                 if (parseInt($(this).val()) > parseInt($(this).attr('max'))) {
                     $(this).val($(this).attr('max'));
                 }
+                let sum = 0;
+                let total = {{ $total ?? 0 }};
+                $(".input-bobot").each(function() {
+                    sum = parseInt(sum) + (parseInt($(this).val()) || 0);
+                });
+                $('#total-nilai').val(sum);
+                let p = predikat(sum / total * 100);
+                $('#predikat-nilai').val(p);
             })
+
+            function predikat(nilai) {
+                let predikat;
+                if (nilai == 0) {
+                    predikat = 'E';
+                } else if (nilai <= 30) {
+                    predikat = 'D';
+                } else if (nilai <= 50) {
+                    predikat = 'C';
+                } else if (nilai <= 60) {
+                    predikat = 'CC';
+                } else if (nilai <= 70) {
+                    predikat = 'B';
+                } else if (nilai <= 80) {
+                    predikat = 'BB';
+                } else if (nilai <= 90) {
+                    predikat = 'A';
+                } else if (nilai <= 100) {
+                    predikat = 'AA';
+                };
+                return predikat;
+            }
+
             let activeCatatan;
             let activeButtonCatatan;
             let activeRekomendasi;

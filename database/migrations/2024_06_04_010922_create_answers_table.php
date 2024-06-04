@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inspek_evaluasi_internals', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->onDelete('cascade');
-            $table->integer('tahun')->nullable();
-            $table->double('nilai_akuntabilitas_kinerja')->nullable();
-            $table->string('predikat')->nullable();
+            $table->foreignId('kriteria_id')->onDelete('cascade');
+            $table->double('bobot')->nullable();
+            $table->longText('jawaban')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inspek_evaluasi_internals');
+        Schema::dropIfExists('answers');
     }
 };

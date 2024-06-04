@@ -38,7 +38,11 @@ class InspekEvaluasiInternalController extends Controller
             $this->generate_evaluasi($perangkat_daerah, $tahun);
             $inspek_evaluasi_internal = InspekEvaluasiInternal::with('komponens', 'komponens.sub_komponens')->whereTahun($tahun)->whereUserId($perangkat_daerah)->get();
         }
-        return view('admin.inspek.evaluasi_internal.index', compact('inspek_evaluasi_internal', 'tahun', 'perangkat_daerah'));
+        $total = 0;
+        foreach ($inspek_evaluasi_internal[0]->komponens as $key => $value) {
+            $total += $value->bobot;
+        }
+        return view('admin.inspek.evaluasi_internal.index', compact('inspek_evaluasi_internal', 'tahun', 'perangkat_daerah', 'total'));
     }
 
     /**
@@ -75,8 +79,12 @@ class InspekEvaluasiInternalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        InspekEvaluasiInternal::find($id)->update([
+            'nilai_akuntabilitas_kinerja' => $request->total_nilai,
+            'predikat' => $request->predikat_nilai,
+        ]);
         foreach ($request->komponen as $key_komponen => $komponen) {
             InspekKomponen::find($key_komponen)->update(
                 [
