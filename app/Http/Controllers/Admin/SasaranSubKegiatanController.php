@@ -25,9 +25,10 @@ class SasaranSubKegiatanController extends Controller
             return $user->name;
         }));
         View::share('pengampu_sementara', PengampuSementara::all()->keyBy('id')->transform(function ($list) {
-            $position = $list->jabatan ?? $list->pelaksana ?? $list->fungsional;
+            $position = !empty($list->jabatan) ? $list->jabatan : (!empty($list->pelaksana) ? $list->pelaksana : $list->fungsional);
             return $list->nip_baru . ' - ' . $list->nama_pegawai . ' - ' . $position;
         }));
+
         View::share('sasaran_kegiatan_options', SasaranKegiatan::all()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran_kegiatan;
         }));
@@ -40,7 +41,7 @@ class SasaranSubKegiatanController extends Controller
     {
         $satuan = Satuan::all();
         $penanggung_jawab = PenanggungJawab::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_sub_kegiatan.index',compact('satuan', 'penanggung_jawab'));
+        return view('admin.perda.perencanaan_kinerja.sasaran_sub_kegiatan.index', compact('satuan', 'penanggung_jawab'));
     }
 
     /**
