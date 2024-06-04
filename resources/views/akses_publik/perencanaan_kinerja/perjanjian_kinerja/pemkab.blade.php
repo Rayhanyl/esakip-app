@@ -18,16 +18,17 @@
                 <div class="col-12 mb-5">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route ('aspu.perjanjian.kinerja') }}">Perangkat Daerah</a>
+                            <a class="nav-link" href="{{ route('aspu.perjanjian.kinerja') }}">Perangkat Daerah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route ('aspu.pemkab-perjanjian.kinerja') }}">Pemerintah Kabupaten</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('aspu.pemkab-perjanjian.kinerja') }}">Pemerintah Kabupaten</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-12">
-                    <form class="row" action="{{ route ('aspu.perjanjian.kinerja') }}" method="get">
-                    @csrf
+                    <form class="row" action="{{ route('aspu.perjanjian.kinerja') }}" method="get">
+                        @csrf
                         <div class="col-12 col-lg-3">
                             <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
                             <select class="form-select" id="tahun" name="tahun">
@@ -50,7 +51,7 @@
                             </select>
                         </div>
                         <div class="col-12 col-lg-3 py-4">
-                            <button class="btn btn-primary btn-sm w-100 ">Seacrh</button>
+                            <button class="btn btn-primary btn-sm w-100 ">Search</button>
                         </div>
                     </form>
                 </div>

@@ -50,7 +50,7 @@
                         </select>
                     </div>
                     <div class="col-12 col-lg-3 py-4">
-                        <button type="submit" class="btn btn-primary btn-sm w-100">Seacrh</button>
+                        <button type="submit" class="btn btn-primary btn-sm w-100">Search</button>
                     </div>
                 </form>
             </div>
@@ -81,7 +81,7 @@
                                             <td></td>
                                             <td></td>
                                             <td>
-                                                <a href="{{ route ('aspu.perangkat.daerah.detail') }}">Detail</a>
+                                                <a href="{{ route('aspu.perangkat.daerah.detail') }}">Detail</a>
                                             </td>
                                         </tr>
                                     </tbody>

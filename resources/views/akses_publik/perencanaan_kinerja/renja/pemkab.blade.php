@@ -18,10 +18,11 @@
                 <div class="col-12 mb-5">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route ('aspu.renja') }}">Perangkat Daerah</a>
+                            <a class="nav-link" href="{{ route('aspu.renja') }}">Perangkat Daerah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route ('aspu.pemkab-renja') }}">Pemerintah Kabupaten</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('aspu.pemkab-renja') }}">Pemerintah Kabupaten</a>
                         </li>
                     </ul>
                 </div>
@@ -49,7 +50,7 @@
                         </select>
                     </div>
                     <div class="col-12 col-lg-3 py-4">
-                        <button type="submit" class="btn btn-primary btn-sm w-100">Seacrh</button>
+                        <button type="submit" class="btn btn-primary btn-sm w-100">Search</button>
                     </div>
                 </form>
             </div>

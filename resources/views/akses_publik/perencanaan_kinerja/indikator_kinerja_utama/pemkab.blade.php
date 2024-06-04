@@ -52,7 +52,7 @@
                                 </select>
                             </div>
                             <div class="col-12 col-lg-3 py-4">
-                                <button class="btn btn-primary btn-sm w-100 ">Seacrh</button>
+                                <button class="btn btn-primary btn-sm w-100 ">Search</button>
                             </div>
                         </form>
                     </div>
