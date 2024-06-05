@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\PerdaPengukuranKinerja;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\SasaranStrategisIndikator;
 use App\Models\SasaranSubKegiatanIndikator;
 use App\Http\Requests\StorePerdaPengukuranKinerjaRequest;
 use App\Http\Requests\UpdatePerdaPengukuranKinerjaRequest;
@@ -101,5 +102,21 @@ class PerdaPengukuranKinerjaController extends Controller
     {
         $target = SasaranSubKegiatanIndikator::whereId($request->id)->get();
         return response()->json($target);
+    }
+
+    public function get_indicator_tahunan(Request $request)
+    {
+        $year = $request->get('year');
+        // Fetch Sasaran Strategis data based on the selected year
+        // Adjust the query according to your data structure and requirements
+        $strategis = SasaranStrategis::where('tahun', $year)->get()->pluck('sasaran_strategis', 'id');
+        return response()->json($strategis);
+    }
+
+    public function get_target_tahunan(Request $request)
+    {
+        $id = $request->get('id');
+        $target_tahunan = SasaranStrategisIndikator::where('id', $id)->pluck('target1')->first();
+        return response()->json(['target1' => $target_tahunan]);
     }
 }

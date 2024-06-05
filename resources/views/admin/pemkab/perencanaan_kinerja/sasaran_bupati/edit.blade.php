@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            {{-- <section class="section">
+            <section class="section">
                 <form action="{{ route('pemkab.perencanaan-kinerja.update') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="card">
@@ -122,58 +122,7 @@
                     </div>
 
                 </form>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Tabel Sasaran Strategis</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="data-table-pemkab-sasaran-bupati">
-                                <thead class="table-info">
-                                    <tr>
-                                        <th class="text-center">Sasaran Bupati</th>
-                                        <th class="text-center">Tahun</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($sasaran_bupati ?? [] as $item)
-                                        <tr>
-                                            <td class="text-center">{{ $item->sasaran_bupati }}</td>
-                                            <td class="text-center">{{ $item->tahun }}</td>
-                                            <td class="text-center">
-                                                <div class="d-flex justify-content-center">
-                                                    <div class="p-2">
-                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Edit Perencanaan Kinerja" class="text-warning"
-                                                            href="#">
-                                                            <i class="bi bi-pencil-square"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="p-2">
-                                                        <button class="btn btn-danger btn-sm delete-sasaran-bupati"
-                                                            data-id="{{ $item->id }}" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="Delete Sasaran Bupati">
-                                                            <i class="bi bi-trash3"></i>
-                                                        </button>
-
-                                                        <form id="delete-form-{{ $item->id }}"
-                                                            action="{{ route('pemkab.perencanaan-kinerja.destroy', $item->id) }}"
-                                                            method="POST" style="display: none;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section> --}}
+            </section>
 
         </div>
     </div>
@@ -183,32 +132,125 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                $('#select-tahun').select2({
+                    theme: 'bootstrap-5'
+                });
+
+                $('.delete-sasaran-bupati').click(function() {
+                    var id = $(this).data('id');
+                    var form = $('#delete-form-' + id);
+
+                    // SweetAlert confirmation dialog
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+
                 let iter = 1;
                 $('.btn-add-indicator').on('click', function() {
                     iter++;
-                    add_indicator(iter);
+                    let tahun = $('#select-tahun').val();
+                    add_indicator(iter, tahun);
+                })
+
+                $('#select-tahun').on('select2:select', function() {
+                    $('.label-target-1').html($(this).val());
+                    $('.label-target-2').html(parseInt($(this).val()) + 1);
+                    $('.label-target-3').html(parseInt($(this).val()) + 2);
                 })
 
                 $(document).on('click', '.btn-remove-indicator', function() {
                     remove_indicator($(this));
                 });
 
-                function remove_indicator(el) {
-                    el.parents('.col-indikator-sasaran-bupati').remove();
+                $(document).on('click', '.btn-add-simple-action', function() {
+                    const i = $(this).data('id');
+                    add_simple_action(i);
+                });
+
+                $(document).on('click', '.btn-remove-simple-action', function() {
+                    remove_simple_action($(this));
+                });
+
+                function remove_simple_action(el) {
+                    el.parents('.row-simple-action').remove();
                 }
 
-                function add_indicator(iter) {
+                function add_simple_action(iter) {
                     $.ajax({
-                        url: "{{ route('pemkab.perencanaan-kinerja.indicator') }}",
+                        url: "{{ route('pemkab.perencanaan-kinerja.simple-action') }}",
                         data: {
                             iter
                         },
                         success: function(result) {
-                            $('#row-indikator-sasaran-bupati').append(result);
+                            $(`#col-simple-action${iter}`).append(result);
                         }
                     });
                 }
+
+                function remove_indicator(el) {
+                    el.parents('.col-indikator-sasaran-bupati').remove();
+                }
+
+                function add_indicator(iter, tahun) {
+                    $.ajax({
+                        url: "{{ route('pemkab.perencanaan-kinerja.indicator') }}",
+                        data: {
+                            iter,
+                            tahun
+                        },
+                        success: function(result) {
+                            $('#row-indikator-sasaran-bupati').append(result);
+                            decimalInput();
+                            idrCurrency();
+                            $('.select2').select2({
+                                theme: 'bootstrap-5'
+                            });
+                        }
+                    });
+                }
+
+                decimalInput();
+                idrCurrency();
             });
+
+            function decimalInput() {
+                $('.decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            }
+
+            function idrCurrency() {
+                // Initialize Inputmask for currency input in IDR format
+                $('.idr-currency').inputmask('numeric', {
+                    radixPoint: ',', // Decimal separator
+                    groupSeparator: '.', // Thousand separator
+                    alias: 'numeric',
+                    digits: 0,
+                    autoGroup: true,
+                    autoUnmask: true,
+                    prefix: 'Rp ', // IDR currency symbol
+                    rightAlign: false,
+                    removeMaskOnSubmit: true // Remove mask when form submitted
+                });
+            }
         </script>
     @endpush
 @endsection

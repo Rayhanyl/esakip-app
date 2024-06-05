@@ -126,6 +126,10 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
             ->name('get-indicator');
         Route::get('/get-target', [PerdaPengukuranKinerjaController::class, 'get_target'])
             ->name('get-target');
+        Route::get('/get-indicator-tahunan', [PerdaPengukuranKinerjaController::class, 'get_indicator_tahunan'])
+            ->name('get-indicator-tahunan');
+        Route::get('/get-target-tahunan', [PerdaPengukuranKinerjaController::class, 'get_target_tahunan'])
+            ->name('get-target-tahunan');
         Route::post('/store', [PerdaPengukuranKinerjaController::class, 'store'])
             ->name('store');
     });
