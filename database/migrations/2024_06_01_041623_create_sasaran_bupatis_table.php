@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('sasaran_bupatis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->onDelete('cascade');
-            $table->foreignId('pengampu_id');
             $table->integer('tahun')->nullable();
             $table->string('sasaran_bupati')->nullable();
             $table->timestamps();

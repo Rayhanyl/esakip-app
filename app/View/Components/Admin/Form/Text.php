@@ -18,8 +18,9 @@ class Text extends Component
     public $name;
     public $decimal;
     public $classinput;
+    public $placeholder;
 
-    public function __construct($col = '12', $label = '', $type = 'text', $name = '', $classinput = '', $decimal = false)
+    public function __construct($col = '12', $label = '', $type = 'text', $name = '', $classinput = '', $placeholder = '', $decimal = false)
     {
         $this->col = $col;
         $this->label = $label;
@@ -27,6 +28,7 @@ class Text extends Component
         $this->name = $name;
         $this->decimal = $decimal;
         $this->classinput = $classinput;
+        $this->placeholder = $placeholder;
     }
 
     /**

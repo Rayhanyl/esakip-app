@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->onDelete('cascade');
             $table->foreignId('sasaran_bupati_id')->onDelete('cascade');
-            $table->foreignId('pengampu_id');
             $table->integer('tahun')->nullable();
             $table->string('sasaran_strategis')->nullable();
             $table->timestamps();

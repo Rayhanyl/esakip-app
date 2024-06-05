@@ -7,6 +7,7 @@ use App\Models\Satuan;
 use Illuminate\Http\Request;
 use App\Models\PenanggungJawab;
 use App\Models\SasaranKegiatan;
+use App\Models\SasaranPengampu;
 use App\Models\PengampuSementara;
 use App\Models\SasaranSubKegiatan;
 use App\Http\Controllers\Controller;
@@ -57,7 +58,14 @@ class SasaranSubKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        $data =  SasaranSubKegiatan::create(array_merge($request->except('indikator_sasaran'), ['user_id' => Auth::user()->id]));
+        $data =  SasaranSubKegiatan::create(array_merge($request->except('indikator_sasaran', 'pengampu_id'), ['user_id' => Auth::user()->id]));
+        foreach ($request->pengampu_id as $pengampu) {
+            $params = [
+                'sasaran_id' => $data->id,
+                'pengampu_sementara_id' => $pengampu,
+            ];
+            SasaranPengampu::create($params);
+        }
         foreach ($request->indikator_sasaran as $value) {
             $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_sub_kegiatan_id' => $data->id]);
             SasaranSubKegiatanIndikator::create($params);

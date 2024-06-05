@@ -69,6 +69,8 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
                 ->name('indicator');
             Route::get('/get-indicator', [SasaranStrategisController::class, 'get_indicator'])
                 ->name('get-indicator');
+            Route::get('/penanggung-jawab', [SasaranStrategisController::class, 'penanggung_jawab'])
+            ->name('penanggung-jawab');
             Route::post('/store', [SasaranStrategisController::class, 'store'])
                 ->name('store');
             Route::post('/update', [SasaranStrategisController::class, 'update'])
@@ -165,6 +167,8 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
             ->name('indicator');
         Route::get('/simple-action', [SasaranBupatiController::class, 'simple_action'])
             ->name('simple-action');
+        Route::get('/penanggung-jawab', [SasaranBupatiController::class, 'penanggung_jawab'])
+            ->name('penanggung-jawab');
         Route::post('/store', [SasaranBupatiController::class, 'store'])
             ->name('store');
         Route::post('/update', [SasaranBupatiController::class, 'update'])
