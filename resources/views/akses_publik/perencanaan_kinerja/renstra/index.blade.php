@@ -49,17 +49,6 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-12 col-lg-3">
-                        <label class="form-label fs-5 fw-bold" for="perki">Perencanaan Kinerja</label>
-                        <select class="form-select select2" id="perki" name="perki">
-                            <option value="" selected>- All -</option>
-                            {{-- @foreach ($data as $item)
-                                <option value="{{ $item->id }}" {{ $item->id == $perki ? 'selected' : '' }}>
-                                    {{ $item->sasaran_strategis }}
-                                </option>
-                            @endforeach --}}
-                        </select>
-                    </div>
                     <div class="col-12 col-lg-3 py-4">
                         <button type="submit" class="btn btn-primary btn-sm w-100">Search</button>
                     </div>

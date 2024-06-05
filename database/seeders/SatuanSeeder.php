@@ -35,6 +35,9 @@ class SatuanSeeder extends Seeder
             [
                 'satuan' => 'Desa'
             ],
+            [
+                'satuan' => 'Custom'
+            ],
         ];
 
         foreach ($satuans as $satuan) {

@@ -44,7 +44,8 @@
                             </div>
                             <div class="col-12 col-lg-3 form-group">
                                 <label for="realisasi" class="form-label fw-bold">Realisasi</label>
-                                <input type="text" name="realisasi" id="realisasi" class="form-control decimal-input" min="0">
+                                <input type="text" name="realisasi" id="realisasi" class="form-control decimal-input"
+                                    min="0">
                             </div>
                             <div class="col-12 col-lg-3 form-group">
                                 <label for="karakteristik" class="form-label fw-bold">Karakteristik</label>
@@ -118,7 +119,7 @@
                                                     </p>
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ number_format($item->capaian, 2) }} %</td>
+                                            <td class="text-center">{{ number_format($item->capaian, 2) }}</td>
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center">
                                                     <div class="p-2">

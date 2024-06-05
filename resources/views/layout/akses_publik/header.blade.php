@@ -60,37 +60,42 @@
                         <div class="col-8 text-center ">
                             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
                                 <li class="{{ Route::is('aspu.index') ? 'active' : '' }}">
-                                    <a href="{{ route ('aspu.index') }}">Beranda</a>
+                                    <a href="{{ route('aspu.index') }}">Beranda</a>
                                 </li>
-                                <li class="has-children
+                                <li
+                                    class="has-children
                                 {{ Route::is('aspu.renstra') || Route::is('aspu.renja') || Route::is('aspu.rencana.aksi') || Route::is('aspu.perjanjian.kinerja') || Route::is('aspu.indikator.kinerja.utama') ? 'active' : '' }}">
                                     <a href="#">Perencanaan Kerja</a>
                                     <ul class="dropdown">
                                         <li class="{{ Route::is('aspu.renstra') ? 'active' : '' }}">
-                                            <a href="{{ route ('aspu.renstra') }}">Renstra</a>
+                                            <a href="{{ route('aspu.renstra') }}">Renstra</a>
                                         </li>
                                         <li class="{{ Route::is('aspu.renja') ? 'active' : '' }}">
-                                            <a href="{{ route ('aspu.renja') }}">Renja</a>
+                                            <a href="{{ route('aspu.renja') }}">Renja</a>
                                         </li>
                                         <li class="{{ Route::is('aspu.rencana.aksi') ? 'active' : '' }}">
-                                            <a href="{{ route ('aspu.rencana.aksi') }}">Rencana Aksi</a>
+                                            <a href="{{ route('aspu.rencana.aksi') }}">Rencana Aksi</a>
                                         </li>
                                         <li class="{{ Route::is('aspu.perjanjian.kinerja') ? 'active' : '' }}">
-                                            <a href="{{ route ('aspu.perjanjian.kinerja') }}">Perjanjian Kinerja</a>
+                                            <a href="{{ route('aspu.perjanjian.kinerja') }}">Perjanjian Kinerja</a>
                                         </li>
                                         <li class="{{ Route::is('aspu.indikator.kinerja.utama') ? 'active' : '' }}">
-                                            <a href="{{ route ('aspu.indikator.kinerja.utama') }}">Indikator Kinerja Utama</a>
+                                            <a href="{{ route('aspu.indikator.kinerja.utama') }}">Indikator Kinerja
+                                                Utama</a>
+                                        </li>
+                                        <li class="#">
+                                            <a href="#">Case Cading</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="{{ Route::is('aspu.pengukuran.kinerja') ? 'active' : '' }}">
-                                    <a href="{{ route ('aspu.pengukuran.kinerja') }}">Pengukuran Kinerja</a>
+                                    <a href="{{ route('aspu.pengukuran.kinerja') }}">Pengukuran Kinerja</a>
                                 </li>
                                 <li class="{{ Route::is('aspu.pelaporan.kinerja') ? 'active' : '' }}">
-                                    <a href="{{ route ('aspu.pelaporan.kinerja') }}">Pelaporan Kinerja</a>
+                                    <a href="{{ route('aspu.pelaporan.kinerja') }}">Pelaporan Kinerja</a>
                                 </li>
                                 <li class="{{ Route::is('aspu.evaluasi.internal') ? 'active' : '' }}">
-                                    <a href="{{ route ('aspu.evaluasi.internal') }}">Evaluasi Internal</a>
+                                    <a href="{{ route('aspu.evaluasi.internal') }}">Evaluasi Internal</a>
                                 </li>
                             </ul>
                         </div>
