@@ -120,81 +120,67 @@ class SelfAssesmentController extends Controller
                                 "answer"          => [
                                     [
                                         "bobot"             => 1,
-                                        "jawaban"           => "ya",
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
                                         "bobot"             => 0,
-                                        "jawaban"           => "tidak",
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
                                 "no"              => "2",
-                                "kriteria"        => "Terdapat dokumen perencanaan kinerja jangka panjang.",
+                                "kriteria"        => "Terdapat dokumen perencanaan kinerja jangka menengah.",
                                 "answer"          => [
                                     [
-                                        "bobot"             => 1,
-                                        "jawaban"           => "ya",
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
                                         "bobot"             => 0,
-                                        "jawaban"           => "tidak",
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
                                 "no"              => "3",
-                                "kriteria"        => "Terdapat dokumen perencanaan kinerja jangka menengah.",
+                                "kriteria"        => "Terdapat dokumen perencanaan kinerja jangka pendek.",
                                 "answer"          => [
                                     [
-                                        "bobot"             => 1,
-                                        "jawaban"           => "ya",
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
                                         "bobot"             => 0,
-                                        "jawaban"           => "tidak",
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
                                 "no"              => "4",
-                                "kriteria"        => "Terdapat dokumen perencanaan kinerja jangka pendek.",
+                                "kriteria"        => "Terdapat dokumen perencanaan aktivitas yang mendukung kinerja.",
                                 "answer"          => [
                                     [
                                         "bobot"             => 1,
-                                        "jawaban"           => "ya",
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
                                         "bobot"             => 0,
-                                        "jawaban"           => "tidak",
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
                                 "no"              => "5",
-                                "kriteria"        => "Terdapat dokumen perencanaan aktivitas yang mendukung kinerja.",
-                                "answer"          => [
-                                    [
-                                        "bobot"             => 1,
-                                        "jawaban"           => "ya",
-                                    ],
-                                    [
-                                        "bobot"             => 0,
-                                        "jawaban"           => "tidak",
-                                    ],
-                                ]
-                            ],
-                            [
-                                "no"              => "6",
                                 "kriteria"        => "Terdapat dokumen perencanaan anggaran yang mendukung kinerja.",
                                 "answer"          => [
                                     [
                                         "bobot"             => 1,
-                                        "jawaban"           => "ya",
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
                                         "bobot"             => 0,
-                                        "jawaban"           => "tidak",
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
@@ -211,11 +197,11 @@ class SelfAssesmentController extends Controller
                                 "answer"          => [
                                     [
                                         "bobot"             => 0.5,
-                                        "jawaban"           => "ya",
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
                                         "bobot"             => 0,
-                                        "jawaban"           => "tidak",
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
@@ -225,17 +211,17 @@ class SelfAssesmentController extends Controller
                                 "answer"          => [
                                     [
                                         "bobot"             => 0.5,
-                                        "jawaban"           => "ya",
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
                                         "bobot"             => 0,
-                                        "jawaban"           => "tidak",
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
                                 "no"              => "3",
-                                "kriteria"        => "Dokumen Perencanaan Kinerja telah menggambarkan Kebutuhan atas Kinerja sebenarnya yang perlu",
+                                "kriteria"        => "Dokumen Perencanaan Kinerja telah menggambarkan Kebutuhan atas Kinerja sebenarnya yang perlu dicapai.",
                                 "answer"          => [
                                     [
                                         "bobot"             => 1,
@@ -301,7 +287,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "6",
-                                "kriteria"        => "Indikator Kinerja Utama (IKU) telah menggambarkan kondisi Kinerja Utama yang harus dicapai, tertuang",
+                                "kriteria"        => "Indikator Kinerja Utama (IKU) telah menggambarkan kondisi Kinerja Utama yang harus dicapai, tertuang secara berkelanjutan (sustainable - tidak sering diganti dalam 1 periode Perencanaan Strategis).",
                                 "answer"          => [
                                     [
                                         "bobot"             => 1,
@@ -341,7 +327,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "8",
-                                "kriteria"        => "Setiap Dokumen Perencanaan Kinerja menggambarkan hubungan yang berkesinambungan, serta",
+                                "kriteria"        => "Setiap Dokumen Perencanaan Kinerja menggambarkan hubungan yang berkesinambungan, serta selaras antara Kondisi/Hasil yang akan dicapai di setiap level jabatan (Cascading)",
                                 "answer"          => [
                                     [
                                         "bobot"             => 1,
@@ -359,7 +345,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "9",
-                                "kriteria"        => "Perencanaan kinerja dapat memberikan informasi tentang hubungan kinerja, strategi, kebijakan, bahkan",
+                                "kriteria"        => "Perencanaan kinerja dapat memberikan informasi tentang hubungan kinerja, strategi, kebijakan, bahkan aktivitas antar bidang/dengan tugas dan fungsi lain yang berkaitan (Crosscutting)",
                                 "answer"          => [
                                     [
                                         "bobot"             => 0.5,
@@ -373,7 +359,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "10",
-                                "kriteria"        => "Setiap unit/satuan kerja merumuskan dan menetapkan Perencanaan Kinerja.",
+                                "kriteria"        => "Sasaran Strategis dan Indikator pada seluruh Dokumen Perencanaan (Pokin, Cascading, Renstra, Renja, IKU, Renaksi) selaras",
                                 "answer"          => [
                                     [
                                         "bobot"             => 0.75,
@@ -407,7 +393,7 @@ class SelfAssesmentController extends Controller
                     ],
                     [
                         "no"                => "1.c",
-                        "sub_komponen"      => "Perencanaan Kinerja telah dimanfaatkan untuk mewujudkan hasil yang",
+                        "sub_komponen"      => "Perencanaan Kinerja telah dimanfaatkan untuk mewujudkan hasil yang berkesinambungan",
                         "bobot"             => 15,
                         "kriteria"          => [
                             [
@@ -456,7 +442,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "3",
-                                "kriteria"        => "Target yang ditetapkan dalam Perencanaan Kinerja telah dicapai dengan baik, atau setidaknya masih on",
+                                "kriteria"        => "Target yang ditetapkan dalam Perencanaan Kinerja telah dicapai dengan baik, atau setidaknya masih on the right track",
                                 "answer"          => [
                                     [
                                         "bobot"             => 2,
@@ -500,7 +486,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "5",
-                                "kriteria"        => "Terdapat perbaikan/penyempurnaan Dokumen Perencanaan Kinerja yang ditetapkan dari hasil analisis",
+                                "kriteria"        => "Terdapat perbaikan/penyempurnaan Dokumen Perencanaan Kinerja yang ditetapkan dari hasil analisis perbaikan kinerja sebelumnya",
                                 "answer"          => [
                                     [
                                         "bobot"             => 3,
@@ -514,7 +500,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "6",
-                                "kriteria"        => "Terdapat perbaikan/penyempurnaan Dokumen Perencanaan Kinerja dalam mewujudkan kondisi/hasil",
+                                "kriteria"        => "Dilakukan reviu terhadap dokumen perencanaan",
                                 "answer"          => [
                                     [
                                         "bobot"             => 2,
@@ -528,7 +514,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "7",
-                                "kriteria"        => "Setiap unit/satuan kerja memahami dan peduli, serta berkomitmen dalam mencapai kinerja yang telah",
+                                "kriteria"        => "Setiap unit/satuan kerja memahami dan peduli, serta berkomitmen dalam mencapai kinerja yang telah direncanakan",
                                 "answer"          => [
                                     [
                                         "bobot"             => 2,
@@ -537,20 +523,6 @@ class SelfAssesmentController extends Controller
                                     [
                                         "bobot"             => 0,
                                         "jawaban"           => "Tidak dilaksanakan acara komitmen pencapaian kinerja ditahun tersebut",
-                                    ],
-                                ]
-                            ],
-                            [
-                                "no"              => "8",
-                                "kriteria"        => "Setiap Pegawai memahami dan peduli, serta berkomitmen dalam mencapai kinerja yang telah",
-                                "answer"          => [
-                                    [
-                                        "bobot"             => 0,
-                                        "jawaban"           => "-",
-                                    ],
-                                    [
-                                        "bobot"             => 0,
-                                        "jawaban"           => "-",
                                     ],
                                 ]
                             ],
@@ -614,12 +586,12 @@ class SelfAssesmentController extends Controller
                     ],
                     [
                         "no"                => "2.b",
-                        "sub_komponen"      => "Pengukuran Kinerja telah menjadi kebutuhan dalam mewujudkan Kinerja secara Efektif dan Efisien dan telah dilakukan secara berjenjang dan",
+                        "sub_komponen"      => "Pengukuran Kinerja telah menjadi kebutuhan dalam mewujudkan Kinerja secara Efektif dan Efisien dan telah dilakukan secara berjenjang dan berkelanjutan",
                         "bobot"             => 9,
                         "kriteria"          => [
                             [
                                 "no"              => "1",
-                                "kriteria"        => "Pimpinan selalu teribat sebagai pengambil keputusan (Decision Maker) dalam mengukur capaian",
+                                "kriteria"        => "Pimpinan selalu teribat sebagai pengambil keputusan (Decision Maker) dalam mengukur capaian kinerja",
                                 "answer"          => [
                                     [
                                         "bobot"             => 1,
@@ -699,7 +671,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "5",
-                                "kriteria"        => "Setiap level organisasi melakukan pemantauan atas pengukuran capaian kinerja unit dibawahnya",
+                                "kriteria"        => "Setiap level organisasi melakukan pemantauan atas pengukuran capaian kinerja unit dibawahnya secara berjenjang.",
                                 "answer"          => [
                                     [
                                         "bobot"             => 1.5,
@@ -743,12 +715,12 @@ class SelfAssesmentController extends Controller
                     ],
                     [
                         'no'                => '2.c',
-                        'sub_komponen'      => 'Pengukuran Kinerja telah dijadikan dasar dalam pemberian Reward dan Punishment, serta penyesuaian strategi dalam mencapai kinerja yang',
+                        'sub_komponen'      => 'Pengukuran Kinerja telah dijadikan dasar dalam pemberian Reward dan Punishment, serta penyesuaian strategi dalam mencapai kinerja yang efektif dan efisien',
                         'bobot'             => 15,
                         'kriteria'          => [
                             [
                                 'no'              => '1',
-                                'kriteria'        => 'Pengukuran Kinerja telah menjadi dasar dalam penyesuaian (pemberian/pengurangan) tunjangan',
+                                'kriteria'        => 'Pengukuran Kinerja telah menjadi dasar dalam penyesuaian (pemberian/pengurangan) tunjangan kinerja/penghasilan',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -762,7 +734,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Pengukuran Kinerja telah menjadi dasar dalam penempatan/penghapusan Jabatan baik struktural',
+                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Strategi dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -780,7 +752,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian (Refocusing) Organisasi.',
+                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Kebijakan dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -798,7 +770,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Strategi dalam mencapai kinerja.',
+                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Aktivitas dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -816,7 +788,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '5',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Kebijakan dalam mencapai kinerja.',
+                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Anggaran dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -834,7 +806,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '6',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Aktivitas dalam mencapai kinerja.',
+                                'kriteria'        => 'Terdapat efisiensi atas penggunaan anggaran dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -856,7 +828,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '7',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Anggaran dalam mencapai kinerja.',
+                                'kriteria'        => 'Setiap unit/satuan kerja memahami dan peduli atas hasil pengukuran kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -870,7 +842,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '8',
-                                'kriteria'        => 'Terdapat efisiensi atas penggunaan anggaran dalam mencapai kinerja.',
+                                'kriteria'        => 'Setiap unit/satuan kerja memahami dan peduli atas hasil pengukuran kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -879,34 +851,6 @@ class SelfAssesmentController extends Controller
                                     [
                                         'bobot'             => 0,
                                         'jawaban'           => 'Tidak Terdapat Feedback dari atasan kepada bawahan atas hasil pengukuran kinerja (SKP)',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '9',
-                                'kriteria'        => 'Setiap unit/satuan kerja memahami dan peduli atas hasil pengukuran kinerja.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '10',
-                                'kriteria'        => 'Setiap pegawai memahami dan peduli atas hasil pengukuran kinerja.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
                                     ],
                                 ]
                             ],
@@ -940,7 +884,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah disusun secara berkala.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah diformalkan dan di paraf semua pejabat administrator/pengawas',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -958,7 +902,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah diformalkan.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah dipublikasikan di esr.menpan',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -972,7 +916,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah direviu.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah disampaikan tepat waktu.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -988,39 +932,11 @@ class SelfAssesmentController extends Controller
                                     ],
                                 ]
                             ],
-                            [
-                                'no'              => '5',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah dipublikasikan.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '6',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah disampaikan tepat waktu.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
                         ]
                     ],
                     [
                         'no'                => '3.b',
-                        'sub_komponen'      => 'Dokumen Laporan Kinerja telah memenuhi Standar menggambarkan Kualitas atas Pencapaian Kinerja, informasi keberhasilan/kegagalan',
+                        'sub_komponen'      => 'Dokumen Laporan Kinerja telah memenuhi Standar menggambarkan Kualitas atas Pencapaian Kinerja, informasi keberhasilan/kegagalan kinerja serta upaya perbaikan/penyempurnaannya',
                         'bobot'             => 4.5,
                         'kriteria'          => [
                             [
@@ -1047,7 +963,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah mengungkap seluruh informasi tentang pencapaian kinerja.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan analisis dan evaluasi realisasi kinerja dengan target tahunan.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1065,7 +981,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan target tahunan.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan analisis dan evaluasi realisasi kinerja dengan target jangka menengah.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1083,7 +999,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan target jangka',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan analisis dan evaluasi realisasi kinerja dengan realisasi kinerja tahun-tahun sebelumnya.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1101,7 +1017,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '5',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan realisasi kinerja',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan realisasi kinerja di level kabupaten/provinsi/nasional',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1119,7 +1035,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '6',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan realiasi kinerja di',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan kualitas atas capaian kinerja beserta upaya nyata dan/atau hambatannya.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1137,7 +1053,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '7',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan kualitas atas capaian kinerja beserta upaya nyata dan/atau',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan program yang mendukung capaian kinerja',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1155,7 +1071,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '8',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan efisiensi atas penggunaan sumber daya dalam mencapai',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan efisiensi atas penggunaan sumber daya dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1173,7 +1089,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '9',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan upaya perbaikan dan penyempurnaan kinerja ke depan',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan upaya perbaikan dan penyempurnaan kinerja ke depan (Rekomendasi perbaikan kinerja).',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1193,7 +1109,7 @@ class SelfAssesmentController extends Controller
                     ],
                     [
                         'no'                => '3.c',
-                        'sub_komponen'      => 'Pelaporan Kinerja telah memberikan dampak yang besar dalam',
+                        'sub_komponen'      => 'Pelaporan Kinerja telah memberikan dampak yang besar dalam penyesuaian strategi/kebijakan dalam mencapai kinerja berikutnya',
                         'bobot'             => 7.5,
                         'kriteria'          => [
                             [
@@ -1226,7 +1142,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Informasi dalam laporan kinerja berkala telah digunakan dalam penyesuaian aktivitas untuk mencapai',
+                                'kriteria'        => 'Informasi dalam laporan kinerja berkala telah digunakan dalam penyesuaian aktivitas untuk mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1240,7 +1156,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Informasi dalam laporan kinerja berkala telah digunakan dalam penyesuaian penggunaan anggaran',
+                                'kriteria'        => 'Analisis keberhasilan/kegagalan mendalam dan menjawab permasalahan utama yang dihadapi',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -1276,7 +1192,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '6',
-                                'kriteria'        => 'Informasi dalam laporan kinerja telah digunakan dalam penyesuaian perencanaan kinerja yang akan',
+                                'kriteria'        => 'Informasi dalam laporan kinerja telah digunakan dalam penyesuaian perencanaan kinerja yang akan dihadapi berikutnya.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -1318,7 +1234,7 @@ class SelfAssesmentController extends Controller
                         'kriteria'          => [
                             [
                                 'no'              => '1',
-                                'kriteria'        => 'Terdapat pedoman teknis Evaluasi Akuntabilitas Kinerja Internal.',
+                                'kriteria'        => 'Terdapat pedoman teknis Evaluasi AKIP Internal',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -1332,7 +1248,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan pada seluruh unit kerja/perangkat daerah.',
+                                'kriteria'        => 'Terdapat Rencana Tindak Lanjut LHE AKIP',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1.5,
@@ -1346,10 +1262,24 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan secara berjenjang.',
+                                'kriteria'        => 'Terdapat Laporan Monev Rencana Aksi Tindak lanjut LHE AKIP',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1.5,
+                                        'jawaban'           => 'Ya',
+                                    ],
+                                    [
+                                        'bobot'             => 0,
+                                        'jawaban'           => 'Tidak',
+                                    ],
+                                ]
+                            ],
+                            [
+                                'no'              => '4',
+                                'kriteria'        => 'Terdapat Dokumen Self Assessment Evaluasi Internal Perangkat Daerah',
+                                'answer'          => [
+                                    [
+                                        'bobot'             => 1,
                                         'jawaban'           => 'Ya',
                                     ],
                                     [
@@ -1367,7 +1297,7 @@ class SelfAssesmentController extends Controller
                         'kriteria'          => [
                             [
                                 'no'              => '1',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan sesuai standar.',
+                                'kriteria'        => 'Self Assessment Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan sesuai standar.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -1381,7 +1311,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan oleh SDM yang memadai.',
+                                'kriteria'        => 'Rencana Aksi Tindak Lanjut LHE AKIP relevan dengan rekomendasi LHE AKIP',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -1403,7 +1333,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan dengan pendalaman yang memadai.',
+                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan oleh SDM yang memadai.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -1417,7 +1347,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan pada seluruh unit kerja/perangkat daerah.',
+                                'kriteria'        => 'Laporan Monev Renaksi disusun sesuai dengan format yang telah ditentukan',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1.5,
@@ -1435,7 +1365,7 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '5',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan menggunakan Teknologi Informasi (Aplikasi).',
+                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan menggunakan Teknologi Informasi (Aplikasi)',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -1451,7 +1381,7 @@ class SelfAssesmentController extends Controller
                     ],
                     [
                         'no'                => '4.c',
-                        'sub_komponen'      => 'Implementasi SAKIP telah meningkat karena evaluasi Akuntabilitas Kinerja Internal sehingga memberikan kesan yang nyata (dampak)',
+                        'sub_komponen'      => 'Implementasi SAKIP telah meningkat karena evaluasi Akuntabilitas Kinerja Internal sehingga memberikan kesan yang nyata (dampak) dalam efektifitas dan efisiensi Kinerja',
                         'bobot'             => 12.5,
                         'kriteria'          => [
                             [
@@ -1478,7 +1408,33 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Telah terjadi peningkatan implementasi SAKIP dengan melaksanakan tindak lanjut atas rerkomendasi hasil evaluasi akuntablitas Kinerja internal.',
+                                'kriteria'        => 'Telah terjadi peningkatan implementasi SAKIP dengan melaksanakan tindak lanjut atas rekomendasi hasil evaluasi akuntablitas Kinerja internal.',
+                                'answer'          => [
+                                    [
+                                        'bobot'             => 4,
+                                        'jawaban'           => 'Terjadi peningkatan Nilai SAKIP pada seluruh Dimensi AKIP',
+                                    ],
+                                    [
+                                        'bobot'             => 3,
+                                        'jawaban'           => 'Terjadi peningkatan Nilai SAKIP pada seluruh 3 Dimensi AKIP',
+                                    ],
+                                    [
+                                        'bobot'             => 2,
+                                        'jawaban'           => 'Terjadi peningkatan Nilai SAKIP pada seluruh 2 Dimensi AKIP',
+                                    ],
+                                    [
+                                        'bobot'             => 1,
+                                        'jawaban'           => 'Terjadi peningkatan Nilai SAKIP pada seluruh 1 Dimensi AKIP',
+                                    ],
+                                    [
+                                        'bobot'             => 0,
+                                        'jawaban'           => 'Tidak terjadi peningkatan Nilai SAKIP pada seluruh Dimensi AKIP',
+                                    ],
+                                ]
+                            ],
+                            [
+                                'no'              => '3',
+                                'kriteria'        => 'Hasil dari Evaluasi Akuntabilitas Kinerja Internal telah dimanfaatkan dalam mendukung efektifitas dan efisiensi kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 4.5,
@@ -1491,48 +1447,6 @@ class SelfAssesmentController extends Controller
                                     [
                                         'bobot'             => 0,
                                         'jawaban'           => 'Masih ditemukan sebagian besar belanja-belanja yang tidak relevan dengan pencapaian kinerja dibandingkan dengan tahun sebelumnya',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '3',
-                                'kriteria'        => 'Hasil Evaluasi Akuntabilitas Kinerja Internal telah dimanfaatkan untuk perbaikan dan peningkatan',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '4',
-                                'kriteria'        => 'Hasil dari Evaluasi Akuntabilitas Kinerja Internal telah dimanfaatkan dalam mendukung efektifitas dan',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '5',
-                                'kriteria'        => 'Telah terjadi perbaikan dan peningkatan kinerja dengan memanfaatkan hasil evaluasi akuntablitas kinerja internal.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
                                     ],
                                 ]
                             ],

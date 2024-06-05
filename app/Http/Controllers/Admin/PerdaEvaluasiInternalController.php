@@ -110,452 +110,424 @@ class PerdaEvaluasiInternalController extends Controller
     {
         $list_komponens = [
             [
-                'no'            => '1',
-                'komponen'      => 'Perencanaan Kinerja',
-                'bobot'         => 30,
-                'sub_komponen'  => [
+                "no"            => "1",
+                "komponen"      => "Perencanaan Kinerja",
+                "bobot"         => 30,
+                "sub_komponen"  => [
                     [
-                        'no'                => '1.a',
-                        'sub_komponen'      => 'Dokumen Perencanaan Kinerja telah tersedia',
-                        'bobot'             => 6,
-                        'kriteria'          => [
+                        "no"                => "1.a",
+                        "sub_komponen"      => "Dokumen Perencanaan Kinerja telah tersedia",
+                        "bobot"             => 6,
+                        "kriteria"          => [
                             [
-                                'no'              => '1',
-                                'kriteria'        => 'Terdapat pedoman teknis perencanaan kinerja.',
-                                'answer'          => [
+                                "no"              => "1",
+                                "kriteria"        => "Terdapat pedoman teknis perencanaan kinerja.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'ya',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '2',
-                                'kriteria'        => 'Terdapat dokumen perencanaan kinerja jangka panjang.',
-                                'answer'          => [
+                                "no"              => "2",
+                                "kriteria"        => "Terdapat dokumen perencanaan kinerja jangka menengah.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'ya',
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '3',
-                                'kriteria'        => 'Terdapat dokumen perencanaan kinerja jangka menengah.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '4',
-                                'kriteria'        => 'Terdapat dokumen perencanaan kinerja jangka pendek.',
-                                'answer'          => [
+                                "no"              => "3",
+                                "kriteria"        => "Terdapat dokumen perencanaan kinerja jangka pendek.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'ya',
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '5',
-                                'kriteria'        => 'Terdapat dokumen perencanaan aktivitas yang mendukung kinerja.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '6',
-                                'kriteria'        => 'Terdapat dokumen perencanaan anggaran yang mendukung kinerja.',
-                                'answer'          => [
+                                "no"              => "4",
+                                "kriteria"        => "Terdapat dokumen perencanaan aktivitas yang mendukung kinerja.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'ya',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "5",
+                                "kriteria"        => "Terdapat dokumen perencanaan anggaran yang mendukung kinerja.",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Ya",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                         ]
                     ],
                     [
-                        'no'                => '1.b',
-                        'sub_komponen'      => 'Dokumen Perencanaan kinerja telah memenuhi standar yang baik, yaitu untuk mencapai hasil, dengan ukuran kinerja yang SMART, menggunakan penyelarasan (cascading) disetiap level secara logis, serta memperhatikan kinerja bidang lain (crosscutting)',
-                        'bobot'             => 9,
-                        'kriteria'          => [
+                        "no"                => "1.b",
+                        "sub_komponen"      => "Dokumen Perencanaan kinerja telah memenuhi standar yang baik, yaitu untuk mencapai hasil, dengan ukuran kinerja yang SMART, menggunakan penyelarasan (cascading) disetiap level secara logis, serta memperhatikan kinerja bidang lain (crosscutting)",
+                        "bobot"             => 9,
+                        "kriteria"          => [
                             [
-                                'no'              => '1',
-                                'kriteria'        => 'Dokumen Perencanaan Kinerja telah diformalkan.',
-                                'answer'          => [
+                                "no"              => "1",
+                                "kriteria"        => "Dokumen Perencanaan Kinerja telah diformalkan.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'ya',
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '2',
-                                'kriteria'        => 'Dokumen Perencanaan Kinerja telah dipublikasikan tepat waktu.',
-                                'answer'          => [
+                                "no"              => "2",
+                                "kriteria"        => "Dokumen Perencanaan Kinerja telah dipublikasikan tepat waktu.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'ya',
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '3',
-                                'kriteria'        => 'Dokumen Perencanaan Kinerja telah menggambarkan Kebutuhan atas Kinerja sebenarnya yang perlu',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Penjabaran perencanaan Kinerja Berdasarkan Critical Sukses Faktor 100%',
-                                    ],
-                                    [
-                                        'bobot'             => 0.75,
-                                        'jawaban'           => '60% < Penjabaran perencanaan Kinerja Berdasarkan Critical Sukses Faktor <=99%',
-                                    ],
-                                    [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => '30% <Penjabaran perencanaan Kinerja Berdasarkan Critical Sukses Faktor  <= 60%',
-                                    ],
-                                    [
-                                        'bobot'             => 0.25,
-                                        'jawaban'           => 'Penjabaran perencanaan Kinerja Berdasarkan Critical Sukses Faktor <= 30%',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '4',
-                                'kriteria'        => 'Kualitas Rumusan Hasil (Tujuan/Sasaran) telah jelas menggambarkan kondisi kinerja yang akan dicapai.',
-                                'answer'          => [
+                                "no"              => "3",
+                                "kriteria"        => "Dokumen Perencanaan Kinerja telah menggambarkan Kebutuhan atas Kinerja sebenarnya yang perlu dicapai.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Tujuan dan Sasaran menggambarkan kinerja yang akan dicapai',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Penjabaran perencanaan Kinerja Berdasarkan Critical Sukses Faktor 100%",
                                     ],
                                     [
-                                        'bobot'             => 0.75,
-                                        'jawaban'           => 'Tujuan dan Sasaran kurang menggambarkan kinerja yang akan dicapai',
+                                        "bobot"             => 0.75,
+                                        "jawaban"           => "60% < Penjabaran perencanaan Kinerja Berdasarkan Critical Sukses Faktor <=99%",
                                     ],
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Tujuan dan Sasaran belum menggambarkan kinerja yang akan dicapai',
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "30% <Penjabaran perencanaan Kinerja Berdasarkan Critical Sukses Faktor  <= 60%",
                                     ],
                                     [
-                                        'bobot'             => 0.25,
-                                        'jawaban'           => 'Tujuan dan Sasaran tidak menggambarkan kinerja yang akan dicapai',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '5',
-                                'kriteria'        => 'Ukuran Keberhasilan (Indikator Kinerja) telah memenuhi kriteria SMART.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Indikator telah memenuhi kriteria SMART',
-                                    ],
-                                    [
-                                        'bobot'             => 0.75,
-                                        'jawaban'           => 'Indikator kurang memenuhi kriteria SMART',
-                                    ],
-                                    [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Indikator belum memenuhi kriteria SMART',
-                                    ],
-                                    [
-                                        'bobot'             => 0.25,
-                                        'jawaban'           => 'Indikator tidak memenuhi kriteria SMART',
+                                        "bobot"             => 0.25,
+                                        "jawaban"           => "Penjabaran perencanaan Kinerja Berdasarkan Critical Sukses Faktor <= 30%",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '6',
-                                'kriteria'        => 'Indikator Kinerja Utama (IKU) telah menggambarkan kondisi Kinerja Utama yang harus dicapai, tertuang',
-                                'answer'          => [
+                                "no"              => "4",
+                                "kriteria"        => "Kualitas Rumusan Hasil (Tujuan/Sasaran) telah jelas menggambarkan kondisi kinerja yang akan dicapai.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Ya, IKU menggambarkan sasaran strategisnya, menujukan kinerja di level bidang urusan pemerintahan (intermediate outcome), menunjukan core business (alasan mengapa sebuah perangkat daerah dibentuk), menunjukan critical success factor (csf) dari ultimate outcome dan tidak sering diganti dalam 1 periode perencanaan',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Tujuan dan Sasaran menggambarkan kinerja yang akan dicapai",
                                     ],
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Tidak, IKU tidak menggambarkan sasaran strategisnya, tidak menujukan kinerja di level bidang urusan pemerintahan (intermediate outcome), menunjukan core business (alasan mengapa sebuah perangkat daerah dibentuk), tidak menunjukan critical success factor (csf) dari ultimate outcome dan sering diganti dalam 1 periode perencanaan',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '7',
-                                'kriteria'        => 'Target yang ditetapkan dalam Perencanaan Kinerja dapat dicapai (achievable), menantang, dan realistis.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Target dapat dicapai (achievable), menantang, dan realistis',
+                                        "bobot"             => 0.75,
+                                        "jawaban"           => "Tujuan dan Sasaran kurang menggambarkan kinerja yang akan dicapai",
                                     ],
                                     [
-                                        'bobot'             => 0.75,
-                                        'jawaban'           => 'Target dapat dicapai (achievable) dan menantang, tetapi tidak realistis',
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Tujuan dan Sasaran belum menggambarkan kinerja yang akan dicapai",
                                     ],
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Target dapat dicapai (achievable) dan realisitis, tetapi tidak menantang',
-                                    ],
-                                    [
-                                        'bobot'             => 0.25,
-                                        'jawaban'           => 'Target dapat dicapai (achievable), tapi tidak menantang, dan tidak realistis',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak ada Target/Target di range',
+                                        "bobot"             => 0.25,
+                                        "jawaban"           => "Tujuan dan Sasaran tidak menggambarkan kinerja yang akan dicapai",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '8',
-                                'kriteria'        => 'Setiap Dokumen Perencanaan Kinerja menggambarkan hubungan yang berkesinambungan, serta',
-                                'answer'          => [
+                                "no"              => "5",
+                                "kriteria"        => "Ukuran Keberhasilan (Indikator Kinerja) telah memenuhi kriteria SMART.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Ada cascading yang menunjukkan Kinerja (sasaran) mulai level ultimate outcome (hijau) hingga Output (abu-abu) sudah menunjukan hubungan sebab akibat',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Indikator telah memenuhi kriteria SMART",
                                     ],
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Cascading Tidak meunjukkan Kinerja (sasaran) mulai level ultimate outcome (hijau) hingga Output (abu-abu) belum menunjukan hubungan sebab akibat',
+                                        "bobot"             => 0.75,
+                                        "jawaban"           => "Indikator kurang memenuhi kriteria SMART",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak ada cascading',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '9',
-                                'kriteria'        => 'Perencanaan kinerja dapat memberikan informasi tentang hubungan kinerja, strategi, kebijakan, bahkan',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Ya, Terdapat crosscutting',
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Indikator belum memenuhi kriteria SMART",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak ada crosscutting',
+                                        "bobot"             => 0.25,
+                                        "jawaban"           => "Indikator tidak memenuhi kriteria SMART",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '10',
-                                'kriteria'        => 'Setiap unit/satuan kerja merumuskan dan menetapkan Perencanaan Kinerja.',
-                                'answer'          => [
+                                "no"              => "6",
+                                "kriteria"        => "Indikator Kinerja Utama (IKU) telah menggambarkan kondisi Kinerja Utama yang harus dicapai, tertuang secara berkelanjutan (sustainable - tidak sering diganti dalam 1 periode Perencanaan Strategis).",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 0.75,
-                                        'jawaban'           => 'Seluruh dokumen perencanaan selaras dengan Pohon Kinerja/Cascading',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Ya, IKU menggambarkan sasaran strategisnya, menujukan kinerja di level bidang urusan pemerintahan (intermediate outcome), menunjukan core business (alasan mengapa sebuah perangkat daerah dibentuk), menunjukan critical success factor (csf) dari ultimate outcome dan tidak sering diganti dalam 1 periode perencanaan",
                                     ],
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Sebagian dokumen perencanaan selaras dengan Pohon Kinerja/Cascading',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Dokumen perencanaan tidak selaras dengan Pohon Kinerja/Casacding',
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Tidak, IKU tidak menggambarkan sasaran strategisnya, tidak menujukan kinerja di level bidang urusan pemerintahan (intermediate outcome), menunjukan core business (alasan mengapa sebuah perangkat daerah dibentuk), tidak menunjukan critical success factor (csf) dari ultimate outcome dan sering diganti dalam 1 periode perencanaan",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '11',
-                                'kriteria'        => 'Setiap pegawai merumuskan dan menetapkan Perencanaan Kinerja.',
-                                'answer'          => [
+                                "no"              => "7",
+                                "kriteria"        => "Target yang ditetapkan dalam Perencanaan Kinerja dapat dicapai (achievable), menantang, dan realistis.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 0.75,
-                                        'jawaban'           => 'Ya, setiap pegawai menyusun dan menetapkan Perjanjian Kinerja dan SKP sesuai Cascading',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Target dapat dicapai (achievable), menantang, dan realistis",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak, setiap pegawai menyusun dan menetapkan Perjanjian Kinerja dan SKP tidak sesuai Cascading',
+                                        "bobot"             => 0.75,
+                                        "jawaban"           => "Target dapat dicapai (achievable) dan menantang, tetapi tidak realistis",
+                                    ],
+                                    [
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Target dapat dicapai (achievable) dan realisitis, tetapi tidak menantang",
+                                    ],
+                                    [
+                                        "bobot"             => 0.25,
+                                        "jawaban"           => "Target dapat dicapai (achievable), tapi tidak menantang, dan tidak realistis",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak ada Target/Target di range",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "8",
+                                "kriteria"        => "Setiap Dokumen Perencanaan Kinerja menggambarkan hubungan yang berkesinambungan, serta selaras antara Kondisi/Hasil yang akan dicapai di setiap level jabatan (Cascading)",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Ada cascading yang menunjukkan Kinerja (sasaran) mulai level ultimate outcome (hijau) hingga Output (abu-abu) sudah menunjukan hubungan sebab akibat",
+                                    ],
+                                    [
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Cascading Tidak meunjukkan Kinerja (sasaran) mulai level ultimate outcome (hijau) hingga Output (abu-abu) belum menunjukan hubungan sebab akibat",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak ada cascading",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "9",
+                                "kriteria"        => "Perencanaan kinerja dapat memberikan informasi tentang hubungan kinerja, strategi, kebijakan, bahkan aktivitas antar bidang/dengan tugas dan fungsi lain yang berkaitan (Crosscutting)",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Ya, Terdapat crosscutting",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak ada crosscutting",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "10",
+                                "kriteria"        => "Sasaran Strategis dan Indikator pada seluruh Dokumen Perencanaan (Pokin, Cascading, Renstra, Renja, IKU, Renaksi) selaras",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 0.75,
+                                        "jawaban"           => "Seluruh dokumen perencanaan selaras dengan Pohon Kinerja/Cascading",
+                                    ],
+                                    [
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Sebagian dokumen perencanaan selaras dengan Pohon Kinerja/Cascading",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Dokumen perencanaan tidak selaras dengan Pohon Kinerja/Casacding",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "11",
+                                "kriteria"        => "Setiap pegawai merumuskan dan menetapkan Perencanaan Kinerja.",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 0.75,
+                                        "jawaban"           => "Ya, setiap pegawai menyusun dan menetapkan Perjanjian Kinerja dan SKP sesuai Cascading",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak, setiap pegawai menyusun dan menetapkan Perjanjian Kinerja dan SKP tidak sesuai Cascading",
                                     ],
                                 ]
                             ],
                         ]
                     ],
                     [
-                        'no'                => '1.c',
-                        'sub_komponen'      => 'Perencanaan Kinerja telah dimanfaatkan untuk mewujudkan hasil yang',
-                        'bobot'             => 15,
-                        'kriteria'          => [
+                        "no"                => "1.c",
+                        "sub_komponen"      => "Perencanaan Kinerja telah dimanfaatkan untuk mewujudkan hasil yang berkesinambungan",
+                        "bobot"             => 15,
+                        "kriteria"          => [
                             [
-                                'no'              => '1',
-                                'kriteria'        => 'Anggaran yang ditetapkan telah mengacu pada Kinerja yang ingin dicapai.',
-                                'answer'          => [
+                                "no"              => "1",
+                                "kriteria"        => "Anggaran yang ditetapkan telah mengacu pada Kinerja yang ingin dicapai.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 2,
-                                        'jawaban'           => '100% Anggaran mengacu kepada kinerja yang ingin dicapai',
+                                        "bobot"             => 2,
+                                        "jawaban"           => "100% Anggaran mengacu kepada kinerja yang ingin dicapai",
                                     ],
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => '50% Anggaran mengacu kepada kinerja yang ingin',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "50% Anggaran mengacu kepada kinerja yang ingin",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Anggaran tidak mengacu kepada kinerja yang ingin dicapai',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Anggaran tidak mengacu kepada kinerja yang ingin dicapai",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '2',
-                                'kriteria'        => 'Aktivitas yang dilaksanakan telah mendukung Kinerja yang ingin dicapai.',
-                                'answer'          => [
+                                "no"              => "2",
+                                "kriteria"        => "Aktivitas yang dilaksanakan telah mendukung Kinerja yang ingin dicapai.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 2,
-                                        'jawaban'           => 'Rencana aksi memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome =100 %',
+                                        "bobot"             => 2,
+                                        "jawaban"           => "Rencana aksi memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome =100 %",
                                     ],
                                     [
-                                        'bobot'             => 1.5,
-                                        'jawaban'           => 'Rencana aksi memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome <100%',
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Rencana aksi memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome <100%",
                                     ],
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Rencana aksi memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome <75%',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Rencana aksi memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome <75%",
                                     ],
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Rencana aksi memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome <50%',
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Rencana aksi memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome <50%",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Rencana aksi tidak memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '3',
-                                'kriteria'        => 'Target yang ditetapkan dalam Perencanaan Kinerja telah dicapai dengan baik, atau setidaknya masih on',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 2,
-                                        'jawaban'           => 'Target tercapai 100%',
-                                    ],
-                                    [
-                                        'bobot'             => 1.5,
-                                        'jawaban'           => 'Target tercapai <100%',
-                                    ],
-                                    [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Target tercapai <75%',
-                                    ],
-                                    [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Target tercapai <50%',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Rencana aksi tidak memiliki kontrubusi yang jelas ke output, immediate outcome, intermiediate outcome dan ultimate outcome",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '4',
-                                'kriteria'        => 'Rencana aksi kinerja dapat berjalan dinamis karena capaian kinerja selalu dipantau secara berkala.',
-                                'answer'          => [
+                                "no"              => "3",
+                                "kriteria"        => "Target yang ditetapkan dalam Perencanaan Kinerja telah dicapai dengan baik, atau setidaknya masih on the right track",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 2,
-                                        'jawaban'           => 'Pemantauan rencana aksi dilakukan periodik minimal triwulan',
+                                        "bobot"             => 2,
+                                        "jawaban"           => "Target tercapai 100%",
                                     ],
                                     [
-                                        'bobot'             => 1.5,
-                                        'jawaban'           => 'Pemantauan rencana aksi dilakukan periodik minimal semesteran',
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Target tercapai <100%",
                                     ],
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Pemantauan rencana aksi dilakukan periodik minimal tahunan',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Target tercapai <75%",
                                     ],
                                     [
-                                        'bobot'             => 0.5,
-                                        'jawaban'           => 'Tidak dilakukan pemantauan',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '5',
-                                'kriteria'        => 'Terdapat perbaikan/penyempurnaan Dokumen Perencanaan Kinerja yang ditetapkan dari hasil analisis',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 3,
-                                        'jawaban'           => 'Terdapat output/ outcome baru dan terdapat perubahan target kinerja jika realisasi tahun sebelumya lebih baik ',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak ada output/ outcome baru dan tidak ada perubahan target kinerja padahal realisasi tahun sebelumya lebih baik ',
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Target tercapai <50%",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '6',
-                                'kriteria'        => 'Terdapat perbaikan/penyempurnaan Dokumen Perencanaan Kinerja dalam mewujudkan kondisi/hasil',
-                                'answer'          => [
+                                "no"              => "4",
+                                "kriteria"        => "Rencana aksi kinerja dapat berjalan dinamis karena capaian kinerja selalu dipantau secara berkala.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 2,
-                                        'jawaban'           => 'Ya, reviu dokumen perencanaan dilakukan min. 1 tahun sekali',
+                                        "bobot"             => 2,
+                                        "jawaban"           => "Pemantauan rencana aksi dilakukan periodik minimal triwulan",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak dilakukan reviu dokumen perencanaan',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '7',
-                                'kriteria'        => 'Setiap unit/satuan kerja memahami dan peduli, serta berkomitmen dalam mencapai kinerja yang telah',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 2,
-                                        'jawaban'           => 'Ya, Perangkat Daerah telah melaksanakan acara "komitmen pencapaian kinerja ditahun tersebut"',
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Pemantauan rencana aksi dilakukan periodik minimal semesteran",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak dilaksanakan acara komitmen pencapaian kinerja ditahun tersebut',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Pemantauan rencana aksi dilakukan periodik minimal tahunan",
+                                    ],
+                                    [
+                                        "bobot"             => 0.5,
+                                        "jawaban"           => "Tidak dilakukan pemantauan",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '8',
-                                'kriteria'        => 'Setiap Pegawai memahami dan peduli, serta berkomitmen dalam mencapai kinerja yang telah',
-                                'answer'          => [
+                                "no"              => "5",
+                                "kriteria"        => "Terdapat perbaikan/penyempurnaan Dokumen Perencanaan Kinerja yang ditetapkan dari hasil analisis perbaikan kinerja sebelumnya",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => '-',
+                                        "bobot"             => 3,
+                                        "jawaban"           => "Terdapat output/ outcome baru dan terdapat perubahan target kinerja jika realisasi tahun sebelumya lebih baik ",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => '-',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak ada output/ outcome baru dan tidak ada perubahan target kinerja padahal realisasi tahun sebelumya lebih baik ",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "6",
+                                "kriteria"        => "Dilakukan reviu terhadap dokumen perencanaan",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 2,
+                                        "jawaban"           => "Ya, reviu dokumen perencanaan dilakukan min. 1 tahun sekali",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak dilakukan reviu dokumen perencanaan",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "7",
+                                "kriteria"        => "Setiap unit/satuan kerja memahami dan peduli, serta berkomitmen dalam mencapai kinerja yang telah direncanakan",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 2,
+                                        "jawaban"           => "Ya, Perangkat Daerah telah melaksanakan acara komitmen pencapaian kinerja ditahun tersebut",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak dilaksanakan acara komitmen pencapaian kinerja ditahun tersebut",
                                     ],
                                 ]
                             ],
@@ -564,183 +536,183 @@ class PerdaEvaluasiInternalController extends Controller
                 ],
             ],
             [
-                'no'        => '2',
-                'komponen'  => 'Pengukuran Kinerja',
-                'bobot'     => 30,
-                'sub_komponen'  => [
+                "no"        => "2",
+                "komponen"  => "Pengukuran Kinerja",
+                "bobot"     => 30,
+                "sub_komponen"  => [
                     [
-                        'no'                => '2.a',
-                        'sub_komponen'      => 'Pengukuran Kinerja telah dilakukan',
-                        'bobot'             => 6,
-                        'kriteria'          => [
+                        "no"                => "2.a",
+                        "sub_komponen"      => "Pengukuran Kinerja telah dilakukan",
+                        "bobot"             => 6,
+                        "kriteria"          => [
                             [
-                                'no'              => '1',
-                                'kriteria'        => 'Terdapat pedoman teknis pengukuran kinerja dan pengumpulan data kinerja.',
-                                'answer'          => [
+                                "no"              => "1",
+                                "kriteria"        => "Terdapat pedoman teknis pengukuran kinerja dan pengumpulan data kinerja.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 2,
-                                        'jawaban'           => 'Ya',
+                                        "bobot"             => 2,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '2',
-                                'kriteria'        => 'Terdapat Definisi Operasional yang jelas atas kinerja dan cara mengukur indikator kinerja.',
-                                'answer'          => [
+                                "no"              => "2",
+                                "kriteria"        => "Terdapat Definisi Operasional yang jelas atas kinerja dan cara mengukur indikator kinerja.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 2,
-                                        'jawaban'           => 'Ya',
+                                        "bobot"             => 2,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '3',
-                                'kriteria'        => 'Terdapat mekanisme yang jelas terhadap pengumpulan data kinerja yang dapat diandalkan.',
-                                'answer'          => [
+                                "no"              => "3",
+                                "kriteria"        => "Terdapat mekanisme yang jelas terhadap pengumpulan data kinerja yang dapat diandalkan.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 2,
-                                        'jawaban'           => 'Ya',
+                                        "bobot"             => 2,
+                                        "jawaban"           => "Ya",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
                         ]
                     ],
                     [
-                        'no'                => '2.b',
-                        'sub_komponen'      => 'Pengukuran Kinerja telah menjadi kebutuhan dalam mewujudkan Kinerja secara Efektif dan Efisien dan telah dilakukan secara berjenjang dan',
-                        'bobot'             => 9,
-                        'kriteria'          => [
+                        "no"                => "2.b",
+                        "sub_komponen"      => "Pengukuran Kinerja telah menjadi kebutuhan dalam mewujudkan Kinerja secara Efektif dan Efisien dan telah dilakukan secara berjenjang dan berkelanjutan",
+                        "bobot"             => 9,
+                        "kriteria"          => [
                             [
-                                'no'              => '1',
-                                'kriteria'        => 'Pimpinan selalu teribat sebagai pengambil keputusan (Decision Maker) dalam mengukur capaian',
-                                'answer'          => [
+                                "no"              => "1",
+                                "kriteria"        => "Pimpinan selalu teribat sebagai pengambil keputusan (Decision Maker) dalam mengukur capaian kinerja",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Ya, Pimpinan sudah menandatangani/mengetahui hasil pengukuran kinerja',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Ya, Pimpinan sudah menandatangani/mengetahui hasil pengukuran kinerja",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak terlibat dalam mengukur kinerja',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak terlibat dalam mengukur kinerja",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '2',
-                                'kriteria'        => 'Data kinerja yang dikumpulkan telah relevan untuk mengukur capaian kinerja yang diharapkan.',
-                                'answer'          => [
+                                "no"              => "2",
+                                "kriteria"        => "Data kinerja yang dikumpulkan telah relevan untuk mengukur capaian kinerja yang diharapkan.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Lebih dari 90% data (capaian) kinerja sasaran strategis yang dihasilkan mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandignan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Lebih dari 90% data (capaian) kinerja sasaran strategis yang dihasilkan mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandignan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi",
                                     ],
                                     [
-                                        'bobot'             => 0.8,
-                                        'jawaban'           => '75% < data (capaian) kinerja  mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandingan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi  < 90%',
+                                        "bobot"             => 0.8,
+                                        "jawaban"           => "75% < data (capaian) kinerja  mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandingan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi  < 90%",
                                     ],
                                     [
-                                        'bobot'             => 0.6,
-                                        'jawaban'           => '40% < data (capaian) kinerja mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandingan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi  < 75%',
+                                        "bobot"             => 0.6,
+                                        "jawaban"           => "40% < data (capaian) kinerja mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandingan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi  < 75%",
                                     ],
                                     [
-                                        'bobot'             => 0.4,
-                                        'jawaban'           => '10% < data (capaian) kinerja mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandingan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi  < 40%',
+                                        "bobot"             => 0.4,
+                                        "jawaban"           => "10% < data (capaian) kinerja mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandingan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi  < 40%",
                                     ],
                                     [
-                                        'bobot'             => 0.2,
-                                        'jawaban'           => 'Data (capaian) kinerja mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandingan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi < 10%',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '3',
-                                'kriteria'        => 'Data kinerja yang dikumpulkan telah mendukung capaian kinerja yang diharapkan.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 1,
-                                        'jawaban'           => 'Lebih dari 90% data realisasi sasaran strategis melebihi target',
-                                    ],
-                                    [
-                                        'bobot'             => 0.8,
-                                        'jawaban'           => 'Apabila 75%< data realisasi sasaran strategis melebihi target < 90%',
-                                    ],
-                                    [
-                                        'bobot'             => 0.6,
-                                        'jawaban'           => 'Apabila 40%< data realisasi sasaran strategis melebihi target <75%;',
-                                    ],
-                                    [
-                                        'bobot'             => 0.4,
-                                        'jawaban'           => 'Apabila 10% < data realisasi sasaran strategis melebihi target <40%',
-                                    ],
-                                    [
-                                        'bobot'             => 0.2,
-                                        'jawaban'           => 'data realisasi sasaran strategis melebihi target < 10%',
+                                        "bobot"             => 0.2,
+                                        "jawaban"           => "Data (capaian) kinerja mencakup data perbandingan target dengan realisasi, data perbandingan kinerja dengan tahun lalu, data perbandingan kinerja dengan target akhir renstra dan data perbandingan kabupaten/provinsi < 10%",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '4',
-                                'kriteria'        => 'Pengukuran kinerja telah dilakukan secara berkala.',
-                                'answer'          => [
+                                "no"              => "3",
+                                "kriteria"        => "Data kinerja yang dikumpulkan telah mendukung capaian kinerja yang diharapkan.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1.5,
-                                        'jawaban'           => 'Terdapat dokumen Pengukuran Kinerja Pertriwulan',
+                                        "bobot"             => 1,
+                                        "jawaban"           => "Lebih dari 90% data realisasi sasaran strategis melebihi target",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak Terdapat dokumen pengukuran kinerja pertriwulan',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '5',
-                                'kriteria'        => 'Setiap level organisasi melakukan pemantauan atas pengukuran capaian kinerja unit dibawahnya',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 1.5,
-                                        'jawaban'           => 'Penilaian SKP langsung oleh atasan kepada bawahan secara berjenjang',
+                                        "bobot"             => 0.8,
+                                        "jawaban"           => "Apabila 75%< data realisasi sasaran strategis melebihi target < 90%",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak, penilaian SKP kepada bawahan tidak lakukan langsung oleh atasan secara berjenjang',
+                                        "bobot"             => 0.6,
+                                        "jawaban"           => "Apabila 40%< data realisasi sasaran strategis melebihi target <75%;",
+                                    ],
+                                    [
+                                        "bobot"             => 0.4,
+                                        "jawaban"           => "Apabila 10% < data realisasi sasaran strategis melebihi target <40%",
+                                    ],
+                                    [
+                                        "bobot"             => 0.2,
+                                        "jawaban"           => "data realisasi sasaran strategis melebihi target < 10%",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '6',
-                                'kriteria'        => 'Pengumpulan data kinerja telah memanfaatkan Teknologi Informasi (Aplikasi).',
-                                'answer'          => [
+                                "no"              => "4",
+                                "kriteria"        => "Pengukuran kinerja telah dilakukan secara berkala.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1.5,
-                                        'jawaban'           => 'Ya',
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Terdapat dokumen Pengukuran Kinerja Pertriwulan",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak Terdapat dokumen pengukuran kinerja pertriwulan",
                                     ],
                                 ]
                             ],
                             [
-                                'no'              => '7',
-                                'kriteria'        => 'Pengukuran capaian kinerja telah memanfaatkan Teknologi Informasi (Aplikasi).',
-                                'answer'          => [
+                                "no"              => "5",
+                                "kriteria"        => "Setiap level organisasi melakukan pemantauan atas pengukuran capaian kinerja unit dibawahnya secara berjenjang.",
+                                "answer"          => [
                                     [
-                                        'bobot'             => 1.5,
-                                        'jawaban'           => 'Ya',
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Penilaian SKP langsung oleh atasan kepada bawahan secara berjenjang",
                                     ],
                                     [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak, penilaian SKP kepada bawahan tidak lakukan langsung oleh atasan secara berjenjang",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "6",
+                                "kriteria"        => "Pengumpulan data kinerja telah memanfaatkan Teknologi Informasi (Aplikasi).",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Ya",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
+                                    ],
+                                ]
+                            ],
+                            [
+                                "no"              => "7",
+                                "kriteria"        => "Pengukuran capaian kinerja telah memanfaatkan Teknologi Informasi (Aplikasi).",
+                                "answer"          => [
+                                    [
+                                        "bobot"             => 1.5,
+                                        "jawaban"           => "Ya",
+                                    ],
+                                    [
+                                        "bobot"             => 0,
+                                        "jawaban"           => "Tidak",
                                     ],
                                 ]
                             ],
@@ -748,12 +720,12 @@ class PerdaEvaluasiInternalController extends Controller
                     ],
                     [
                         'no'                => '2.c',
-                        'sub_komponen'      => 'Pengukuran Kinerja telah dijadikan dasar dalam pemberian Reward dan Punishment, serta penyesuaian strategi dalam mencapai kinerja yang',
+                        'sub_komponen'      => 'Pengukuran Kinerja telah dijadikan dasar dalam pemberian Reward dan Punishment, serta penyesuaian strategi dalam mencapai kinerja yang efektif dan efisien',
                         'bobot'             => 15,
                         'kriteria'          => [
                             [
                                 'no'              => '1',
-                                'kriteria'        => 'Pengukuran Kinerja telah menjadi dasar dalam penyesuaian (pemberian/pengurangan) tunjangan',
+                                'kriteria'        => 'Pengukuran Kinerja telah menjadi dasar dalam penyesuaian (pemberian/pengurangan) tunjangan kinerja/penghasilan',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -767,7 +739,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Pengukuran Kinerja telah menjadi dasar dalam penempatan/penghapusan Jabatan baik struktural',
+                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Strategi dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -785,7 +757,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian (Refocusing) Organisasi.',
+                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Kebijakan dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -803,7 +775,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Strategi dalam mencapai kinerja.',
+                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Aktivitas dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -821,7 +793,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '5',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Kebijakan dalam mencapai kinerja.',
+                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Anggaran dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -839,7 +811,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '6',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Aktivitas dalam mencapai kinerja.',
+                                'kriteria'        => 'Terdapat efisiensi atas penggunaan anggaran dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -861,7 +833,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '7',
-                                'kriteria'        => 'Pengukuran kinerja telah mempengaruhi penyesuaian Anggaran dalam mencapai kinerja.',
+                                'kriteria'        => 'Setiap unit/satuan kerja memahami dan peduli atas hasil pengukuran kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -875,7 +847,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '8',
-                                'kriteria'        => 'Terdapat efisiensi atas penggunaan anggaran dalam mencapai kinerja.',
+                                'kriteria'        => 'Setiap unit/satuan kerja memahami dan peduli atas hasil pengukuran kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -884,34 +856,6 @@ class PerdaEvaluasiInternalController extends Controller
                                     [
                                         'bobot'             => 0,
                                         'jawaban'           => 'Tidak Terdapat Feedback dari atasan kepada bawahan atas hasil pengukuran kinerja (SKP)',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '9',
-                                'kriteria'        => 'Setiap unit/satuan kerja memahami dan peduli atas hasil pengukuran kinerja.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '10',
-                                'kriteria'        => 'Setiap pegawai memahami dan peduli atas hasil pengukuran kinerja.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
                                     ],
                                 ]
                             ],
@@ -945,7 +889,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah disusun secara berkala.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah diformalkan dan di paraf semua pejabat administrator/pengawas',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -963,7 +907,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah diformalkan.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah dipublikasikan di esr.menpan',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -977,7 +921,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah direviu.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah disampaikan tepat waktu.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -993,39 +937,11 @@ class PerdaEvaluasiInternalController extends Controller
                                     ],
                                 ]
                             ],
-                            [
-                                'no'              => '5',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah dipublikasikan.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '6',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah disampaikan tepat waktu.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
                         ]
                     ],
                     [
                         'no'                => '3.b',
-                        'sub_komponen'      => 'Dokumen Laporan Kinerja telah memenuhi Standar menggambarkan Kualitas atas Pencapaian Kinerja, informasi keberhasilan/kegagalan',
+                        'sub_komponen'      => 'Dokumen Laporan Kinerja telah memenuhi Standar menggambarkan Kualitas atas Pencapaian Kinerja, informasi keberhasilan/kegagalan kinerja serta upaya perbaikan/penyempurnaannya',
                         'bobot'             => 4.5,
                         'kriteria'          => [
                             [
@@ -1052,7 +968,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah mengungkap seluruh informasi tentang pencapaian kinerja.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan analisis dan evaluasi realisasi kinerja dengan target tahunan.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1070,7 +986,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan target tahunan.',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan analisis dan evaluasi realisasi kinerja dengan target jangka menengah.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1088,7 +1004,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan target jangka',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan analisis dan evaluasi realisasi kinerja dengan realisasi kinerja tahun-tahun sebelumnya.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1106,7 +1022,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '5',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan realisasi kinerja',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan realisasi kinerja di level kabupaten/provinsi/nasional',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1124,7 +1040,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '6',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan perbandingan realisasi kinerja dengan realiasi kinerja di',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan kualitas atas capaian kinerja beserta upaya nyata dan/atau hambatannya.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1142,7 +1058,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '7',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan kualitas atas capaian kinerja beserta upaya nyata dan/atau',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan program yang mendukung capaian kinerja',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1160,7 +1076,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '8',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan efisiensi atas penggunaan sumber daya dalam mencapai',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan efisiensi atas penggunaan sumber daya dalam mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1178,7 +1094,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '9',
-                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan upaya perbaikan dan penyempurnaan kinerja ke depan',
+                                'kriteria'        => 'Dokumen Laporan Kinerja telah menginfokan upaya perbaikan dan penyempurnaan kinerja ke depan (Rekomendasi perbaikan kinerja).',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1198,7 +1114,7 @@ class PerdaEvaluasiInternalController extends Controller
                     ],
                     [
                         'no'                => '3.c',
-                        'sub_komponen'      => 'Pelaporan Kinerja telah memberikan dampak yang besar dalam',
+                        'sub_komponen'      => 'Pelaporan Kinerja telah memberikan dampak yang besar dalam penyesuaian strategi/kebijakan dalam mencapai kinerja berikutnya',
                         'bobot'             => 7.5,
                         'kriteria'          => [
                             [
@@ -1231,7 +1147,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Informasi dalam laporan kinerja berkala telah digunakan dalam penyesuaian aktivitas untuk mencapai',
+                                'kriteria'        => 'Informasi dalam laporan kinerja berkala telah digunakan dalam penyesuaian aktivitas untuk mencapai kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
@@ -1245,7 +1161,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Informasi dalam laporan kinerja berkala telah digunakan dalam penyesuaian penggunaan anggaran',
+                                'kriteria'        => 'Analisis keberhasilan/kegagalan mendalam dan menjawab permasalahan utama yang dihadapi',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -1281,7 +1197,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '6',
-                                'kriteria'        => 'Informasi dalam laporan kinerja telah digunakan dalam penyesuaian perencanaan kinerja yang akan',
+                                'kriteria'        => 'Informasi dalam laporan kinerja telah digunakan dalam penyesuaian perencanaan kinerja yang akan dihadapi berikutnya.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -1323,7 +1239,7 @@ class PerdaEvaluasiInternalController extends Controller
                         'kriteria'          => [
                             [
                                 'no'              => '1',
-                                'kriteria'        => 'Terdapat pedoman teknis Evaluasi Akuntabilitas Kinerja Internal.',
+                                'kriteria'        => 'Terdapat pedoman teknis Evaluasi AKIP Internal',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -1337,7 +1253,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan pada seluruh unit kerja/perangkat daerah.',
+                                'kriteria'        => 'Terdapat Rencana Tindak Lanjut LHE AKIP',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1.5,
@@ -1351,10 +1267,24 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan secara berjenjang.',
+                                'kriteria'        => 'Terdapat Laporan Monev Rencana Aksi Tindak lanjut LHE AKIP',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1.5,
+                                        'jawaban'           => 'Ya',
+                                    ],
+                                    [
+                                        'bobot'             => 0,
+                                        'jawaban'           => 'Tidak',
+                                    ],
+                                ]
+                            ],
+                            [
+                                'no'              => '4',
+                                'kriteria'        => 'Terdapat Dokumen Self Assessment Evaluasi Internal Perangkat Daerah',
+                                'answer'          => [
+                                    [
+                                        'bobot'             => 1,
                                         'jawaban'           => 'Ya',
                                     ],
                                     [
@@ -1372,7 +1302,7 @@ class PerdaEvaluasiInternalController extends Controller
                         'kriteria'          => [
                             [
                                 'no'              => '1',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan sesuai standar.',
+                                'kriteria'        => 'Self Assessment Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan sesuai standar.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -1386,7 +1316,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan oleh SDM yang memadai.',
+                                'kriteria'        => 'Rencana Aksi Tindak Lanjut LHE AKIP relevan dengan rekomendasi LHE AKIP',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -1408,7 +1338,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '3',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan dengan pendalaman yang memadai.',
+                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan oleh SDM yang memadai.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
@@ -1422,7 +1352,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '4',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan pada seluruh unit kerja/perangkat daerah.',
+                                'kriteria'        => 'Laporan Monev Renaksi disusun sesuai dengan format yang telah ditentukan',
                                 'answer'          => [
                                     [
                                         'bobot'             => 1.5,
@@ -1440,7 +1370,7 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '5',
-                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan menggunakan Teknologi Informasi (Aplikasi).',
+                                'kriteria'        => 'Evaluasi Akuntabilitas Kinerja Internal telah dilaksanakan menggunakan Teknologi Informasi (Aplikasi)',
                                 'answer'          => [
                                     [
                                         'bobot'             => 2,
@@ -1456,7 +1386,7 @@ class PerdaEvaluasiInternalController extends Controller
                     ],
                     [
                         'no'                => '4.c',
-                        'sub_komponen'      => 'Implementasi SAKIP telah meningkat karena evaluasi Akuntabilitas Kinerja Internal sehingga memberikan kesan yang nyata (dampak)',
+                        'sub_komponen'      => 'Implementasi SAKIP telah meningkat karena evaluasi Akuntabilitas Kinerja Internal sehingga memberikan kesan yang nyata (dampak) dalam efektifitas dan efisiensi Kinerja',
                         'bobot'             => 12.5,
                         'kriteria'          => [
                             [
@@ -1483,7 +1413,33 @@ class PerdaEvaluasiInternalController extends Controller
                             ],
                             [
                                 'no'              => '2',
-                                'kriteria'        => 'Telah terjadi peningkatan implementasi SAKIP dengan melaksanakan tindak lanjut atas rerkomendasi hasil evaluasi akuntablitas Kinerja internal.',
+                                'kriteria'        => 'Telah terjadi peningkatan implementasi SAKIP dengan melaksanakan tindak lanjut atas rekomendasi hasil evaluasi akuntablitas Kinerja internal.',
+                                'answer'          => [
+                                    [
+                                        'bobot'             => 4,
+                                        'jawaban'           => 'Terjadi peningkatan Nilai SAKIP pada seluruh Dimensi AKIP',
+                                    ],
+                                    [
+                                        'bobot'             => 3,
+                                        'jawaban'           => 'Terjadi peningkatan Nilai SAKIP pada seluruh 3 Dimensi AKIP',
+                                    ],
+                                    [
+                                        'bobot'             => 2,
+                                        'jawaban'           => 'Terjadi peningkatan Nilai SAKIP pada seluruh 2 Dimensi AKIP',
+                                    ],
+                                    [
+                                        'bobot'             => 1,
+                                        'jawaban'           => 'Terjadi peningkatan Nilai SAKIP pada seluruh 1 Dimensi AKIP',
+                                    ],
+                                    [
+                                        'bobot'             => 0,
+                                        'jawaban'           => 'Tidak terjadi peningkatan Nilai SAKIP pada seluruh Dimensi AKIP',
+                                    ],
+                                ]
+                            ],
+                            [
+                                'no'              => '3',
+                                'kriteria'        => 'Hasil dari Evaluasi Akuntabilitas Kinerja Internal telah dimanfaatkan dalam mendukung efektifitas dan efisiensi kinerja.',
                                 'answer'          => [
                                     [
                                         'bobot'             => 4.5,
@@ -1496,48 +1452,6 @@ class PerdaEvaluasiInternalController extends Controller
                                     [
                                         'bobot'             => 0,
                                         'jawaban'           => 'Masih ditemukan sebagian besar belanja-belanja yang tidak relevan dengan pencapaian kinerja dibandingkan dengan tahun sebelumnya',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '3',
-                                'kriteria'        => 'Hasil Evaluasi Akuntabilitas Kinerja Internal telah dimanfaatkan untuk perbaikan dan peningkatan',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '4',
-                                'kriteria'        => 'Hasil dari Evaluasi Akuntabilitas Kinerja Internal telah dimanfaatkan dalam mendukung efektifitas dan',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
-                                    ],
-                                ]
-                            ],
-                            [
-                                'no'              => '5',
-                                'kriteria'        => 'Telah terjadi perbaikan dan peningkatan kinerja dengan memanfaatkan hasil evaluasi akuntablitas kinerja internal.',
-                                'answer'          => [
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Ya',
-                                    ],
-                                    [
-                                        'bobot'             => 0,
-                                        'jawaban'           => 'Tidak',
                                     ],
                                 ]
                             ],
