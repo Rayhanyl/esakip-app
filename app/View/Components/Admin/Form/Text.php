@@ -17,14 +17,16 @@ class Text extends Component
     public $type;
     public $name;
     public $decimal;
+    public $classinput;
 
-    public function __construct($col = '12', $label = '', $type = 'text', $name = '', $decimal=false)
+    public function __construct($col = '12', $label = '', $type = 'text', $name = '', $classinput = '', $decimal = false)
     {
         $this->col = $col;
         $this->label = $label;
         $this->type = $type;
         $this->name = $name;
         $this->decimal = $decimal;
+        $this->classinput = $classinput;
     }
 
     /**

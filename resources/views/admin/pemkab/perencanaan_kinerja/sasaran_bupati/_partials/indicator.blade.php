@@ -14,13 +14,13 @@
                         <div class="col-12 my-2">
                             <label class="text-primary fw-bold">Target</label>
                         </div>
-                        <x-admin.form.text col="col-4" label="2024"
+                        <x-admin.form.text col="col-4 label-target-1" label="{{ $tahun }}"
                             name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target1]" decimal="true"
                             type="text" />
-                        <x-admin.form.text col="col-4" label="2025"
+                        <x-admin.form.text col="col-4 label-target-2" label="{{ $tahun + 1 }}"
                             name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target2]" decimal="true"
                             type="text" />
-                        <x-admin.form.text col="col-4" label="2026"
+                        <x-admin.form.text col="col-4 label-target-3" label="{{ $tahun + 2 }}"
                             name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][target3]" decimal="true"
                             type="text" />
                     </div>
