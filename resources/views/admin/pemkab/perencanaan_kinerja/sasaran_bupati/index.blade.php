@@ -92,19 +92,32 @@
                                             name="indikator_sasaran_bupati[1][tipe_perhitungan]" :lists="$tipe_perhitungan_options" />
                                         <x-admin.form.text col="col-12 col-lg-6" label="Sumber Data"
                                             name="indikator_sasaran_bupati[1][sumber_data]" />
-                                        <x-admin.form.text col="col-12 col-lg-12" label="Penanggung Jawab"
-                                            name="indikator_sasaran_bupati[1][penanggung_jawab]" />
-                                        {{-- <x-admin.form.select col="col-12 col-lg-6" label="Penanggung Jawab"
-                                            name="indikator_sasaran_bupati[1][penanggung_jawab_id]" :lists="$penanggung_jawab_options" /> --}}
-                                        <div class="col-12" id="col-simple-action1">
-                                            <div class="row row-simple-action">
-                                                <x-admin.form.text col="col-11" label="Simple Action"
-                                                    name="indikator_sasaran_bupati[1][simple_action][]" />
+                                        <div class="col-12" id="col-penanggung-jawab1">
+                                            <div class="row row-penanggung-jawab">
+                                                <x-admin.form.text col="col-11" label="Penanggung Jawab"
+                                                    name="indikator_sasaran_bupati[1][penanggung_jawab][]"
+                                                    placeholder="Penanggung Jawab" />
                                                 <div class="col-1">
                                                     <label for="" class="form-label fw-bold">&nbsp;</label>
                                                     <div>
-                                                        <button class="btn btn-success btn-add-simple-action" type="button"
-                                                            data-id="1">
+                                                        <button class="btn btn-success btn-add-penanggung-jawab"
+                                                            type="button" data-id="1">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12" id="col-simple-action1">
+                                            <div class="row row-simple-action">
+                                                <x-admin.form.text col="col-11" label="Simple Action"
+                                                    name="indikator_sasaran_bupati[1][simple_action][]"
+                                                    placeholder="Simple Action" />
+                                                <div class="col-1">
+                                                    <label for="" class="form-label fw-bold">&nbsp;</label>
+                                                    <div>
+                                                        <button class="btn btn-success btn-add-simple-action"
+                                                            type="button" data-id="1">
                                                             <i class="bi bi-plus"></i>
                                                         </button>
                                                     </div>
@@ -256,6 +269,31 @@
                         },
                         success: function(result) {
                             $(`#col-simple-action${iter}`).append(result);
+                        }
+                    });
+                }
+
+                $(document).on('click', '.btn-add-penanggung-jawab', function() {
+                    const i = $(this).data('id');
+                    add_penanggung_jawab(i);
+                });
+
+                $(document).on('click', '.btn-remove-penanggung-jawab', function() {
+                    remove_penanggung_jawab($(this));
+                });
+
+                function remove_penanggung_jawab(el) {
+                    el.parents('.row-penanggung-jawab').remove();
+                }
+
+                function add_penanggung_jawab(iter) {
+                    $.ajax({
+                        url: "{{ route('pemkab.perencanaan-kinerja.penanggung-jawab') }}",
+                        data: {
+                            iter
+                        },
+                        success: function(result) {
+                            $(`#col-penanggung-jawab${iter}`).append(result);
                         }
                     });
                 }

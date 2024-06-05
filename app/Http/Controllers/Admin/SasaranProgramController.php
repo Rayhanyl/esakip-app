@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\SasaranProgram;
 use App\Models\PenanggungJawab;
 use App\Models\SasaranKegiatan;
+use App\Models\SasaranPengampu;
 use App\Models\SasaranStrategis;
 use App\Models\PengampuSementara;
 use App\Http\Controllers\Controller;
@@ -58,12 +59,16 @@ class SasaranProgramController extends Controller
      */
     public function store(Request $request)
     {
-        $data =  SasaranProgram::create(array_merge($request->except('indikator_sasaran'), ['user_id' => Auth::user()->id]));
+        $data =  SasaranProgram::create(array_merge($request->except('indikator_sasaran', 'pengampu_id'), ['user_id' => Auth::user()->id]));
+        SasaranPengampu::create([
+            'sasaran_id' => $data->id,
+            'pengampu_sementara_id' => $request->pengampu_id,
+        ]);
         foreach ($request->indikator_sasaran as $value) {
             $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_program_id' => $data->id]);
             SasaranProgramIndikator::create($params);
         }
-        Alert::toast('Berhasil menambahkan data sasaran program','success');
+        Alert::toast('Berhasil menambahkan data sasaran program', 'success');
         return redirect()->back();
     }
 

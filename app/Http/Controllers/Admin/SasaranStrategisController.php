@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use App\Models\SasaranBupati;
 use App\Models\SasaranProgram;
 use App\Models\PenanggungJawab;
+use App\Models\SasaranPengampu;
 use App\Models\SasaranStrategis;
 use App\Models\PengampuSementara;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use App\Models\SasaranPenanggungJawab;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\SasaranStrategisIndikator;
 use App\Http\Requests\StoreSasaranStrategisRequest;
@@ -59,15 +61,27 @@ class SasaranStrategisController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = SasaranStrategis::create(array_merge($request->except('indikator_sasaran'), ['user_id' => Auth::user()->id]));
-
+            $data = SasaranStrategis::create(array_merge($request->except('indikator_sasaran', 'pengampu_id'), ['user_id' => Auth::user()->id]));
+            SasaranPengampu::create([
+                'sasaran_id' => $data->id,
+                'pengampu_sementara_id' => $request->pengampu_id,
+            ]);
             foreach ($request->indikator_sasaran as $value) {
+                $penanggung_jawabs = $value['penanggung_jawab'];
+                unset($value['penanggung_jawab']);
                 $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_strategis_id' => $data->id]);
-                SasaranStrategisIndikator::create($params);
+                $data_indikator = SasaranStrategisIndikator::create($params);
+                foreach ($penanggung_jawabs as $penanggung_jawab) {
+                    SasaranPenanggungJawab::create([
+                        'sasaran_id' => $data_indikator->id,
+                        'penanggung_jawab' => $penanggung_jawab
+                    ]);
+                }
             }
             Alert::toast('Berhasil menyimpan data sasaran strategis', 'success');
             return redirect()->back();
         } catch (\Exception $e) {
+            dd($e);
             // Handle the error if the deletion fails
             Alert::toast('Error hubungi developer terkait!', 'danger');
             return redirect()->back()->withErrors(['file' => 'Failed to delete the record. Please try again.']);
@@ -131,5 +145,11 @@ class SasaranStrategisController extends Controller
     {
         $indicators = SasaranStrategisIndikator::whereSasaranStrategisId($request->id)->get();
         return response()->json($indicators);
+    }
+
+    public function penanggung_jawab(Request $request)
+    {
+        $iter = $request->iter;
+        return view('admin.perda.perencanaan_kinerja.sasaran_strategis._partials.penanggung-jawab', compact('iter'));
     }
 }

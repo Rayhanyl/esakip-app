@@ -33,12 +33,27 @@
                     name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][tipe_perhitungan]" :lists="$tipe_perhitungan_options" />
                 <x-admin.form.text col="col-12 col-lg-6" label="Sumber Data"
                     name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][sumber_data]" />
-                <x-admin.form.text col="col-12 col-lg-12" label="Penanggung Jawab"
-                    name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][penanggung_jawab]" />
+                <div class="col-12" id="col-penanggung-jawab{{ $iter ?? 0 }}">
+                    <div class="row row-penanggung-jawab">
+                        <x-admin.form.text col="col-11" label="Penanggung Jawab"
+                            name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][penanggung_jawab][]"
+                            placeholder="Penanggung Jawab" />
+                        <div class="col-1">
+                            <label for="" class="form-label fw-bold">&nbsp;</label>
+                            <div>
+                                <button class="btn btn-success btn-add-penanggung-jawab" type="button"
+                                    data-id="{{ $iter ?? 0 }}">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-12" id="col-simple-action{{ $iter ?? 0 }}">
                     <div class="row row-simple-action">
                         <x-admin.form.text col="col-11" label="Simple Action"
-                            name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][simple_action][]" />
+                            name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][simple_action][]"
+                            placeholder="Simple Action" />
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
                             <div>

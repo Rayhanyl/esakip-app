@@ -126,10 +126,10 @@
                                             <input type="text" name="indikator_sasaran[1][penjelasan]"
                                                 class="form-control" aria-describedby="Penjelasan">
                                         </div>
-                                        <div class="col-12 col-lg-12 form-group">
+                                        <div class="col-12 col-lg-6 form-group">
                                             <label for="#" class="form-label fw-bold">Tipe Perhitungan</label>
                                             <fieldset class="form-group">
-                                                <select class="form-select" id=""
+                                                <select class="form-select select2" id=""
                                                     name="indikator_sasaran[1][tipe_perhitungan]">
                                                     <option value="-" selected>- Pilih Tipe Perhitungan -</option>
                                                     <option value="1" selected>Kumulatif</option>
@@ -142,21 +142,21 @@
                                             <input type="text" name="indikator_sasaran[1][sumber_data]" id=""
                                                 class="form-control" aria-describedby="Sumber Data">
                                         </div>
-                                        <div class="col-12 col-lg-6">
-                                            <label for="penanggung_jawab" class="form-label fw-bold">Penanggung
-                                                Jawab</label>
-                                            <input type="text" class="form-control"
-                                                name="indikator_sasaran[1][penanggung_jawab]" id="penanggung_jawab">
-                                            {{-- <fieldset class="form-group">
-                                                <select class="form-select select2" id="penanggung_jawab"
-                                                    name="indikator_sasaran[1][penanggung_jawab_id]">
-                                                    <option value="" selected>- Pilih Penanggung Jawab -</option>
-                                                    @foreach ($penanggung_jawab as $key)
-                                                        <option value="{{ $key->id }}">
-                                                            {{ $key->penanggung_jawab }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </fieldset> --}}
+                                        <div class="col-12" id="col-penanggung-jawab1">
+                                            <div class="row row-penanggung-jawab">
+                                                <x-admin.form.text col="col-11" label="Penanggung Jawab"
+                                                    name="indikator_sasaran[1][penanggung_jawab][]"
+                                                    placeholder="Penanggung Jawab" />
+                                                <div class="col-1">
+                                                    <label for="" class="form-label fw-bold">&nbsp;</label>
+                                                    <div>
+                                                        <button class="btn btn-success btn-add-penanggung-jawab"
+                                                            type="button" data-id="1">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -312,6 +312,32 @@
                         }
                     });
                 }
+
+                $(document).on('click', '.btn-add-penanggung-jawab', function() {
+                    const i = $(this).data('id');
+                    add_penanggung_jawab(i);
+                });
+
+                $(document).on('click', '.btn-remove-penanggung-jawab', function() {
+                    remove_penanggung_jawab($(this));
+                });
+
+                function remove_penanggung_jawab(el) {
+                    el.parents('.row-penanggung-jawab').remove();
+                }
+
+                function add_penanggung_jawab(iter) {
+                    $.ajax({
+                        url: "{{ route('perda.perencanaan-kinerja.sasaran-strategis.penanggung-jawab') }}",
+                        data: {
+                            iter
+                        },
+                        success: function(result) {
+                            $(`#col-penanggung-jawab${iter}`).append(result);
+                        }
+                    });
+                }
+
             });
         </script>
     @endpush

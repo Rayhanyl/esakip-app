@@ -34,10 +34,10 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-12 col-lg-6 form-group">
+                                <div class="col-12 col-lg-4 form-group">
                                     <h6>Tahun</h6>
                                     <fieldset class="form-group">
-                                        <select class="form-select" id="basicSelect" name="tahun">
+                                        <select class="form-select select2" id="tahun" name="tahun">
                                             <option value="" selected>- Pilih Tahun -</option>
                                             @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                                 <option value="{{ $i }}">
@@ -47,10 +47,11 @@
                                         </select>
                                     </fieldset>
                                 </div>
-                                <div class="col-12 col-lg-6 form-group">
+                                <div class="col-12 col-lg-4 form-group">
                                     <h6>Sasaran Kegiatan</h6>
                                     <fieldset class="form-group">
-                                        <select class="form-select select2" id="basicSelect" name="sasaran_kegiatan_id">
+                                        <select class="form-select select2" id="sasaran_kegiatan_id"
+                                            name="sasaran_kegiatan_id">
                                             <option value="" selected>- Pilih Sasaran Kegiatan -</option>
                                             @foreach ($sasaran_kegiatan_options ?? [] as $key => $item)
                                                 <option value="{{ $key }}">{{ $item }}</option>
@@ -58,19 +59,20 @@
                                         </select>
                                     </fieldset>
                                 </div>
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12 col-lg-4 form-group">
+                                    <label for="pengampu" class="form-label">Sasaran Sub-Kegiatan</label>
+                                    <input type="text" name="sasaran_sub_kegiatan" id="pengampu" class="form-control"
+                                        aria-describedby="pengampu">
+                                </div>
+                                <div class="col-12">
                                     <label for="pengampu" class="form-label">Pengampu</label>
-                                    <select class="form-select select2" name="pengampu_id" id="pengampu_id">
-                                        <option value="" selected disabled>--Pilih Pengampu--</option>
+                                    <select class="form-select select2" name="pengampu_id[]" id="pengampu_id"
+                                        multiple="multiple">
+                                        {{-- <option value="" selected disabled>--Pilih Pengampu--</option> --}}
                                         @foreach ($pengampu_sementara ?? [] as $id => $user)
                                             <option value="{{ $id }}">{{ $user }}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="col-12 col-lg-6 form-group">
-                                    <label for="pengampu" class="form-label">Sasaran Sub-Kegiatan</label>
-                                    <input type="text" name="sasaran_sub_kegiatan" id="pengampu" class="form-control"
-                                        aria-describedby="pengampu">
                                 </div>
                             </div>
                         </div>

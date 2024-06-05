@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\SasaranProgram;
 use App\Models\PenanggungJawab;
 use App\Models\SasaranKegiatan;
+use App\Models\SasaranPengampu;
 use App\Models\PengampuSementara;
 use App\Models\SasaranSubKegiatan;
 use App\Http\Controllers\Controller;
@@ -42,7 +43,7 @@ class SasaranKegiatanController extends Controller
     {
         $satuan = Satuan::all();
         $penanggung_jawab = PenanggungJawab::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_kegiatan.index',compact('satuan', 'penanggung_jawab'));
+        return view('admin.perda.perencanaan_kinerja.sasaran_kegiatan.index', compact('satuan', 'penanggung_jawab'));
     }
 
     /**
@@ -58,7 +59,11 @@ class SasaranKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        $data =  SasaranKegiatan::create(array_merge($request->except('indikator_sasaran'), ['user_id' => Auth::user()->id]));
+        $data =  SasaranKegiatan::create(array_merge($request->except('indikator_sasaran', 'pengampu_id'), ['user_id' => Auth::user()->id]));
+        SasaranPengampu::create([
+            'sasaran_id' => $data->id,
+            'pengampu_sementara_id' => $request->pengampu_id,
+        ]);
         foreach ($request->indikator_sasaran as $value) {
             $params = array_merge($value, ['user_id' => Auth::user()->id], ['sasaran_kegiatan_id' => $data->id]);
             SasaranKegiatanIndikator::create($params);
@@ -110,7 +115,7 @@ class SasaranKegiatanController extends Controller
             return redirect()->back();
         }
     }
-    
+
     public function indicator(Request $request)
     {
         $iter = $request->iter;
