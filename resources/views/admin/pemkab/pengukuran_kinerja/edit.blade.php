@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-12 col-lg-3 form-group">
                                 <label for="realisasi" class="form-label fw-bold">Realisasi</label>
-                                <input type="number" name="realisasi" id="realisasi" class="form-control"
+                                <input type="text" name="realisasi" id="realisasi" class="form-control"
                                     value="{{ $data->realisasi }}" min="0">
                             </div>
                             <div class="col-12 col-lg-3 form-group">

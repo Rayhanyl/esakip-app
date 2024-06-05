@@ -169,7 +169,6 @@
                     removeMaskOnSubmit: true
                 });
 
-
                 // Initialize Inputmask for currency input in IDR format
                 $('.idr-currency').inputmask('numeric', {
                     radixPoint: ',', // Decimal separator
