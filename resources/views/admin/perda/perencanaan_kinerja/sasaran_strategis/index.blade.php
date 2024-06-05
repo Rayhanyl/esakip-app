@@ -37,10 +37,10 @@
                                 <div class="col-12 col-lg-6 form-group">
                                     <label for="#" class="form-label fw-bold">Tahun</label>
                                     <fieldset class="form-group">
-                                        <select class="form-select" id="" name="tahun">
+                                        <select class="form-select" id="select-tahun" name="tahun">
                                             <option value="" selected>- Pilih Tahun -</option>
                                             @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                                                <option value="{{ $i }}">
+                                                <option value="{{ $i }}" {{ date('Y') == $i ? 'selected' : '' }}>
                                                     {{ $i }}
                                                 </option>
                                             @endfor
@@ -93,18 +93,18 @@
                                         <div class="col-12 row my-3">
                                             <label for="#" class="form-label fw-bold">Target</label>
                                             <div class="col-4 form-group">
-                                                <label for="#" class="form-label">2024</label>
+                                                <label for="#" class="form-label label-target-1">2024</label>
                                                 <input type="text" name="indikator_sasaran[1][target1]"
                                                     id="decimal-input" class="form-control decimal-input"
                                                     aria-describedby="2024">
                                             </div>
                                             <div class="col-4 form-group">
-                                                <label for="#" class="form-label">2025</label>
+                                                <label for="#" class="form-label label-target-2">2025</label>
                                                 <input type="text" name="indikator_sasaran[1][target2]" id=""
                                                     class="form-control decimal-input" aria-describedby="2025">
                                             </div>
                                             <div class="col-4 form-group">
-                                                <label for="#" class="form-label">2026</label>
+                                                <label for="#" class="form-label label-target-3">2026</label>
                                                 <input type="text" name="indikator_sasaran[1][target3]" id=""
                                                     class="form-control decimal-input" aria-describedby="2026">
                                             </div>
@@ -145,7 +145,8 @@
                                         <div class="col-12 col-lg-6">
                                             <label for="penanggung_jawab" class="form-label fw-bold">Penanggung
                                                 Jawab</label>
-                                            <input type="text" class="form-control" name="indikator_sasaran[1][penanggung_jawab]" id="penanggung_jawab">
+                                            <input type="text" class="form-control"
+                                                name="indikator_sasaran[1][penanggung_jawab]" id="penanggung_jawab">
                                             {{-- <fieldset class="form-group">
                                                 <select class="form-select select2" id="penanggung_jawab"
                                                     name="indikator_sasaran[1][penanggung_jawab_id]">
@@ -232,6 +233,9 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                $('#select-tahun').select2({
+                    theme: 'bootstrap-5'
+                });
                 $('#data-table-sasaran-strategis').DataTable({
                     responsive: true,
                     lengthMenu: [
@@ -278,7 +282,14 @@
 
                 $('.btn-add-indicator').on('click', function() {
                     iter++;
-                    add_indicator(iter);
+                    let tahun = $('#select-tahun').val();
+                    add_indicator(iter, tahun);
+                })
+
+                $('#select-tahun').on('select2:select', function() {
+                    $('.label-target-1').html($(this).val());
+                    $('.label-target-2').html(parseInt($(this).val()) + 1);
+                    $('.label-target-3').html(parseInt($(this).val()) + 2);
                 })
 
                 $(document).on('click', '.btn-remove-indicator', function() {
@@ -289,11 +300,12 @@
                     el.parents('.col-indikator-sasaran-bupati').remove();
                 }
 
-                function add_indicator(iter) {
+                function add_indicator(iter, tahun) {
                     $.ajax({
                         url: "{{ route('perda.perencanaan-kinerja.sasaran-strategis.indicator') }}",
                         data: {
-                            iter
+                            iter,
+                            tahun
                         },
                         success: function(result) {
                             $('#row-indikator-sasaran-bupati').append(result);

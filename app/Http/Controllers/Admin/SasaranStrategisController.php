@@ -123,7 +123,8 @@ class SasaranStrategisController extends Controller
     public function indicator(Request $request)
     {
         $iter = $request->iter;
-        return view('admin.perda.perencanaan_kinerja.sasaran_strategis._partials.indicator', compact('iter'));
+        $tahun = $request->tahun;
+        return view('admin.perda.perencanaan_kinerja.sasaran_strategis._partials.indicator', compact('iter', 'tahun'));
     }
 
     public function get_indicator(Request $request)
