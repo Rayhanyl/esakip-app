@@ -8,14 +8,11 @@ use App\Models\SimpleAction;
 use Illuminate\Http\Request;
 use App\Models\SasaranBupati;
 use App\Models\PenanggungJawab;
-use App\Models\PengampuSementara;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\SasaranBupatiIndikator;
-use App\Models\PemkabPengukuranKinerja;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\StoreSasaranBupatiRequest;
 use App\Http\Requests\UpdateSasaranBupatiRequest;
 
 class SasaranBupatiController extends Controller
@@ -84,7 +81,6 @@ class SasaranBupatiController extends Controller
             // Attempt to create the SasaranBupati record
         } catch (\Exception $e) {
             // Return a failure message
-            dd($e);
             Alert::toast('Gagal membuat data sasaran bupati. Silakan coba lagi.', 'error');
             return redirect()->back();
         }
@@ -139,7 +135,8 @@ class SasaranBupatiController extends Controller
     public function indicator(Request $request)
     {
         $iter = $request->iter;
-        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati._partials.indicator', compact('iter'));
+        $tahun = $request->tahun;
+        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati._partials.indicator', compact('iter', 'tahun'));
     }
 
     public function simple_action(Request $request)

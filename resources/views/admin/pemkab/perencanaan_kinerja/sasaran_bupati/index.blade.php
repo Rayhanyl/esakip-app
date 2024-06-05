@@ -35,10 +35,10 @@
                             <div class="row">
                                 <div class="col-12 col-lg-4">
                                     <label for="tahun" class="form-label fw-bold">Tahun</label>
-                                    <select class="form-select select2" id="tahun" name="tahun">
+                                    <select class="form-select select2" id="select-tahun" name="tahun">
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                                            <option value="{{ $i }}">
+                                            <option value="{{ $i }}" {{ date('Y') == $i ? 'selected' : '' }}>
                                                 {{ $i }}
                                             </option>
                                         @endfor
@@ -75,13 +75,13 @@
                                                 </div>
                                                 <x-admin.form.text col="col-4" label="2024"
                                                     name="indikator_sasaran_bupati[1][target1]" decimal="true"
-                                                    type="text" />
+                                                    type="text" classinput="label-target-1" />
                                                 <x-admin.form.text col="col-4" label="2025"
                                                     name="indikator_sasaran_bupati[1][target2]" decimal="true"
-                                                    type="text" />
+                                                    type="text" classinput="label-target-2" />
                                                 <x-admin.form.text col="col-4" label="2026"
                                                     name="indikator_sasaran_bupati[1][target3]" decimal="true"
-                                                    type="text" />
+                                                    type="text" classinput="label-target-3" />
                                             </div>
                                         </div>
                                         <x-admin.form.select col="col-12 col-lg-6" label="Satuan"
@@ -184,7 +184,9 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
-
+                $('#select-tahun').select2({
+                    theme: 'bootstrap-5'
+                });
                 $('#data-table-pemkab-sasaran-bupati').DataTable({
                     responsive: true,
                     lengthMenu: [
@@ -219,7 +221,14 @@
                 let iter = 1;
                 $('.btn-add-indicator').on('click', function() {
                     iter++;
-                    add_indicator(iter);
+                    let tahun = $('#select-tahun').val();
+                    add_indicator(iter, tahun);
+                })
+
+                $('#select-tahun').on('select2:select', function() {
+                    $('.label-target-1').html($(this).val());
+                    $('.label-target-2').html(parseInt($(this).val()) + 1);
+                    $('.label-target-3').html(parseInt($(this).val()) + 2);
                 })
 
                 $(document).on('click', '.btn-remove-indicator', function() {
@@ -255,11 +264,12 @@
                     el.parents('.col-indikator-sasaran-bupati').remove();
                 }
 
-                function add_indicator(iter) {
+                function add_indicator(iter, tahun) {
                     $.ajax({
                         url: "{{ route('pemkab.perencanaan-kinerja.indicator') }}",
                         data: {
-                            iter
+                            iter,
+                            tahun
                         },
                         success: function(result) {
                             $('#row-indikator-sasaran-bupati').append(result);

@@ -15,17 +15,17 @@
                 <div class="col-12 row my-3">
                     <h6>Target</h6>
                     <div class="col-4 form-group">
-                        <label for="pengampu" class="form-label">2024</label>
+                        <label for="pengampu" class="form-label label-target-1">{{ $tahun }}</label>
                         <input type="number" name="indikator_sasaran[{{ $iter ?? 0 }}][target1]"
                             class="form-control" aria-describedby="pengampu">
                     </div>
                     <div class="col-4 form-group">
-                        <label for="pengampu" class="form-label">2025</label>
+                        <label for="pengampu" class="form-label label-target-2">{{ $tahun + 1 }}</label>
                         <input type="number" name="indikator_sasaran[{{ $iter ?? 0 }}][target2]"
                             class="form-control" aria-describedby="pengampu">
                     </div>
                     <div class="col-4 form-group">
-                        <label for="pengampu" class="form-label">2026</label>
+                        <label for="pengampu" class="form-label label-target-3">{{ $tahun + 2 }}</label>
                         <input type="number" name="indikator_sasaran[{{ $iter ?? 0 }}][target3]"
                             class="form-control" aria-describedby="pengampu">
                     </div>
@@ -58,8 +58,8 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <label for="pengampu" class="form-label">Penanggung Jawab</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][penanggung_jawab]" id="pengampu"
-                        class="form-control" aria-describedby="pengampu">
+                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][penanggung_jawab]"
+                        id="pengampu" class="form-control" aria-describedby="pengampu">
                 </div>
             </div>
         </div>
