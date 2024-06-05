@@ -1,4 +1,3 @@
-
 @extends('layout.admin.app')
 @section('content')
     <div id="main-content">
@@ -189,7 +188,7 @@
                     iter++;
                     add_indicator(iter);
                 })
-                
+
                 $(document).on('click', '.btn-remove-indicator', function() {
                     remove_indicator($(this));
                 });

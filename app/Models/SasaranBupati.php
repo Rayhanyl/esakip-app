@@ -24,5 +24,4 @@ class SasaranBupati extends Model
     {
         return $this->hasMany(SasaranBupatiIndikator::class);
     }
-
 }

@@ -101,9 +101,11 @@ class SasaranBupatiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SasaranBupati $sasaranBupati)
+    public function edit(Request $request)
     {
-        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati.edit');
+        // Retrieve the SasaranBupati instance by its ID
+        $data = SasaranBupati::with('sasaran_bupati_indikators')->findOrFail(1);
+        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati.edit',compact('data'));
     }
 
     /**
