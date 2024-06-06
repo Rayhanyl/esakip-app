@@ -113,7 +113,8 @@
                                                                     @foreach ($kriteria->answers as $answer)
                                                                         <option
                                                                             value="
-                                                                            {{ $answer->bobot }}">
+                                                                            {{ $answer->bobot }}"
+                                                                            {{ $kriteria->status == $answer->bobot ? 'selected' : '' }}>
                                                                             {{ $answer->jawaban }}
                                                                         </option>
                                                                     @endforeach

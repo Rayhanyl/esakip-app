@@ -81,6 +81,7 @@ class PerdaEvaluasiInternalController extends Controller
             Kriteria::find($key)->update($params);
         }
 
+        Alert::toast('Data Evaluasi Internal berhasil diubah', 'success');
         return redirect()->back();
     }
 
