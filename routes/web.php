@@ -124,10 +124,16 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
     Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
         Route::get('/', [PerdaPengukuranKinerjaController::class, 'index'])
             ->name('index');
+        Route::get('/get-sasaran-strategis', [PerdaPengukuranKinerjaController::class, 'get_sasaran_strategis'])
+            ->name('get-sasaran-strategis');
         Route::get('/get-indicator', [PerdaPengukuranKinerjaController::class, 'get_indicator'])
             ->name('get-indicator');
-        Route::get('/get-target', [PerdaPengukuranKinerjaController::class, 'get_target'])
-            ->name('get-target');
+        Route::get('/get-indicator-sub-kegiatan', [PerdaPengukuranKinerjaController::class, 'get_indicator_sub_kegiatan'])
+            ->name('get-indicator-sub-kegiatan');
+        Route::get('/get-target-sub-kegiatan', [PerdaPengukuranKinerjaController::class, 'get_target_sub_kegiatan'])
+            ->name('get-target-sub-kegiatan');
+        Route::get('/get-pagu-sub-kegiatan', [PerdaPengukuranKinerjaController::class, 'get_pagu_sub_kegiatan'])
+            ->name('get-pagu-sub-kegiatan');
         Route::get('/get-indicator-tahunan', [PerdaPengukuranKinerjaController::class, 'get_indicator_tahunan'])
             ->name('get-indicator-tahunan');
         Route::get('/get-target-tahunan', [PerdaPengukuranKinerjaController::class, 'get_target_tahunan'])

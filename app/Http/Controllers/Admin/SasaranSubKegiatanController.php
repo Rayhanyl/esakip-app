@@ -34,15 +34,15 @@ class SasaranSubKegiatanController extends Controller
             return $sasaran->sasaran_kegiatan;
         }));
         View::share('sasaran_sub_kegiatan', SasaranSubKegiatan::all());
+        View::share('satuan', Satuan::all());
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $satuan = Satuan::all();
         $penanggung_jawab = PenanggungJawab::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_sub_kegiatan.index', compact('satuan', 'penanggung_jawab'));
+        return view('admin.perda.perencanaan_kinerja.sasaran_sub_kegiatan.index', compact('penanggung_jawab'));
     }
 
     /**

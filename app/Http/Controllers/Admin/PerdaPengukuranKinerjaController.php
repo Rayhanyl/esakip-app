@@ -26,6 +26,17 @@ class PerdaPengukuranKinerjaController extends Controller
         View::share('sasaran_sub_kegiatan_options', SasaranSubKegiatan::all()->keyBy('id')->transform(function ($item) {
             return $item->sasaran_sub_kegiatan;
         }));
+        View::share('tahun_options', collect(array_combine(range(2029, 2020, -1), range(2029, 2020, -1)))->transform(function ($list) {
+            return $list;
+        }));
+        View::share('triwulan_options', collect(array_combine(['1', '2', '3', '4', 'tahun'], ['1', '2', '3', '4', 'Tahunan']))->transform(function ($list) {
+            return $list;
+        }));
+        View::share('karakteristik_options', collect(array_combine(['1', '2'], ['Semakin tinggi realisasi maka capaian
+                                                            semakin bagus', 'Semakin rendah realisasi maka capaian
+                                                            semakin bagus']))->transform(function ($list) {
+            return $list;
+        }));
     }
     /**
      * Display a listing of the resource.
@@ -49,11 +60,13 @@ class PerdaPengukuranKinerjaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         try {
-            PerdaPengukuranKinerja::create(array_merge($request->all(), ['user_id' => Auth::user()->id]));
+            PerdaPengukuranKinerja::create(array_merge($request->except('tahunan_sasaran_strategis_id', 'tahunan_sasaran_strategis_indikator_id'), ['user_id' => Auth::user()->id]));
             Alert::toast('Berhasil menambahkan pengukuran kinerja', 'success');
             return redirect()->route('perda.pengukuran-kinerja.index')->with('success', 'Pengukuran Kinerja created successfully.');
         } catch (\Exception $e) {
+            dd($e);
             // Handle the error if any exception occurs
             Alert::toast('Error hubungi developer terkait!', 'error');
             return redirect()->back()->withErrors(['error' => 'Failed to store the data. Please try again.']);
@@ -89,13 +102,68 @@ class PerdaPengukuranKinerjaController extends Controller
      */
     public function destroy(PerdaPengukuranKinerja $perdaPengukuranKinerja)
     {
-        //
+        try {
+            // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
+            $perdaPengukuranKinerja->delete();
+
+            // Return a success message
+            Alert::toast('Berhasil menghapus data Pengukuran Kinerja', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            // Return an error message
+            Alert::toast('Error hubungi developer terkait!', 'danger');
+            return redirect()->back();
+        }
     }
 
     public function get_indicator(Request $request)
     {
+        $indicator = SasaranStrategisIndikator::whereSasaranStrategisId($request->id)->get();
+        return response()->json($indicator);
+    }
+
+    public function get_indicator_sub_kegiatan(Request $request)
+    {
         $indicator = SasaranSubKegiatanIndikator::whereSasaranSubKegiatanId($request->id)->get();
         return response()->json($indicator);
+    }
+
+    public function get_target_sub_kegiatan(Request $request)
+    {
+        $target = SasaranSubKegiatanIndikator::whereId($request->id)->first();
+        switch ($request->triwulan) {
+            case '1':
+                $value = $target->triwulan1;
+                break;
+            case '2':
+                $value = $target->triwulan2;
+                break;
+            case '3':
+                $value = $target->triwulan3;
+                break;
+            case '4':
+                $value = $target->triwulan4;
+                break;
+            default:
+                $value = 0;
+                break;
+        }
+        if ($value == null) {
+            $value = 0;
+        }
+        return response()->json($value);
+    }
+
+    public function get_pagu_sub_kegiatan(Request $request)
+    {
+        $target = SasaranSubKegiatanIndikator::whereId($request->id)->get();
+        return response()->json($target);
+    }
+
+    public function get_sasaran_strategis(Request $request)
+    {
+        $strategis = SasaranStrategis::whereTahun($request->tahun)->get();
+        return response()->json($strategis);
     }
 
     public function get_target(Request $request)
@@ -113,8 +181,7 @@ class PerdaPengukuranKinerjaController extends Controller
 
     public function get_target_tahunan(Request $request)
     {
-        $id = $request->get('id');
-        $target_tahunan = SasaranStrategisIndikator::where('id', $id)->pluck('target1')->first();
-        return response()->json(['target1' => $target_tahunan]);
+        $target = SasaranStrategisIndikator::whereId($request->id)->first();
+        return response()->json($target->target1);
     }
 }

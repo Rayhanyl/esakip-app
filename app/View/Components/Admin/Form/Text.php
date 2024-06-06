@@ -19,8 +19,10 @@ class Text extends Component
     public $decimal;
     public $classinput;
     public $placeholder;
+    public $readonly;
+    public $currency;
 
-    public function __construct($col = '12', $label = '', $type = 'text', $name = '', $classinput = '', $placeholder = '', $decimal = false)
+    public function __construct($col = '12', $label = '', $type = 'text', $name = '', $classinput = '', $placeholder = '', $readonly = false, $decimal = false, $currency = false)
     {
         $this->col = $col;
         $this->label = $label;
@@ -29,6 +31,8 @@ class Text extends Component
         $this->decimal = $decimal;
         $this->classinput = $classinput;
         $this->placeholder = $placeholder;
+        $this->readonly = $readonly;
+        $this->currency = $currency;
     }
 
     /**

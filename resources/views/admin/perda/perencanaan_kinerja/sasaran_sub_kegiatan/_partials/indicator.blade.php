@@ -39,8 +39,15 @@
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="pengampu" class="form-label">Satuan</label>
-                    <input type="text" id="pengampu" class="form-control" aria-describedby="pengampu"
-                        name="indikator_sasaran[{{ $iter ?? 0 }}][satuan]">
+                    <fieldset class="form-group">
+                        <select class="form-select select2" id="satuan"
+                            name="indikator_sasaran[{{ $iter ?? 0 }}][satuan_id]">
+                            <option value="" selected>- Pilih Satuan -</option>
+                            @foreach ($satuan as $key)
+                                <option value="{{ $key->id }}">{{ $key->satuan }}</option>
+                            @endforeach
+                        </select>
+                    </fieldset>
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="pengampu" class="form-label">Sub-Kegiatan</label>

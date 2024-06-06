@@ -27,6 +27,30 @@
         $('.select2').select2({
             theme: 'bootstrap-5'
         });
+
+        $('.decimal-input').inputmask({
+            alias: 'decimal',
+            groupSeparator: ',',
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            placeholder: '0',
+            rightAlign: false,
+            removeMaskOnSubmit: true
+        });
+
+        // Initialize Inputmask for currency input in IDR format
+        $('.idr-currency').inputmask('numeric', {
+            radixPoint: ',', // Decimal separator
+            groupSeparator: '.', // Thousand separator
+            alias: 'numeric',
+            digits: 0,
+            autoGroup: true,
+            autoUnmask: true,
+            prefix: 'Rp ', // IDR currency symbol
+            rightAlign: false,
+            removeMaskOnSubmit: true // Remove mask when form submitted
+        });
     })
 </script>
 @stack('scripts')
