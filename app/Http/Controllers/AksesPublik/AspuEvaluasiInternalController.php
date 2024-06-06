@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\AksesPublik;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PelaporanKinerja;
 use App\Http\Controllers\Controller;
 use App\Models\InspekEvaluasiInternal;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AspuEvaluasiInternalController extends Controller
 {
@@ -59,6 +62,10 @@ class AspuEvaluasiInternalController extends Controller
 
     public function download(Request $request)
     {
-        return view('akses_publik.evaluasi_internal.lhe');
+        $data = [];
+        $pdf = PDF::loadView('akses_publik.evaluasi_internal.lhe', $data, ['orientation' => 'portrait']);
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->download('LHE' . '.pdf');
+        // return view('akses_publik.evaluasi_internal.lhe');
     }
 }

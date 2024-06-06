@@ -63,7 +63,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $index => $item)
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <a href="{{ route('aspu.download.lhe') }}">View LHE</a>
+                                            </td>
+                                        </tr> --}}
+                                        {{-- @foreach ($data as $index => $item)
                                             @php
                                                 $nilai = $nilaiSums[$item->id] ?? 0;
                                                 $predikat = 'N/A';
@@ -93,7 +103,8 @@
                                                 <td class="text-center">{{ $predikat }}</td>
                                                 <td>
                                                     @if ($item->lhe_url)
-                                                        <a href="{{ $item->lhe_url }}" target="_blank">View LHE</a>
+                                                        <a href="{{ route('aspu.download.lhe') }}" target="_blank">View
+                                                            LHE</a>
                                                     @else
                                                         N/A
                                                     @endif
