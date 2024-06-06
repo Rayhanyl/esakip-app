@@ -106,10 +106,8 @@ class PerdaPengukuranKinerjaController extends Controller
 
     public function get_indicator_tahunan(Request $request)
     {
-        $year = $request->get('year');
-        // Fetch Sasaran Strategis data based on the selected year
-        // Adjust the query according to your data structure and requirements
-        $strategis = SasaranStrategis::where('tahun', $year)->get()->pluck('sasaran_strategis', 'id');
+        $tahun = $request->get('tahun');
+        $strategis = SasaranStrategis::where('tahun', $tahun)->get()->pluck('sasaran_strategis', 'id');
         return response()->json($strategis);
     }
 
