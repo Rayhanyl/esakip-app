@@ -3,5 +3,5 @@
     <input type="{{ $type }}" id="{{ $name }}"
         class="form-control {{ $decimal ? 'decimal-input' : '' }} {{ $currency ? 'idr-currency' : '' }}"
         aria-describedby="{{ $name }}" name="{{ $name }}" placeholder="{{ $placeholder }}"
-        {{ $readonly ? 'readonly' : '' }}>
+        {{ $readonly ? 'readonly' : '' }} value="{{ $value }}">
 </div>

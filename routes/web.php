@@ -70,7 +70,7 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
             Route::get('/get-indicator', [SasaranStrategisController::class, 'get_indicator'])
                 ->name('get-indicator');
             Route::get('/penanggung-jawab', [SasaranStrategisController::class, 'penanggung_jawab'])
-            ->name('penanggung-jawab');
+                ->name('penanggung-jawab');
             Route::post('/store', [SasaranStrategisController::class, 'store'])
                 ->name('store');
             Route::post('/update', [SasaranStrategisController::class, 'update'])
@@ -124,6 +124,10 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
     Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
         Route::get('/', [PerdaPengukuranKinerjaController::class, 'index'])
             ->name('index');
+        Route::get('/edit/{perdaPengukuranKinerja}', [PerdaPengukuranKinerjaController::class, 'edit'])
+            ->name('edit');
+        Route::put('/update/{perdaPengukuranKinerja}', [PerdaPengukuranKinerjaController::class, 'update'])
+            ->name('update');
         Route::get('/get-sasaran-strategis', [PerdaPengukuranKinerjaController::class, 'get_sasaran_strategis'])
             ->name('get-sasaran-strategis');
         Route::get('/get-indicator', [PerdaPengukuranKinerjaController::class, 'get_indicator'])
