@@ -427,7 +427,7 @@
                             url: "{{ route('perda.pengukuran-kinerja.get-indicator-tahunan') }}",
                             type: 'GET',
                             data: {
-                                year: selectedYear
+                                tahun: selectedYear
                             },
                             success: function(data) {
                                 var strategisSelect = $('#tahunan_sasaran_strategis_id');
