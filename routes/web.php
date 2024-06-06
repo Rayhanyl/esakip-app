@@ -293,4 +293,6 @@ Route::prefix('/')->name('aspu.')->group(function () {
         ->name('pelaporan.kinerja.count');
     Route::get('/evaluasi/internal', [AspuEvaluasiInternalController::class, 'index'])
         ->name('evaluasi.internal');
+    Route::get('/download/lhe', [AspuEvaluasiInternalController::class, 'download'])
+        ->name('download.lhe');
 });
