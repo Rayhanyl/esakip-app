@@ -105,7 +105,7 @@
                                                                     name="kriteria[{{ $kriteria->id }}][status]">
                                                                     @foreach ($kriteria->answers as $answer)
                                                                         <option value="{{ $answer->id }}"
-                                                                            {{ $answer->id == $kriteria->status ? 'selected' : '' }}>
+                                                                            {{ (float) $answer->bobot == (float) $kriteria->status ? 'selected' : '' }}>
                                                                             {{ $answer->jawaban }} ({{ $answer->bobot }})
                                                                         </option>
                                                                     @endforeach

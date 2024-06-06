@@ -83,7 +83,7 @@ class SelfAssesmentController extends Controller
                 'status' => $kriteria['status'],
             ];
             if (isset($kriteria['upload'])) {
-                $kriteria['upload']->store('public/self-assesment/' . Auth::user()->id);
+                $kriteria['upload']->store('public/self-assesment/');
                 $params = array_merge($params, ['upload' => $kriteria['upload']->hashName()]);
             }
             Kriteria::find($key)->update($params);
@@ -301,27 +301,23 @@ class SelfAssesmentController extends Controller
                             ],
                             [
                                 "no"              => "7",
-                                "kriteria"        => "Target yang ditetapkan dalam Perencanaan Kinerja dapat dicapai (achievable), menantang, dan realistis.",
+                                "kriteria"        => "Target yang ditetapkan dalam Perencanaan Kinerja dapat dicapai (achievable), menantang.",
                                 "answer"          => [
                                     [
                                         "bobot"             => 1,
-                                        "jawaban"           => "Target dapat dicapai (achievable), menantang, dan realistis",
+                                        "jawaban"           => "Target dapat dicapai (achievable), menantang",
                                     ],
                                     [
                                         "bobot"             => 0.75,
-                                        "jawaban"           => "Target dapat dicapai (achievable) dan menantang, tetapi tidak realistis",
+                                        "jawaban"           => "Target menantang namun tidak dapat dicapai",
                                     ],
                                     [
                                         "bobot"             => 0.5,
-                                        "jawaban"           => "Target dapat dicapai (achievable) dan realisitis, tetapi tidak menantang",
-                                    ],
-                                    [
-                                        "bobot"             => 0.25,
-                                        "jawaban"           => "Target dapat dicapai (achievable), tapi tidak menantang, dan tidak realistis",
+                                        "jawaban"           => "Target dapat dicapai (achievable) tapi tidak menantang",
                                     ],
                                     [
                                         "bobot"             => 0,
-                                        "jawaban"           => "Tidak ada Target/Target di range",
+                                        "jawaban"           => "Target lebih rendah daripada realisasi tahun sebelumnya",
                                     ],
                                 ]
                             ],
@@ -920,7 +916,7 @@ class SelfAssesmentController extends Controller
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
-                                        'jawaban'           => 'Ya, dokumen diupload sebelum 1 Maret setiap tahunnya',
+                                        'jawaban'           => 'Ya, dokumen diupload di esr sebelum 1 Maret setiap tahunnya',
                                     ],
                                     [
                                         'bobot'             => 0.5,
@@ -928,7 +924,7 @@ class SelfAssesmentController extends Controller
                                     ],
                                     [
                                         'bobot'             => 0,
-                                        'jawaban'           => 'Tidak upload atau diatas tanggal 31 maret setiap tahunnya',
+                                        'jawaban'           => 'Tidak upload atau diupload diatas tanggal 31 maret setiap tahunnya',
                                     ],
                                 ]
                             ],
@@ -967,7 +963,7 @@ class SelfAssesmentController extends Controller
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
-                                        'jawaban'           => 'Apabila Laporan Kinerja menyajikan target dan ralisasi tahun berjalan yang dilengkapi dengan narasinya',
+                                        'jawaban'           => 'Apabila Laporan Kinerja menyajikan target dan realisasi tahun berjalan yang dilengkapi dengan narasinya',
                                     ],
                                     [
                                         'bobot'             => 0.3,
@@ -985,7 +981,7 @@ class SelfAssesmentController extends Controller
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
-                                        'jawaban'           => 'Apabila Laporan Kinerja menyajikan target dan ralisasi tahun berjalan yang dibandingkan dengan target jangka menengan (Renstra) yang dilengkapi dengan narasinya',
+                                        'jawaban'           => 'Apabila Laporan Kinerja menyajikan target dan realisasi tahun berjalan yang dibandingkan dengan target jangka menengan (Renstra) yang dilengkapi dengan narasinya',
                                     ],
                                     [
                                         'bobot'             => 0.3,
@@ -1021,7 +1017,7 @@ class SelfAssesmentController extends Controller
                                 'answer'          => [
                                     [
                                         'bobot'             => 0.5,
-                                        'jawaban'           => 'Laporan kinerja menyajikan data dan informasi perbandingan realiasasi kinerja dengan Realisasi rata rata kabupaten/provinsi/nasional',
+                                        'jawaban'           => 'Laporan kinerja menyajikan data dan informasi perbandingan realisasi kinerja dengan Realisasi rata rata kabupaten/provinsi/nasional',
                                     ],
                                     [
                                         'bobot'             => 0.3,
@@ -1319,11 +1315,11 @@ class SelfAssesmentController extends Controller
                                     ],
                                     [
                                         'bobot'             => 1,
-                                        'jawaban'           => '>75% Relevan dengan rekomendasi LHE AKIP',
+                                        'jawaban'           => '75% <= TL <100% Relevan dengan rekomendasi LHE AKIP',
                                     ],
                                     [
                                         'bobot'             => 0.5,
-                                        'jawaban'           => '>50% Relevan dengan rekomendasi LHE AKIP',
+                                        'jawaban'           => '50% < TL <75%  Relevan dengan rekomendasi LHE AKIP',
                                     ],
                                     [
                                         'bobot'             => 0,
@@ -1337,7 +1333,7 @@ class SelfAssesmentController extends Controller
                                 'answer'          => [
                                     [
                                         'bobot'             => 1,
-                                        'jawaban'           => 'Terdapat Tim yang bertugas melakukan evaluasi',
+                                        'jawaban'           => 'Tim yang bertugas melakukan evaluasi, Terdapat Anggota Tim Evaluasi telah mengikuiti Bintek Sakip',
                                     ],
                                     [
                                         'bobot'             => 0,
@@ -1394,11 +1390,11 @@ class SelfAssesmentController extends Controller
                                     ],
                                     [
                                         'bobot'             => 2,
-                                        'jawaban'           => 'Telah dilaksanakan tindaklanjut > 75% rekomendasi evaluasi AKIP',
+                                        'jawaban'           => 'Telah dilaksanakan tindaklanjut 75% <= rekomendasi evaluasi AKIP < 100%',
                                     ],
                                     [
                                         'bobot'             => 1,
-                                        'jawaban'           => 'Telah dilaksanakan tindaklanjut > 50% rekomendasi evaluasi AKIP',
+                                        'jawaban'           => 'Telah dilaksanakan tindaklanjut 50% <= rekomendasi evaluasi AKIP < 75%',
                                     ],
                                     [
                                         'bobot'             => 0,
