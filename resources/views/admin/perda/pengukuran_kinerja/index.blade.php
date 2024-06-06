@@ -377,6 +377,7 @@
                     if (this.value === "tahun") {
                         $sectionTriwulan.hide();
                         $sectionTahunan.show();
+
                     } else {
                         $sectionTriwulan.show();
                         $sectionTahunan.hide();
