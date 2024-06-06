@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Satuan;
 use App\Models\SimpleAction;
 use Illuminate\Http\Request;
-use App\Models\SasaranBupati; 
+use App\Models\SasaranBupati;
 use App\Models\SasaranPengampu;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -112,7 +112,7 @@ class SasaranBupatiController extends Controller
     {
         // Retrieve the SasaranBupati instance by its ID
         $data = SasaranBupati::with('sasaran_bupati_indikators')->findOrFail(1);
-        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati.edit',compact('data'));
+        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati.edit', compact('data'));
     }
 
     /**
