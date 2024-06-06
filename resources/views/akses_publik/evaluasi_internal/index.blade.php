@@ -63,17 +63,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <a href="{{ route('aspu.download.lhe') }}">View LHE</a>
-                                            </td>
-                                        </tr> --}}
-                                        {{-- @foreach ($data as $index => $item)
+                                        @foreach ($data as $index => $item)
                                             @php
                                                 $nilai = $nilaiSums[$item->id] ?? 0;
                                                 $predikat = 'N/A';
