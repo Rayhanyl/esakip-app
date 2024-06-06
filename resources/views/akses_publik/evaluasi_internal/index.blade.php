@@ -91,13 +91,8 @@
                                                 <td class="text-center">{{ $item->tahun }}</td>
                                                 <td class="text-center">{{ $nilai }}</td>
                                                 <td class="text-center">{{ $predikat }}</td>
-                                                <td>
-                                                    @if ($item->lhe_url)
-                                                        <a href="{{ route('aspu.download.lhe') }}" target="_blank">View
-                                                            LHE</a>
-                                                    @else
-                                                        N/A
-                                                    @endif
+                                                <td class="text-center">
+                                                    <a href="{{ route('aspu.download.lhe') }}" target="_blank">View LHE</a>
                                                 </td>
                                             </tr>
                                         @endforeach
