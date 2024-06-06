@@ -56,4 +56,9 @@ class AspuEvaluasiInternalController extends Controller
         }
         return view('akses_publik.evaluasi_internal.index', compact('user', 'data', 'perda', 'tahun', 'nilaiSums'));
     }
+
+    public function download(Request $request)
+    {
+        return view('akses_publik.evaluasi_internal.lhe');
+    }
 }
