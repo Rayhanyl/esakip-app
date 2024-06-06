@@ -605,7 +605,8 @@
                         $('#tahunan_capaian').val(capaian.toFixed(2));
                     });
 
-                // adadada
+               
+                    // adadada
                 const sasaranSubKegiatanSelect = $('#sasaran_sub_kegiatan_id');
                 const indikatorSelect = $('#sasaran_sub_kegiatan_indikator');
                 const targetSelect = $('#sasaran_sub_kegiatan_target');
