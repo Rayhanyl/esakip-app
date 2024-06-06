@@ -28,8 +28,6 @@ return new class extends Migration
             $table->double('anggaran_pagu')->nullable();
             $table->double('anggaran_realisasi')->nullable();
             $table->double('anggaran_capaian')->nullable();
-            $table->double('tahunan_sasaran_strategis_id')->onDelete('cascade')->nullable();
-            $table->double('tahunan_sasaran_strategis_indikator_id')->onDelete('cascade')->nullable();
             $table->double('tahunan_target')->nullable();
             $table->double('tahunan_realisasi')->nullable();
             $table->enum('tahunan_karakteristik', ['1', '2'])->nullable();
