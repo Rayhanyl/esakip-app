@@ -25,7 +25,7 @@
         @if ($value !== '')
             $("#id-{{ $name }}").select2({
                 theme: 'bootstrap-5',
-            }).val({{ $value }}).trigger('change');
+            }).val("{{ $value }}").trigger('change');
         @endif
     </script>
 @endpush

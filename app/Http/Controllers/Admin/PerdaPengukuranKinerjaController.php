@@ -60,7 +60,6 @@ class PerdaPengukuranKinerjaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
             PerdaPengukuranKinerja::create(array_merge($request->except('tahunan_sasaran_strategis_id', 'tahunan_sasaran_strategis_indikator_id'), ['user_id' => Auth::user()->id]));
             Alert::toast('Berhasil menambahkan pengukuran kinerja', 'success');
@@ -86,15 +85,24 @@ class PerdaPengukuranKinerjaController extends Controller
      */
     public function edit(PerdaPengukuranKinerja $perdaPengukuranKinerja)
     {
-        //
+        return view('admin.perda.pengukuran_kinerja.edit', compact('perdaPengukuranKinerja'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePerdaPengukuranKinerjaRequest $request, PerdaPengukuranKinerja $perdaPengukuranKinerja)
+    public function update(Request $request, PerdaPengukuranKinerja $perdaPengukuranKinerja)
     {
-        //
+        try {
+            $perdaPengukuranKinerja->update($request->except('tahunan_sasaran_strategis_id', 'tahunan_sasaran_strategis_indikator_id'));
+            Alert::toast('Berhasil mengubah pengukuran kinerja', 'success');
+            return redirect()->route('perda.pengukuran-kinerja.index')->with('success', 'Pengukuran Kinerja update successfully.');
+        } catch (\Exception $e) {
+            dd($e);
+            // Handle the error if any exception occurs
+            Alert::toast('Error hubungi developer terkait!', 'error');
+            return redirect()->back()->withErrors(['error' => 'Failed to update the data. Please try again.']);
+        }
     }
 
     /**
