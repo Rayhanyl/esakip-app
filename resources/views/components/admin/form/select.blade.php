@@ -3,7 +3,7 @@
         {{ $label }}
     </label>
     <select class="form-select select2" name="{{ $name }}" id="id-{{ $name }}">
-        <option value="-" selected disabled>- Pilih Tipe {{ $label }} -</option>
+        <option value="-" selected disabled>- Pilih {{ $label }} -</option>
         @foreach ($lists ?? [] as $key => $list)
             <option value="{{ $key }}">{{ $list }}</option>
         @endforeach
@@ -11,6 +11,11 @@
 </div>
 @push('scripts')
     <script>
+        @if (!$readonly && $value == '')
+            $("#id-{{ $name }}").select2({
+                theme: 'bootstrap-5',
+            })
+        @endif
         @if ($readonly)
             $("#id-{{ $name }}").select2({
                 theme: 'bootstrap-5',
