@@ -174,7 +174,7 @@
                                             <div class="col-12 col-lg-6 form-group">
                                                 <h6>Sub-Kegiatan</h6>
                                                 <fieldset class="form-group">
-                                                    <select class="form-select select2" name="anggaran_sub_kegiatan_id">
+                                                    <select class="form-select select2" id="anggaran_sub_kegiatan_id">
                                                         <option value="" selected>- Pilih Sub-Kegiatan -</option>
                                                         @foreach ($sasaran_sub_kegiatan_options ?? [] as $key => $item)
                                                             <option value="{{ $key }}">{{ $item }}
@@ -213,7 +213,6 @@
                                                 <h6>Sasaran Strategis</h6>
                                                 <fieldset class="form-group">
                                                     <select class="form-select select2"
-                                                        name="tahunan_sasaran_strategis_id"
                                                         id="tahunan_sasaran_strategis_id">
                                                         <option value="" selected>- Pilih Sasaran Strategis -
                                                         </option>
@@ -228,7 +227,6 @@
                                                 <h6>Indikator Sasaran</h6>
                                                 <fieldset class="form-group">
                                                     <select class="form-select select2"
-                                                        name="tahunan_sasaran_strategis_indikator_id"
                                                         id="tahunan_sasaran_strategis_indikator_id">
                                                         <option value="" selected>- Pilih Indikator Sasaran Strategis
                                                             -
