@@ -67,7 +67,7 @@
                                         <th></th>
                                         <th></th>
                                         <th>Komponen/Sub Komponen/Kriteria</th>
-                                        <th>Keterangan</th>
+                                        <th width="20%">Keterangan</th>
                                         <th>Eviden</th>
                                     </tr>
                                 </thead>
@@ -110,12 +110,13 @@
                                                             <td>
                                                                 <select class="form-select form-select-sm" aria-label="1a"
                                                                     name="kriteria[{{ $kriteria->id }}][status]">
-                                                                    <option value="1"
-                                                                        {{ $kriteria->status == '1' ? 'selected' : '' }}>Ya
-                                                                    </option>
-                                                                    <option value="2"
-                                                                        {{ $kriteria->status == '2' ? 'selected' : '' }}>
-                                                                        Tidak</option>
+                                                                    @foreach ($kriteria->answers as $answer)
+                                                                        <option
+                                                                            value="
+                                                                            {{ $answer->bobot }}">
+                                                                            {{ $answer->jawaban }}
+                                                                        </option>
+                                                                    @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
