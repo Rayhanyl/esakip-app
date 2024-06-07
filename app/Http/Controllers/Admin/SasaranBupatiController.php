@@ -32,6 +32,9 @@ class SasaranBupatiController extends Controller
         ))->transform(function ($list) {
             return $list;
         }));
+        View::share('tahun_options', collect(array_combine(range(2029, 2020, -1), range(2029, 2020, -1)))->transform(function ($list) {
+            return $list;
+        }));
         View::share('sasaran_bupati', SasaranBupati::all());
     }
 
@@ -108,11 +111,9 @@ class SasaranBupatiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit(SasaranBupati $sasaranBupati)
     {
-        // Retrieve the SasaranBupati instance by its ID
-        $data = SasaranBupati::with('sasaran_bupati_indikators')->findOrFail(1);
-        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati.edit', compact('data'));
+        return view('admin.pemkab.perencanaan_kinerja.sasaran_bupati.edit', compact('sasaranBupati'));
     }
 
     /**
