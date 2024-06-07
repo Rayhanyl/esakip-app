@@ -63,81 +63,107 @@
                                         method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
                                         @csrf
                                         @method('put')
-                                        @foreach ($perda_evaluasi_internal as $pei)
-                                            @foreach ($pei->komponens as $komponen)
-                                                <tr>
-                                                    <td class="bg-info fw-bold text-light" colspan="1">
-                                                        {{ $komponen->no }}</td>
-                                                    <td class="bg-info fw-bold text-light" colspan="3">
-                                                        {{ $komponen->komponen }}
+                                        @foreach ($perda_evaluasi_internal->komponens as $komponen)
+                                            <tr class="fw-bold text-light" style="background: #333333">
+                                                <td>
+                                                    {{ $komponen->no }}</td>
+                                                <td colspan="3">
+                                                    {{ $komponen->komponen }}
+                                                </td>
+                                                <td colspan="2">
+                                                    <span
+                                                        id="komponen{{ $komponen->id }}">{{ $komponen->total_bobot }}</span>
+                                                </td>
+                                            </tr>
+                                            @foreach ($komponen->sub_komponens as $sub_komponen)
+                                                <tr class="bg-secondary fw-bold text-light">
+                                                    <td>
                                                     </td>
-                                                    <td class="bg-info fw-bold text-light" colspan="1">
-                                                        {{ $komponen->bobot }}
+                                                    <td>
+                                                        {{ $sub_komponen->no }}
                                                     </td>
-                                                    <td class="bg-info fw-bold text-light" colspan="1">
+                                                    <td colspan="2">
+                                                        {{ $sub_komponen->sub_komponen }}
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <span
+                                                            id="sub_komponen{{ $sub_komponen->id }}">{{ $sub_komponen->total_bobot }}</span>
                                                     </td>
                                                 </tr>
-                                                @foreach ($komponen->sub_komponens as $sub_komponen)
-                                                    <tr>
-                                                        <td class="bg-secondary fw-bold text-light" colspan="1"></td>
-                                                        <td class="bg-secondary fw-bold text-light" colspan="1">
-                                                            {{ $sub_komponen->no }}
+                                                @foreach ($sub_komponen->kriterias as $kriteria)
+                                                    <tr class="fw-bold">
+                                                        <td colspan="2"></td>
+                                                        <td>
+                                                            {{ $kriteria->no }}
                                                         </td>
-                                                        <td class="bg-secondary fw-bold text-light" colspan="2">
-                                                            {{ $sub_komponen->sub_komponen }}
+                                                        <td>
+                                                            {{ $kriteria->kriteria }}
                                                         </td>
-                                                        <td class="bg-secondary fw-bold text-light" colspan="2">
-                                                            {{ $sub_komponen->bobot }}
+                                                        <td>
+                                                            <select class="form-select form-select-sm" aria-label="1a"
+                                                                name="kriteria[{{ $kriteria->id }}][status]"
+                                                                id="kriteria[{{ $komponen->id }}][{{ $sub_komponen->id }}][{{ $kriteria->id }}][status]"
+                                                                data-komponen="{{ $komponen->id }}"
+                                                                data-sub-komponen="{{ $sub_komponen->id }}"
+                                                                data-kriteria="{{ $kriteria->id }}">
+                                                                <option value="0" selected disabled>- Pilih -</option>
+                                                                @foreach ($kriteria->answers as $answer)
+                                                                    <option value="{{ $answer->bobot }}"
+                                                                        {{ (float) $answer->bobot == (float) $kriteria->status ? 'selected' : '' }}>
+                                                                        {{ $answer->jawaban }} ({{ $answer->bobot }})
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            @if ($kriteria->upload)
+                                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    title="Download File Kriteria"
+                                                                    class="btn btn-success btn-sm"
+                                                                    href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
+                                                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                                    Download
+                                                                </a>
+                                                            @endif
                                                         </td>
                                                     </tr>
-                                                    @foreach ($sub_komponen->kriterias as $kriteria)
-                                                        <tr>
-                                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
-                                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
-                                                            <td class="bg-secondary fw-bold text-light" colspan="1">
-                                                                {{ $kriteria->no }}
-                                                            </td>
-                                                            <td class="bg-secondary fw-bold text-light" colspan="1">
-                                                                {{ $kriteria->kriteria }}
-                                                            </td>
-                                                            <td>
-                                                                <select class="form-select form-select-sm" aria-label="1a"
-                                                                    name="kriteria[{{ $kriteria->id }}][status]">
-                                                                    @foreach ($kriteria->answers as $answer)
-                                                                        <option value="{{ $answer->id }}"
-                                                                            {{ (float) $answer->bobot == (float) $kriteria->status ? 'selected' : '' }}>
-                                                                            {{ $answer->jawaban }} ({{ $answer->bobot }})
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <div class="input-group">
-                                                                    @if ($kriteria->upload)
-                                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                            title="Download File Kriteria"
-                                                                            class="btn btn-success btn-sm"
-                                                                            href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
-                                                                            <i
-                                                                                class="bi bi-file-earmark-arrow-down-fill"></i>
-                                                                            Download
-                                                                        </a>
-                                                                    @endif
-                                                                </div>
-
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
                                                 @endforeach
                                             @endforeach
                                         @endforeach
+
                                     </form>
                                 </tbody>
                                 <tfoot>
-                                    <td colspan="6" class="text-end">
-                                        <button class="btn btn-primary btn-lg" type="submit"
-                                            form="form_perda_evaluasi_internal">Submit</button>
-                                    </td>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="text-end">
+                                            Nilai Akuntabilitas Kinerja :
+                                        </td>
+                                        <td class="d-flex justify-content-center align-items-center gap-1">
+                                            <div class="input-group">
+                                                <input type="number" name="total_nilai" id="total-nilai"
+                                                    class="form-control" value="0" readonly>
+                                            </div>
+                                            <input type="hidden" name="total_bobot" id="total-bobot" class="form-control"
+                                                value="0" readonly disabled>
+                                        </td>
+                                        <td rowspan="2">
+                                            <button class="btn btn-success btn-lg" form="form_perda_evaluasi_internal">
+                                                <i class="bi bi-save"></i>
+                                                Submit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="text-end">
+                                            Predikat :
+                                        </td>
+                                        <td>
+                                            <input type="text" name="predikat_nilai" id="predikat-nilai"
+                                                class="form-control" value="0" readonly>
+                                        </td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -146,4 +172,55 @@
             </section>
         </div>
     </div>
+    @push('scripts')
+        <script>
+            $('select[id^="kriteria"]').on('change', function() {
+                let sum = 0;
+                $('select[id^="kriteria"]')
+                    .each(function() {
+                        sum += Number($(this).val());
+                    });
+                $('#total-nilai').val(sum);
+                let total = {{ $total_bobot }};
+                let p = predikat(sum / total * 100);
+                $('#predikat-nilai').val(p);
+
+                let sumKom = 0;
+                $('select[id^="kriteria[' + $(this).data('komponen') + ']"]')
+                    .each(function() {
+                        sumKom += Number($(this).val());
+                    });
+                $('#komponen' + $(this).data('komponen')).text(sumKom);
+
+                let sumSub = 0;
+                $('select[id^="kriteria[' + $(this).data('komponen') + '][' + $(this).data('sub-komponen') + ']"]')
+                    .each(function() {
+                        sumSub += Number($(this).val());
+                    });
+                $('#sub_komponen' + $(this).data('sub-komponen')).text(sumSub);
+            });
+
+            function predikat(nilai) {
+                let predikat;
+                if (nilai == 0) {
+                    predikat = 'E';
+                } else if (nilai <= 30) {
+                    predikat = 'D';
+                } else if (nilai <= 50) {
+                    predikat = 'C';
+                } else if (nilai <= 60) {
+                    predikat = 'CC';
+                } else if (nilai <= 70) {
+                    predikat = 'B';
+                } else if (nilai <= 80) {
+                    predikat = 'BB';
+                } else if (nilai <= 90) {
+                    predikat = 'A';
+                } else if (nilai <= 100) {
+                    predikat = 'AA';
+                };
+                return predikat;
+            }
+        </script>
+    @endpush
 @endsection

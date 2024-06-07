@@ -175,8 +175,10 @@ Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
     Route::prefix('/perencanaan-kinerja')->name('perencanaan-kinerja.')->group(function () {
         Route::get('/', [SasaranBupatiController::class, 'index'])
             ->name('index');
-        Route::get('/edit', [SasaranBupatiController::class, 'edit'])
+        Route::get('/edit/{sasaranBupati}', [SasaranBupatiController::class, 'edit'])
             ->name('edit');
+        Route::put('/update/{sasaranBupati}', [SasaranBupatiController::class, 'update'])
+            ->name('update');
         Route::get('/indicator', [SasaranBupatiController::class, 'indicator'])
             ->name('indicator');
         Route::get('/simple-action', [SasaranBupatiController::class, 'simple_action'])

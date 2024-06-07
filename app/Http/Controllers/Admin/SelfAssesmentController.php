@@ -33,12 +33,26 @@ class SelfAssesmentController extends Controller
         $tahun = $request->tahun ?? 2024;
         $user = User::whereRole('perda')->first();
         $perangkat_daerah = $request->perangkat_daerah ?? $user->id;
-        $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId($perangkat_daerah)->get();
-        if (count($perda_evaluasi_internal) == 0) {
+        $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId($perangkat_daerah)->first();
+        if (!$perda_evaluasi_internal) {
             $this->generate_evaluasi($tahun, $perangkat_daerah);
-            $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId($perangkat_daerah)->get();
+            $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId($perangkat_daerah)->first();
         }
-        return view('admin.inspek.self_assesment.index', compact('tahun', 'user', 'perangkat_daerah', 'perda_evaluasi_internal'));
+        $total_bobot = 0;
+        foreach ($perda_evaluasi_internal->komponens as $key => $komponen) {
+            $total_bobot += $komponen->bobot;
+            $sumkom = 0;
+            foreach ($komponen->sub_komponens as $sub_komponen) {
+                $sumsubkom = 0;
+                foreach ($sub_komponen->kriterias as $kriteria) {
+                    $sumsubkom += (float) $kriteria->status;
+                }
+                $sumkom += $sumsubkom;
+                $sub_komponen->total_bobot = $sumsubkom;
+            }
+            $komponen->total_bobot = $sumkom;
+        }
+        return view('admin.inspek.self_assesment.index', compact('tahun', 'user', 'perangkat_daerah', 'perda_evaluasi_internal', 'total_bobot'));
     }
 
     /**
@@ -1480,7 +1494,7 @@ class SelfAssesmentController extends Controller
                         'sub_komponen_id' => $sub_komponens->id,
                         'no' => $list_kriteria['no'],
                         'kriteria' => $list_kriteria['kriteria'],
-                        'status' => '2',
+                        'status' => null,
                         'upload' => null
                     ]);
                     foreach ($list_kriteria['answer'] as $list_answer) {
