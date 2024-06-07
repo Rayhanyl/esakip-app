@@ -33,8 +33,7 @@ class PerdaPengukuranKinerjaController extends Controller
             return $list;
         }));
         View::share('karakteristik_options', collect(array_combine(['1', '2'], ['Semakin tinggi realisasi maka capaian
-                                                            semakin bagus', 'Semakin rendah realisasi maka capaian
-                                                            semakin bagus']))->transform(function ($list) {
+            semakin bagus', 'Semakin rendah realisasi maka capaian semakin bagus']))->transform(function ($list) {
             return $list;
         }));
     }
@@ -65,7 +64,6 @@ class PerdaPengukuranKinerjaController extends Controller
             Alert::toast('Berhasil menambahkan pengukuran kinerja', 'success');
             return redirect()->route('perda.pengukuran-kinerja.index')->with('success', 'Pengukuran Kinerja created successfully.');
         } catch (\Exception $e) {
-            dd($e);
             // Handle the error if any exception occurs
             Alert::toast('Error hubungi developer terkait!', 'error');
             return redirect()->back()->withErrors(['error' => 'Failed to store the data. Please try again.']);
@@ -98,7 +96,6 @@ class PerdaPengukuranKinerjaController extends Controller
             Alert::toast('Berhasil mengubah pengukuran kinerja', 'success');
             return redirect()->route('perda.pengukuran-kinerja.index')->with('success', 'Pengukuran Kinerja update successfully.');
         } catch (\Exception $e) {
-            dd($e);
             // Handle the error if any exception occurs
             Alert::toast('Error hubungi developer terkait!', 'error');
             return redirect()->back()->withErrors(['error' => 'Failed to update the data. Please try again.']);
@@ -108,13 +105,11 @@ class PerdaPengukuranKinerjaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PerdaPengukuranKinerja $perdaPengukuranKinerja)
+    public function destroy(string $id)
     {
         try {
-            // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
+            $perdaPengukuranKinerja = PerdaPengukuranKinerja::findOrFail($id);
             $perdaPengukuranKinerja->delete();
-
-            // Return a success message
             Alert::toast('Berhasil menghapus data Pengukuran Kinerja', 'success');
             return redirect()->back();
         } catch (\Exception $e) {

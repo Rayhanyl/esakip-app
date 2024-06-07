@@ -144,6 +144,8 @@ Route::prefix('perangkat-daerah')->name('perda.')->group(function () {
             ->name('get-target-tahunan');
         Route::post('/store', [PerdaPengukuranKinerjaController::class, 'store'])
             ->name('store');
+        Route::delete('/delete/{id}', [PerdaPengukuranKinerjaController::class, 'destroy'])
+            ->name('delete');
     });
     Route::prefix('/pelaporan-kinerja')->name('pelaporan-kinerja.')->group(function () {
         Route::get('/', [PerdaPelaporanKinerjaController::class, 'index'])

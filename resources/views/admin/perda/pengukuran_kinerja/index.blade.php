@@ -125,7 +125,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $index + 1 }}</td>
                                                     <td class="text-center">{{ $item->tahun }}</td>
-                                                    <td class="text-center">
+                                                    <td class="text-center text-capitalize">
                                                         {{ $item->triwulan }}
                                                     </td>
                                                     <td class="text-center">
@@ -147,13 +147,14 @@
                                                             </div>
                                                             <div class="p-2">
                                                                 <button
-                                                                    class="btn btn-danger btn-sm delete-laporan-kinerja"
+                                                                    class="btn btn-danger btn-sm delete-pengukuran-kinerja"
                                                                     data-id="{{ $item->id }}" data-bs-toggle="tooltip"
                                                                     data-bs-placement="top"
                                                                     title="Delete Pengukuran Kinerja">
                                                                     <i class="bi bi-trash3"></i>
                                                                 </button>
-                                                                <form id="delete-form-{{ $item->id }}" action="#"
+                                                                <form id="delete-form-{{ $item->id }}"
+                                                                    action="{{ route('perda.pengukuran-kinerja.delete', $item->id) }}"
                                                                     method="POST" style="display: none;">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -392,6 +393,24 @@
 
                     $('#capaian').val(capaian.toFixed(2));
                 }
+
+                // SweetAlert delete confirmation
+                $('.delete-pengukuran-kinerja').on('click', function() {
+                    var userId = $(this).data('id');
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#delete-form-' + userId).submit();
+                        }
+                    });
+                });
             });
         </script>
     @endpush

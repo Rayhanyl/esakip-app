@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AksesPublik;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PerdaPengukuranKinerja;
 
 class AspuPengukuranKinerjaController extends Controller
 {
@@ -15,7 +16,8 @@ class AspuPengukuranKinerjaController extends Controller
         $perda = $request->perda;
         $tahun = $request->tahun;
         $triwulan = $request->triwulan;
-
-        return view('akses_publik.pengukuran_kinerja.index',compact('user','perda','tahun','triwulan'));
+        $data = PerdaPengukuranKinerja::all();
+        dd($data);
+        return view('akses_publik.pengukuran_kinerja.index', compact('user', 'perda', 'tahun', 'triwulan'));
     }
 }

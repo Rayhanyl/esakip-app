@@ -32,7 +32,7 @@
                         <select class="form-select" id="tahun" name="tahun">
                             <option value="" selected>- Pilih Tahun -</option>
                             @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                                <option value="{{ $i }}">
+                                <option value="{{ $i }}" {{ $i == $tahun ? 'selected' : '' }}>
                                     {{ $i }}
                                 </option>
                             @endfor
