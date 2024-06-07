@@ -12,19 +12,26 @@ use App\Models\SasaranPengampu;
 use App\Models\SasaranStrategis;
 use App\Models\PengampuSementara;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\View;
 use App\Models\SasaranPenanggungJawab;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\SasaranStrategisIndikator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Requests\StoreSasaranStrategisRequest;
 use App\Http\Requests\UpdateSasaranStrategisRequest;
 
 
 class SasaranStrategisController extends Controller
 {
+    private $baseUrl;
+
     public function __construct()
     {
+        $this->baseUrl = 'https://sammara.majalengkakab.go.id/public_api';
+
         View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
             return $user->name;
         }));
@@ -43,8 +50,7 @@ class SasaranStrategisController extends Controller
     public function index()
     {
         $satuan = Satuan::all();
-        $penanggung_jawab = PenanggungJawab::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_strategis.index', compact('satuan', 'penanggung_jawab'));
+        return view('admin.perda.perencanaan_kinerja.sasaran_strategis.index', compact('satuan'));
     }
 
     /**
@@ -81,7 +87,6 @@ class SasaranStrategisController extends Controller
             Alert::toast('Berhasil menyimpan data sasaran strategis', 'success');
             return redirect()->back();
         } catch (\Exception $e) {
-            dd($e);
             // Handle the error if the deletion fails
             Alert::toast('Error hubungi developer terkait!', 'danger');
             return redirect()->back()->withErrors(['file' => 'Failed to delete the record. Please try again.']);
@@ -151,5 +156,41 @@ class SasaranStrategisController extends Controller
     {
         $iter = $request->iter;
         return view('admin.perda.perencanaan_kinerja.sasaran_strategis._partials.penanggung-jawab', compact('iter'));
+    }
+
+    public function get_pengampu(Request $request)
+    {
+        $nip = '';
+        $nama = '';
+        if (is_numeric($request->q)) {
+            $nip = $request->q;
+        }else{
+            $nama = $request->q;
+        }
+        // Set the page number and number of items per page
+        $page = $request->input('page', 1);
+        $perPage = 12202; // You can adjust this value as needed
+
+        $response = Http::withHeaders([
+            'User-Agent' => 'insomnia/2023.5.8',
+            'Authorization' => 'Bearer ' . session('token')
+        ])->get($this->baseUrl . '/esakip/list_pengampu?opd=&nip='.$nip.'&nama=' . $nama);
+        // Check if the request was successful
+        if ($response->successful()) {
+            $data = json_decode($response->getBody()->getContents());
+            // Paginate the data
+            $paginatedData = Paginator::resolveCurrentPage('page') ?: 1;
+            $paginatedData = new LengthAwarePaginator(
+                collect($data->result)->forPage($page, $perPage),
+                count($data->result),
+                $perPage,
+                $page,
+                ['path' => Paginator::resolveCurrentPath()]
+            );
+            return response()->json($paginatedData);
+        } else {
+            // Handle error response
+            return response()->json(['error' => 'Failed to fetch data'], $response->status());
+        }
     }
 }

@@ -115,6 +115,8 @@ Route::middleware(['auth'])->group(function () {
                 ->name('update');
                 Route::delete('/destroy', [SasaranStrategisController::class, 'destroy'])
                 ->name('destroy');
+                Route::get('/get-pengampu', [SasaranStrategisController::class, 'get_pengampu'])
+                ->name('get-pengampu');
             });
             Route::prefix('/sasaran-program')->name('sasaran-program.')->group(function () {
                 Route::get('/', [SasaranProgramController::class, 'index'])
