@@ -52,7 +52,8 @@ class SelfAssesmentController extends Controller
             }
             $komponen->total_bobot = $sumkom;
         }
-        return view('admin.inspek.self_assesment.index', compact('tahun', 'user', 'perangkat_daerah', 'perda_evaluasi_internal', 'total_bobot'));
+        $status = $perda_evaluasi_internal->status;
+        return view('admin.inspek.self_assesment.index', compact('tahun', 'user', 'perangkat_daerah', 'perda_evaluasi_internal', 'total_bobot', 'status'));
     }
 
     /**
@@ -93,6 +94,9 @@ class SelfAssesmentController extends Controller
     public function update(Request $request, string $id)
     {
         foreach ($request->kriteria as $key => $kriteria) {
+            PerdaEvaluasiInternal::find($id)->update([
+                'status' => 'progress',
+            ]);
             $params = [
                 'status' => $kriteria['status'],
             ];

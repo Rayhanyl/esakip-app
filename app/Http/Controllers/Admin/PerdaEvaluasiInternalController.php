@@ -25,12 +25,13 @@ class PerdaEvaluasiInternalController extends Controller
     public function index(Request $request)
     {
         $tahun = $request->tahun ?? 2024;
-        $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId(Auth::user()->id)->get();
-        if (count($perda_evaluasi_internal) == 0) {
+        $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId(Auth::user()->id)->first();
+        if (!$perda_evaluasi_internal) {
             $this->generate_evaluasi($tahun);
-            $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId(Auth::user()->id)->get();
+            $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId(Auth::user()->id)->first();
         }
-        return view('admin.perda.evaluasi_internal.index', compact('perda_evaluasi_internal'));
+        $status = $perda_evaluasi_internal->status;
+        return view('admin.perda.evaluasi_internal.index', compact('perda_evaluasi_internal', 'status'));
     }
 
     /**
@@ -71,6 +72,9 @@ class PerdaEvaluasiInternalController extends Controller
     public function update(Request $request, string $id)
     {
         foreach ($request->kriteria as $key => $kriteria) {
+            PerdaEvaluasiInternal::find($id)->update([
+                'status' => 'submit',
+            ]);
             $params = [
                 'status' => $kriteria['status'],
             ];
@@ -1460,7 +1464,7 @@ class PerdaEvaluasiInternalController extends Controller
         $pei = PerdaEvaluasiInternal::create([
             'user_id' => Auth::user()->id,
             'tahun' => $tahun,
-            'status' => '1',
+            'status' => 'new',
         ]);
         foreach ($list_komponens as $list_komponen) {
             $komponens = Komponen::create([

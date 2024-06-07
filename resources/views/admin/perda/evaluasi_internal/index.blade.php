@@ -28,9 +28,6 @@
                 <form class="row g-3" action="{{ route('perda.evaluasi-internal.index') }}" method="GET"
                     enctype="multipart/form-data">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Evaluasi Internal</h4>
-                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 col-lg-6">
@@ -73,83 +70,85 @@
                                 </thead>
                                 <tbody>
                                     <form
-                                        action="{{ route('perda.evaluasi-internal.update', $perda_evaluasi_internal[0]->id ?? 0) }}"
+                                        action="{{ route('perda.evaluasi-internal.update', $perda_evaluasi_internal->id ?? 0) }}"
                                         method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
                                         @csrf
                                         @method('put')
-                                        @foreach ($perda_evaluasi_internal as $pei)
-                                            @foreach ($pei->komponens as $komponen)
+                                        @foreach ($perda_evaluasi_internal->komponens as $komponen)
+                                            <tr>
+                                                <td class="bg-info fw-bold text-light" colspan="1">
+                                                    {{ $komponen->no }}</td>
+                                                <td class="bg-info fw-bold text-light" colspan="1"></td>
+                                                <td class="bg-info fw-bold text-light" colspan="4">
+                                                    {{ $komponen->komponen }}
+                                                </td>
+                                            </tr>
+                                            @foreach ($komponen->sub_komponens as $sub_komponen)
                                                 <tr>
-                                                    <td class="bg-info fw-bold text-light" colspan="1">
-                                                        {{ $komponen->no }}</td>
-                                                    <td class="bg-info fw-bold text-light" colspan="1"></td>
-                                                    <td class="bg-info fw-bold text-light" colspan="4">
-                                                        {{ $komponen->komponen }}
+                                                    <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                                    <td class="bg-secondary fw-bold text-light" colspan="1">
+                                                        {{ $sub_komponen->no }}
+                                                    </td>
+                                                    <td class="bg-secondary fw-bold text-light" colspan="4">
+                                                        {{ $sub_komponen->sub_komponen }}
                                                     </td>
                                                 </tr>
-                                                @foreach ($komponen->sub_komponens as $sub_komponen)
+                                                @foreach ($sub_komponen->kriterias as $kriteria)
                                                     <tr>
                                                         <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                                        <td class="bg-secondary fw-bold text-light" colspan="1"></td>
                                                         <td class="bg-secondary fw-bold text-light" colspan="1">
-                                                            {{ $sub_komponen->no }}
+                                                            {{ $kriteria->no }}
                                                         </td>
-                                                        <td class="bg-secondary fw-bold text-light" colspan="4">
-                                                            {{ $sub_komponen->sub_komponen }}
+                                                        <td class="bg-secondary fw-bold text-light" colspan="1">
+                                                            {{ $kriteria->kriteria }}
                                                         </td>
-                                                    </tr>
-                                                    @foreach ($sub_komponen->kriterias as $kriteria)
-                                                        <tr>
-                                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
-                                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
-                                                            <td class="bg-secondary fw-bold text-light" colspan="1">
-                                                                {{ $kriteria->no }}
-                                                            </td>
-                                                            <td class="bg-secondary fw-bold text-light" colspan="1">
-                                                                {{ $kriteria->kriteria }}
-                                                            </td>
-                                                            <td>
-                                                                <select class="form-select form-select-sm" aria-label="1a"
-                                                                    name="kriteria[{{ $kriteria->id }}][status]">
-                                                                    @foreach ($kriteria->answers as $answer)
-                                                                        <option
-                                                                            value="
-                                                                            {{ $answer->bobot }}"
-                                                                            {{ $kriteria->status == $answer->bobot ? 'selected' : '' }}>
-                                                                            {{ $answer->jawaban }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <div class="input-group">
+                                                        <td>
+                                                            <select class="form-select form-select-sm" aria-label="1a"
+                                                                name="kriteria[{{ $kriteria->id }}][status]"
+                                                                {{ in_array($status, ['submit', 'progress', 'complete']) ? 'disabled' : '' }}>
+                                                                @foreach ($kriteria->answers as $answer)
+                                                                    <option
+                                                                        value="
+                                                                        {{ $answer->bobot }}"
+                                                                        {{ $kriteria->status == $answer->bobot ? 'selected' : '' }}>
+                                                                        {{ $answer->jawaban }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                @if (!in_array($status, ['submit', 'progress', 'complete']))
                                                                     <input class="form-control form-control-sm"
                                                                         type="file"
                                                                         name="kriteria[{{ $kriteria->id }}][upload]">
-                                                                    @if ($kriteria->upload)
-                                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                            title="Download File Kriteria"
-                                                                            class="btn btn-success btn-sm"
-                                                                            href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
-                                                                            <i
-                                                                                class="bi bi-file-earmark-arrow-down-fill"></i>
-                                                                            Download
-                                                                        </a>
-                                                                    @endif
-                                                                </div>
+                                                                @endif
+                                                                @if ($kriteria->upload)
+                                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        title="Download File Kriteria"
+                                                                        class="btn btn-success btn-sm"
+                                                                        href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
+                                                                        <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                                        Download
+                                                                    </a>
+                                                                @endif
+                                                            </div>
 
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
                                             @endforeach
                                         @endforeach
                                     </form>
                                 </tbody>
                                 <tfoot>
-                                    <td colspan="6" class="text-end">
-                                        <button class="btn btn-primary btn-lg" type="submit"
-                                            form="form_perda_evaluasi_internal">Submit</button>
-                                    </td>
+                                    @if (!in_array($status, ['submit', 'progress', 'complete']))
+                                        <td colspan="6" class="text-end">
+                                            <button class="btn btn-primary btn-lg" type="submit"
+                                                form="form_perda_evaluasi_internal">Submit</button>
+                                        </td>
+                                    @endif
                                 </tfoot>
                             </table>
                         </div>
