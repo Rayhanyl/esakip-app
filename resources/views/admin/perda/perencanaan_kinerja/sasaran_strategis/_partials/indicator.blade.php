@@ -14,52 +14,48 @@
                 </div>
                 <div class="col-12 row my-3">
                     <h6>Target</h6>
-                    <div class="col-4 form-group">
-                        <label for="pengampu" class="form-label label-target-1">{{ $tahun }}</label>
-                        <input type="number" name="indikator_sasaran[{{ $iter ?? 0 }}][target1]"
-                            class="form-control" aria-describedby="pengampu">
-                    </div>
-                    <div class="col-4 form-group">
-                        <label for="pengampu" class="form-label label-target-2">{{ $tahun + 1 }}</label>
-                        <input type="number" name="indikator_sasaran[{{ $iter ?? 0 }}][target2]"
-                            class="form-control" aria-describedby="pengampu">
-                    </div>
-                    <div class="col-4 form-group">
-                        <label for="pengampu" class="form-label label-target-3">{{ $tahun + 2 }}</label>
-                        <input type="number" name="indikator_sasaran[{{ $iter ?? 0 }}][target3]"
-                            class="form-control" aria-describedby="pengampu">
-                    </div>
+                    <x-admin.form.text col="col-4" label="2024"
+                        name="indikator_sasaran[{{ $iter ?? 0 }}][target1]" decimal="true" type="text"
+                        classinput="label-target-1" />
+                    <x-admin.form.text col="col-4" label="2025"
+                        name="indikator_sasaran[{{ $iter ?? 0 }}][target2]" decimal="true" type="text"
+                        classinput="label-target-2" />
+                    <x-admin.form.text col="col-4" label="2026"
+                        name="indikator_sasaran[{{ $iter ?? 0 }}][target3]" decimal="true" type="text"
+                        classinput="label-target-3" />
                 </div>
                 <div class="col-12 col-lg-6 form-group">
-                    <label for="pengampu" class="form-label">Satuan</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][satuan]" class="form-control"
-                        aria-describedby="pengampu">
+                    <x-admin.form.select col="col-12" label="Satuan"
+                        name="indikator_sasaran[{{ $iter ?? 0 }}][satuan]" :lists="$satuan_options" />
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="pengampu" class="form-label">Penjelasan</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][penjelasan]""
-                        class="form-control" aria-describedby="pengampu">
+                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][penjelasan]" class="form-control"
+                        aria-describedby="pengampu">
                 </div>
-                <div class="col-12 col-lg-12 form-group">
-                    <h6>Tipe Perhitungan</h6>
-                    <fieldset class="form-group">
-                        <select class="form-select" id="basicSelect"
-                            name="indikator_sasaran[{{ $iter ?? 0 }}][tipe_perhitungan]">
-                            <option value="-" selected>- Pilih Tipe Perhitungan -</option>
-                            <option value="1" selected>Kumulatif</option>
-                            <option value="2" selected>Non-Kumulatif</option>
-                        </select>
-                    </fieldset>
+                <div class="col-12 col-lg-6 form-group">
+                    <x-admin.form.select col="col-12" label="Tipe Perhitungan"
+                        name="indikator_sasaran[{{ $iter ?? 0 }}][tipe_perhitungan]" :lists="$tipe_perhitungan_options" />
                 </div>
                 <div class="col-12 col-lg-6">
                     <label for="pengampu" class="form-label">Sumber Data</label>
                     <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][sumber_data]" id="pengampu"
                         class="form-control" aria-describedby="pengampu">
                 </div>
-                <div class="col-12 col-lg-6">
-                    <label for="pengampu" class="form-label">Penanggung Jawab</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][penanggung_jawab]"
-                        id="pengampu" class="form-control" aria-describedby="pengampu">
+                <div class="col-12" id="col-penanggung-jawab1">
+                    <div class="row row-penanggung-jawab">
+                        <x-admin.form.text col="col-11" label="Penanggung Jawab"
+                            name="indikator_sasaran[{{ $iter ?? 0 }}][penanggung_jawab][]"
+                            placeholder="Penanggung Jawab" />
+                        <div class="col-1">
+                            <label for="" class="form-label fw-bold">&nbsp;</label>
+                            <div>
+                                <button class="btn btn-success btn-add-penanggung-jawab" type="button" data-id="1">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

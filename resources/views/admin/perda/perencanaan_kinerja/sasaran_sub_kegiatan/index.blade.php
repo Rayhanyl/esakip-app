@@ -211,89 +211,69 @@
     {{-- Modal --}}
     @push('scripts')
         <script>
-            let iter = 1;
-            $('#data-table-sasaran-subkegiatan').DataTable({
-                responsive: true,
-                lengthMenu: [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, 'All'],
-                ],
-                order: [
-                    [0, 'asc']
-                ],
-            });
-
-            $('.decimal-input').inputmask({
-                alias: 'decimal',
-                groupSeparator: ',',
-                autoGroup: true,
-                digits: 2,
-                digitsOptional: false,
-                placeholder: '0',
-                rightAlign: false,
-                removeMaskOnSubmit: true
-            });
-
-
-            // Initialize Inputmask for currency input in IDR format
-            $('.idr-currency').inputmask('numeric', {
-                radixPoint: ',', // Decimal separator
-                groupSeparator: '.', // Thousand separator
-                alias: 'numeric',
-                digits: 0,
-                autoGroup: true,
-                autoUnmask: true,
-                prefix: 'Rp ', // IDR currency symbol
-                rightAlign: false,
-                removeMaskOnSubmit: true // Remove mask when form submitted
-            });
-
-            $('.delete-sasaran-subkegiatan').click(function() {
-                var id = $(this).data('id');
-                var form = $('#delete-form-' + id);
-
-                // SweetAlert confirmation dialog
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-            });
-
-            $('.btn-add-indicator').on('click', function() {
-                iter++;
-                console.log(iter);
-                add_indicator(iter);
-            })
-            $(document).on('click', '.btn-remove-indicator', function() {
-                remove_indicator($(this));
-            });
-
-            function remove_indicator(el) {
-                el.parents('.col-indikator-sasaran-bupati').remove();
-            }
-
-            function add_indicator(iter) {
-                $.ajax({
-                    url: "{{ route('perda.perencanaan-kinerja.sasaran-sub-kegiatan.indicator') }}",
-                    data: {
-                        iter
-                    },
-                    success: function(result) {
-                        $('#row-indikator-sasaran-bupati').append(result);
-                    }
-                });
-            }
-
             $(document).ready(function() {
+                getDecimalInput();
+                getFormatIdr();
+                let iter = 1;
+                $('#data-table-sasaran-subkegiatan').DataTable({
+                    responsive: true,
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
+                    ],
+                    order: [
+                        [0, 'asc']
+                    ],
+                });
+
+                $('.delete-sasaran-subkegiatan').click(function() {
+                    var id = $(this).data('id');
+                    var form = $('#delete-form-' + id);
+
+                    // SweetAlert confirmation dialog
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+
+                $('.btn-add-indicator').on('click', function() {
+                    iter++;
+                    console.log(iter);
+                    add_indicator(iter);
+                })
+
+                $(document).on('click', '.btn-remove-indicator', function() {
+                    remove_indicator($(this));
+                });
+
+                function remove_indicator(el) {
+                    el.parents('.col-indikator-sasaran-bupati').remove();
+                }
+
+                function add_indicator(iter) {
+                    $.ajax({
+                        url: "{{ route('perda.perencanaan-kinerja.sasaran-sub-kegiatan.indicator') }}",
+                        data: {
+                            iter
+                        },
+                        success: function(result) {
+                            $('#row-indikator-sasaran-bupati').append(result);
+                            getDecimalInput();
+                            getFormatIdr();
+                        }
+                    });
+                }
+
                 $('#get-data-pengampu').select2({
                     theme: 'bootstrap-5',
                     tags: true, // Enable tagging
@@ -320,8 +300,35 @@
                     },
                     minimumInputLength: 1
                 });
-
             });
+
+            function getDecimalInput() {
+                $('.decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            }
+
+            function getFormatIdr() {
+                // Initialize Inputmask for currency input in IDR format
+                $('.idr-currency').inputmask('numeric', {
+                    radixPoint: ',', // Decimal separator
+                    groupSeparator: '.', // Thousand separator
+                    alias: 'numeric',
+                    digits: 0,
+                    autoGroup: true,
+                    autoUnmask: true,
+                    prefix: 'Rp ', // IDR currency symbol
+                    rightAlign: false,
+                    removeMaskOnSubmit: true // Remove mask when form submitted
+                });
+            }
         </script>
     @endpush
 @endsection

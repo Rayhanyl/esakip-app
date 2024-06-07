@@ -19,4 +19,13 @@ class SasaranSubKegiatan extends Model
     {
         return $this->hasMany(SasaranSubKegiatanIndikator::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($sasaranSubKegiatan) {
+            $sasaranSubKegiatan->indikators()->delete();
+        });
+    }
 }

@@ -14,22 +14,21 @@
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="pengampu" class="form-label">Target</label>
-                    <input type="number" name="indikator_sasaran[{{ $iter ?? 0 }}][target]" class="form-control"
-                        aria-describedby="pengampu">
+                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][target]"
+                        class="form-control decimal-input" aria-describedby="pengampu">
                 </div>
                 <div class="col-12 col-lg-6 form-group">
-                    <label for="pengampu" class="form-label">Satuan</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][satuan]" class="form-control"
-                        aria-describedby="pengampu">
+                    <x-admin.form.select col="col-12" label="Satuan"
+                        name="indikator_sasaran[{{ $iter ?? 0 }}][satuan_id]" :lists="$satuan_options" />
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="pengampu" class="form-label">Program</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][program]"" class="form-control"
+                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][program]" class="form-control"
                         aria-describedby="pengampu">
                 </div>
                 <div class="col-12 col-lg-6 form-group">
-                    <label for="pengampu" class="form-label">Anggaran</label>
-                    <input type="number" name="indikator_sasaran[{{ $iter ?? 0 }}][anggaran]"" class="form-control"
+                    <label for="" class="form-label">Anggaran</label>
+                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][anggaran]" class="form-control idr-currency"
                         aria-describedby="pengampu">
                 </div>
             </div>

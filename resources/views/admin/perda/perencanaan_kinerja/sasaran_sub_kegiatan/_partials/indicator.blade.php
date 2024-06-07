@@ -13,29 +13,29 @@
                         name="indikator_sasaran[{{ $iter ?? 0 }}][indikator_sub_kegiatan]">
                 </div>
                 <div class="col-12 col-lg-6 form-group">
-                    <label for="pengampu" class="form-label">Target</label>
-                    <input type="number" id="pengampu" class="form-control" aria-describedby="pengampu"
-                        name="indikator_sasaran[{{ $iter ?? 0 }}][target]">
+                    <label for="target" class="form-label">Target</label>
+                    <input type="text" id="target" class="form-control decimal-input"
+                        aria-describedby="target" name="indikator_sasaran[{{ $iter ?? 0 }}][target]">
                 </div>
                 <div class="col-12 col-lg-3 form-group">
-                    <label for="pengampu" class="form-label">Triwulan 1</label>
-                    <input type="number" id="pengampu" class="form-control" aria-describedby="pengampu"
-                        name="indikator_sasaran[{{ $iter ?? 0 }}][triwulan1]">
+                    <label for="triwulan1" class="form-label">Triwulan 1</label>
+                    <input type="text" id="triwulan1" class="form-control decimal-input"
+                        aria-describedby="triwulan1" name="indikator_sasaran[{{ $iter ?? 0 }}][triwulan1]">
                 </div>
                 <div class="col-12 col-lg-3 form-group">
-                    <label for="pengampu" class="form-label">Triwulan 2</label>
-                    <input type="number" id="pengampu" class="form-control" aria-describedby="pengampu"
-                        name="indikator_sasaran[{{ $iter ?? 0 }}][triwulan2]">
+                    <label for="triwulan2" class="form-label">Triwulan 2</label>
+                    <input type="text" id="triwulan2" class="form-control decimal-input"
+                        aria-describedby="triwulan2" name="indikator_sasaran[{{ $iter ?? 0 }}][triwulan2]">
                 </div>
                 <div class="col-12 col-lg-3 form-group">
-                    <label for="pengampu" class="form-label">Triwulan 3</label>
-                    <input type="number" id="pengampu" class="form-control" aria-describedby="pengampu"
-                        name="indikator_sasaran[{{ $iter ?? 0 }}][triwulan3]">
+                    <label for="triwulan3" class="form-label">Triwulan 3</label>
+                    <input type="text" id="triwulan3" class="form-control decimal-input"
+                        aria-describedby="triwulan3" name="indikator_sasaran[{{ $iter ?? 0 }}][triwulan3]">
                 </div>
                 <div class="col-12 col-lg-3 form-group">
-                    <label for="pengampu" class="form-label">Triwulan 4</label>
-                    <input type="number" id="pengampu" class="form-control" aria-describedby="pengampu"
-                        name="indikator_sasaran[{{ $iter ?? 0 }}][triwulan4]">
+                    <label for="triwulan4" class="form-label">Triwulan 4</label>
+                    <input type="text" id="triwulan4" class="form-control decimal-input"
+                        aria-describedby="triwulan4" name="indikator_sasaran[{{ $iter ?? 0 }}][triwulan4]">
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="pengampu" class="form-label">Satuan</label>
@@ -56,8 +56,9 @@
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="anggaran" class="form-label">Anggaran</label>
-                    <input type="number" id="pengampu" class="form-control" aria-describedby="anggaran"
-                        name="indikator_sasaran[{{ $iter ?? 0 }}][anggaran]">
+                    <input type="text" id="anggaran" class="form-control idr-currency"
+                        aria-describedby="anggaran" name="indikator_sasaran[{{ $iter ?? 0 }}][anggaran]">
+                </div>
                 </div>
             </div>
         </div>

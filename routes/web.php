@@ -113,8 +113,8 @@ Route::middleware(['auth'])->group(function () {
                     ->name('store');
                 Route::put('/update/{sasaranStrategis}', [SasaranStrategisController::class, 'update'])
                     ->name('update');
-                Route::delete('/destroy', [SasaranStrategisController::class, 'destroy'])
-                ->name('destroy');
+                Route::delete('/destroy/{id}', [SasaranStrategisController::class, 'destroy'])
+                    ->name('destroy');
                 Route::get('/get-pengampu', [SasaranStrategisController::class, 'get_pengampu'])
                 ->name('get-pengampu');
             });
@@ -129,7 +129,7 @@ Route::middleware(['auth'])->group(function () {
                     ->name('store');
                 Route::post('/update', [SasaranProgramController::class, 'update'])
                     ->name('update');
-                Route::delete('/destroy', [SasaranProgramController::class, 'destroy'])
+                Route::delete('/destroy/{id}', [SasaranProgramController::class, 'destroy'])
                     ->name('destroy');
             });
             Route::prefix('/sasaran-kegiatan')->name('sasaran-kegiatan.')->group(function () {
@@ -143,7 +143,7 @@ Route::middleware(['auth'])->group(function () {
                     ->name('store');
                 Route::post('/update', [SasaranKegiatanController::class, 'update'])
                     ->name('update');
-                Route::delete('/destroy', [SasaranKegiatanController::class, 'destroy'])
+                Route::delete('/destroy/{id}', [SasaranKegiatanController::class, 'destroy'])
                     ->name('destroy');
             });
             Route::prefix('/sasaran-sub-kegiatan')->name('sasaran-sub-kegiatan.')->group(function () {
@@ -157,7 +157,7 @@ Route::middleware(['auth'])->group(function () {
                     ->name('store');
                 Route::post('/update', [SasaranSubKegiatanController::class, 'update'])
                     ->name('update');
-                Route::delete('/destroy/{sasaranStrategis}', [SasaranSubKegiatanController::class, 'destroy'])
+                Route::delete('/destroy/{id}', [SasaranSubKegiatanController::class, 'destroy'])
                     ->name('destroy');
             });
         });

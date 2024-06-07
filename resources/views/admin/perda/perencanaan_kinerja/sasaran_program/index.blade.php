@@ -93,26 +93,18 @@
                                                 class="form-control decimal-input" aria-describedby="pengampu">
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
-                                            <label for="satuan" class="form-label">Satuan</label>
-                                            <fieldset class="form-group">
-                                                <select class="form-select select2" id="satuan"
-                                                    name="indikator_sasaran[1][satuan_id]">
-                                                    <option value="" selected>- Pilih Satuan -</option>
-                                                    @foreach ($satuan as $key)
-                                                        <option value="{{ $key->id }}">{{ $key->satuan }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </fieldset>
+                                            <x-admin.form.select col="col-12" label="Satuan"
+                                                name="indikator_sasaran[1][satuan_id]" :lists="$satuan_options" />
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
-                                            <label for="pengampu" class="form-label">Program</label>
+                                            <label for="program" class="form-label">Program</label>
                                             <input type="text" name="indikator_sasaran[1][program]" class="form-control"
-                                                aria-describedby="pengampu">
+                                                aria-describedby="program">
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
-                                            <label for="pengampu" class="form-label">Anggaran</label>
+                                            <label for="anggaran" class="form-label">Anggaran</label>
                                             <input type="text" name="indikator_sasaran[1][anggaran]"
-                                                class="form-control idr-currency" aria-describedby="pengampu">
+                                                class="form-control idr-currency" aria-describedby="anggaran">
                                         </div>
                                     </div>
                                 </div>
@@ -127,6 +119,8 @@
                         </div>
                     </div>
                 </form>
+
+
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Tabel Sasaran Program</h4>
@@ -188,6 +182,8 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                getDecimalInput();
+                getFormatIdr();
                 let iter = 1;
                 $('#data-table-sasaran-program').DataTable({
                     responsive: true,
@@ -198,31 +194,6 @@
                     order: [
                         [0, 'asc']
                     ],
-                });
-
-                $('.decimal-input').inputmask({
-                    alias: 'decimal',
-                    groupSeparator: ',',
-                    autoGroup: true,
-                    digits: 2,
-                    digitsOptional: false,
-                    placeholder: '0',
-                    rightAlign: false,
-                    removeMaskOnSubmit: true
-                });
-
-
-                // Initialize Inputmask for currency input in IDR format
-                $('.idr-currency').inputmask('numeric', {
-                    radixPoint: ',', // Decimal separator
-                    groupSeparator: '.', // Thousand separator
-                    alias: 'numeric',
-                    digits: 0,
-                    autoGroup: true,
-                    autoUnmask: true,
-                    prefix: 'Rp ', // IDR currency symbol
-                    rightAlign: false,
-                    removeMaskOnSubmit: true // Remove mask when form submitted
                 });
 
                 $('.delete-sasaran-program').click(function() {
@@ -265,6 +236,8 @@
                         },
                         success: function(result) {
                             $('#row-indikator-sasaran-bupati').append(result);
+                            getDecimalInput();
+                            getFormatIdr();
                         }
                     });
                 }
@@ -293,6 +266,34 @@
                 });
 
             });
+
+            function getDecimalInput() {
+                $('.decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            }
+
+            function getFormatIdr() {
+                // Initialize Inputmask for currency input in IDR format
+                $('.idr-currency').inputmask('numeric', {
+                    radixPoint: ',', // Decimal separator
+                    groupSeparator: '.', // Thousand separator
+                    alias: 'numeric',
+                    digits: 0,
+                    autoGroup: true,
+                    autoUnmask: true,
+                    prefix: 'Rp ', // IDR currency symbol
+                    rightAlign: false,
+                    removeMaskOnSubmit: true // Remove mask when form submitted
+                });
+            }
         </script>
     @endpush
 @endsection

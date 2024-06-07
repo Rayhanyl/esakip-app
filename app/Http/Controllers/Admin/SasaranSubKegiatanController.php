@@ -10,6 +10,7 @@ use App\Models\SasaranKegiatan;
 use App\Models\SasaranPengampu;
 use App\Models\PengampuSementara;
 use App\Models\SasaranSubKegiatan;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -32,6 +33,9 @@ class SasaranSubKegiatanController extends Controller
 
         View::share('sasaran_kegiatan_options', SasaranKegiatan::all()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran_kegiatan;
+        }));
+        View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {
+            return $list->satuan;
         }));
         View::share('sasaran_sub_kegiatan', SasaranSubKegiatan::all());
         View::share('satuan', Satuan::all());
@@ -101,21 +105,33 @@ class SasaranSubKegiatanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SasaranSubKegiatan $sasaranSubKegiatan)
+    public function destroy(SasaranSubKegiatan $sasaranSubKegiatan, $id)
     {
-        // Attempt to delete the record
+        // Retrieve the SasaranStrategis record by ID
+        $sasaranSubKegiatan = sasaranSubKegiatan::find($id);
+
+        // Check if the record exists
+        if (!$sasaranSubKegiatan) {
+            // Return an error message if the record does not exist
+            Alert::toast('Data sasaran sub-kegiatan tidak ditemukan', 'danger');
+            return redirect()->back();
+        }
+
         try {
-            // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
+            // Attempt to delete the record
             $sasaranSubKegiatan->delete();
 
             // Return a success message
-            Alert::toast('Berhasil menghapus data sasaran sub kegiatan', 'success');
-            return redirect()->back();
+            Alert::toast('Berhasil menghapus data sasaran sub-kegiatan', 'success');
         } catch (\Exception $e) {
+            // Log the error
+            Log::error('Failed to delete sasaranSubKegiatan: ' . $e->getMessage(), ['id' => $id]);
+
             // Return an error message
             Alert::toast('Error hubungi developer terkait!', 'danger');
-            return redirect()->back();
         }
+
+        return redirect()->back();
     }
 
     public function indicator(Request $request)
