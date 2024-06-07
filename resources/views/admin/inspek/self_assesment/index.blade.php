@@ -59,7 +59,7 @@
                                 </thead>
                                 <tbody>
                                     <form
-                                        action="{{ route('inspek.self-assesment.update', $perda_evaluasi_internal[0]->id ?? 0) }}"
+                                        action="{{ route('inspek.self-assesment.update', $perda_evaluasi_internal->id ?? 0) }}"
                                         method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
                                         @csrf
                                         @method('put')
@@ -105,7 +105,8 @@
                                                                 id="kriteria[{{ $komponen->id }}][{{ $sub_komponen->id }}][{{ $kriteria->id }}][status]"
                                                                 data-komponen="{{ $komponen->id }}"
                                                                 data-sub-komponen="{{ $sub_komponen->id }}"
-                                                                data-kriteria="{{ $kriteria->id }}">
+                                                                data-kriteria="{{ $kriteria->id }}"
+                                                                {{ in_array($status, ['new', 'progress', 'complete']) ? 'disabled' : '' }}>
                                                                 <option value="0" selected disabled>- Pilih -</option>
                                                                 @foreach ($kriteria->answers as $answer)
                                                                     <option value="{{ $answer->bobot }}"
@@ -148,10 +149,12 @@
                                                 value="0" readonly disabled>
                                         </td>
                                         <td rowspan="2">
-                                            <button class="btn btn-success btn-lg" form="form_perda_evaluasi_internal">
-                                                <i class="bi bi-save"></i>
-                                                Submit
-                                            </button>
+                                            @if (!in_array($status, ['new', 'progress', 'complete']))
+                                                <button class="btn btn-success btn-lg" form="form_perda_evaluasi_internal">
+                                                    <i class="bi bi-save"></i>
+                                                    Submit
+                                                </button>
+                                            @endif
                                         </td>
                                     </tr>
                                     <tr>
