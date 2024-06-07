@@ -42,9 +42,24 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tabel Pelaporan Kinerja</h4>
+                        @switch($status)
+                            @case('new')
+                                <h3 class="text-danger">Data Evaluasi Internal belum tersedia</h3>
+                            @break
+
+                            @case('submit')
+                                <h3 class="text-warning">Data Evaluasi Internal belum dinilai</h3>
+                            @break
+
+                            @case('complete')
+                                <h3 class="text-success">Data Evaluasi Internal telah dinilai</h3>
+                            @break
+
+                            @default
+                        @endswitch
                     </div>
                     <div class="card-body">
+                        <h4 class="card-title">Tabel Pelaporan Kinerja</h4>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="table-info">
@@ -106,7 +121,7 @@
                                                                 data-komponen="{{ $komponen->id }}"
                                                                 data-sub-komponen="{{ $sub_komponen->id }}"
                                                                 data-kriteria="{{ $kriteria->id }}"
-                                                                {{ in_array($status, ['new', 'progress', 'complete']) ? 'disabled' : '' }}>
+                                                                {{ in_array($status, ['new', 'complete']) ? 'disabled' : '' }}>
                                                                 <option value="0" selected disabled>- Pilih -</option>
                                                                 @foreach ($kriteria->answers as $answer)
                                                                     <option value="{{ $answer->bobot }}"
@@ -149,7 +164,7 @@
                                                 value="0" readonly disabled>
                                         </td>
                                         <td rowspan="2">
-                                            @if (!in_array($status, ['new', 'progress', 'complete']))
+                                            @if (!in_array($status, ['new', 'complete']))
                                                 <button class="btn btn-success btn-lg" form="form_perda_evaluasi_internal">
                                                     <i class="bi bi-save"></i>
                                                     Submit

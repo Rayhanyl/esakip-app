@@ -19,4 +19,9 @@ class SasaranStrategisIndikator extends Model
     {
         return $this->belongsTo(SasaranStrategis::class);
     }
+
+    public function sasaran_penanggung_jawabs()
+    {
+        return $this->hasMany(SasaranPenanggungJawab::class, 'sasaran_id', 'id');
+    }
 }

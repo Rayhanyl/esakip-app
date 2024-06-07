@@ -35,6 +35,18 @@ class SasaranStrategisController extends Controller
         View::share('sasaran_bupati_options', SasaranBupati::all()->keyBy('id')->transform(function ($sasaran_bupati) {
             return $sasaran_bupati->sasaran_bupati;
         }));
+        View::share('tahun_options', collect(array_combine(range(2029, 2020, -1), range(2029, 2020, -1)))->transform(function ($list) {
+            return $list;
+        }));
+        View::share('tipe_perhitungan_options', collect(array_combine(
+            ["1", "2"],
+            ["Kumulatif", "Non-Kumulatif"],
+        ))->transform(function ($list) {
+            return $list;
+        }));
+        View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {
+            return $list->satuan;
+        }));
         View::share('sasaran_strategis', SasaranStrategis::all());
     }
     /**
@@ -101,17 +113,38 @@ class SasaranStrategisController extends Controller
      */
     public function edit(SasaranStrategis $sasaranStrategis)
     {
-        $satuan = Satuan::all();
-        $penanggung_jawab = PenanggungJawab::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_kegiatan.edit');
+        $sasaranStrategis->load('indikators', 'indikators.sasaran_penanggung_jawabs');
+        return view('admin.perda.perencanaan_kinerja.sasaran_strategis.edit', compact('sasaranStrategis'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSasaranStrategisRequest $request, SasaranStrategis $sasaranStrategis)
+    public function update(Request $request, SasaranStrategis $sasaranStrategis)
     {
-        //
+        try {
+            $data = $sasaranStrategis->update($request->except('indikator_sasaran', 'pengampu_id'));
+            foreach ($request->indikator_sasaran as $key => $value) {
+                $penanggung_jawabs = $value['penanggung_jawab'];
+                unset($value['penanggung_jawab']);
+                $params = array_merge($value, ['sasaran_strategis_id' => $sasaranStrategis->id]);
+                $indikator = SasaranStrategisIndikator::find($key);
+                $data_indikator = $indikator->update($params);
+                foreach ($penanggung_jawabs as $key => $penanggung_jawab) {
+                    SasaranPenanggungJawab::find($key)->update([
+                        'sasaran_id' => $indikator->id,
+                        'penanggung_jawab' => $penanggung_jawab
+                    ]);
+                }
+            }
+            Alert::toast('Berhasil menyimpan data sasaran strategis', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            dd($e);
+            // Handle the error if the deletion fails
+            Alert::toast('Error hubungi developer terkait!', 'danger');
+            return redirect()->back()->withErrors(['file' => 'Failed to delete the record. Please try again.']);
+        }
     }
 
     /**

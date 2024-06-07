@@ -85,7 +85,7 @@ class SasaranKegiatanController extends Controller
      */
     public function edit(SasaranKegiatan $sasaranKegiatan)
     {
-        return view('admin.perda.perencanaan_kinerja.sasaran_kegiatan.edit');
+        return view('admin.perda.perencanaan_kinerja.sasaran_kegiatan.edit', compact('sasaranKegiatan'));
     }
 
     /**

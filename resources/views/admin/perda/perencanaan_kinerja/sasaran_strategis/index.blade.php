@@ -198,7 +198,7 @@
                                                     <div class="p-2">
                                                         <a data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="Edit Sasaran Strategis" class="btn btn-warning btn-sm"
-                                                            href="#">
+                                                            href="{{ route('perda.perencanaan-kinerja.sasaran-strategis.edit', $item->id) }}">
                                                             <i class="bi bi-pencil-square"></i>
                                                         </a>
                                                     </div>

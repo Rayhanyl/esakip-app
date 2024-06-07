@@ -21,7 +21,7 @@ class SelfAssesmentController extends Controller
         View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($list) {
             return $list->name;
         }));
-        View::share('tahun_options', collect(array_combine(range(2029, 2020, -1), range(2029, 2020, -1)))->transform(function ($list) {
+        View::share('tahun_options', collect(array_combine(range(2029, 2019, -1), range(2029, 2019, -1)))->transform(function ($list) {
             return $list;
         }));
     }
@@ -95,7 +95,7 @@ class SelfAssesmentController extends Controller
     {
         foreach ($request->kriteria as $key => $kriteria) {
             PerdaEvaluasiInternal::find($id)->update([
-                'status' => 'progress',
+                'status' => 'complete',
             ]);
             $params = [
                 'status' => $kriteria['status'],
@@ -1472,7 +1472,7 @@ class SelfAssesmentController extends Controller
         $pei = PerdaEvaluasiInternal::create([
             'user_id' => $perangkat_daerah,
             'tahun' => $tahun,
-            'status' => '1',
+            'status' => 'new',
         ]);
         foreach ($list_komponens as $list_komponen) {
             $komponens = Komponen::create([
