@@ -66,12 +66,9 @@
                                 </div>
                                 <div class="col-12">
                                     <label for="pengampu" class="form-label">Pengampu</label>
-                                    <select class="form-select select2" name="pengampu_id[]" id="pengampu_id"
+                                    <select class="form-select select2" name="pengampu_id[]" id="get-data-pengampu"
                                         multiple="multiple">
                                         {{-- <option value="" selected disabled>--Pilih Pengampu--</option> --}}
-                                        @foreach ($pengampu_sementara ?? [] as $id => $user)
-                                            <option value="{{ $id }}">{{ $user }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -295,6 +292,36 @@
                     }
                 });
             }
+
+            $(document).ready(function() {
+                $('#get-data-pengampu').select2({
+                    theme: 'bootstrap-5',
+                    tags: true, // Enable tagging
+                    ajax: {
+                        url: "{{ route('perda.perencanaan-kinerja.sasaran-strategis.get-pengampu') }}",
+                        dataType: 'json',
+                        delay: 250,
+                        processResults: function(response) {
+                            var items = response.data;
+                            var formattedData = items.map(function(item) {
+                                return {
+                                    id: item.nip,
+                                    text: item.nip + '-' + item.nama_pegawai
+                                };
+                            });
+                            return {
+                                results: formattedData
+                            };
+                        },
+                        cache: true,
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    },
+                    minimumInputLength: 1
+                });
+
+            });
         </script>
     @endpush
 @endsection
