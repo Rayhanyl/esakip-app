@@ -40,9 +40,17 @@ class PerdaPengukuranKinerjaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = PerdaPengukuranKinerja::all();
+        // $data = PerdaPengukuranKinerja::all();
+        $query = PerdaPengukuranKinerja::with('user')
+            ->whereHas('user', function ($q) use ($request) {
+                $q->where('role', '=', $request->session()->get('role'));
+                // Tambahkan kondisi untuk filter berdasarkan user jika ada
+                $q->where('id', '=', $request->session()->get('id_user'));
+            });
+
+        $data = $query->get();
         return view('admin.perda.pengukuran_kinerja.index', compact('data'));
     }
 

@@ -47,6 +47,7 @@ class AuthController extends Controller
                     'email' => Auth::user()->email,
                     'name' => Auth::user()->name,
                     'role' => Auth::user()->role,
+                    'id_user' => Auth::user()->id,
                     'token' => $data->result->token,
                 ]);
                 Alert::toast('Berhasil login', 'success');

@@ -14,11 +14,16 @@ class PerdaPelaporanKinerjaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = PelaporanKinerja::with('user')->whereHas('user', function ($q) {
-            return $q->where('role', '=', session('role'));
-        })->get();
+        $query = PelaporanKinerja::with('user')
+            ->whereHas('user', function ($q) use ($request) {
+                $q->where('role', '=', $request->session()->get('role'));
+                // Tambahkan kondisi untuk filter berdasarkan user jika ada
+                $q->where('id', '=', $request->session()->get('id_user'));
+            });
+
+        $data = $query->get();
         return view('admin.perda.pelaporan_kinerja.index', compact('data'));
     }
 
