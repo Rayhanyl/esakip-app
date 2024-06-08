@@ -20,6 +20,11 @@ class SasaranKegiatan extends Model
         return $this->hasMany(SasaranKegiatanIndikator::class);
     }
 
+    public function sasaran_subkegiatan()
+    {
+        return $this->belongsTo(SasaranSubKegiatan::class, 'id', 'sasaran_kegiatan_id');
+    }
+
     protected static function boot()
     {
         parent::boot();

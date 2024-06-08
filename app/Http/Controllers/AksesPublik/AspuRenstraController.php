@@ -33,7 +33,6 @@ class AspuRenstraController extends Controller
             }
         })
             ->get();
-
         return view('akses_publik.perencanaan_kinerja.renstra.index', compact('data', 'user', 'perda', 'tahun'));
     }
 
@@ -49,7 +48,6 @@ class AspuRenstraController extends Controller
             if ($request->pemkab != null) {
                 $q->where('user_id', $request->pemkab);
             }
-
         })->whereHas('sasaran_strategis', function ($r) use ($request) {
             if ($request->tahun != null) {
                 $r->where('tahun', $request->tahun ?? '');

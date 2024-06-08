@@ -129,7 +129,8 @@
         kepraktisan dan kemanfaatan yang disesuaikan dengan tujuan evaluasi. Langkah praktis diambil agar lebih cepat
         memberikan petunjuk untuk perbaikan implementasi SAKIP, sehingga dapat menghasilkan rekomendasi untuk
         meningkatkan akuntabilitas kinerja.</p>
-
+    <br>
+    <br>
     <h3>2. Hasil Evaluasi</h3>
     <p>Hasil evaluasi atas akuntabilitas kinerja Dinas {{ $user->name }}. menunjukkan bahwa nilai sebesar
         {{ $evaluasi->nilai_akuntabilitas_kinerja }} dengan

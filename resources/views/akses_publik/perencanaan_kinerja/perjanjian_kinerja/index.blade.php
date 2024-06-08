@@ -15,27 +15,15 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <div class="col-12 mb-5">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('aspu.perjanjian.kinerja') }}">Perangkat Daerah</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('aspu.pemkab-perjanjian.kinerja') }}">Pemerintah
-                                Kabupaten</a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="col-12">
                     <form class="row" action="{{ route('aspu.perjanjian.kinerja') }}" method="get">
                         @csrf
                         <div class="col-12 col-lg-3">
                             <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
-                            <select class="form-select" id="tahun" name="tahun">
+                            <select class="form-select select2" id="tahun" name="tahun">
                                 <option value="" selected>- Pilih Tahun -</option>
                                 @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                                    <option value="{{ $i }}">
+                                    <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>
                                         {{ $i }}
                                     </option>
                                 @endfor
@@ -43,7 +31,7 @@
                         </div>
                         <div class="col-12 col-lg-3">
                             <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
-                            <select class="form-select" id="perda" name="perda">
+                            <select class="form-select select2" id="perda" name="perda">
                                 <option value="" selected>- Pilih Perangkat Daerah -</option>
                                 @foreach ($user as $item)
                                     <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
@@ -68,19 +56,22 @@
                                 <table class="table table-striped table-hover" id="data-table-perjanjian-kinerja">
                                     <thead class="table-info">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Sasaran Strategis</th>
-                                            <th>Indikator</th>
-                                            <th>Target</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Sasaran Strategis</th>
+                                            <th class="text-center">Indikator</th>
+                                            <th class="text-center">Target</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($data as $item)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $item->sasaran_strategis->sasaran_strategis }}
+                                                </td>
+                                                <td class="text-center">{{ $item->indikator_sasaran_strategis }}</td>
+                                                <td class="text-center">{{ $item->target1 }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -100,7 +91,7 @@
                         [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
             });

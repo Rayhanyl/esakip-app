@@ -49,6 +49,6 @@ class AspuPerjanjianKinerjaController extends Controller
             }
         })
             ->get();
-        return view('akses_publik.perencanaan_kinerja.perjanjian_kinerja.pemkab', compact('user','data','tahun','pemkab'));
+        return view('akses_publik.perencanaan_kinerja.perjanjian_kinerja.pemkab', compact('user', 'data', 'tahun', 'pemkab'));
     }
 }
