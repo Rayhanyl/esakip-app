@@ -37,7 +37,7 @@
                                 <div class="col-12 col-lg-6 form-group">
                                     <h6>Tahun</h6>
                                     <fieldset class="form-group">
-                                        <select class="form-select" id="basicSelect" name="tahun">
+                                        <select class="form-select" id="tahun" name="tahun">
                                             <option value="" selected>- Pilih Tahun -</option>
                                             @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
                                                 <option value="{{ $i }}">
@@ -50,7 +50,8 @@
                                 <div class="col-12 col-lg-6 form-group">
                                     <h6>Sasaran Program</h6>
                                     <fieldset class="form-group">
-                                        <select class="form-select select2" id="basicSelect" name="sasaran_program_id">
+                                        <select class="form-select select2" id="sasaran_program_id"
+                                            name="sasaran_program_id">
                                             <option value="" selected>- Pilih Sasaran Program -</option>
                                             @foreach ($sasaran_program_options ?? [] as $key => $item)
                                                 <option value="{{ $key }}">{{ $item }}</option>
@@ -65,9 +66,9 @@
                                     </select>
                                 </div>
                                 <div class="col-12 col-lg-6 form-group">
-                                    <label for="pengampu" class="form-label">Sasaran Kegiatan</label>
+                                    <label for="sasaran_kegiatan" class="form-label">Sasaran Kegiatan</label>
                                     <input type="text" id="sasaran_kegiatan" class="form-control"
-                                        aria-describedby="pengampu" name="sasaran_kegiatan">
+                                        aria-describedby="sasaran_kegiatan" name="sasaran_kegiatan">
                                 </div>
                             </div>
                         </div>
@@ -84,35 +85,28 @@
                                         </div>
                                         <hr>
                                         <div class="col-12 col-lg-4 form-group">
-                                            <label for="pengampu" class="form-label">Indikator Kegiatan</label>
-                                            <input type="text" id="pengampu" class="form-control"
-                                                aria-describedby="pengampu" name="indikator_sasaran[1][indikator_kegiatan]">
+                                            <label for="indikator_kegiatan" class="form-label">Indikator Kegiatan</label>
+                                            <input type="text" id="indikator_kegiatan" class="form-control"
+                                                aria-describedby="indikator_kegiatan"
+                                                name="indikator_sasaran[1][indikator_kegiatan]">
                                         </div>
                                         <div class="col-12 col-lg-4 form-group">
-                                            <label for="pengampu" class="form-label">Target</label>
-                                            <input type="text" id="pengampu" class="form-control decimal-input"
-                                                aria-describedby="pengampu" name="indikator_sasaran[1][target]">
+                                            <label for="target" class="form-label">Target</label>
+                                            <input type="text" id="target" class="form-control decimal-input"
+                                                aria-describedby="target" name="indikator_sasaran[1][target]">
                                         </div>
                                         <div class="col-12 col-lg-4 form-group">
-                                            <label for="pengampu" class="form-label">Satuan</label>
-                                            <fieldset class="form-group">
-                                                <select class="form-select select2" id="satuan"
-                                                    name="indikator_sasaran[1][satuan_id]">
-                                                    <option value="" selected>- Pilih Satuan -</option>
-                                                    @foreach ($satuan as $key)
-                                                        <option value="{{ $key->id }}">{{ $key->satuan }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </fieldset>
+                                            <x-admin.form.select col="col-12" label="Satuan"
+                                                name="indikator_sasaran[1][satuan_id]" :lists="$satuan_options" />
                                         </div>
                                         <div class="col-12 col-lg-4 form-group">
-                                            <label for="pengampu" class="form-label">Kegiatan</label>
-                                            <input type="text" id="pengampu" class="form-control"
-                                                aria-describedby="pengampu" name="indikator_sasaran[1][kegiatan]">
+                                            <label for="kegiatan" class="form-label">Kegiatan</label>
+                                            <input type="text" id="kegiatan" class="form-control"
+                                                aria-describedby="kegiatan" name="indikator_sasaran[1][kegiatan]">
                                         </div>
                                         <div class="col-12 col-lg-4 form-group">
                                             <label for="anggaran" class="form-label">Anggaran</label>
-                                            <input type="text" id="pengampu" class="form-control idr-currency"
+                                            <input type="text" id="anggaran" class="form-control idr-currency"
                                                 aria-describedby="anggaran" name="indikator_sasaran[1][anggaran]">
                                         </div>
                                     </div>
@@ -189,6 +183,8 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                getDecimalInput();
+                getFormatIdr();
                 $('#data-table-sasaran-kegiatan').DataTable({
                     responsive: true,
                     lengthMenu: [
@@ -198,31 +194,6 @@
                     order: [
                         [0, 'asc']
                     ],
-                });
-
-                $('.decimal-input').inputmask({
-                    alias: 'decimal',
-                    groupSeparator: ',',
-                    autoGroup: true,
-                    digits: 2,
-                    digitsOptional: false,
-                    placeholder: '0',
-                    rightAlign: false,
-                    removeMaskOnSubmit: true
-                });
-
-
-                // Initialize Inputmask for currency input in IDR format
-                $('.idr-currency').inputmask('numeric', {
-                    radixPoint: ',', // Decimal separator
-                    groupSeparator: '.', // Thousand separator
-                    alias: 'numeric',
-                    digits: 0,
-                    autoGroup: true,
-                    autoUnmask: true,
-                    prefix: 'Rp ', // IDR currency symbol
-                    rightAlign: false,
-                    removeMaskOnSubmit: true // Remove mask when form submitted
                 });
 
                 $('.delete-sasaran-kegiatan').click(function() {
@@ -266,6 +237,8 @@
                         },
                         success: function(result) {
                             $('#row-indikator-sasaran-bupati').append(result);
+                            getDecimalInput();
+                            getFormatIdr();
                         }
                     });
                 }
@@ -293,6 +266,34 @@
                     minimumInputLength: 1
                 });
             });
+
+            function getDecimalInput() {
+                $('.decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            }
+
+            function getFormatIdr() {
+                // Initialize Inputmask for currency input in IDR format
+                $('.idr-currency').inputmask('numeric', {
+                    radixPoint: ',', // Decimal separator
+                    groupSeparator: '.', // Thousand separator
+                    alias: 'numeric',
+                    digits: 0,
+                    autoGroup: true,
+                    autoUnmask: true,
+                    prefix: 'Rp ', // IDR currency symbol
+                    rightAlign: false,
+                    removeMaskOnSubmit: true // Remove mask when form submitted
+                });
+            }
         </script>
     @endpush
 @endsection

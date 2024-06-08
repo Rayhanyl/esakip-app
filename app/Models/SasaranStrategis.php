@@ -25,4 +25,12 @@ class SasaranStrategis extends Model
         return $this->belongsTo(SasaranProgram::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($sasaranStrategis) {
+            $sasaranStrategis->indikators()->delete();
+        });
+    }
 }

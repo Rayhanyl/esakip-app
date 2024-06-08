@@ -11,6 +11,7 @@ use App\Models\SasaranKegiatan;
 use App\Models\SasaranPengampu;
 use App\Models\PengampuSementara;
 use App\Models\SasaranSubKegiatan;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -33,6 +34,9 @@ class SasaranKegiatanController extends Controller
 
         View::share('sasaran_program_options', SasaranProgram::all()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran_program;
+        }));
+        View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {
+            return $list->satuan;
         }));
         View::share('sasaran_kegiatan', SasaranKegiatan::all());
     }
@@ -99,21 +103,33 @@ class SasaranKegiatanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SasaranKegiatan $sasaranKegiatan)
+    public function destroy(SasaranKegiatan $sasaranKegiatan, $id)
     {
-        // Attempt to delete the record
+        // Retrieve the SasaranStrategis record by ID
+        $sasaranKegiatan = sasaranKegiatan::find($id);
+
+        // Check if the record exists
+        if (!$sasaranKegiatan) {
+            // Return an error message if the record does not exist
+            Alert::toast('Data sasaran kegiatan tidak ditemukan', 'danger');
+            return redirect()->back();
+        }
+
         try {
-            // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
+            // Attempt to delete the record
             $sasaranKegiatan->delete();
 
             // Return a success message
             Alert::toast('Berhasil menghapus data sasaran kegiatan', 'success');
-            return redirect()->back();
         } catch (\Exception $e) {
+            // Log the error
+            Log::error('Failed to delete sasaranKegiatan: ' . $e->getMessage(), ['id' => $id]);
+
             // Return an error message
             Alert::toast('Error hubungi developer terkait!', 'danger');
-            return redirect()->back();
         }
+
+        return redirect()->back();
     }
 
     public function indicator(Request $request)

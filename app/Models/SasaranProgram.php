@@ -19,4 +19,13 @@ class SasaranProgram extends Model
     {
         return $this->hasMany(SasaranProgramIndikator::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($sasaranProgram) {
+            $sasaranProgram->indikators()->delete();
+        });
+    }
 }

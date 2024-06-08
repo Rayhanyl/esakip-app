@@ -11,6 +11,7 @@ use App\Models\SasaranKegiatan;
 use App\Models\SasaranPengampu;
 use App\Models\SasaranStrategis;
 use App\Models\PengampuSementara;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -34,6 +35,15 @@ class SasaranProgramController extends Controller
         View::share('sasaran_strategis_options', SasaranStrategis::all()->keyBy('id')->transform(function ($sasaran_strategis) {
             return $sasaran_strategis->sasaran_strategis;
         }));
+        View::share('tipe_perhitungan_options', collect(array_combine(
+            ["1", "2"],
+            ["Kumulatif", "Non-Kumulatif"],
+        ))->transform(function ($list) {
+            return $list;
+        }));
+        View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {
+            return $list->satuan;
+        }));
         View::share('sasaran_program', SasaranProgram::all());
     }
     /**
@@ -42,8 +52,7 @@ class SasaranProgramController extends Controller
     public function index()
     {
         $satuan = Satuan::all();
-        $penanggung_jawab = PenanggungJawab::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_program.index', compact('satuan', 'penanggung_jawab'));
+        return view('admin.perda.perencanaan_kinerja.sasaran_program.index', compact('satuan'));
     }
 
     /**
@@ -101,21 +110,33 @@ class SasaranProgramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SasaranProgram $sasaranProgram)
+    public function destroy(SasaranProgram $sasaranProgram, $id)
     {
-        // Attempt to delete the record
+        // Retrieve the SasaranStrategis record by ID
+        $sasaranProgram = SasaranProgram::find($id);
+
+        // Check if the record exists
+        if (!$sasaranProgram) {
+            // Return an error message if the record does not exist
+            Alert::toast('Data sasaran program tidak ditemukan', 'danger');
+            return redirect()->back();
+        }
+
         try {
-            // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
+            // Attempt to delete the record
             $sasaranProgram->delete();
 
             // Return a success message
             Alert::toast('Berhasil menghapus data sasaran program', 'success');
-            return redirect()->back();
         } catch (\Exception $e) {
+            // Log the error
+            Log::error('Failed to delete SasaranProgram: ' . $e->getMessage(), ['id' => $id]);
+
             // Return an error message
             Alert::toast('Error hubungi developer terkait!', 'danger');
-            return redirect()->back();
         }
+
+        return redirect()->back();
     }
 
     public function indicator(Request $request)

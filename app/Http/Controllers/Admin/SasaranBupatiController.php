@@ -131,9 +131,9 @@ class SasaranBupatiController extends Controller
     {
         // Attempt to delete the record
         try {
+            
             // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
             $sasaranBupati->delete();
-
             // Return a success message
             Alert::toast('Berhasil menghapus data sasaran bupati beserta indikatornya', 'success');
             return redirect()->back();

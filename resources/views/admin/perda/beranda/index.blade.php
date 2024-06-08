@@ -25,34 +25,48 @@
                 </div>
             </div>
             <section class="section">
-                <div class="card shadow rounded-4">
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
-                                <img class="w-100" src="{{ asset('assets/images/logo/person.png') }}" alt="">
-                            </div>
-                            <div class="col-12 col-lg-8">
-                                <p>
-                                    <b>Selamat Datang</b> di Aplikasi Sistem Akuntabilitas Kinerja Instansi Pemerintah
-                                    Kabupaten
-                                    Majalengka
-                                </p>
-                                <p>
-                                    Kami dengan senang hati menyambut Anda di aplikasi ini, yang dirancang untuk
-                                    meningkatkan transparansi, efisiensi, dan akuntabilitas kinerja instansi pemerintah di
-                                    Kabupaten Majalengka.
-                                </p>
-                                <p>
-                                    Terima kasih telah menggunakan aplikasi ini. Mari bersama-sama kita wujudkan
-                                    pemerintahan yang lebih baik dan berintegritas.
-                                    Salam,
-                                    <br>
-                                    Pemerintah Kabupaten Majalengka
-                                </p>
+                <div class="row g-3">
+                    {{-- <div class="col-12">
+                        <h4>
+                            <span class="badge bg-success">Data evaluasi internal untuk tahun 2024 telah dinilai oleh
+                                inspektorat</span>
+                        </h4>
+                    </div> --}}
+                    <div class="col-12">
+                        <div class="card shadow rounded-4">
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                                        <img class="w-100" src="{{ asset('assets/images/logo/person.png') }}"
+                                            alt="">
+                                    </div>
+                                    <div class="col-12 col-lg-8">
+                                        <p>
+                                            <b>Selamat Datang</b> di Aplikasi Sistem Akuntabilitas Kinerja Instansi
+                                            Pemerintah
+                                            Kabupaten
+                                            Majalengka
+                                        </p>
+                                        <p>
+                                            Kami dengan senang hati menyambut Anda di aplikasi ini, yang dirancang untuk
+                                            meningkatkan transparansi, efisiensi, dan akuntabilitas kinerja instansi
+                                            pemerintah di
+                                            Kabupaten Majalengka.
+                                        </p>
+                                        <p>
+                                            Terima kasih telah menggunakan aplikasi ini. Mari bersama-sama kita wujudkan
+                                            pemerintahan yang lebih baik dan berintegritas.
+                                            Salam,
+                                            <br>
+                                            Pemerintah Kabupaten Majalengka
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </section>
         </div>
     </div>

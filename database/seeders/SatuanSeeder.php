@@ -13,35 +13,35 @@ class SatuanSeeder extends Seeder
      */
     public function run(): void
     {
-        $satuans = [
-            [
-                'satuan' => 'Persen'
-            ],
-            [
-                'satuan' => 'Poin'
-            ],
-            [
-                'satuan' => 'Nilai'
-            ],
-            [
-                'satuan' => 'Opini'
-            ],
-            [
-                'satuan' => 'Kunjungan'
-            ],
-            [
-                'satuan' => 'Unit'
-            ],
-            [
-                'satuan' => 'Desa'
-            ],
-            [
-                'satuan' => 'Custom'
-            ],
-        ];
+        // $satuans = [
+        //     [
+        //         'satuan' => 'Persen'
+        //     ],
+        //     [
+        //         'satuan' => 'Poin'
+        //     ],
+        //     [
+        //         'satuan' => 'Nilai'
+        //     ],
+        //     [
+        //         'satuan' => 'Opini'
+        //     ],
+        //     [
+        //         'satuan' => 'Kunjungan'
+        //     ],
+        //     [
+        //         'satuan' => 'Unit'
+        //     ],
+        //     [
+        //         'satuan' => 'Desa'
+        //     ],
+        //     [
+        //         'satuan' => 'Custom'
+        //     ],
+        // ];
 
-        foreach ($satuans as $satuan) {
-            Satuan::create($satuan);
-        };
+        // foreach ($satuans as $satuan) {
+        //     Satuan::create($satuan);
+        // };
     }
 }

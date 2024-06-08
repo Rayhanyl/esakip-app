@@ -11,6 +11,7 @@ use App\Models\PenanggungJawab;
 use App\Models\SasaranPengampu;
 use App\Models\SasaranStrategis;
 use App\Models\PengampuSementara;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -144,7 +145,6 @@ class SasaranStrategisController extends Controller
             Alert::toast('Berhasil menyimpan data sasaran strategis', 'success');
             return redirect()->back();
         } catch (\Exception $e) {
-            dd($e);
             // Handle the error if the deletion fails
             Alert::toast('Error hubungi developer terkait!', 'danger');
             return redirect()->back()->withErrors(['file' => 'Failed to delete the record. Please try again.']);
@@ -154,21 +154,33 @@ class SasaranStrategisController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SasaranStrategis $sasaranStrategis)
+    public function destroy(SasaranStrategis $sasaranStrategis, $id)
     {
-        // Attempt to delete the record
+        // Retrieve the SasaranStrategis record by ID
+        $sasaranStrategis = SasaranStrategis::find($id);
+
+        // Check if the record exists
+        if (!$sasaranStrategis) {
+            // Return an error message if the record does not exist
+            Alert::toast('Data sasaran strategis tidak ditemukan', 'danger');
+            return redirect()->back();
+        }
+
         try {
-            // Delete the SasaranBupati record along with its associated SasaranBupatiIndikator records
+            // Attempt to delete the record
             $sasaranStrategis->delete();
 
             // Return a success message
             Alert::toast('Berhasil menghapus data sasaran strategis', 'success');
-            return redirect()->back();
         } catch (\Exception $e) {
+            // Log the error
+            Log::error('Failed to delete SasaranStrategis: ' . $e->getMessage(), ['id' => $id]);
+
             // Return an error message
             Alert::toast('Error hubungi developer terkait!', 'danger');
-            return redirect()->back();
         }
+
+        return redirect()->back();
     }
 
     public function indicator(Request $request)

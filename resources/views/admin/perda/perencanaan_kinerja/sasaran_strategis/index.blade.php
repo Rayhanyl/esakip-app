@@ -114,15 +114,8 @@
                                                 class="form-control" aria-describedby="Penjelasan">
                                         </div>
                                         <div class="col-12 col-lg-6 form-group">
-                                            <label for="#" class="form-label fw-bold">Tipe Perhitungan</label>
-                                            <fieldset class="form-group">
-                                                <select class="form-select select2" id=""
-                                                    name="indikator_sasaran[1][tipe_perhitungan]">
-                                                    <option value="-" selected>- Pilih Tipe Perhitungan -</option>
-                                                    <option value="1" selected>Kumulatif</option>
-                                                    <option value="2" selected>Non-Kumulatif</option>
-                                                </select>
-                                            </fieldset>
+                                            <x-admin.form.select col="col-12" label="Tipe Perhitungan"
+                                                name="indikator_sasaran[1][tipe_perhitungan]" :lists="$tipe_perhitungan_options" />
                                         </div>
                                         <div class="col-12 col-lg-6">
                                             <label for="#" class="form-label fw-bold">Sumber Data</label>
@@ -220,6 +213,7 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                getDecimalInput();
                 $('#select-tahun').select2({
                     theme: 'bootstrap-5'
                 });
@@ -232,17 +226,6 @@
                     order: [
                         [0, 'asc']
                     ],
-                });
-
-                $('.decimal-input').inputmask({
-                    alias: 'decimal',
-                    groupSeparator: ',',
-                    autoGroup: true,
-                    digits: 2,
-                    digitsOptional: false,
-                    placeholder: '0',
-                    rightAlign: false,
-                    removeMaskOnSubmit: true
                 });
 
                 $('.delete-sasaran-strategis').click(function() {
@@ -296,6 +279,7 @@
                         },
                         success: function(result) {
                             $('#row-indikator-sasaran-bupati').append(result);
+                            getDecimalInput();
                         }
                     });
                 }
@@ -349,6 +333,19 @@
                 });
 
             });
+
+            function getDecimalInput(params) {
+                $('.decimal-input').inputmask({
+                    alias: 'decimal',
+                    groupSeparator: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    digitsOptional: false,
+                    placeholder: '0',
+                    rightAlign: false,
+                    removeMaskOnSubmit: true
+                });
+            }
         </script>
     @endpush
 @endsection
