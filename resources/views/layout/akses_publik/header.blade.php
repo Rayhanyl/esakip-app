@@ -94,24 +94,22 @@
                                         <li class="has-children">
                                             <a href="#">Pemerintah Kabupaten</a>
                                             <ul class="dropdown">
-                                                <li class="{{ Route::is('aspu.renstra') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.renstra') }}">Renstra</a>
+                                                <li class="">
+                                                    <a href="#">RPJMD</a>
                                                 </li>
-                                                <li class="{{ Route::is('aspu.renja') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.renja') }}">Renja</a>
+                                                <li class="">
+                                                    <a href="#">RKPD</a>
                                                 </li>
-                                                <li class="{{ Route::is('aspu.rencana.aksi') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.rencana.aksi') }}">Rencana Aksi</a>
+                                                <li class="">
+                                                    <a href="#">Rencana Aksi</a>
                                                 </li>
-                                                <li class="{{ Route::is('aspu.perjanjian.kinerja') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.perjanjian.kinerja') }}">Perjanjian
+                                                <li class="">
+                                                    <a href="#">Perjanjian
                                                         Kinerja</a>
                                                 </li>
                                                 <li
-                                                    class="{{ Route::is('aspu.indikator.kinerja.utama') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.indikator.kinerja.utama') }}">Indikator
-                                                        Kinerja
-                                                        Utama</a>
+                                                    class="">
+                                                    <a href="#">Indikator Kinerja Utama</a>
                                                 </li>
                                             </ul>
                                         </li>
