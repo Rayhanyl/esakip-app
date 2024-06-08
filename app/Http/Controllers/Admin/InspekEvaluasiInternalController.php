@@ -30,17 +30,21 @@ class InspekEvaluasiInternalController extends Controller
      */
     public function index(Request $request)
     {
-        $tahun = $request->tahun ?? 2024;
-        $user = User::whereRole('perda')->first();
-        $perangkat_daerah = $request->perangkat_daerah ?? $user->id;
-        $inspek_evaluasi_internal = InspekEvaluasiInternal::with('komponens', 'komponens.sub_komponens')->whereTahun($tahun)->whereUserId($perangkat_daerah)->get();
-        if (count($inspek_evaluasi_internal) == 0) {
-            $this->generate_evaluasi($perangkat_daerah, $tahun);
+        $tahun = $request->tahun;
+        $perangkat_daerah = $request->perangkat_daerah;
+        if ($tahun == null && $perangkat_daerah == null) {
+            $inspek_evaluasi_internal = [];
+            $total = 0;
+        } else {
             $inspek_evaluasi_internal = InspekEvaluasiInternal::with('komponens', 'komponens.sub_komponens')->whereTahun($tahun)->whereUserId($perangkat_daerah)->get();
-        }
-        $total = 0;
-        foreach ($inspek_evaluasi_internal[0]->komponens as $key => $value) {
-            $total += $value->bobot;
+            if (count($inspek_evaluasi_internal) == 0) {
+                $this->generate_evaluasi($perangkat_daerah, $tahun);
+                $inspek_evaluasi_internal = InspekEvaluasiInternal::with('komponens', 'komponens.sub_komponens')->whereTahun($tahun)->whereUserId($perangkat_daerah)->get();
+            }
+            $total = 0;
+            foreach ($inspek_evaluasi_internal[0]->komponens as $key => $value) {
+                $total += $value->bobot;
+            }
         }
         return view('admin.inspek.evaluasi_internal.index', compact('inspek_evaluasi_internal', 'tahun', 'perangkat_daerah', 'total'));
     }
@@ -84,6 +88,7 @@ class InspekEvaluasiInternalController extends Controller
         InspekEvaluasiInternal::find($id)->update([
             'nilai_akuntabilitas_kinerja' => $request->total_nilai,
             'predikat' => $request->predikat_nilai,
+            'no_surat' => $request->no_surat,
         ]);
         foreach ($request->komponen as $key_komponen => $komponen) {
             InspekKomponen::find($key_komponen)->update(

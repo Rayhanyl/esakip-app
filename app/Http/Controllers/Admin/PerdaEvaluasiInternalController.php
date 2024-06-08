@@ -24,13 +24,18 @@ class PerdaEvaluasiInternalController extends Controller
      */
     public function index(Request $request)
     {
-        $tahun = $request->tahun ?? 2024;
-        $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId(Auth::user()->id)->first();
-        if (!$perda_evaluasi_internal) {
-            $this->generate_evaluasi($tahun);
+        $tahun = $request->tahun;
+        if ($tahun == null) {
+            $perda_evaluasi_internal = [];
+            $status = '';
+        } else {
             $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId(Auth::user()->id)->first();
+            if (!$perda_evaluasi_internal) {
+                $this->generate_evaluasi($tahun);
+                $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId(Auth::user()->id)->first();
+            }
+            $status = $perda_evaluasi_internal->status;
         }
-        $status = $perda_evaluasi_internal->status;
         return view('admin.perda.evaluasi_internal.index', compact('perda_evaluasi_internal', 'status'));
     }
 

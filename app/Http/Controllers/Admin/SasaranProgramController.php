@@ -44,15 +44,14 @@ class SasaranProgramController extends Controller
         View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {
             return $list->satuan;
         }));
-        View::share('sasaran_program', SasaranProgram::all());
+        View::share('sasaran_program', SasaranProgram::all()    );
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $satuan = Satuan::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_program.index', compact('satuan'));
+        return view('admin.perda.perencanaan_kinerja.sasaran_program.index');
     }
 
     /**

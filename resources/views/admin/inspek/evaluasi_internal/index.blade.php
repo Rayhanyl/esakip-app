@@ -40,105 +40,112 @@
                         </form>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Tabel Evaluasi Internal</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table" id="data-table-evaluasi-internal">
-                                <thead class="table-info">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Komponen/Sub Komponen/Kriteria</th>
-                                        <th width="10%">Bobot</th>
-                                        <th width="15%">Nilai</th>
-                                    </tr>
-                                </thead>
-                                <form
-                                    action="{{ route('inspek.evaluasi-internal.update', $inspek_evaluasi_internal[0]->id) }}"
-                                    method="post">
-                                    @method('put')
-                                    @csrf
-                                    <tbody>
-                                        @foreach ($inspek_evaluasi_internal[0]->komponens as $item)
-                                            <tr class="font-weight-bold bg-primary text-white">
-                                                <td>{{ $item->no }}</td>
-                                                <td>{{ $item->komponen }}</td>
-                                                <td>{{ $item->bobot }}</td>
-                                                <td class="d-flex justify-content-between row-action">
-                                                    <input type="hidden" name="komponen[{{ $item->id }}][catatan]"
-                                                        value="{{ $item->catatan }}" class="input-catatan">
-                                                    <button type="button"
-                                                        class="btn btn-sm {{ $item->catatan == '' ? 'btn-light' : 'btn-info' }} btn-catatan">
-                                                        <i class="bi bi-card-text"></i> Catatan
-                                                    </button>
-                                                    <input type="hidden" class="input-rekomendasi"
-                                                        name="komponen[{{ $item->id }}][rekomendasi]"
-                                                        value="{{ $item->rekomendasi }}">
-                                                    <button type="button"
-                                                        class="btn btn-sm {{ $item->rekomendasi == '' ? 'btn-light' : 'btn-info' }} btn-rekomendasi">
-                                                        <i class="bi bi-info-square"></i> Rekomendasi
+                @if (count($inspek_evaluasi_internal) > 0)
+                    <form action="{{ route('inspek.evaluasi-internal.update', $inspek_evaluasi_internal[0]->id) }}"
+                        method="post">
+                        @method('put')
+                        @csrf
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Tabel Evaluasi Internal</h4>
+                                <x-admin.form.text col="12" label="No Surat" name="no_surat"
+                                    placeholder="Masukan No Surat" value="{{ $inspek_evaluasi_internal[0]->no_surat }}" />
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="data-table-evaluasi-internal">
+                                        <thead class="table-info">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Komponen/Sub Komponen/Kriteria</th>
+                                                <th width="10%">Bobot</th>
+                                                <th width="15%">Nilai</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach ($inspek_evaluasi_internal[0]->komponens as $item)
+                                                <tr class="font-weight-bold bg-primary text-white">
+                                                    <td>{{ $item->no }}</td>
+                                                    <td>{{ $item->komponen }}</td>
+                                                    <td>{{ $item->bobot }}</td>
+                                                    <td class="d-flex justify-content-between row-action">
+                                                        <input type="hidden" name="komponen[{{ $item->id }}][catatan]"
+                                                            value="{{ $item->catatan }}" class="input-catatan">
+                                                        <button type="button"
+                                                            class="btn btn-sm {{ $item->catatan == '' ? 'btn-light' : 'btn-info' }} btn-catatan">
+                                                            <i class="bi bi-card-text"></i> Catatan
+                                                        </button>
+                                                        <input type="hidden" class="input-rekomendasi"
+                                                            name="komponen[{{ $item->id }}][rekomendasi]"
+                                                            value="{{ $item->rekomendasi }}">
+                                                        <button type="button"
+                                                            class="btn btn-sm {{ $item->rekomendasi == '' ? 'btn-light' : 'btn-info' }} btn-rekomendasi">
+                                                            <i class="bi bi-info-square"></i> Rekomendasi
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                @foreach ($item->sub_komponens as $sub_komponen)
+                                                    <tr class="font-weight-bold">
+                                                        <td>{{ $sub_komponen->no }}</td>
+                                                        <td>{{ $sub_komponen->sub_komponen }}</td>
+                                                        <td>{{ $sub_komponen->bobot }}</td>
+                                                        <td>
+                                                            <input type="number"
+                                                                name="sub_komponen[{{ $sub_komponen->id }}][nilai]"
+                                                                id="" min="0"
+                                                                max="{{ $sub_komponen->bobot }}"
+                                                                class="form-control input-bobot"
+                                                                value="{{ $sub_komponen->nilai }}">
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td class="text-end">
+                                                    Nilai Akuntabilitas Kinerja :
+                                                </td>
+                                                <td colspan="1"
+                                                    class="d-flex justify-content-center align-items-center gap-1">
+                                                    <div class="input-group">
+                                                        <input type="number" name="total_nilai" id="total-nilai"
+                                                            class="form-control"
+                                                            value="{{ $inspek_evaluasi_internal[0]->nilai_akuntabilitas_kinerja ?? 0 }}"
+                                                            readonly>
+                                                    </div>
+                                                    <input type="hidden" name="total_bobot" id="total-bobot"
+                                                        class="form-control" value="{{ $total }}" readonly disabled>
+                                                </td>
+                                                <td colspan="1" rowspan="2">
+                                                    <button class="btn btn-success btn-lg">
+                                                        <i class="bi bi-save"></i>
+                                                        Submit
                                                     </button>
                                                 </td>
                                             </tr>
-                                            @foreach ($item->sub_komponens as $sub_komponen)
-                                                <tr class="font-weight-bold">
-                                                    <td>{{ $sub_komponen->no }}</td>
-                                                    <td>{{ $sub_komponen->sub_komponen }}</td>
-                                                    <td>{{ $sub_komponen->bobot }}</td>
-                                                    <td>
-                                                        <input type="number"
-                                                            name="sub_komponen[{{ $sub_komponen->id }}][nilai]"
-                                                            id="" min="0" max="{{ $sub_komponen->bobot }}"
-                                                            class="form-control input-bobot"
-                                                            value="{{ $sub_komponen->nilai }}">
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td></td>
-                                            <td colspan="1" class="text-end">
-                                                Nilai Akuntabilitas Kinerja :
-                                            </td>
-                                            <td colspan="1"
-                                                class="d-flex justify-content-center align-items-center gap-1">
-                                                <div class="input-group">
-                                                    <input type="number" name="total_nilai" id="total-nilai"
+                                            <tr>
+                                                <td></td>
+                                                <td colspan="1" class="text-end">
+                                                    Predikat :
+                                                </td>
+                                                <td colspan="1">
+                                                    <input type="text" name="predikat_nilai" id="predikat-nilai"
                                                         class="form-control"
-                                                        value="{{ $inspek_evaluasi_internal[0]->nilai_akuntabilitas_kinerja ?? 0 }}"
+                                                        value="{{ $inspek_evaluasi_internal[0]->predikat ?? '-' }}"
                                                         readonly>
-                                                </div>
-                                                <input type="hidden" name="total_bobot" id="total-bobot"
-                                                    class="form-control" value="{{ $total }}" readonly disabled>
-                                            </td>
-                                            <td colspan="1" rowspan="2">
-                                                <button class="btn btn-success btn-lg">
-                                                    <i class="bi bi-save"></i>
-                                                    Submit
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td colspan="1" class="text-end">
-                                                Predikat :
-                                            </td>
-                                            <td colspan="1">
-                                                <input type="text" name="predikat_nilai" id="predikat-nilai"
-                                                    class="form-control"
-                                                    value="{{ $inspek_evaluasi_internal[0]->predikat ?? '-' }}" readonly>
-                                            </td>
-                                        </tr>
-                                    </tfoot>
-                                </form>
-                            </table>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </form>
+                @endif
             </section>
         </div>
     </div>
