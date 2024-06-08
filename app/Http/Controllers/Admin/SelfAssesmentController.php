@@ -98,7 +98,7 @@ class SelfAssesmentController extends Controller
                 'status' => 'complete',
             ]);
             $params = [
-                'status' => $kriteria['status'],
+                'inspek_status' => $kriteria['status'],
             ];
             if (isset($kriteria['upload'])) {
                 $kriteria['upload']->store('public/self-assesment/');
