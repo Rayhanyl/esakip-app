@@ -93,7 +93,7 @@
                                             <x-admin.form.text col="12 col-lg-6" label="Sumber data"
                                                 name="indikator_sasaran[{{ $indikator->id }}][sumber_data]"
                                                 value="{{ $indikator->sumber_data }}" />
-                                            <div class="col-12" id="col-penanggung-jawab1">
+                                            <div class="col-12" id="col-penanggung-jawab{{ $indikator->id }}">
                                                 @foreach ($indikator->sasaran_penanggung_jawabs as $jawab)
                                                     <div class="row row-penanggung-jawab">
                                                         <x-admin.form.text col="col-11" label="Penanggung Jawab"
@@ -105,13 +105,13 @@
                                                             <div>
                                                                 @if ($loop->iteration == 1)
                                                                     <button class="btn btn-success btn-add-penanggung-jawab"
-                                                                        type="button" data-id={{ $indikator->id }}">
+                                                                        type="button" data-id="{{ $indikator->id }}">
                                                                         <i class="bi bi-plus"></i>
                                                                     </button>
                                                                 @else
                                                                     <button
                                                                         class="btn btn-danger btn-remove-penanggung-jawab"
-                                                                        type="button" data-id={{ $indikator->id }}">
+                                                                        type="button" data-id="{{ $indikator->id }}">
                                                                         <i class="bi bi-dash"></i>
                                                                     </button>
                                                                 @endif
