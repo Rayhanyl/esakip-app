@@ -118,9 +118,11 @@ class AspuEvaluasiInternalController extends Controller
         $pdf = PDF::loadView('akses_publik.evaluasi_internal.lhe', [
             'evaluasi' => $evaluasi,
             'user' => $user,
+            'predikat_name' => $predikat_name,
             'totalBobot' => $nilai,
             'predikat' => $predikat,
             'komponens' => $komponens,
+            'nilaibobot' => $nilaiBobot,
         ], ['orientation' => 'portrait']);
         $pdf->setPaper('A4', 'portrait');
         return $pdf->download('LHE' . '.pdf');
