@@ -121,7 +121,7 @@
                                                                 data-komponen="{{ $komponen->id }}"
                                                                 data-sub-komponen="{{ $sub_komponen->id }}"
                                                                 data-kriteria="{{ $kriteria->id }}"
-                                                                {{ in_array($status, ['new', 'complete']) ? 'disabled' : '' }}>
+                                                                {{ in_array($status, ['new']) ? 'disabled' : '' }}>
                                                                 <option value="0" selected disabled>- Pilih -</option>
                                                                 @foreach ($kriteria->answers as $answer)
                                                                     <option value="{{ $answer->bobot }}"
@@ -164,7 +164,7 @@
                                                 value="0" readonly disabled>
                                         </td>
                                         <td rowspan="2">
-                                            @if (!in_array($status, ['new', 'complete']))
+                                            @if (!in_array($status, ['new']))
                                                 <button class="btn btn-success btn-lg" form="form_perda_evaluasi_internal">
                                                     <i class="bi bi-save"></i>
                                                     Submit
