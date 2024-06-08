@@ -106,18 +106,8 @@
                                                     class="form-control decimal-input" aria-describedby="2026">
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-6 form-group">
-                                            <label for="#" class="form-label fw-bold">Satuan</label>
-                                            <fieldset class="form-group">
-                                                <select class="form-select select2" id="satuan"
-                                                    name="indikator_sasaran[1][satuan_id]">
-                                                    <option value="" selected>- Pilih Satuan -</option>
-                                                    @foreach ($satuan as $key)
-                                                        <option value="{{ $key->id }}">{{ $key->satuan }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </fieldset>
-                                        </div>
+                                        <x-admin.form.select col="col-12 col-lg-6" label="Satuan"
+                                            name="indikator_sasaran[1][satuan_id]" :lists="$satuan_options" />
                                         <div class="col-12 col-lg-6 form-group">
                                             <label for="#" class="form-label fw-bold">Penjelasan</label>
                                             <input type="text" name="indikator_sasaran[1][penjelasan]"
@@ -346,7 +336,7 @@
                             var formattedData = $.map(items, function(item) {
                                 return {
                                     id: item.nip,
-                                    text: item.nip +'-'+ item.nama_pegawai
+                                    text: item.nip + '-' + item.nama_pegawai
                                 };
                             });
                             return {

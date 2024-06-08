@@ -61,8 +61,7 @@ class SasaranStrategisController extends Controller
      */
     public function index()
     {
-        $satuan = Satuan::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_strategis.index', compact('satuan'));
+        return view('admin.perda.perencanaan_kinerja.sasaran_strategis.index');
     }
 
     /**
@@ -197,7 +196,7 @@ class SasaranStrategisController extends Controller
         $nama = '';
         if (is_numeric($request->q)) {
             $nip = $request->q;
-        }else{
+        } else {
             $nama = $request->q;
         }
         // Set the page number and number of items per page
@@ -207,7 +206,7 @@ class SasaranStrategisController extends Controller
         $response = Http::withHeaders([
             'User-Agent' => 'insomnia/2023.5.8',
             'Authorization' => 'Bearer ' . session('token')
-        ])->get($this->baseUrl . '/esakip/list_pengampu?opd=&nip='.$nip.'&nama=' . $nama);
+        ])->get($this->baseUrl . '/esakip/list_pengampu?opd=&nip=' . $nip . '&nama=' . $nama);
         // Check if the request was successful
         if ($response->successful()) {
             $data = json_decode($response->getBody()->getContents());
