@@ -40,153 +40,157 @@
                         </form>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        @switch($status)
-                            @case('new')
-                                <h3 class="text-danger">Data Evaluasi Internal belum tersedia</h3>
-                            @break
+                @if ($perda_evaluasi_internal)
+                    <div class="card">
+                        <div class="card-header">
+                            @switch($status)
+                                @case('new')
+                                    <h3 class="text-danger">Data Evaluasi Internal belum tersedia</h3>
+                                @break
 
-                            @case('submit')
-                                <h3 class="text-warning">Data Evaluasi Internal belum dinilai</h3>
-                            @break
+                                @case('submit')
+                                    <h3 class="text-warning">Data Evaluasi Internal belum dinilai</h3>
+                                @break
 
-                            @case('complete')
-                                <h3 class="text-success">Data Evaluasi Internal telah dinilai</h3>
-                            @break
+                                @case('complete')
+                                    <h3 class="text-success">Data Evaluasi Internal telah dinilai</h3>
+                                @break
 
-                            @default
-                        @endswitch
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Tabel Pelaporan Kinerja</h4>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="table-info">
-                                    <tr>
-                                        <th>No</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>Komponen/Sub Komponen/Kriteria</th>
-                                        <th width="10%">Keterangan</th>
-                                        <th>Eviden</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <form
-                                        action="{{ route('inspek.self-assesment.update', $perda_evaluasi_internal->id ?? 0) }}"
-                                        method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('put')
-                                        @foreach ($perda_evaluasi_internal->komponens as $komponen)
-                                            <tr class="fw-bold text-light" style="background: #333333">
-                                                <td>
-                                                    {{ $komponen->no }}</td>
-                                                <td colspan="3">
-                                                    {{ $komponen->komponen }}
-                                                </td>
-                                                <td colspan="2">
-                                                    <span
-                                                        id="komponen{{ $komponen->id }}">{{ $komponen->total_bobot }}</span>
-                                                </td>
-                                            </tr>
-                                            @foreach ($komponen->sub_komponens as $sub_komponen)
-                                                <tr class="bg-secondary fw-bold text-light">
+                                @default
+                            @endswitch
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Tabel Pelaporan Kinerja</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="table-info">
+                                        <tr>
+                                            <th>No</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Komponen/Sub Komponen/Kriteria</th>
+                                            <th width="10%">Keterangan</th>
+                                            <th>Eviden</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <form
+                                            action="{{ route('inspek.self-assesment.update', $perda_evaluasi_internal->id ?? 0) }}"
+                                            method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('put')
+                                            @foreach ($perda_evaluasi_internal->komponens as $komponen)
+                                                <tr class="fw-bold text-light" style="background: #333333">
                                                     <td>
-                                                    </td>
-                                                    <td>
-                                                        {{ $sub_komponen->no }}
-                                                    </td>
-                                                    <td colspan="2">
-                                                        {{ $sub_komponen->sub_komponen }}
+                                                        {{ $komponen->no }}</td>
+                                                    <td colspan="3">
+                                                        {{ $komponen->komponen }}
                                                     </td>
                                                     <td colspan="2">
                                                         <span
-                                                            id="sub_komponen{{ $sub_komponen->id }}">{{ $sub_komponen->total_bobot }}</span>
+                                                            id="komponen{{ $komponen->id }}">{{ $komponen->total_bobot }}</span>
                                                     </td>
                                                 </tr>
-                                                @foreach ($sub_komponen->kriterias as $kriteria)
-                                                    <tr class="fw-bold">
-                                                        <td colspan="2"></td>
+                                                @foreach ($komponen->sub_komponens as $sub_komponen)
+                                                    <tr class="bg-secondary fw-bold text-light">
                                                         <td>
-                                                            {{ $kriteria->no }}
                                                         </td>
                                                         <td>
-                                                            {{ $kriteria->kriteria }}
+                                                            {{ $sub_komponen->no }}
                                                         </td>
-                                                        <td>
-                                                            <select class="form-select form-select-sm" aria-label="1a"
-                                                                name="kriteria[{{ $kriteria->id }}][status]"
-                                                                id="kriteria[{{ $komponen->id }}][{{ $sub_komponen->id }}][{{ $kriteria->id }}][status]"
-                                                                data-komponen="{{ $komponen->id }}"
-                                                                data-sub-komponen="{{ $sub_komponen->id }}"
-                                                                data-kriteria="{{ $kriteria->id }}"
-                                                                {{ in_array($status, ['new']) ? 'disabled' : '' }}>
-                                                                <option value="0" selected disabled>- Pilih -</option>
-                                                                @foreach ($kriteria->answers as $answer)
-                                                                    <option value="{{ $answer->bobot }}"
-                                                                        {{ (float) $answer->bobot == (float) ($kriteria->inspek_status ?? $kriteria->status) ? 'selected' : '' }}>
-                                                                        {{ $answer->jawaban }} ({{ $answer->bobot }})
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
+                                                        <td colspan="2">
+                                                            {{ $sub_komponen->sub_komponen }}
                                                         </td>
-                                                        <td>
-                                                            @if ($kriteria->upload)
-                                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                    title="Download File Kriteria"
-                                                                    class="btn btn-success btn-sm"
-                                                                    href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
-                                                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                                                    Download
-                                                                </a>
-                                                            @endif
+                                                        <td colspan="2">
+                                                            <span
+                                                                id="sub_komponen{{ $sub_komponen->id }}">{{ $sub_komponen->total_bobot }}</span>
                                                         </td>
                                                     </tr>
+                                                    @foreach ($sub_komponen->kriterias as $kriteria)
+                                                        <tr class="fw-bold">
+                                                            <td colspan="2"></td>
+                                                            <td>
+                                                                {{ $kriteria->no }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $kriteria->kriteria }}
+                                                            </td>
+                                                            <td>
+                                                                <select class="form-select form-select-sm" aria-label="1a"
+                                                                    name="kriteria[{{ $kriteria->id }}][status]"
+                                                                    id="kriteria[{{ $komponen->id }}][{{ $sub_komponen->id }}][{{ $kriteria->id }}][status]"
+                                                                    data-komponen="{{ $komponen->id }}"
+                                                                    data-sub-komponen="{{ $sub_komponen->id }}"
+                                                                    data-kriteria="{{ $kriteria->id }}"
+                                                                    {{ in_array($status, ['new']) ? 'disabled' : '' }}>
+                                                                    <option value="0" selected disabled>- Pilih -
+                                                                    </option>
+                                                                    @foreach ($kriteria->answers as $answer)
+                                                                        <option value="{{ $answer->bobot }}"
+                                                                            {{ (float) $answer->bobot == (float) ($kriteria->inspek_status ?? $kriteria->status) ? 'selected' : '' }}>
+                                                                            {{ $answer->jawaban }} ({{ $answer->bobot }})
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                @if ($kriteria->upload)
+                                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        title="Download File Kriteria"
+                                                                        class="btn btn-success btn-sm"
+                                                                        href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
+                                                                        <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                                        Download
+                                                                    </a>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 @endforeach
                                             @endforeach
-                                        @endforeach
 
-                                    </form>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="3"></td>
-                                        <td class="text-end">
-                                            Nilai Akuntabilitas Kinerja :
-                                        </td>
-                                        <td class="d-flex justify-content-center align-items-center gap-1">
-                                            <div class="input-group">
-                                                <input type="number" name="total_nilai" id="total-nilai"
+                                        </form>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td class="text-end">
+                                                Nilai Akuntabilitas Kinerja :
+                                            </td>
+                                            <td class="d-flex justify-content-center align-items-center gap-1">
+                                                <div class="input-group">
+                                                    <input type="number" name="total_nilai" id="total-nilai"
+                                                        class="form-control" value="0" readonly>
+                                                </div>
+                                                <input type="hidden" name="total_bobot" id="total-bobot"
+                                                    class="form-control" value="0" readonly disabled>
+                                            </td>
+                                            <td rowspan="2">
+                                                @if (!in_array($status, ['new']))
+                                                    <button class="btn btn-success btn-lg"
+                                                        form="form_perda_evaluasi_internal">
+                                                        <i class="bi bi-save"></i>
+                                                        Submit
+                                                    </button>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td class="text-end">
+                                                Predikat :
+                                            </td>
+                                            <td>
+                                                <input type="text" name="predikat_nilai" id="predikat-nilai"
                                                     class="form-control" value="0" readonly>
-                                            </div>
-                                            <input type="hidden" name="total_bobot" id="total-bobot" class="form-control"
-                                                value="0" readonly disabled>
-                                        </td>
-                                        <td rowspan="2">
-                                            @if (!in_array($status, ['new']))
-                                                <button class="btn btn-success btn-lg" form="form_perda_evaluasi_internal">
-                                                    <i class="bi bi-save"></i>
-                                                    Submit
-                                                </button>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3"></td>
-                                        <td class="text-end">
-                                            Predikat :
-                                        </td>
-                                        <td>
-                                            <input type="text" name="predikat_nilai" id="predikat-nilai"
-                                                class="form-control" value="0" readonly>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </section>
         </div>
     </div>

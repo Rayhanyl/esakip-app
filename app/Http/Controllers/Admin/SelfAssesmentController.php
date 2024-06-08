@@ -30,30 +30,35 @@ class SelfAssesmentController extends Controller
      */
     public function index(Request $request)
     {
-        $tahun = $request->tahun ?? 2024;
-        $user = User::whereRole('perda')->first();
-        $perangkat_daerah = $request->perangkat_daerah ?? $user->id;
-        $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId($perangkat_daerah)->first();
-        if (!$perda_evaluasi_internal) {
-            $this->generate_evaluasi($tahun, $perangkat_daerah);
+        $tahun = $request->tahun;
+        $perangkat_daerah = $request->perangkat_daerah;
+        if ($tahun == null && $perangkat_daerah == null) {
+            $perda_evaluasi_internal = [];
+            $total_bobot = 0;
+            $status = '';
+        } else {
             $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId($perangkat_daerah)->first();
-        }
-        $total_bobot = 0;
-        foreach ($perda_evaluasi_internal->komponens as $key => $komponen) {
-            $total_bobot += $komponen->bobot;
-            $sumkom = 0;
-            foreach ($komponen->sub_komponens as $sub_komponen) {
-                $sumsubkom = 0;
-                foreach ($sub_komponen->kriterias as $kriteria) {
-                    $sumsubkom += (float) $kriteria->status;
-                }
-                $sumkom += $sumsubkom;
-                $sub_komponen->total_bobot = $sumsubkom;
+            if (!$perda_evaluasi_internal) {
+                $this->generate_evaluasi($tahun, $perangkat_daerah);
+                $perda_evaluasi_internal = PerdaEvaluasiInternal::with('komponens', 'komponens.sub_komponens', 'komponens.sub_komponens.kriterias', 'komponens.sub_komponens.kriterias.answers')->whereTahun($tahun)->whereUserId($perangkat_daerah)->first();
             }
-            $komponen->total_bobot = $sumkom;
+            $total_bobot = 0;
+            foreach ($perda_evaluasi_internal->komponens as $key => $komponen) {
+                $total_bobot += $komponen->bobot;
+                $sumkom = 0;
+                foreach ($komponen->sub_komponens as $sub_komponen) {
+                    $sumsubkom = 0;
+                    foreach ($sub_komponen->kriterias as $kriteria) {
+                        $sumsubkom += (float) $kriteria->status;
+                    }
+                    $sumkom += $sumsubkom;
+                    $sub_komponen->total_bobot = $sumsubkom;
+                }
+                $komponen->total_bobot = $sumkom;
+            }
+            $status = $perda_evaluasi_internal->status;
         }
-        $status = $perda_evaluasi_internal->status;
-        return view('admin.inspek.self_assesment.index', compact('tahun', 'user', 'perangkat_daerah', 'perda_evaluasi_internal', 'total_bobot', 'status'));
+        return view('admin.inspek.self_assesment.index', compact('tahun', 'perangkat_daerah', 'perda_evaluasi_internal', 'total_bobot', 'status'));
     }
 
     /**
