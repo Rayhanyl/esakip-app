@@ -123,7 +123,7 @@
                                                             <td>
                                                                 <select class="form-select form-select-sm" aria-label="1a"
                                                                     name="kriteria[{{ $kriteria->id }}][status]"
-                                                                    {{ in_array($status, ['submit', 'complete']) ? 'disabled' : '' }}>
+                                                                    {{ in_array($status, ['complete']) ? 'disabled' : '' }}>
                                                                     @foreach ($kriteria->answers as $answer)
                                                                         <option
                                                                             value="
@@ -136,7 +136,7 @@
                                                             </td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    @if (!in_array($status, ['submit', 'complete']))
+                                                                    @if (!in_array($status, ['complete']))
                                                                         <input class="form-control form-control-sm"
                                                                             type="file"
                                                                             name="kriteria[{{ $kriteria->id }}][upload]">
@@ -161,7 +161,7 @@
                                         </form>
                                     </tbody>
                                     <tfoot>
-                                        @if (!in_array($status, ['submit', 'complete']))
+                                        @if (!in_array($status, ['complete']))
                                             <td colspan="6" class="text-end">
                                                 <button class="btn btn-primary btn-lg" type="submit"
                                                     form="form_perda_evaluasi_internal">Submit</button>
