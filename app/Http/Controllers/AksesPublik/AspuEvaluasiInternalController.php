@@ -45,7 +45,6 @@ class AspuEvaluasiInternalController extends Controller
 
         // Retrieve filtered data with relationships
         $data = $query->with('komponens.sub_komponens')->get();
-
         // Calculate the sum of nilai for each InspekEvaluasiInternal
         $nilaiSums = [];
         foreach ($data as $inspekEvaluasi) {
@@ -57,15 +56,84 @@ class AspuEvaluasiInternalController extends Controller
             }
             $nilaiSums[$inspekEvaluasi->id] = $sum;
         }
+
+
         return view('akses_publik.evaluasi_internal.index', compact('user', 'data', 'perda', 'tahun', 'nilaiSums'));
     }
 
-    public function download(Request $request)
+    public function download(Request $request, $id)
     {
-        $data = [];
-        $pdf = PDF::loadView('akses_publik.evaluasi_internal.lhe', $data, ['orientation' => 'portrait']);
+        $evaluasi = InspekEvaluasiInternal::findOrFail($id);
+        $komponens = $evaluasi->komponens;
+        $nilaiBobot = $komponens->pluck('bobot');
+        $nilai = $evaluasi->nilai_akuntabilitas_kinerja;
+        $predikat = 'N/A';
+        if ($nilai == 0) {
+            $predikat = 'E';
+        } elseif ($nilai <= 30) {
+            $predikat = 'D';
+        } elseif ($nilai <= 50) {
+            $predikat = 'C';
+        } elseif ($nilai <= 60) {
+            $predikat = 'CC';
+        } elseif ($nilai <= 70) {
+            $predikat = 'B';
+        } elseif ($nilai <= 80) {
+            $predikat = 'BB';
+        } elseif ($nilai <= 90) {
+            $predikat = 'A';
+        } elseif ($nilai <= 100) {
+            $predikat = 'AA';
+        }
+        $predikat_name = 'N/A';
+        if ($nilai == 0) {
+            $predikat_name = 'Sangat Kurang';
+        } elseif ($nilai <= 30) {
+            $predikat_name = 'Kurang';
+        } elseif ($nilai <= 50) {
+            $predikat_name = 'Cukup Kurang';
+        } elseif ($nilai <= 60) {
+            $predikat_name = 'Cukup';
+        } elseif ($nilai <= 70) {
+            $predikat_name = 'Baik';
+        } elseif ($nilai <= 80) {
+            $predikat_name = 'Cukup Baik';
+        } elseif ($nilai <= 90) {
+            $predikat_name = 'Baik Sekali';
+        } elseif ($nilai <= 100) {
+            $predikat_name = 'Sangat Baik';
+        }
+
+        $user = User::findOrFail($evaluasi->user_id);
+        $data = [
+            'evaluasi' => $evaluasi,
+            'user' => $user,
+            'totalBobot' => $nilai,
+            'predikat' => $predikat,
+            'predikat_name' => $predikat_name,
+            'komponens' => $komponens,
+            'nilaibobot' => $nilaiBobot,
+            'predikat' => $predikat,
+        ];
+        $pdf = PDF::loadView('akses_publik.evaluasi_internal.lhe', [
+            'evaluasi' => $evaluasi,
+            'user' => $user,
+            'predikat_name' => $predikat_name,
+            'totalBobot' => $nilai,
+            'predikat' => $predikat,
+            'komponens' => $komponens,
+            'nilaibobot' => $nilaiBobot,
+        ], ['orientation' => 'portrait']);
         $pdf->setPaper('A4', 'portrait');
         return $pdf->download('LHE' . '.pdf');
-        // return view('akses_publik.evaluasi_internal.lhe');
+        // return view('akses_publik.evaluasi_internal.lhe', [
+        //     'evaluasi' => $evaluasi,
+        //     'user' => $user,
+        //     'predikat_name' => $predikat_name,
+        //     'totalBobot' => $nilai,
+        //     'predikat' => $predikat,
+        //     'komponens' => $komponens,
+        //     'nilaibobot' => $nilaiBobot,
+        // ]);
     }
 }

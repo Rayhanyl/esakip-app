@@ -94,8 +94,8 @@
                                         <li class="has-children">
                                             <a href="#">Pemerintah Kabupaten</a>
                                             <ul class="dropdown">
-                                                <li class="">
-                                                    <a href="#">RPJMD</a>
+                                                <li class="{{ Route::is('aspu.pemkab-renstra') }}">
+                                                    <a href="{{ route('aspu.pemkab-renstra') }}">RPJMD</a>
                                                 </li>
                                                 <li class="">
                                                     <a href="#">RKPD</a>

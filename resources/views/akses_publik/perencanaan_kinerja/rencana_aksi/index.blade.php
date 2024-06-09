@@ -15,33 +15,22 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <div class="col-12 mb-5">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('aspu.rencana.aksi') }}">Perangkat Daerah</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('aspu.pemkab-rencana.aksi') }}">Pemerintah Kabupaten</a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="col-12">
                     <form class="row" action="{{ route('aspu.rencana.aksi') }}" method="get">
                         @csrf
                         <div class="col-12 col-lg-3">
-                            <label class="form-label fs-5 fw-bold" for="">Tahun</label>
-                            <select class="form-select" id="basicSelect" name="year">
+                            <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
+                            <select class="form-select" id="tahun" name="tahun">
                                 <option value="" selected>- Pilih Tahun -</option>
                                 @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                                    <option value="{{ $i }}">
+                                    <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>
                                         {{ $i }}
                                     </option>
                                 @endfor
                             </select>
                         </div>
                         <div class="col-12 col-lg-3">
-                            <label class="form-label fs-5 fw-bold" for="">Perangkat Daerah</label>
+                            <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
                             <select class="form-select select2" id="perda" name="perda">
                                 <option value="" selected>-- All --</option>
                                 @foreach ($user as $item)
@@ -71,33 +60,47 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th colspan="4">Target</th>
+                                            <th class="text-center" colspan="4">Target</th>
                                             <th></th>
                                         </tr>
                                         <tr>
-                                            <th>No</th>
-                                            <th>IKU</th>
-                                            <th>Rencana Aksi</th>
-                                            <th>Indikator</th>
-                                            <th>I</th>
-                                            <th>II</th>
-                                            <th>III</th>
-                                            <th>IV</th>
-                                            <th>Penanggung Jawab</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">IKU</th>
+                                            <th class="text-center">Rencana Aksi</th>
+                                            <th class="text-center">Indikator</th>
+                                            <th class="text-center">I</th>
+                                            <th class="text-center">II</th>
+                                            <th class="text-center">III</th>
+                                            <th class="text-center">IV</th>
+                                            <th class="text-center">Penanggung Jawab</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($data as $item)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">
+                                                    @foreach ($item->indikators as $sasaran_strategis)
+                                                        <p>{{ $sasaran_strategis->indikator_sasaran_strategis }}</p>
+                                                    @endforeach
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($item->sasaran_subkegiatan && $item->sasaran_subkegiatan->isNotEmpty())
+                                                        @foreach ($item->sasaran_subkegiatan as $sasaran_subkegiatan)
+                                                            <p>{{ $sasaran_subkegiatan->sasaran_sub_kegiatan }}</p>
+                                                        @endforeach
+                                                    @else
+                                                        <p>No sub-goals found.</p>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -117,7 +120,7 @@
                         [10, 25, 50, 'All'],
                     ],
                     order: [
-                        [0, 'desc']
+                        [0, 'asc']
                     ],
                 });
             });

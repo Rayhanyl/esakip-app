@@ -27,7 +27,6 @@ class AspuRenjaController extends Controller
             }
         })
             ->get();
-
         return view('akses_publik.perencanaan_kinerja.renja.index', compact('user', 'data', 'perda', 'tahun'));
     }
 
@@ -50,6 +49,6 @@ class AspuRenjaController extends Controller
         })
             ->get();
 
-        return view('akses_publik.perencanaan_kinerja.renja.pemkab', compact('user','data','pemkab', 'tahun'));
+        return view('akses_publik.perencanaan_kinerja.renja.pemkab', compact('user', 'data', 'pemkab', 'tahun'));
     }
 }

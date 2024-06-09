@@ -65,25 +65,36 @@
                                 <table class="table table-striped table-hover" id="data-pengukuran-kinerja">
                                     <thead class="table-info">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Perangkat Daerah</th>
-                                            <th>Tahun</th>
-                                            <th>Triwulan</th>
-                                            <th>Capaian (%)</th>
-                                            <th>Detail</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Perangkat Daerah</th>
+                                            <th class="text-center">Tahun</th>
+                                            <th class="text-center">Triwulan</th>
+                                            <th class="text-center">Capaian (%)</th>
+                                            <th class="text-center">Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <a href="{{ route('aspu.perangkat.daerah.detail') }}">Detail</a>
-                                            </td>
-                                        </tr>
+                                        @foreach ($data as $item)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $item->user->name }}</td>
+                                                <td class="text-center">{{ $item->tahun }}</td>
+                                                <td class="text-center text-capitalize">{{ $item->triwulan }}</td>
+                                                <td class="text-center">
+                                                    @if ($item->triwulan == 'tahun')
+                                                        {{ $item->tahunan_capaian }}
+                                                    @else
+                                                        {{ $item->capaian }}
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    <a
+                                                        href="{{ route('aspu.pengukuran.kinerja.detail', ['user' => $item->user->id, 'tahun' => $item->tahun,'triwulan'=>$item->triwulan]) }}">
+                                                        Detail
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

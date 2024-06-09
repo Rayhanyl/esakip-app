@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LHE Document</title>
+    <title>LHE Document {{ $user->name }} Tahun {{ $evaluasi->tahun }}</title>
 </head>
 
 <style>
@@ -95,17 +95,20 @@
         </tr>
     </table>
 
-    <p class="right">Majalengka, 1 Juni 2024</p>
+    <p class="right">Majalengka,
+        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $evaluasi->created_at)->format('j F Y') }}</p>
     <p>Nomor: ………………</p>
-    <p>Hal: Hasil Evaluasi Akuntabilitas Kinerja Instansi Pemerintah (AKIP) Tahun 2024</p>
-    <p>Yth. Kepala Dinas ……..<br>di<br>Majalengka</p>
+    <p>Hal: Hasil Evaluasi Akuntabilitas Kinerja Instansi Pemerintah (AKIP) Tahun {{ $evaluasi->tahun }}</p>
+    <p>Yth. Kepala Dinas {{ $user->name }}<br>di<br>Majalengka</p>
 
-    <p>Dengan ini kami sampaikan hasil evaluasi AKIP Tahun 2024 pada Dinas ….. , dengan uraian sebagai berikut:</p>
+    <p>Dengan ini kami sampaikan hasil evaluasi AKIP Tahun {{ $evaluasi->tahun }} pada Dinas {{ $user->name }}, dengan
+        uraian sebagai berikut:</p>
 
     <h3>1. Pendahuluan</h3>
     <p>Berdasarkan Peraturan Pemerintah Nomor 8 Tahun 2006 tentang Pelaporan Keuangan dan Kinerja Instansi Pemerintah
         dan Peraturan Presiden Nomor 29 Tahun 2014 tentang Sistem Akuntabilitas Kinerja Instansi Pemerintah (SAKIP),
-        kami telah melakukan evaluasi akuntabilitas kinerja pada Dinas ……. Pelaksanaan evaluasi Tahun 2024 berpedoman
+        kami telah melakukan evaluasi akuntabilitas kinerja pada Dinas {{ $user->name }}. Pelaksanaan evaluasi Tahun
+        {{ $evaluasi->tahun }} berpedoman
         pada Peraturan Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi Nomor 88 Tahun 2021 tentang
         Evaluasi Akuntabilitas Kinerja Instansi Pemerintah.</p>
     <p>Tujuan evaluasi adalah untuk mengetahui tingkat implementasi Sistem Akuntabilitas Kinerja Instansi Pemerintah
@@ -126,10 +129,14 @@
         kepraktisan dan kemanfaatan yang disesuaikan dengan tujuan evaluasi. Langkah praktis diambil agar lebih cepat
         memberikan petunjuk untuk perbaikan implementasi SAKIP, sehingga dapat menghasilkan rekomendasi untuk
         meningkatkan akuntabilitas kinerja.</p>
-
+    <br>
+    <br>
     <h3>2. Hasil Evaluasi</h3>
-    <p>Hasil evaluasi atas akuntabilitas kinerja Dinas ….. menunjukkan bahwa nilai sebesar 68,00 dengan predikat “B”.
-        Hal tersebut menunjukkan bahwa implementasi akuntabilitas kinerja “Baik”, yaitu kualitas penerapan manajemen
+    <p>Hasil evaluasi atas akuntabilitas kinerja Dinas {{ $user->name }}. menunjukkan bahwa nilai sebesar
+        {{ $evaluasi->nilai_akuntabilitas_kinerja }} dengan
+        predikat “{{ $predikat }}”.
+        Hal tersebut menunjukkan bahwa implementasi akuntabilitas kinerja “{{ $predikat_name }}”, yaitu kualitas
+        penerapan manajemen
         kinerja birokrasi dan penyelenggaraan pemerintahan yang berorientasi pada hasil telah menunjukkan hasil yang
         baik pada sebagian unit kerja.</p>
 
@@ -137,41 +144,42 @@
         <tr>
             <th>Komponen yang dinilai</th>
             <th>Bobot</th>
-            <th>Nilai 2024</th>
+            <th>Nilai {{ $evaluasi->tahun }}</th>
         </tr>
         <tr>
             <td>Perencanaan Kinerja</td>
             <td>30</td>
-            <td>…..</td>
+            <td>{{ $nilaibobot[0] }}</td>
         </tr>
         <tr>
             <td>Pengukuran Kinerja</td>
             <td>30</td>
-            <td>…..</td>
+            <td>{{ $nilaibobot[1] }}</td>
         </tr>
         <tr>
             <td>Pelaporan Kinerja</td>
             <td>15</td>
-            <td>…..</td>
+            <td>{{ $nilaibobot[2] }}</td>
         </tr>
         <tr>
             <td>Evaluasi Akuntabilitas Kinerja Internal</td>
             <td>25</td>
-            <td>…..</td>
+            <td>{{ $nilaibobot[3] }}</td>
         </tr>
         <tr>
             <td>Nilai Hasil Evaluasi</td>
             <td>100</td>
-            <td>…..</td>
+            <td>{{ $evaluasi->nilai_akuntabilitas_kinerja }}</td>
         </tr>
         <tr>
             <td>Predikat AKIP</td>
             <td></td>
-            <td>B</td>
+            <td>{{ $predikat }}</td>
         </tr>
     </table>
 
-    <h4>Penjelasan lebih lanjut atas hasil evaluasi akuntabilitas kinerja pada Dinas ….. Tahun 2024 sebagai berikut:
+    <h4>Penjelasan lebih lanjut atas hasil evaluasi akuntabilitas kinerja pada Dinas {{ $user->name }}. Tahun
+        {{ $evaluasi->tahun }} sebagai berikut:
     </h4>
     <ol>
         <li>Perencanaan Kinerja<br>Catatan dari aplikasi terkait perencanaan Kinerja</li>
@@ -189,9 +197,11 @@
     </ol>
 
     <p>Demikian disampaikan hasil evaluasi AKIP sebagai penerapan manajemen kinerja. Kami menghargai upaya yang telah
-        dilakukan dalam implementasi SAKIP di Dinas……. . Terhadap hasil evaluasi yang telah disampaikan, Kami
+        dilakukan dalam implementasi SAKIP di Dinan {{ $user->name }}. Terhadap hasil evaluasi yang telah
+        disampaikan, Kami
         mengharapkan agara Saudara beserta seluruh jajaran memberikan perhatian yang lebih besar pada upaya implementasi
-        SAKIP di Dinas….. dan menindaklanjuti rekomendasi yang telah kami sampaikan.<br>Atas perhatian dan kerja sama
+        SAKIP di Dinas {{ $user->name }}. dan menindaklanjuti rekomendasi yang telah kami sampaikan.<br>Atas
+        perhatian dan kerja sama
         Saudara, kami ucapkan terima kasih.</p>
 
     <p>Tembusan:</p>

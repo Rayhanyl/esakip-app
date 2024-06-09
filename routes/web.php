@@ -61,8 +61,8 @@ Route::prefix('/')->name('aspu.')->group(function () {
         ->name('index');
     Route::get('/pengukuran/kinerja', [AspuPengukuranKinerjaController::class, 'index'])
         ->name('pengukuran.kinerja');
-    Route::get('/perangkat/daerah/detail', [AspuPerangkatDaerahDetailController::class, 'index'])
-        ->name('perangkat.daerah.detail');
+    Route::get('/pengukuran-kinerja-detail/{user}/{tahun}/{triwulan}', [AspuPengukuranKinerjaController::class, 'detail'])
+        ->name('pengukuran.kinerja.detail');
     Route::get('/renstra', [AspuRenstraController::class, 'index'])
         ->name('renstra');
     Route::get('/pemkab/renstra', [AspuRenstraController::class, 'pemkabIndex'])
@@ -89,7 +89,7 @@ Route::prefix('/')->name('aspu.')->group(function () {
         ->name('pelaporan.kinerja.count');
     Route::get('/evaluasi/internal', [AspuEvaluasiInternalController::class, 'index'])
         ->name('evaluasi.internal');
-    Route::get('/download/lhe', [AspuEvaluasiInternalController::class, 'download'])
+    Route::get('/download/lhe/{id}', [AspuEvaluasiInternalController::class, 'download'])
         ->name('download.lhe');
 });
 
@@ -116,7 +116,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/destroy/{id}', [SasaranStrategisController::class, 'destroy'])
                     ->name('destroy');
                 Route::get('/get-pengampu', [SasaranStrategisController::class, 'get_pengampu'])
-                ->name('get-pengampu');
+                    ->name('get-pengampu');
             });
             Route::prefix('/sasaran-program')->name('sasaran-program.')->group(function () {
                 Route::get('/', [SasaranProgramController::class, 'index'])

@@ -64,27 +64,27 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $index => $item)
-                                            @php
-                                                $nilai = $nilaiSums[$item->id] ?? 0;
-                                                $predikat = 'N/A';
-                                                if ($nilai == 100) {
-                                                    $predikat = 'AA';
-                                                } elseif ($nilai > 90) {
-                                                    $predikat = 'A';
-                                                } elseif ($nilai > 80) {
-                                                    $predikat = 'BB';
-                                                } elseif ($nilai > 75) {
-                                                    $predikat = 'B';
-                                                } elseif ($nilai > 50) {
-                                                    $predikat = 'CC';
-                                                } elseif ($nilai > 25) {
-                                                    $predikat = 'C';
-                                                } elseif ($nilai > 0) {
-                                                    $predikat = 'D';
-                                                } else {
-                                                    $predikat = 'E';
-                                                }
-                                            @endphp
+                                                @php
+                                                    $nilai = $nilaiSums[$item->id] ?? 0;
+                                                    $predikat = 'N/A';
+                                                    if ($nilai == 0) {
+                                                        $predikat = 'E';
+                                                    } elseif ($nilai <= 30) {
+                                                        $predikat = 'D';
+                                                    } elseif ($nilai <= 50) {
+                                                        $predikat = 'C';
+                                                    } elseif ($nilai <= 60) {
+                                                        $predikat = 'CC';
+                                                    } elseif ($nilai <= 70) {
+                                                        $predikat = 'B';
+                                                    } elseif ($nilai <= 80) {
+                                                        $predikat = 'BB';
+                                                    } elseif ($nilai <= 90) {
+                                                        $predikat = 'A';
+                                                    } elseif ($nilai <= 100) {
+                                                        $predikat = 'AA';
+                                                    }
+                                                @endphp
                                             <tr>
                                                 <td class="text-center">{{ $index + 1 }}</td>
                                                 <td class="text-center">{{ $item->user->name ?? 'N/A' }}</td>
@@ -92,7 +92,7 @@
                                                 <td class="text-center">{{ $nilai }}</td>
                                                 <td class="text-center">{{ $predikat }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('aspu.download.lhe') }}" target="_blank">View LHE</a>
+                                                    <a href="{{ route('aspu.download.lhe', $item->id) }}" target="_blank">View LHE</a>
                                                 </td>
                                             </tr>
                                         @endforeach
