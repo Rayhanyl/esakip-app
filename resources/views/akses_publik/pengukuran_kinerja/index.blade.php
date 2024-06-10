@@ -16,7 +16,6 @@
         <div class="container">
             <div class="row">
                 <form class="row" action="{{ route('aspu.pengukuran.kinerja') }}" method="GET">
-                    @csrf
                     <div class="col-12 col-lg-3">
                         <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
                         <select class="form-select" id="tahun" name="tahun">

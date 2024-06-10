@@ -68,10 +68,9 @@ class PemkabPengukuranKinerjaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PemkabPengukuranKinerja $id)
+    public function edit($pemkabPengukuranKinerja)
     {
-        // Retrieve the specific record using route model binding
-        $data = $id->load('sasaran_bupati', 'sasaran_bupati_indikator');
+        $data = PemkabPengukuranKinerja::find($pemkabPengukuranKinerja)->load('sasaran_bupati', 'sasaran_bupati_indikator');
         return view('admin.pemkab.pengukuran_kinerja.edit', compact('data'));
     }
 

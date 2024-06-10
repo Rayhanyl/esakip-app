@@ -97,7 +97,7 @@
 
     <p class="right">Majalengka,
         {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $evaluasi->created_at)->format('j F Y') }}</p>
-    <p>Nomor: ………………</p>
+    <p>Nomor: {{ $evaluasi->no_surat ?? '' }}</p>
     <p>Hal: Hasil Evaluasi Akuntabilitas Kinerja Instansi Pemerintah (AKIP) Tahun {{ $evaluasi->tahun }}</p>
     <p>Yth. Kepala Dinas {{ $user->name }}<br>di<br>Majalengka</p>
 
@@ -148,23 +148,23 @@
         </tr>
         <tr>
             <td>Perencanaan Kinerja</td>
-            <td>30</td>
             <td>{{ $nilaibobot[0] }}</td>
+            <td>{{ $nilaiTotal[0] }}</td>
         </tr>
         <tr>
             <td>Pengukuran Kinerja</td>
-            <td>30</td>
             <td>{{ $nilaibobot[1] }}</td>
+            <td>{{ $nilaiTotal[1] }}</td>
         </tr>
         <tr>
             <td>Pelaporan Kinerja</td>
-            <td>15</td>
             <td>{{ $nilaibobot[2] }}</td>
+            <td>{{ $nilaiTotal[2] }}</td>
         </tr>
         <tr>
             <td>Evaluasi Akuntabilitas Kinerja Internal</td>
-            <td>25</td>
             <td>{{ $nilaibobot[3] }}</td>
+            <td>{{ $nilaiTotal[3] }}</td>
         </tr>
         <tr>
             <td>Nilai Hasil Evaluasi</td>

@@ -50,9 +50,9 @@ class SasaranStrategis extends Model
         return $this->hasMany(SasaranSubKegiatanIndikator::class, 'id', 'sasaran_sub_kegiatan_id');
     }
 
-    public function sasaran_penanggungjawab()
+    public function sasaran_penanggungjawabs()
     {
-        return $this->belongsTo(SasaranPenanggungJawab::class, 'id', 'sasaran_id');
+        return $this->hasMany(SasaranPenanggungJawab::class, 'sasaran_id', 'id');
     }
 
     protected static function boot()

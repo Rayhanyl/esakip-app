@@ -1,7 +1,6 @@
 <div class="row row-penanggung-jawab">
     <x-admin.form.text col="col-11" label=""
-        name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][penanggung_jawab][]"
-        placeholder="Penanggung Jawab" />
+        name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][penanggung_jawab][]" placeholder="Penanggung Jawab" />
     <div class="col-1">
         <label for="" class="form-label fw-bold">&nbsp;</label>
         <div>

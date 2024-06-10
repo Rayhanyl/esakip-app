@@ -33,8 +33,9 @@
                         <h4 class="card-title">Edit Pelaporan Kinerja</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3" action="{{ route('pemkab.pelaporan-kinerja.update', $data->id) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form class="row g-3" action="{{ route('pemkab.pelaporan-kinerja.update', $data->id) }}"
+                            method="POST" enctype="multipart/form-data">
+                            @method('put')
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
                                 <h6>Tahun</h6>
@@ -42,7 +43,7 @@
                                     <select class="form-select select2" id="tahun" name="tahun">
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 10; $i >= date('Y') - 10; $i--)
-                                            <option value="{{ $i }}" {{ $data->tahun == $i ? 'selected':'' }}>
+                                            <option value="{{ $i }}" {{ $data->tahun == $i ? 'selected' : '' }}>
                                                 {{ $i }}
                                             </option>
                                         @endfor

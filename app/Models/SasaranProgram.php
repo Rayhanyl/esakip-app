@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class SasaranProgram extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    const FILLABLE_FIELDS = [
+        'user_id',
+        'sasaran_strategis_id',
+        'tahun',
+        'sasaran_program',
+    ];
+    protected $fillable = self::FILLABLE_FIELDS;
 
     public function user()
     {

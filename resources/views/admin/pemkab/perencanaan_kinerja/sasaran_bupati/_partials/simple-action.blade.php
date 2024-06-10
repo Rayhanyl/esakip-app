@@ -1,6 +1,6 @@
 <div class="row row-simple-action">
-    <x-admin.form.text col="col-11" label="" name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][simple_action][]"
-        placeholder="Simple Action" />
+    <x-admin.form.text col="col-11" label=""
+        name="indikator_sasaran_bupati[{{ $iter ?? 0 }}][new_simple_action][]" placeholder="Simple Action" />
     <div class="col-1">
         <label for="" class="form-label fw-bold">&nbsp;</label>
         <div>

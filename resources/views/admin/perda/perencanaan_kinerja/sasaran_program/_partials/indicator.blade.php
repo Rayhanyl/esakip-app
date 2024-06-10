@@ -1,3 +1,6 @@
+@php
+    $iter = Str::random(4);
+@endphp
 <div class="col-indikator-sasaran-bupati mt-3">
     <div class="card">
         <div class="card-body">
@@ -9,27 +12,27 @@
                 <hr>
                 <div class="col-12 form-group">
                     <label for="pengampu" class="form-label">Indikator Sasaran</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][indikator_sasaran_program]"
+                    <input type="text" name="indikator_sasaran[{{ $iter }}][indikator_sasaran_program]"
                         id="pengampu" class="form-control" aria-describedby="pengampu">
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="pengampu" class="form-label">Target</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][target]"
+                    <input type="text" name="indikator_sasaran[{{ $iter }}][target]"
                         class="form-control decimal-input" aria-describedby="pengampu">
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <x-admin.form.select col="col-12" label="Satuan"
-                        name="indikator_sasaran[{{ $iter ?? 0 }}][satuan_id]" :lists="$satuan_options" />
+                        name="indikator_sasaran[{{ $iter }}][satuan_id]" :lists="$satuan_options" />
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="pengampu" class="form-label">Program</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][program]" class="form-control"
+                    <input type="text" name="indikator_sasaran[{{ $iter }}][program]" class="form-control"
                         aria-describedby="pengampu">
                 </div>
                 <div class="col-12 col-lg-6 form-group">
                     <label for="" class="form-label">Anggaran</label>
-                    <input type="text" name="indikator_sasaran[{{ $iter ?? 0 }}][anggaran]" class="form-control idr-currency"
-                        aria-describedby="pengampu">
+                    <input type="text" name="indikator_sasaran[{{ $iter }}][anggaran]"
+                        class="form-control idr-currency" aria-describedby="pengampu">
                 </div>
             </div>
         </div>

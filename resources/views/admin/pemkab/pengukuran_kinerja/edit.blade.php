@@ -32,8 +32,9 @@
                         <h4 class="card-title">Edit Pengukuran Kinerja</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3" action="{{ route('pemkab.pengukuran-kinerja.update', $data->id) }}"
+                        <form class="row g-3" action="{{ route('pemkab.pengukuran-kinerja.update', [$data->id]) }}"
                             enctype="multipart/form-data" method="POST">
+                            @method('put')
                             @csrf
                             <div class="col-12 col-lg-6 form-group">
                                 <label for="sasaran_bupati" class="form-label fw-bold">Sasaran Bupati</label>

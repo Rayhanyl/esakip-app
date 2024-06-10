@@ -24,4 +24,9 @@ class SasaranBupati extends Model
     {
         return $this->hasMany(SasaranBupatiIndikator::class);
     }
+
+    public function sasaran_penanggungjawabs()
+    {
+        return $this->hasMany(SasaranPenanggungJawab::class, 'sasaran_id', 'id');
+    }
 }

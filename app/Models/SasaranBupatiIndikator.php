@@ -20,13 +20,13 @@ class SasaranBupatiIndikator extends Model
         return $this->belongsTo(Satuan::class);
     }
 
-    public function penanggung_jawab()
+    public function sasaran_penanggung_jawabs()
     {
-        return $this->belongsTo(PenanggungJawab::class);
+        return $this->hasMany(SasaranPenanggungJawab::class, 'sasaran_id', 'id');
     }
 
     public function simple_actions()
     {
-        return $this->hasMany(SimpleAction::class);
+    return $this->hasMany(SimpleAction::class, 'sasaran_bupati_indikator_id', 'id');
     }
 }

@@ -17,34 +17,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\SasaranProgramIndikator;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\StoreSasaranProgramRequest;
 use App\Http\Requests\UpdateSasaranProgramRequest;
 
-class SasaranProgramController extends Controller
+class SasaranProgramController extends AdminBaseController
 {
     public function __construct()
     {
+        parent::__construct();
         View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($user) {
             return $user->name;
         }));
-        View::share('pengampu_sementara', PengampuSementara::all()->keyBy('id')->transform(function ($list) {
-            $position = !empty($list->jabatan) ? $list->jabatan : (!empty($list->pelaksana) ? $list->pelaksana : $list->fungsional);
-            return $list->nip_baru . ' - ' . $list->nama_pegawai . ' - ' . $position;
-        }));
-
         View::share('sasaran_strategis_options', SasaranStrategis::all()->keyBy('id')->transform(function ($sasaran_strategis) {
             return $sasaran_strategis->sasaran_strategis;
         }));
-        View::share('tipe_perhitungan_options', collect(array_combine(
-            ["1", "2"],
-            ["Kumulatif", "Non-Kumulatif"],
-        ))->transform(function ($list) {
-            return $list;
-        }));
-        View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {
-            return $list->satuan;
-        }));
-        View::share('sasaran_program', SasaranProgram::all()    );
+        View::share('sasaran_program', SasaranProgram::all());
     }
     /**
      * Display a listing of the resource.
@@ -93,17 +79,51 @@ class SasaranProgramController extends Controller
      */
     public function edit(SasaranProgram $sasaranProgram)
     {
+        $sasaranProgram->load('indikators');
         $satuan = Satuan::all();
         $penanggung_jawab = PenanggungJawab::all();
-        return view('admin.perda.perencanaan_kinerja.sasaran_program.edit', compact('satuan', 'penanggung_jawab'));
+        return view('admin.perda.perencanaan_kinerja.sasaran_program.edit', compact('satuan', 'penanggung_jawab', 'sasaranProgram'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSasaranProgramRequest $request, SasaranProgram $sasaranProgram)
+    public function update(Request $request, SasaranProgram $sasaranProgram)
     {
-        //
+        $sasaranProgram->update($request->only(SasaranProgram::FILLABLE_FIELDS));
+        $savedIds = [];
+        foreach (($request->indikator_sasaran ?? []) as $indikator_sasaran) {
+            if ($indikator_sasaran['id'] ?? false) {
+                $params = SasaranProgramIndikator::find($indikator_sasaran['id']);
+                $params->sasaran_program_id = $sasaranProgram->id ?? null;
+                $params->indikator_sasaran_program = $indikator_sasaran['indikator_sasaran_program'] ?? null;
+                $params->target = $indikator_sasaran['target'] ?? null;
+                $params->satuan_id = $indikator_sasaran['satuan_id'] ?? null;
+                $params->program = $indikator_sasaran['program'] ?? null;
+                $params->anggaran = $indikator_sasaran['anggaran'] ?? null;
+                $params->save();
+
+                array_push($savedIds, $params->id);
+            } else {
+                $params = new SasaranProgramIndikator();
+                $params->user_id = Auth::user()->id ?? null;
+                $params->sasaran_program_id = $sasaranProgram->id ?? null;
+                $params->indikator_sasaran_program = $indikator_sasaran['indikator_sasaran_program'] ?? null;
+                $params->target = $indikator_sasaran['target'] ?? null;
+                $params->satuan_id = $indikator_sasaran['satuan_id'] ?? null;
+                $params->program = $indikator_sasaran['program'] ?? null;
+                $params->anggaran = $indikator_sasaran['anggaran'] ?? null;
+                $params->save();
+                array_push($savedIds, $params->id);
+            }
+        }
+        if (count($savedIds)) {
+            SasaranProgramIndikator::where('sasaran_program_id', $sasaranProgram->id)->whereNotIn('id', $savedIds)->delete();
+        } else {
+            SasaranProgramIndikator::where('sasaran_program_id', $sasaranProgram->id)->delete();
+        }
+        Alert::toast('Data sasaran program telah diubah', 'success');
+        return redirect()->back();
     }
 
     /**
