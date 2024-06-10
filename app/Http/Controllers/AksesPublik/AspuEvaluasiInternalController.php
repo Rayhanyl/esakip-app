@@ -65,6 +65,7 @@ class AspuEvaluasiInternalController extends Controller
     {
         $evaluasi = InspekEvaluasiInternal::findOrFail($id);
         $komponens = $evaluasi->komponens;
+        $nilaiTotal = $komponens->pluck('nilai');
         $nilaiBobot = $komponens->pluck('bobot');
         $nilai = $evaluasi->nilai_akuntabilitas_kinerja;
         $predikat = 'N/A';
@@ -105,16 +106,6 @@ class AspuEvaluasiInternalController extends Controller
         }
 
         $user = User::findOrFail($evaluasi->user_id);
-        $data = [
-            'evaluasi' => $evaluasi,
-            'user' => $user,
-            'totalBobot' => $nilai,
-            'predikat' => $predikat,
-            'predikat_name' => $predikat_name,
-            'komponens' => $komponens,
-            'nilaibobot' => $nilaiBobot,
-            'predikat' => $predikat,
-        ];
         $pdf = PDF::loadView('akses_publik.evaluasi_internal.lhe', [
             'evaluasi' => $evaluasi,
             'user' => $user,
@@ -123,6 +114,7 @@ class AspuEvaluasiInternalController extends Controller
             'predikat' => $predikat,
             'komponens' => $komponens,
             'nilaibobot' => $nilaiBobot,
+            'nilaiTotal' => $nilaiTotal,
         ], ['orientation' => 'portrait']);
         $pdf->setPaper('A4', 'portrait');
         return $pdf->download('LHE' . '.pdf');
@@ -134,6 +126,7 @@ class AspuEvaluasiInternalController extends Controller
         //     'predikat' => $predikat,
         //     'komponens' => $komponens,
         //     'nilaibobot' => $nilaiBobot,
+        //     'nilaiTotal' => $nilaiTotal,
         // ]);
     }
 }
