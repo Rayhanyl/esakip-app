@@ -68,7 +68,16 @@
                                                 <tr class="font-weight-bold bg-primary text-white">
                                                     <td>{{ $item->no }}</td>
                                                     <td>{{ $item->komponen }}</td>
-                                                    <td>{{ $item->bobot }}</td>
+                                                    <td>
+
+                                                        <input type="hidden" class="input-nilai"
+                                                            name="komponen[{{ $item->id }}][nilai]"
+                                                            value="{{ $item->nilai }}">
+                                                        <span id="komponen{{ $item->id }}nilai">
+                                                            {{ $item->nilai }}
+                                                        </span> /
+                                                        {{ $item->bobot }}
+                                                    </td>
                                                     <td class="d-flex justify-content-between row-action">
                                                         <input type="hidden" name="komponen[{{ $item->id }}][catatan]"
                                                             value="{{ $item->catatan }}" class="input-catatan">
@@ -92,11 +101,13 @@
                                                         <td>{{ $sub_komponen->bobot }}</td>
                                                         <td>
                                                             <input type="number"
-                                                                name="sub_komponen[{{ $sub_komponen->id }}][nilai]"
-                                                                id="" min="0"
+                                                                id="sub_komponen[{{ $item->id }}][{{ $sub_komponen->id }}][nilai]"
+                                                                name="sub_komponen[{{ $sub_komponen->id }}][nilai]"min="0"
                                                                 max="{{ $sub_komponen->bobot }}"
                                                                 class="form-control input-bobot"
-                                                                value="{{ $sub_komponen->nilai }}">
+                                                                value="{{ $sub_komponen->nilai }}"
+                                                                data-komponen="{{ $item->id }}"
+                                                                data-sub-komponen="{{ $sub_komponen->id }}">
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -153,77 +164,87 @@
     @include('admin.inspek.evaluasi_internal._partials.modal-input-rekomendasi')
     @push('scripts')
         <script>
-            $('.input-bobot').on('keyup', function() {
-                if (parseInt($(this).val()) > parseInt($(this).attr('max'))) {
-                    $(this).val($(this).attr('max'));
-                }
-                let sum = 0;
-                let total = {{ $total ?? 0 }};
-                $(".input-bobot").each(function() {
-                    sum = parseInt(sum) + (parseInt($(this).val()) || 0);
-                });
-                $('#total-nilai').val(sum);
-                let p = predikat(sum / total * 100);
-                $('#predikat-nilai').val(p);
-            })
+            $(document).ready(function() {
+                $('.input-bobot').on('keyup', function() {
+                    let sumKom = 0;
+                    $('input[id^="sub_komponen[' + $(this).data('komponen') + ']"]')
+                        .each(function() {
+                            sumKom += Number($(this).val());
+                        });
+                    let komponen = $(this).data('komponen');
+                    $(`#komponen${komponen}nilai`).text(sumKom);
+                    $('input[name="komponen[' + komponen + '][nilai]"]').val(sumKom);
+                    if (parseInt($(this).val()) > parseInt($(this).attr('max'))) {
+                        $(this).val($(this).attr('max'));
+                    }
+                    let sum = 0;
+                    let total = {{ $total ?? 0 }};
+                    $(".input-bobot").each(function() {
+                        sum = parseInt(sum) + (parseInt($(this).val()) || 0);
+                    });
+                    $('#total-nilai').val(sum);
+                    let p = predikat(sum / total * 100);
+                    $('#predikat-nilai').val(p);
+                })
 
-            function predikat(nilai) {
-                let predikat;
-                if (nilai == 0) {
-                    predikat = 'E';
-                } else if (nilai <= 30) {
-                    predikat = 'D';
-                } else if (nilai <= 50) {
-                    predikat = 'C';
-                } else if (nilai <= 60) {
-                    predikat = 'CC';
-                } else if (nilai <= 70) {
-                    predikat = 'B';
-                } else if (nilai <= 80) {
-                    predikat = 'BB';
-                } else if (nilai <= 90) {
-                    predikat = 'A';
-                } else if (nilai <= 100) {
-                    predikat = 'AA';
-                };
-                return predikat;
-            }
+                function predikat(nilai) {
+                    let predikat;
+                    if (nilai == 0) {
+                        predikat = 'E';
+                    } else if (nilai <= 30) {
+                        predikat = 'D';
+                    } else if (nilai <= 50) {
+                        predikat = 'C';
+                    } else if (nilai <= 60) {
+                        predikat = 'CC';
+                    } else if (nilai <= 70) {
+                        predikat = 'B';
+                    } else if (nilai <= 80) {
+                        predikat = 'BB';
+                    } else if (nilai <= 90) {
+                        predikat = 'A';
+                    } else if (nilai <= 100) {
+                        predikat = 'AA';
+                    };
+                    return predikat;
+                }
 
-            let activeCatatan;
-            let activeButtonCatatan;
-            let activeRekomendasi;
-            let activeButtonRekomendasi;
-            $('.btn-catatan').on('click', function() {
-                activeCatatan = $(this).closest('.row-action').find('.input-catatan');
-                activeButtonCatatan = $(this);
-                $('.text-catatan').val(activeCatatan.val());
-                $('#inputCatatanModal').modal('show');
-            })
-            $('.btn-save-catatan').on('click', function() {
-                activeCatatan.val($('.text-catatan').val());
-                if ($('.text-catatan').val() !== '') {
-                    activeButtonCatatan.addClass('btn-info').removeClass('btn-light');
-                } else {
-                    activeButtonCatatan.addClass('btn-light').removeClass('btn-info');
-                }
-                $('.text-catatan').val('');
-                $('#inputCatatanModal').modal('hide');
-            })
-            $('.btn-rekomendasi').on('click', function() {
-                activeRekomendasi = $(this).closest('.row-action').find('.input-rekomendasi');
-                activeButtonRekomendasi = $(this);
-                $('.text-rekomendasi').val(activeRekomendasi.val());
-                $('#inputRekomendasiModal').modal('show');
-            })
-            $('.btn-save-rekomendasi').on('click', function() {
-                activeRekomendasi.val($('.text-rekomendasi').val());
-                if ($('.text-rekomendasi').val() !== '') {
-                    activeButtonRekomendasi.addClass('btn-info').removeClass('btn-light');
-                } else {
-                    activeButtonRekomendasi.addClass('btn-light').removeClass('btn-info');
-                }
-                $('.text-rekomendasi').val('');
-                $('#inputRekomendasiModal').modal('hide');
+                let activeCatatan;
+                let activeButtonCatatan;
+                let activeRekomendasi;
+                let activeButtonRekomendasi;
+                $('.btn-catatan').on('click', function() {
+                    activeCatatan = $(this).closest('.row-action').find('.input-catatan');
+                    activeButtonCatatan = $(this);
+                    $('.text-catatan').val(activeCatatan.val());
+                    $('#inputCatatanModal').modal('show');
+                })
+                $('.btn-save-catatan').on('click', function() {
+                    activeCatatan.val($('.text-catatan').val());
+                    if ($('.text-catatan').val() !== '') {
+                        activeButtonCatatan.addClass('btn-info').removeClass('btn-light');
+                    } else {
+                        activeButtonCatatan.addClass('btn-light').removeClass('btn-info');
+                    }
+                    $('.text-catatan').val('');
+                    $('#inputCatatanModal').modal('hide');
+                })
+                $('.btn-rekomendasi').on('click', function() {
+                    activeRekomendasi = $(this).closest('.row-action').find('.input-rekomendasi');
+                    activeButtonRekomendasi = $(this);
+                    $('.text-rekomendasi').val(activeRekomendasi.val());
+                    $('#inputRekomendasiModal').modal('show');
+                })
+                $('.btn-save-rekomendasi').on('click', function() {
+                    activeRekomendasi.val($('.text-rekomendasi').val());
+                    if ($('.text-rekomendasi').val() !== '') {
+                        activeButtonRekomendasi.addClass('btn-info').removeClass('btn-light');
+                    } else {
+                        activeButtonRekomendasi.addClass('btn-light').removeClass('btn-info');
+                    }
+                    $('.text-rekomendasi').val('');
+                    $('#inputRekomendasiModal').modal('hide');
+                })
             })
         </script>
     @endpush

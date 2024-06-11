@@ -95,6 +95,7 @@ class InspekEvaluasiInternalController extends Controller
                 [
                     'catatan' => $komponen['catatan'],
                     'rekomendasi' => $komponen['rekomendasi'],
+                    'nilai' => $komponen['nilai'],
                 ]
             );
         }

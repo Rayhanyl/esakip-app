@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sasaran_penanggung_jawabs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sasaran_id');
-            $table->string('penanggung_jawab');
+            $table->string('penanggung_jawab')->nullable();
             $table->timestamps();
         });
     }

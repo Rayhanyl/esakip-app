@@ -99,7 +99,6 @@ class SasaranStrategisController extends Controller
             Alert::toast('Berhasil menyimpan data sasaran strategis', 'success');
             return redirect()->back();
         } catch (\Exception $e) {
-            // Handle the error if the deletion fails
             Alert::toast('Error hubungi developer terkait!', 'danger');
             return redirect()->back()->withErrors(['file' => 'Failed to delete the record. Please try again.']);
         }
@@ -128,23 +127,35 @@ class SasaranStrategisController extends Controller
     public function update(Request $request, SasaranStrategis $sasaranStrategis)
     {
         try {
-            $data = $sasaranStrategis->update($request->except('indikator_sasaran', 'pengampu_id'));
+            $sasaranStrategis->update($request->except('indikator_sasaran', 'pengampu_id'));
             foreach ($request->indikator_sasaran as $key => $value) {
                 $penanggung_jawabs = $value['penanggung_jawab'];
                 unset($value['penanggung_jawab']);
                 $params = array_merge($value, ['sasaran_strategis_id' => $sasaranStrategis->id]);
                 $indikator = SasaranStrategisIndikator::find($key);
-                $data_indikator = $indikator->update($params);
-                foreach ($penanggung_jawabs as $key => $penanggung_jawab) {
-                    SasaranPenanggungJawab::find($key)->update([
-                        'sasaran_id' => $indikator->id,
-                        'penanggung_jawab' => $penanggung_jawab
-                    ]);
+                if ($indikator != null) {
+                    $data_indikator = $indikator->update($params);
+                    foreach ($penanggung_jawabs as $key2 => $penanggung_jawab) {
+                        SasaranPenanggungJawab::find($key2)->update([
+                            'sasaran_id' => $indikator->id,
+                            'penanggung_jawab' => $penanggung_jawab
+                        ]);
+                    }
+                } else {
+                    $params = array_merge($params, ['user_id' => Auth::user()->id]);
+                    $data_indikator = SasaranStrategisIndikator::create($params);
+                    foreach ($penanggung_jawabs as $key2 => $penanggung_jawab) {
+                        SasaranPenanggungJawab::create([
+                            'sasaran_id' => $data_indikator->id,
+                            'penanggung_jawab' => $penanggung_jawab
+                        ]);
+                    }
                 }
             }
             Alert::toast('Berhasil menyimpan data sasaran strategis', 'success');
             return redirect()->back();
         } catch (\Exception $e) {
+            dd($e);
             // Handle the error if the deletion fails
             Alert::toast('Error hubungi developer terkait!', 'danger');
             return redirect()->back()->withErrors(['file' => 'Failed to delete the record. Please try again.']);

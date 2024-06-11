@@ -99,39 +99,21 @@ Route::middleware(['auth'])->group(function () {
             ->name('index');
         Route::prefix('/perencanaan-kinerja')->name('perencanaan-kinerja.')->group(function () {
             Route::prefix('/sasaran-strategis')->name('sasaran-strategis.')->group(function () {
-                Route::get('/', [SasaranStrategisController::class, 'index'])
-                    ->name('index');
-                Route::get('/edit/{sasaranStrategis}', [SasaranStrategisController::class, 'edit'])
-                    ->name('edit');
                 Route::get('/indicator', [SasaranStrategisController::class, 'indicator'])
                     ->name('indicator');
                 Route::get('/get-indicator', [SasaranStrategisController::class, 'get_indicator'])
                     ->name('get-indicator');
                 Route::get('/penanggung-jawab', [SasaranStrategisController::class, 'penanggung_jawab'])
                     ->name('penanggung-jawab');
-                Route::post('/store', [SasaranStrategisController::class, 'store'])
-                    ->name('store');
-                Route::put('/update/{sasaranStrategis}', [SasaranStrategisController::class, 'update'])
-                    ->name('update');
-                Route::delete('/destroy/{id}', [SasaranStrategisController::class, 'destroy'])
-                    ->name('destroy');
                 Route::get('/get-pengampu', [SasaranStrategisController::class, 'get_pengampu'])
                     ->name('get-pengampu');
             });
+            Route::resource('sasaran-strategis', SasaranStrategisController::class);
             Route::prefix('/sasaran-program')->name('sasaran-program.')->group(function () {
-                Route::get('/', [SasaranProgramController::class, 'index'])
-                    ->name('index');
-                Route::get('/edit', [SasaranProgramController::class, 'edit'])
-                    ->name('edit');
                 Route::get('/indicator', [SasaranProgramController::class, 'indicator'])
                     ->name('indicator');
-                Route::post('/store', [SasaranProgramController::class, 'store'])
-                    ->name('store');
-                Route::post('/update', [SasaranProgramController::class, 'update'])
-                    ->name('update');
-                Route::delete('/destroy/{id}', [SasaranProgramController::class, 'destroy'])
-                    ->name('destroy');
             });
+            Route::resource('sasaran-program', SasaranProgramController::class);
             Route::prefix('/sasaran-kegiatan')->name('sasaran-kegiatan.')->group(function () {
                 Route::get('/', [SasaranKegiatanController::class, 'index'])
                     ->name('index');
@@ -212,60 +194,33 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('pemerintah-kabupaten')->name('pemkab.')->group(function () {
-        Route::get('/index', PemkabBerandaController::class)
+        Route::get('/', PemkabBerandaController::class)
             ->name('index');
         Route::prefix('/perencanaan-kinerja')->name('perencanaan-kinerja.')->group(function () {
-            Route::get('/', [SasaranBupatiController::class, 'index'])
-                ->name('index');
-            Route::get('/edit/{sasaranBupati}', [SasaranBupatiController::class, 'edit'])
-                ->name('edit');
-            Route::put('/update/{sasaranBupati}', [SasaranBupatiController::class, 'update'])
-                ->name('update');
             Route::get('/indicator', [SasaranBupatiController::class, 'indicator'])
                 ->name('indicator');
             Route::get('/simple-action', [SasaranBupatiController::class, 'simple_action'])
                 ->name('simple-action');
             Route::get('/penanggung-jawab', [SasaranBupatiController::class, 'penanggung_jawab'])
                 ->name('penanggung-jawab');
-            Route::post('/store', [SasaranBupatiController::class, 'store'])
-                ->name('store');
-            Route::post('/update', [SasaranBupatiController::class, 'update'])
-                ->name('update');
-            Route::delete('/destroy/{sasaranBupati}', [SasaranBupatiController::class, 'destroy'])
-                ->name('destroy');
         });
         Route::prefix('/pengukuran-kinerja')->name('pengukuran-kinerja.')->group(function () {
-            Route::get('/', [PemkabPengukuranKinerjaController::class, 'index'])
-                ->name('index');
-            Route::get('/edit/{id}', [PemkabPengukuranKinerjaController::class, 'edit'])
-                ->name('edit');
             Route::get('/indicator', [PemkabPengukuranKinerjaController::class, 'indicator'])
                 ->name('indicator');
             Route::get('/get-indicator', [PemkabPengukuranKinerjaController::class, 'get_indicator'])
                 ->name('get-indicator');
             Route::get('/get-target', [PemkabPengukuranKinerjaController::class, 'get_target'])
                 ->name('get-target');
-            Route::post('/store', [PemkabPengukuranKinerjaController::class, 'store'])
-                ->name('store');
-            Route::post('/update/{id}', [PemkabPengukuranKinerjaController::class, 'update'])
-                ->name('update');
-            Route::delete('/destroy/{id}', [PemkabPengukuranKinerjaController::class, 'destroy'])
-                ->name('destroy');
         });
         Route::prefix('/pelaporan-kinerja')->name('pelaporan-kinerja.')->group(function () {
-            Route::get('/', [PemkabPelaporanKinerjaController::class, 'index'])
-                ->name('index');
-            Route::get('/edit/{id}', [PemkabPelaporanKinerjaController::class, 'edit'])
-                ->name('edit');
-            Route::post('/store', [PemkabPelaporanKinerjaController::class, 'store'])
-                ->name('store');
-            Route::post('/update/{id}', [PemkabPelaporanKinerjaController::class, 'update'])
-                ->name('update');
-            Route::delete('/destroy/{id}', [PemkabPelaporanKinerjaController::class, 'destroy'])
-                ->name('destroy');
             Route::get('/download/{filename}', [PemkabPelaporanKinerjaController::class, 'download'])
                 ->name('download');
         });
+        Route::resources([
+            'perencanaan-kinerja' => SasaranBupatiController::class,
+            'pengukuran-kinerja' => PemkabPengukuranKinerjaController::class,
+            'pelaporan-kinerja' => PemkabPelaporanKinerjaController::class,
+        ]);
     });
 
     Route::prefix('inspektorat')->name('inspek.')->group(function () {
