@@ -13,13 +13,32 @@ class AspuRencanaAksiController extends Controller
     public function index(Request $request)
     {
         $user = User::where('role', 'perda')->get();
-
         $perda = $request->perda;
         $tahun = $request->tahun;
 
-        $data = SasaranStrategis::with('user', 'indikators', 'sasaran_kegiatan', 'sasaran_subkegiatan', 'sasaran_penanggungjawab')->get();
-        dd($data);
-        return view('akses_publik.perencanaan_kinerja.rencana_aksi.index', compact('user', 'data', 'tahun', 'perda'));
+        $data = SasaranStrategisIndikator::with([
+            'user',
+            'sasaran_penanggung_jawabs',
+            'sasaran_strategis',
+            'sasaran_strategis.sasaran_programs',
+            'sasaran_strategis.sasaran_programs.sasaran_kegiatans',
+            'sasaran_strategis.sasaran_programs.sasaran_kegiatans.sasaran_sub_kegiatans',
+            'sasaran_strategis.sasaran_programs.sasaran_kegiatans.sasaran_sub_kegiatans.indikators',
+        ])
+        ->whereHas('user', function ($q) use ($request) {
+            $q->where('role', 'perda');
+            if ($request->perda != null) {
+                $q->where('id', $request->perda);
+            }
+        })
+        ->whereHas('sasaran_strategis', function ($r) use ($request) {
+            if ($request->tahun != null) {
+                $r->where('tahun', $request->tahun);
+            }
+        })
+        ->get();
+
+        return view('akses_publik.perencanaan_kinerja.rencana_aksi.index', compact('data', 'user', 'perda', 'tahun'));
     }
 
     public function pemkabIndex(Request $request)

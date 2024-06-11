@@ -17,7 +17,6 @@
             <div class="row">
                 <div class="col-12">
                     <form class="row" action="{{ route('aspu.rencana.aksi') }}" method="get">
-                        @csrf
                         <div class="col-12 col-lg-3">
                             <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
                             <select class="form-select" id="tahun" name="tahun">
@@ -76,30 +75,38 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $iter = 0;
+                                        @endphp
                                         @foreach ($data as $item)
-                                            <tr>
-                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">
-                                                    @foreach ($item->indikators as $sasaran_strategis)
-                                                        <p>{{ $sasaran_strategis->indikator_sasaran_strategis }}</p>
-                                                    @endforeach
-                                                </td>
-                                                <td class="text-center">
-                                                    @if ($item->sasaran_subkegiatan && $item->sasaran_subkegiatan->isNotEmpty())
-                                                        @foreach ($item->sasaran_subkegiatan as $sasaran_subkegiatan)
-                                                            <p>{{ $sasaran_subkegiatan->sasaran_sub_kegiatan }}</p>
+                                            @foreach ($item->sasaran_strategis->sasaran_programs as $sasaran_program)
+                                                @foreach ($sasaran_program->sasaran_kegiatans as $sasaran_kegiatan)
+                                                    @foreach ($sasaran_kegiatan->sasaran_sub_kegiatans as $sasaran_sub_kegiatan)
+                                                        @foreach ($sasaran_sub_kegiatan->indikators as $indikator)
+                                                        @php
+                                                            $iter++
+                                                        @endphp
+                                                            <tr>
+                                                                <td class="text-center">{{ $iter }}</td>
+                                                                <td class="text-center">{{ $item->indikator_sasaran_strategis }}</td>
+                                                                <td class="text-center">{{ $indikator->sub_kegiatan }}</td>
+                                                                <td class="text-center">{{ $indikator->indikator_sub_kegiatan }}</td>
+                                                                <td class="text-center">{{ $indikator->triwulan1 }}</td>
+                                                                <td class="text-center">{{ $indikator->triwulan2 }}</td>
+                                                                <td class="text-center">{{ $indikator->triwulan3 }}</td>
+                                                                <td class="text-center">{{ $indikator->triwulan4 }}</td>
+                                                                <td>
+                                                                    @foreach ($item->sasaran_penanggung_jawabs as $penanggung_jawab)
+                                                                    <ul>
+                                                                        <li>{{ $penanggung_jawab->penanggung_jawab }}</li>
+                                                                    </ul>
+                                                                    @endforeach
+                                                                </td>
+                                                            </tr>
                                                         @endforeach
-                                                    @else
-                                                        <p>No sub-goals found.</p>
-                                                    @endif
-                                                </td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
-                                            </tr>
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

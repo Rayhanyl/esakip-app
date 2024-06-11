@@ -17,7 +17,6 @@
             <div class="row">
                 <div class="col-12">
                     <form class="row" action="{{ route('aspu.perjanjian.kinerja') }}" method="get">
-                        @csrf
                         <div class="col-12 col-lg-3">
                             <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
                             <select class="form-select select2" id="tahun" name="tahun">

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('design/css/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('design/css/glightbox.min.css') }}">
     <link rel="stylesheet" href="{{ asset('design/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/colormask.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('design/css/flatpickr.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/x-icon" />

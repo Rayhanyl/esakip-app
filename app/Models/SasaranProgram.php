@@ -20,14 +20,9 @@ class SasaranProgram extends Model
         return $this->hasMany(SasaranProgramIndikator::class);
     }
 
-    public function sasaran_kegiatan()
+    public function sasaran_kegiatans()
     {
-        return $this->belongsTo(SasaranKegiatan::class, 'id', 'sasaran_program_id');
-    }
-
-    public function sasaran_subkegiatan()
-    {
-        return $this->belongsTo(SasaranSubKegiatan::class, 'id', 'sasaran_kegiatan_id');
+        return $this->hasMany(SasaranKegiatan::class,'sasaran_program_id', 'id');
     }
 
     protected static function boot()

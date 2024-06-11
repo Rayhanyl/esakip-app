@@ -20,9 +20,9 @@ class SasaranStrategis extends Model
         return $this->hasMany(SasaranStrategisIndikator::class);
     }
 
-    public function sasaran_program()
+    public function sasaran_programs()
     {
-        return $this->belongsTo(SasaranProgram::class, 'id', 'sasaran_strategis_id');
+        return $this->hasMany(SasaranProgram::class, 'sasaran_strategis_id', 'id');
     }
 
     public function indikator_sasaran_program()

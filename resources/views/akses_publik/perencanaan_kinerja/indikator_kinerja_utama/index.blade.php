@@ -15,28 +15,15 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <div class="col-12 mb-5">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('aspu.perjanjian.kinerja') }}">Perangkat Daerah</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('aspu.pemkab-perjanjian.kinerja') }}">Pemerintah
-                                Kabupaten</a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="col-12">
                     <div class="row">
-                        <form class="row" action="{{ route('aspu.perjanjian.kinerja') }}" method="get">
-                            @csrf
+                        <form class="row" action="{{ route('aspu.indikator.kinerja.utama') }}" method="get">
                             <div class="col-12 col-lg-3">
                                 <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
                                 <select class="form-select" id="tahun" name="tahun">
                                     <option value="" selected>- Pilih Tahun -</option>
                                     @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                                        <option value="{{ $i }}">
+                                        <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>
                                             {{ $i }}
                                         </option>
                                     @endfor
@@ -80,32 +67,50 @@
                                             <th></th>
                                             <th class="text-center" colspan="3">Target Kinerja</th>
                                         </tr>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Sasaran Strategis</th>
-                                            <th>Indikator sasaran</th>
-                                            <th>Satuan</th>
-                                            <th>Penjelasan / Formulasi</th>
-                                            <th>Sumber Data</th>
-                                            <th>Penanggung Jawab</th>
-                                            <th>2024</th>
-                                            <th>2025</th>
-                                            <th>2026</th>
+                                        <tr style="font-size: 12px">
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Sasaran Strategis</th>
+                                            <th class="text-center">Indikator Sasaran</th>
+                                            <th class="text-center">Satuan</th>
+                                            <th class="text-center">Penjelasan / Formulasi</th>
+                                            <th class="text-center">Sumber Data</th>
+                                            <th class="text-center">Penanggung Jawab</th>
+                                            <th class="text-center">2024</th>
+                                            <th class="text-center">2025</th>
+                                            <th class="text-center">2026</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @php
+                                            $iter = 0;
+                                        @endphp
+                                        @foreach ($data as $item)
+                                            @foreach ($item->indikators as $indikator)
+                                            @php
+                                                $iter++
+                                            @endphp
+                                                <tr style="font-size: 12px">
+                                                    <td class="text-center">{{ $iter }}</td>
+                                                    <td class="text-center">{{ $item->sasaran_strategis }}</td>
+                                                    <td class="text-center">{{ $indikator->indikator_sasaran_strategis }}</td>
+                                                    <td class="text-center">
+                                                        @foreach ($satuans as $satuan)
+                                                            @if ($satuan->id == $indikator->satuan_id)
+                                                                {{ $satuan->satuan }}
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
+                                                    <td class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $indikator->penjelasan }}">
+                                                        {{ Str::limit($indikator->penjelasan, '25', '...') }}
+                                                    </td>
+                                                    <td class="text-center">{{ $indikator->sumber_data }}</td>
+                                                    <td class="text-center">{{ $item->sasaran_penanggungjawab->penanggung_jawab }}</td>
+                                                    <td class="text-center">{{ $indikator->target1 }}</td>
+                                                    <td class="text-center">{{ $indikator->target2 }}</td>
+                                                    <td class="text-center">{{ $indikator->target3 }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
