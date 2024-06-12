@@ -87,8 +87,10 @@
                                                         {{ $komponen->komponen }}
                                                     </td>
                                                     <td colspan="2">
+                                                        <input type="hidden"
+                                                            name="komponen[{{ $komponen->id }}][total_bobot]">
                                                         <span
-                                                            id="komponen{{ $komponen->id }}">{{ $komponen->total_bobot }}</span>
+                                                            id="komponen{{ $komponen->id }}">{{ $komponen->nilai ?? 0 }}</span>
                                                     </td>
                                                 </tr>
                                                 @foreach ($komponen->sub_komponens as $sub_komponen)
@@ -102,8 +104,10 @@
                                                             {{ $sub_komponen->sub_komponen }}
                                                         </td>
                                                         <td colspan="2">
+                                                            <input type="hidden"
+                                                                name="sub_komponen[{{ $sub_komponen->id }}][total_bobot]">
                                                             <span
-                                                                id="sub_komponen{{ $sub_komponen->id }}">{{ $sub_komponen->total_bobot }}</span>
+                                                                id="sub_komponen{{ $sub_komponen->id }}">{{ $sub_komponen->nilai ?? 0 }}</span>
                                                         </td>
                                                     </tr>
                                                     @foreach ($sub_komponen->kriterias as $kriteria)
@@ -116,7 +120,7 @@
                                                                 {{ $kriteria->kriteria }}
                                                             </td>
                                                             <td>
-                                                                <select class="form-select form-select-sm" aria-label="1a"
+                                                                <select class="form-select form-select-sm"
                                                                     name="kriteria[{{ $kriteria->id }}][status]"
                                                                     id="kriteria[{{ $komponen->id }}][{{ $sub_komponen->id }}][{{ $kriteria->id }}][status]"
                                                                     data-komponen="{{ $komponen->id }}"
@@ -128,7 +132,8 @@
                                                                     @foreach ($kriteria->answers as $answer)
                                                                         <option value="{{ $answer->bobot }}"
                                                                             {{ (float) $answer->bobot == (float) ($kriteria->inspek_status ?? $kriteria->status) ? 'selected' : '' }}>
-                                                                            {{ $answer->jawaban }} ({{ $answer->bobot }})
+                                                                            {{ $answer->jawaban }}
+                                                                            ({{ $answer->bobot }})
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
@@ -196,53 +201,69 @@
     </div>
     @push('scripts')
         <script>
-            $('select[id^="kriteria"]').on('change', function() {
+            $(document).ready(function() {
                 let sum = 0;
                 $('select[id^="kriteria"]')
                     .each(function() {
                         sum += Number($(this).val());
                     });
                 $('#total-nilai').val(sum);
-                let total = {{ $total_bobot }};
+                let total = 100;
                 let p = predikat(sum / total * 100);
                 $('#predikat-nilai').val(p);
 
-                let sumKom = 0;
-                $('select[id^="kriteria[' + $(this).data('komponen') + ']"]')
-                    .each(function() {
-                        sumKom += Number($(this).val());
-                    });
-                $('#komponen' + $(this).data('komponen')).text(sumKom);
+                $('select[id^="kriteria"]').on('change', function() {
+                    let sum = 0;
+                    $('select[id^="kriteria"]')
+                        .each(function() {
+                            sum += Number($(this).val());
+                        });
+                    $('#total-nilai').val(sum);
+                    let total = 100;
+                    let p = predikat(sum / total * 100);
+                    $('#predikat-nilai').val(p);
 
-                let sumSub = 0;
-                $('select[id^="kriteria[' + $(this).data('komponen') + '][' + $(this).data('sub-komponen') + ']"]')
-                    .each(function() {
-                        sumSub += Number($(this).val());
-                    });
-                $('#sub_komponen' + $(this).data('sub-komponen')).text(sumSub);
-            });
+                    let sumKom = 0;
+                    $('select[id^="kriteria[' + $(this).data('komponen') + ']"]')
+                        .each(function() {
+                            sumKom += Number($(this).val());
+                        });
+                    $('#komponen' + $(this).data('komponen')).text(sumKom);
+                    $('input[name="komponen[' + $(this).data('komponen') + '][total_bobot]"]').val(sumKom);
+                    let sumSub = 0;
+                    $('select[id^="kriteria[' + $(this).data('komponen') + '][' + $(this).data('sub-komponen') +
+                            ']"]')
+                        .each(function() {
+                            sumSub += Number($(this).val());
+                        });
+                    $('#sub_komponen' + $(this).data('sub-komponen')).text(sumSub);
+                    $('input[name="sub_komponen[' + $(this).data('sub-komponen') + '][total_bobot]"]').val(
+                        sumSub);
+                });
 
-            function predikat(nilai) {
-                let predikat;
-                if (nilai == 0) {
-                    predikat = 'E';
-                } else if (nilai <= 30) {
-                    predikat = 'D';
-                } else if (nilai <= 50) {
-                    predikat = 'C';
-                } else if (nilai <= 60) {
-                    predikat = 'CC';
-                } else if (nilai <= 70) {
-                    predikat = 'B';
-                } else if (nilai <= 80) {
-                    predikat = 'BB';
-                } else if (nilai <= 90) {
-                    predikat = 'A';
-                } else if (nilai <= 100) {
-                    predikat = 'AA';
-                };
-                return predikat;
-            }
+                function predikat(nilai) {
+                    let predikat;
+                    if (nilai == 0) {
+                        predikat = 'E';
+                    } else if (nilai <= 30) {
+                        predikat = 'D';
+                    } else if (nilai <= 50) {
+                        predikat = 'C';
+                    } else if (nilai <= 60) {
+                        predikat = 'CC';
+                    } else if (nilai <= 70) {
+                        predikat = 'B';
+                    } else if (nilai <= 80) {
+                        predikat = 'BB';
+                    } else if (nilai <= 90) {
+                        predikat = 'A';
+                    } else if (nilai <= 100) {
+                        predikat = 'AA';
+                    };
+                    console.log(nilai, predikat);
+                    return predikat;
+                }
+            })
         </script>
     @endpush
 @endsection

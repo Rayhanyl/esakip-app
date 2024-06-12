@@ -32,7 +32,7 @@ class SelfAssesmentController extends Controller
     {
         $tahun = $request->tahun;
         $perangkat_daerah = $request->perangkat_daerah;
-        if ($tahun == null && $perangkat_daerah == null) {
+        if ($tahun == null || $perangkat_daerah == null) {
             $perda_evaluasi_internal = [];
             $total_bobot = 0;
             $status = '';
@@ -98,6 +98,16 @@ class SelfAssesmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        foreach ($request->komponen as $idkom => $komponen) {
+            Komponen::find($idkom)->update([
+                'nilai' => $komponen['total_bobot']
+            ]);
+        }
+        foreach ($request->sub_komponen as $idsub => $sub_komponen) {
+            SubKomponen::find($idsub)->update([
+                'nilai' => $sub_komponen['total_bobot']
+            ]);
+        }
         foreach ($request->kriteria as $key => $kriteria) {
             PerdaEvaluasiInternal::find($id)->update([
                 'status' => 'complete',
