@@ -76,6 +76,16 @@ class PerdaEvaluasiInternalController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        foreach ($request->komponen as $idkom => $komponen) {
+            Komponen::find($idkom)->update([
+                'nilai' => $komponen['total_bobot']
+            ]);
+        }
+        foreach ($request->sub_komponen as $idsub => $sub_komponen) {
+            SubKomponen::find($idsub)->update([
+                'nilai' => $sub_komponen['total_bobot']
+            ]);
+        }
         foreach ($request->kriteria as $key => $kriteria) {
             PerdaEvaluasiInternal::find($id)->update([
                 'status' => 'submit',
