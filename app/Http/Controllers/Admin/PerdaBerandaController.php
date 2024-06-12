@@ -23,7 +23,7 @@ class PerdaBerandaController extends Controller
         // $response = Http::withHeaders([
         //     'User-Agent' => 'insomnia/2023.5.8',
         //     'Authorization' => 'Bearer ' . session('token')
-        // ])->get($this->baseUrl . '/esakip/list_pengampu?type=pagination&page=300&length=10');
+        // ])->get($this->baseUrl . '/esakip/list_pengampu?type=pagination&page=1&length=10');
         // $data = json_decode($response->getBody()->getContents());
         // dd($data);
         return view('admin.perda.beranda.index');
