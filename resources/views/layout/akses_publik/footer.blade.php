@@ -29,6 +29,10 @@
     <script src="{{ asset('design/js/navbar.js') }}"></script>
     <script src="{{ asset('design/js/counter.js') }}"></script>
     <script src="{{ asset('design/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('assets/js/inputmask.binding.js') }}"></script>
+    <script src="{{ asset('assets/js/inputmask.js') }}"></script>
+    <script src="{{ asset('assets/js/colormask.js') }}"></script>
     <script
         src="https://cdn.datatables.net/v/bs5/dt-2.0.6/date-1.5.2/fc-5.0.0/fh-4.0.1/r-3.0.2/rg-1.5.0/rr-1.5.0/sc-2.4.2/datatables.min.js">
     </script>
@@ -46,6 +50,10 @@
             $('.select2').select2({
                 theme: 'bootstrap-5'
             });
+
+           function formatIDR(number) {
+                return 'Rp ' + number.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
         })
     </script>
     @stack('script-landingpage')

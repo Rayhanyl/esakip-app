@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\AksesPublik;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 
 class AspuBerandaController extends Controller
 {
