@@ -88,7 +88,7 @@
                                                     </td>
                                                     <td colspan="2">
                                                         <input type="hidden"
-                                                            name="komponen[{{ $komponen->id }}][total_bobot]">
+                                                            name="komponen[{{ $komponen->id }}][total_bobot]" value="{{ $komponen->nilai ?? 0 }}">
                                                         <span
                                                             id="komponen{{ $komponen->id }}">{{ $komponen->nilai ?? 0 }}</span>
                                                     </td>
@@ -105,7 +105,7 @@
                                                         </td>
                                                         <td colspan="2">
                                                             <input type="hidden"
-                                                                name="sub_komponen[{{ $sub_komponen->id }}][total_bobot]">
+                                                                name="sub_komponen[{{ $sub_komponen->id }}][total_bobot]" value="{{ $sub_komponen->nilai ?? 0 }}">
                                                             <span
                                                                 id="sub_komponen{{ $sub_komponen->id }}">{{ $sub_komponen->nilai ?? 0 }}</span>
                                                         </td>
@@ -211,7 +211,7 @@
                 let total = 100;
                 let p = predikat(sum / total * 100);
                 $('#predikat-nilai').val(p);
-
+                $('select[id^="kriteria"]').trigger('change');
                 $('select[id^="kriteria"]').on('change', function() {
                     let sum = 0;
                     $('select[id^="kriteria"]')
@@ -260,7 +260,6 @@
                     } else if (nilai <= 100) {
                         predikat = 'AA';
                     };
-                    console.log(nilai, predikat);
                     return predikat;
                 }
             })
