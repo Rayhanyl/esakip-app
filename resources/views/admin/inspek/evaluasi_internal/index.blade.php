@@ -100,11 +100,11 @@
                                                         <td>{{ $sub_komponen->sub_komponen }}</td>
                                                         <td>{{ $sub_komponen->bobot }}</td>
                                                         <td>
-                                                            <input type="number"
+                                                            <input type="text"
                                                                 id="sub_komponen[{{ $item->id }}][{{ $sub_komponen->id }}][nilai]"
                                                                 name="sub_komponen[{{ $sub_komponen->id }}][nilai]"min="0"
                                                                 max="{{ $sub_komponen->bobot }}"
-                                                                class="form-control input-bobot"
+                                                                class="form-control input-bobot decimal-input"
                                                                 value="{{ $sub_komponen->nilai }}"
                                                                 data-komponen="{{ $item->id }}"
                                                                 data-sub-komponen="{{ $sub_komponen->id }}">
@@ -174,13 +174,13 @@
                     let komponen = $(this).data('komponen');
                     $(`#komponen${komponen}nilai`).text(sumKom);
                     $('input[name="komponen[' + komponen + '][nilai]"]').val(sumKom);
-                    if (parseInt($(this).val()) > parseInt($(this).attr('max'))) {
+                    if (parseFloat($(this).val()) > parseFloat($(this).attr('max'))) {
                         $(this).val($(this).attr('max'));
                     }
                     let sum = 0;
                     let total = {{ $total ?? 0 }};
                     $(".input-bobot").each(function() {
-                        sum = parseInt(sum) + (parseInt($(this).val()) || 0);
+                        sum = parseFloat(sum) + (parseFloat($(this).val()) || 0);
                     });
                     $('#total-nilai').val(sum);
                     let p = predikat(sum / total * 100);

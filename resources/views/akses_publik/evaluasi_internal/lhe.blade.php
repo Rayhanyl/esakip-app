@@ -7,7 +7,30 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>LHE Document {{ $user->name }} Tahun {{ $evaluasi->tahun }}</title>
 </head>
+@php
+    $monthNames = [
+        'January' => 'Januari',
+        'February' => 'Februari',
+        'March' => 'Maret',
+        'April' => 'April',
+        'May' => 'Mei',
+        'June' => 'Juni',
+        'July' => 'Juli',
+        'August' => 'Agustus',
+        'September' => 'September',
+        'October' => 'Oktober',
+        'November' => 'November',
+        'December' => 'Desember',
+    ];
 
+    $carbonDate = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $evaluasi->created_at);
+    $formattedDate = $carbonDate->format('j F Y');
+
+    $month = $carbonDate->format('F');
+    $translatedMonth = $monthNames[$month];
+
+    $translatedDate = $carbonDate->format('j') . ' ' . $translatedMonth . ' ' . $carbonDate->format('Y');
+@endphp
 <style>
     /* Width */
     .w-100 {
@@ -101,32 +124,42 @@
     }
 </style>
 
-<body>
+<body style="
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size:12pt;
+    margin: 0cm 1cm;
+    ">
+
     <table style="width: 100%">
         <tr>
-            <th class="w-20">
-                <img class="w-100" src="https://e-sakipraharja.majalengkakab.go.id/assets/images/logo/pemkab1.png"
+            <th>
+                <img style="width: 80px" src="https://e-sakipraharja.majalengkakab.go.id/assets/images/logo/pemkab1.png"
                     alt="img pemkab">
             </th>
-            <th class="w-80">
-                <h5>PEMERINTAH KABUPATEN MAJALENGKA</h5>
-                <h3>INSPEKTORAT</h3>
-                <h6>Jln K.H Abdul Halim No. 520 Majalengka, Jawa Barat 45413,</h6>
-                <h6>Telp (0233) 281157 Laman inspektorat.majalengkakab.go.id Pos-el
-                    inspektorat@majalengkakab.go.id</h6>
+            <th>
+                <p style="margin:0;">
+                    <b style="font-size:14pt; font-weight:light; color:rgb(74, 74, 74);">PEMERINTAH KABUPATEN
+                        MAJALENGKA</b>
+                    <br>
+                    <b style="font-size:20pt;">INSPEKTORAT</b>
+                    <br>
+                    <small style="font-size:8pt; font-weight:light;color:rgb(74, 74, 74);">
+                        Jln K.H Abdul Halim No. 520 Majalengka, Jawa Barat 45413, <br>
+                        Telp (0233) 281157 Laman inspektorat.majalengkakab.go.id Pos-el inspektorat@majalengkakab.go.id
+                    </small>
+                </p>
             </th>
         </tr>
         <tr>
             <th colspan="2">
-                <hr style="border:3px solid black;">
+                <hr style="border:3px solid black; margin:0;">
             </th>
         </tr>
     </table>
 
-    <p class="right">Majalengka,
-        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $evaluasi->created_at)->format('j F Y') }}</p>
+    <p class="right">Majalengka, {{ $translatedDate }}</p>
     <p>Nomor &nbsp;:&nbsp;&nbsp; {{ $evaluasi->no_surat ?? '' }}</p>
-    <p>Hal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+    <p>Hal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
         Hasil Evaluasi Akuntabilitas Kinerja <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instansi
         Pemerintah
@@ -146,8 +179,8 @@
         {{ $evaluasi->tahun }} pada Dinas {{ $user->name }}, <br>
         dengan uraian sebagai berikut:</p>
 
-    <h3>1. Pendahuluan</h3>
-    <p style="text-align:justify; padding:0px 20px; line-height:1.5;">
+    <h3 style="margin:0;">1. Pendahuluan</h3>
+    <p style="text-align:justify; padding:0px 20px; line-height:1.5;margin:0;">
         Berdasarkan Peraturan Pemerintah Nomor 8 Tahun 2006 tentang Pelaporan Keuangan dan Kinerja Instansi Pemerintah
         dan Peraturan Presiden Nomor 29 Tahun 2014 tentang Sistem Akuntabilitas Kinerja Instansi Pemerintah (SAKIP),
         kami telah melakukan evaluasi akuntabilitas kinerja pada Dinas {{ $user->name }}. Pelaksanaan evaluasi Tahun
@@ -169,9 +202,8 @@
         perbaikan implementasi SAKIP, sehingga dapat menghasilkan rekomendasi untuk meningkatkan akuntabilitas kinerja.
     </p>
     <br>
-    <br>
-    <h3>2. Hasil Evaluasi</h3>
-    <p style="text-align:justify; padding:0px 20px; line-height:1.5;">
+    <h3 style="margin:0;">2. Hasil Evaluasi</h3>
+    <p style="text-align:justify; padding:0px 20px; line-height:1.5;margin:0;">
         Hasil evaluasi atas akuntabilitas kinerja Dinas <b>{{ $user->name }}</b>. menunjukkan bahwa nilai sebesar
         <b>{{ $evaluasi->nilai_akuntabilitas_kinerja }}</b> dengan predikat “<b>{{ $predikat }}</b>”. Hal tersebut
         menunjukkan bahwa implementasi akuntabilitas kinerja “{{ $predikat_name }}”, <b>yaitu kualitas penerapan
@@ -246,10 +278,11 @@
             Catatan dari aplikasi terkait Evaluasi Internal
         </p>
     </div>
-    <br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
     <div style="text-align:justify; padding:0px 20px; line-height:1.5;">
-        <h3>3. Rekomendasi</h3>
-        <p>Berdasarkan uraian di atas serta dalam rangka lebih mengefektifkan penerapan akuntabilitas kinerja, kami
+        <h3 style="margin:0;">3. Rekomendasi</h3>
+        <p style="margin:0;">Berdasarkan uraian di atas serta dalam rangka lebih mengefektifkan penerapan akuntabilitas
+            kinerja, kami
             merekomendasikan beberapa hal sebagai berikut:</p>
         <p>
             1.) Gabungan rekomendasi Perencanaan Kinerja, Pengukuran Kinerja, Pelaporan Kinerja dan Evaluasi Internal
@@ -270,19 +303,27 @@
         Atas perhatian dan kerja sama Saudara, kami ucapkan terima kasih.
     </p>
 
-    <div style="text-align:justify;margin-left:500px;">
+    <div style="text-align:justify;margin-left:350px;">
         <p>Inspektur,</p>
-        <br><br><br>
-        <p>Hendra Krisniawan, S.STP., CGCAE</p>
-        <p>Pembina Utama Muda</p>
-        <p>NIP.&nbsp;19780226&nbsp;199703&nbsp;1&nbsp;002</p>
+        <br><br>
+        <p>
+            Hendra Krisniawan, S.STP., CGCAE
+            <br>
+            Pembina Utama Muda
+            <br>
+            NIP.&nbsp;19780226&nbsp;199703&nbsp;1&nbsp;002
+        </p>
     </div>
 
 
     <div>
-        <p>Tembusan:</p>
-        <p>&nbsp;1. Bupati Majalengka</p>
-        <p>&nbsp;2. Sekretaris Daerah Kabupaten Majalengka</p>
+        <p>
+            Tembusan:
+            <br>
+            &nbsp;1. Bupati Majalengka
+            <br>
+            &nbsp;2. Sekretaris Daerah Kabupaten Majalengka
+        </p>
     </div>
 </body>
 

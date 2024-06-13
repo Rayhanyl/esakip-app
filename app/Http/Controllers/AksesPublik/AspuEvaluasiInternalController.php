@@ -117,7 +117,7 @@ class AspuEvaluasiInternalController extends Controller
             'nilaiTotal' => $nilaiTotal,
         ], ['orientation' => 'portrait']);
         $pdf->setPaper('A4', 'portrait');
-        return $pdf->download('LHE' . '.pdf');
+        return $pdf->download('Document LHE_' . $user->name . '_' . $evaluasi->tahun . '.pdf');
         // return view('akses_publik.evaluasi_internal.lhe', [
         //     'evaluasi' => $evaluasi,
         //     'user' => $user,
