@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('perda_prog_ins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profil_id')->nullable();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('role');
-            $table->rememberToken();
+            $table->foreignId('user_id');
+            $table->foreignId('perda_prog_id');
+            $table->foreignId('satuan_id');
+            $table->text('indikator');
+            $table->double('target');
+            $table->text('program');
+            $table->double('anggaran');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('perda_prog_ins');
     }
 };
