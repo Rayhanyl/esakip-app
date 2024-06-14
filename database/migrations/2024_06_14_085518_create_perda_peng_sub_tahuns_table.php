@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('perda_peng_sub_tahuns', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->foreignId('perda_pengukuran_id');
             $table->foreignId('perda_sastra_id');
             $table->foreignId('perda_sastra_in_id');
