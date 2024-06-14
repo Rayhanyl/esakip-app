@@ -27,7 +27,7 @@ return new class extends Migration
             $table->double('anggaran_pagu');
             $table->double('anggaran_realisasi');
             $table->double('anggaran_capaian');
-            $table->varchar('tipe');
+            $table->string('tipe');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->unsignedInteger('tahun');
             $table->string('file');
-            $table->varchar('keterangan')->nullable();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
