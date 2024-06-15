@@ -57,7 +57,7 @@ class PemkabPelaporanController extends AdminBaseController
             return redirect()->route('admin.pemkab.pelaporan.index');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->route('admin.pemkab.pelaporan.create')
-            ->withErrors($e->validator)
+                ->withErrors($e->validator)
                 ->withInput();
         } catch (\Exception $e) {
             Alert::toast('Gagal menambahkan data!', 'danger');
@@ -68,7 +68,7 @@ class PemkabPelaporanController extends AdminBaseController
     /**
      * Display the specified resource.
      */
-    public function show(PemkabPelaporan $pemkabPelaporan)
+    public function show(PemkabPelaporan $pelaporan)
     {
         $pemkabPelaporan = PemkabPelaporan::where('user_id', Auth::user()->id)->get();
         return view('admin.pemkab.pelaporan.index', compact('pemkabPelaporan'));
@@ -85,7 +85,7 @@ class PemkabPelaporanController extends AdminBaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PemkabPelaporan $pemkabPelaporan)
+    public function update(PemkabPelaporan $pelaporan, Request $request)
     {
         try {
             $validated = $request->validate([
@@ -93,22 +93,20 @@ class PemkabPelaporanController extends AdminBaseController
                 'file' => 'nullable|file|mimes:doc,docx,pdf|max:10000',
                 'keterangan' => 'nullable|string|max:1000',
             ]);
-            $data = [
-                'user_id' => Auth::id(),
-                'tahun' => $request->tahun,
-                'keterangan' => $request->keterangan,
-            ];
+
+            $pelaporan->tahun = $request->tahun;
+            $pelaporan->keterangan = $request->keterangan;
+
             if ($request->hasFile('file')) {
-                $path = $request->file('file')->store('public/pelaporan-kinerja/pemkab');
-                $data['file'] = basename($path);
+                if ($pelaporan->file && Storage::exists('public/pelaporan-kinerja/pemkab/' . $pelaporan->file)) {
+                    Storage::delete('public/pelaporan-kinerja/pemkab/' . $pelaporan->file);
+                }
+                $path = $request->file('file')->store('public/pelaporan-kinerja/pemkab/');
+                $pelaporan->file = basename($path);
             }
-            $pemkabPelaporan->update($data);
+            $pelaporan->save();
             Alert::toast('Berhasil mengubah data!', 'success');
             return redirect()->route('admin.pemkab.pelaporan.index');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->route('admin.pemkab.pelaporan.edit', $pemkabPelaporan)
-                ->withErrors($e->validator)
-                ->withInput();
         } catch (\Exception $e) {
             Alert::toast('Gagal mengubah data!', 'danger');
             return redirect()->route('admin.pemkab.pelaporan.index');
@@ -121,8 +119,8 @@ class PemkabPelaporanController extends AdminBaseController
     public function destroy(PemkabPelaporan $pelaporan)
     {
         try {
-            if ($pelaporan->upload) {
-                Storage::delete('public/pelaporan-kinerja/pemkab' . $pelaporan->file);
+            if ($pelaporan->file) {
+                Storage::delete('public/pelaporan-kinerja/pemkab/' . $pelaporan->file);
             }
             $pelaporan->delete();
             Alert::toast('Berhasil menghapus data!', 'success');

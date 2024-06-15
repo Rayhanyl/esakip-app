@@ -50,15 +50,17 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-table-renstra">
+                                <table class="table table-striped table-hover" id="data-table-renstra" style="width:100%;">
                                     <thead class="table-info">
                                         <tr>
                                             <th class="text-center">No</th>
+                                            <th class="text-center">Perangkat Daerah</th>
                                             <th class="text-center">Sasaran Strategis</th>
                                             <th class="text-center">Indikator</th>
                                             <th class="text-center" colspan="3">Target</th>
                                         </tr>
                                         <tr>
+                                            <th></th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -69,6 +71,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

@@ -85,7 +85,7 @@ class PerdaPelaporanController extends AdminBaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(PerdaPelaporan $pelaporan, Request $request,)
+    public function update(PerdaPelaporan $pelaporan, Request $request)
     {
         try {
             $validated = $request->validate([
@@ -95,7 +95,7 @@ class PerdaPelaporanController extends AdminBaseController
             ]);
             $pelaporan->tahun = $request->tahun;
             $pelaporan->keterangan = $request->keterangan;
-            $pelaporan->user_id = Auth::user()->id;
+
             if ($request->hasFile('file')) {
                 if ($pelaporan->file && Storage::exists('public/pelaporan-kinerja/perda/' . $pelaporan->file)) {
                     Storage::delete('public/pelaporan-kinerja/perda/' . $pelaporan->file);
@@ -107,7 +107,6 @@ class PerdaPelaporanController extends AdminBaseController
             Alert::toast('Berhasil mengubah data!', 'success');
             return redirect()->route('admin.perda.pelaporan.index');
         } catch (\Exception $e) {
-            dd($e);
             Alert::toast('Gagal mengubah data!', 'danger');
             return redirect()->route('admin.perda.pelaporan.index');
         }

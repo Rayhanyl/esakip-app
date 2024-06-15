@@ -51,7 +51,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-evaluasi-internal">
+                                <table class="table table-striped table-hover" id="data-evaluasi-internal" style="width: 100%;">
                                     <thead class="table-info">
                                         <tr>
                                             <th class="text-center">No</th>

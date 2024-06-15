@@ -30,9 +30,13 @@ class AspuPengukuranController extends Controller
         return view('aspu.pengukuran.index', compact('user', 'perda', 'tahun', 'triwulan', 'data'));
     }
 
-    public function detail(Request $request)
+    public function detail(Request $request, $user)
     {
-        $user = User::where('role', 'perda')->get();
-        return view('aspu.pengukuran.detail');
+        $user = User::findOrFail($user);
+        $perda = $request->perda;
+        $tahun = $request->tahun;
+        $triwulan = $request->triwulan;
+        $data = [];
+        return view('aspu.pengukuran.detail', compact('user', 'perda', 'tahun', 'triwulan', 'data'));
     }
 }

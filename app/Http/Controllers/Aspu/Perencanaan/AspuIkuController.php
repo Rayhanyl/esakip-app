@@ -21,8 +21,10 @@ class AspuIkuController extends Controller
             'user',
             'perda_sastra_ins',
             'perda_sastra_ins.perda_sastra_penjas',
-        ])->whereHas('user', function ($q) use ($request){
-            $q->where('role', 'perda');
+        ])->whereHas(
+            'user',
+            function ($q) use ($request) {
+                $q->where('role', 'perda');
                 if ($request->perda != null) {
                     $q->where('user_id', $request->perda ?? '');
                 }

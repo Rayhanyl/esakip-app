@@ -20,7 +20,8 @@
                     <div class="card-body">
                         <form class="row g-3"
                             action="{{ route('admin.pemkab.pelaporan.update', ['pelaporan' => $pelaporan->id]) }}"
-                            method="PUT" enctype="multipart/form-data">
+                            method="POST" enctype="multipart/form-data">
+                            @method('put')
                             @csrf
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <div class="col-12 col-lg-6 form-group">

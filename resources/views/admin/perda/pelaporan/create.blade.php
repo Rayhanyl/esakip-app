@@ -25,7 +25,7 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <label for="tahun" class="form-label fw-bold">Tahun</label>
                                 <fieldset class="form-group">
-                                    <select class="form-select" name="tahun" id="tahun">
+                                    <select class="form-select" name="tahun" id="tahun" required>
                                         <option value="" selected>- Pilih Tahun -</option>
                                         @for ($i = date('Y') + 10; $i >= date('Y'); $i--)
                                             <option value="{{ $i }}">
@@ -38,7 +38,7 @@
                             <div class="col-12 col-lg-6 form-group">
                                 <label for="file" class="form-label fw-bold">Upload</label>
                                 <input class="form-control" type="file" name="file" id="file"
-                                    accept=".doc, .docx, .pdf, .txt">
+                                    accept=".doc, .docx, .pdf, .txt" required>
                             </div>
                             <div class="col-12 form-group">
                                 <label for="keterangan" class="form-label fw-bold">Keterangan</label>
