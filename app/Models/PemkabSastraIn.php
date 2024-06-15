@@ -36,4 +36,14 @@ class PemkabSastraIn extends Model
     {
         return $this->belongsTo(Satuan::class);
     }
+
+    public function simple_actions()
+    {
+        return $this->hasMany(PemkabSimact::class);
+    }
+
+    public function penanggung_jawabs()
+    {
+        return $this->hasMany(PemkabPenja::class);
+    }
 }

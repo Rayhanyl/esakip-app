@@ -21,4 +21,8 @@ class PemkabSastra extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function pemkab_sastra_ins()
+    {
+        return $this->hasMany(PemkabSastraIn::class);
+    }
 }

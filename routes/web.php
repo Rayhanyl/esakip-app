@@ -81,11 +81,13 @@ Route::prefix('/')->name('aspu.')->group(function () {
     Route::prefix('pelaporan')->name('pelaporan.')->group(function () {
         Route::get('/index', [AspuPelaporanController::class, 'index'])
             ->name('index');
+        Route::get('/count', [AspuPelaporanController::class, 'count'])
+            ->name('count');
     });
     Route::prefix('evaluasi')->name('evaluasi.')->group(function () {
         Route::get('/index', [AspuEvaluasiController::class, 'index'])
             ->name('index');
-        Route::get('/download', [AspuEvaluasiController::class, 'download'])
+        Route::get('/download/{id}', [AspuEvaluasiController::class, 'download'])
             ->name('download');
     });
 });

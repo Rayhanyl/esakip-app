@@ -36,4 +36,9 @@ class PerdaSastraIn extends Model
     {
         return $this->belongsTo(Satuan::class);
     }
+
+    public function perda_sastra_penja()
+    {
+        return $this->hasMany(PerdaSastraPenja::class);
+    }
 }

@@ -65,28 +65,28 @@
                                 </li>
                                 <li
                                     class="has-children
-                                {{ Route::is('aspu.renstra') || Route::is('aspu.renja') || Route::is('aspu.rencana.aksi') || Route::is('aspu.perjanjian.kinerja') || Route::is('aspu.indikator.kinerja.utama') || Route::is('aspu.pemkab-renstra') || Route::is('aspu.pemkab-renja') || Route::is('aspu.pemkab-rencana.aksi') || Route::is('aspu.pemkab-perjanjian.kinerja') || Route::is('aspu.pemkab-indikator.kinerja.utama') ? 'active' : '' }}">
+                                {{ Route::is('aspu.perencanaan.perda-renstra') || Route::is('aspu.perencanaan.pemkab-rpjmd') || Route::is('aspu.perencanaan.perda-renja') || Route::is('aspu.perencanaan.pemkab-rkpd') || Route::is('aspu.perencanaan.perda-aksi') || Route::is('aspu.perencanaan.pemkab-aksi') || Route::is('aspu.perencanaan.perda-perjanjian') || Route::is('aspu.perencanaan.pemkab-perjanjian') || Route::is('aspu.perencanaan.perda-iku') || Route::is('aspu.perencanaan.pemkab-iku') ? 'active' : '' }}">
                                     <a>Perencanaan Kerja</a>
                                     <ul class="dropdown">
                                         <li class="has-children">
                                             <a>Perangkat Daerah</a>
                                             <ul class="dropdown">
-                                                <li class="{{ Route::is('aspu.renstra') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.renstra') }}">Renstra</a>
+                                                <li class="{{ Route::is('aspu.perencanaan.perda-renstra') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.perda-renstra') }}">Renstra</a>
                                                 </li>
-                                                <li class="{{ Route::is('aspu.renja') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.renja') }}">Renja</a>
+                                                <li class="{{ Route::is('aspu.perencanaan.perda-renja') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.perda-renja') }}">Renja</a>
                                                 </li>
-                                                <li class="{{ Route::is('aspu.rencana.aksi') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.rencana.aksi') }}">Rencana Aksi</a>
+                                                <li class="{{ Route::is('aspu.perencanaan.perda-aksi') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.perda-aksi') }}">Rencana Aksi</a>
                                                 </li>
-                                                <li class="{{ Route::is('aspu.perjanjian.kinerja') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.perjanjian.kinerja') }}">Perjanjian
+                                                <li class="{{ Route::is('aspu.perencanaan.perda-perjanjian') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.perda-perjanjian') }}">Perjanjian
                                                         Kinerja</a>
                                                 </li>
                                                 <li
-                                                    class="{{ Route::is('aspu.indikator.kinerja.utama') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.indikator.kinerja.utama') }}">Indikator
+                                                    class="{{ Route::is('aspu.perencanaan.perda-iku') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.perda-iku') }}">Indikator
                                                         Kinerja
                                                         Utama</a>
                                                 </li>
@@ -95,24 +95,24 @@
                                         <li class="has-children">
                                             <a>Pemerintah Kabupaten</a>
                                             <ul class="dropdown">
-                                                <li class="{{ Route::is('aspu.pemkab-renstra') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.pemkab-renstra') }}">RPJMD</a>
+                                                <li class="{{ Route::is('aspu.perencanaan.pemkab-rpjmd') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.pemkab-rpjmd') }}">RPJMD</a>
                                                 </li>
-                                                <li class="{{ Route::is('aspu.pemkab-renja') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.pemkab-renja') }}">RKPD</a>
-                                                </li>
-                                                <li
-                                                    class="{{ Route::is('aspu.pemkab-rencana.aksi') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.pemkab-rencana.aksi') }}">Rencana Aksi</a>
+                                                <li class="{{ Route::is('aspu.perencanaan.pemkab-rkpd') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.pemkab-rkpd') }}">RKPD</a>
                                                 </li>
                                                 <li
-                                                    class="{{ Route::is('aspu.pemkab-perjanjian.kinerja') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.pemkab-perjanjian.kinerja') }}">Perjanjian
+                                                    class="{{ Route::is('aspu.perencanaan.pemkab-aksi') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.pemkab-aksi') }}">Rencana Aksi</a>
+                                                </li>
+                                                <li
+                                                    class="{{ Route::is('aspu.perencanaan.pemkab-perjanjian') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.pemkab-perjanjian') }}">Perjanjian
                                                         Kinerja</a>
                                                 </li>
                                                 <li
-                                                    class="{{ Route::is('aspu.pemkab-indikator.kinerja.utama') ? 'active' : '' }}">
-                                                    <a href="{{ route('aspu.pemkab-indikator.kinerja.utama') }}">Indikator
+                                                    class="{{ Route::is('aspu.perencanaan.pemkab-iku') ? 'active' : '' }}">
+                                                    <a href="{{ route('aspu.perencanaan.pemkab-iku') }}">Indikator
                                                         Kinerja Utama</a>
                                                 </li>
                                             </ul>
@@ -121,14 +121,14 @@
                                         <li><a href="#">Cascading</a></li>
                                     </ul>
                                 </li>
-                                <li class="{{ Route::is('aspu.pengukuran.kinerja') ? 'active' : '' }}">
-                                    <a href="{{ route('aspu.pengukuran.kinerja') }}">Pengukuran Kinerja</a>
+                                <li class="{{ Route::is('aspu.pengukuran.index') ? 'active' : '' }}">
+                                    <a href="{{ route('aspu.pengukuran.index') }}">Pengukuran Kinerja</a>
                                 </li>
-                                <li class="{{ Route::is('aspu.pelaporan.kinerja') ? 'active' : '' }}">
-                                    <a href="{{ route('aspu.pelaporan.kinerja') }}">Pelaporan Kinerja</a>
+                                <li class="{{ Route::is('aspu.pelaporan.index') ? 'active' : '' }}">
+                                    <a href="{{ route('aspu.pelaporan.index') }}">Pelaporan Kinerja</a>
                                 </li>
-                                <li class="{{ Route::is('aspu.evaluasi.internal') ? 'active' : '' }}">
-                                    <a href="{{ route('aspu.evaluasi.internal') }}">Evaluasi Internal</a>
+                                <li class="{{ Route::is('aspu.evaluasi.index') ? 'active' : '' }}">
+                                    <a href="{{ route('aspu.evaluasi.index') }}">Evaluasi Internal</a>
                                 </li>
                             </ul>
                         </div>
