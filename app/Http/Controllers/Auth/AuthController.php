@@ -56,10 +56,10 @@ class AuthController extends Controller
                         return view('admin.perda.beranda.index');
                     case 'pemkab':
                         return
-                        view('admin.pemkab.beranda.index');
+                            view('admin.pemkab.beranda.index');
                     case 'inspek':
                         return
-                        view('admin.inspek.beranda.index');
+                            view('admin.inspek.beranda.index');
                     default:
                         return redirect()->route('/');
                 }
