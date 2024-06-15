@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Models\PemkabPelaporan;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePemkabPelaporanRequest;
-use App\Http\Requests\UpdatePemkabPelaporanRequest;
 use App\Http\Controllers\Admin\AdminBaseController;
+use App\Http\Requests\UpdatePemkabPelaporanRequest;
 
 class PemkabPelaporanController extends AdminBaseController
 {
@@ -18,7 +20,8 @@ class PemkabPelaporanController extends AdminBaseController
      */
     public function index()
     {
-        //
+        $pemkabPelaporan = PemkabPelaporan::all();
+        return view('admin.pemkab.pelaporan.index', compact('pemkabPelaporan'));
     }
 
     /**
@@ -26,15 +29,16 @@ class PemkabPelaporanController extends AdminBaseController
      */
     public function create()
     {
-        //
+        return view('admin.pemkab.pelaporan.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePemkabPelaporanRequest $request)
+    public function store(Request $request)
     {
-        //
+        PemkabPelaporan::create($request->only(PemkabPelaporan::FILLABLE_FIELDS));
+        return to_route('admin.pemkab.pemkabPelaporan.index');
     }
 
     /**
@@ -42,7 +46,7 @@ class PemkabPelaporanController extends AdminBaseController
      */
     public function show(PemkabPelaporan $pemkabPelaporan)
     {
-        //
+        return view('admin.pemkab.pelaporan.show');
     }
 
     /**
@@ -50,15 +54,16 @@ class PemkabPelaporanController extends AdminBaseController
      */
     public function edit(PemkabPelaporan $pemkabPelaporan)
     {
-        //
+        return view('admin.pemkab.pelaporan.edit', compact('pemkabPelaporan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePemkabPelaporanRequest $request, PemkabPelaporan $pemkabPelaporan)
+    public function update(Request $request, PemkabPelaporan $pemkabPelaporan)
     {
-        //
+        $pemkabPelaporan->update($request->only(PemkabPelaporan::FILLABLE_FIELDS));
+        return to_route('admin.pemkab.pemkabPelaporan.index');
     }
 
     /**
@@ -66,6 +71,7 @@ class PemkabPelaporanController extends AdminBaseController
      */
     public function destroy(PemkabPelaporan $pemkabPelaporan)
     {
-        //
+        $pemkabPelaporan->delete();
+        return to_route('admin.pemkab.pemkabPelaporan.index');
     }
 }

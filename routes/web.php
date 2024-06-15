@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PemkabPelaporanController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\AuthController;
@@ -37,6 +38,15 @@ Route::prefix('authentication')->name('auth.')->group(function () {
         ->name('logout');
 });
 
+Route::prefix('/admin')->name('admin.')->group(function () {
+    Route::prefix('pemkab')->name('pemkab.')->group(function () {
+        Route::resource('pelaporan', PemkabPelaporanController::class);
+    });
+    Route::prefix('perda')->name('perda.')->group(function () {
+    });
+    Route::prefix('inspek')->name('inspek.')->group(function () {
+    });
+});
 Route::prefix('/')->name('aspu.')->group(function () {
     Route::get('/', AspuBerandaController::class)
         ->name('index');
