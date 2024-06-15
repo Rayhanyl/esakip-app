@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\Admin\PemkabSastraController;
 use App\Http\Controllers\Admin\PemkabPelaporanController;
+use App\Http\Controllers\Admin\PemkabPengukuranController;
+use App\Http\Controllers\Admin\PerdaKegiaController;
+use App\Http\Controllers\Admin\PerdaProgController;
+use App\Http\Controllers\Admin\PerdaSastraController;
+use App\Http\Controllers\Admin\PerdaSubKegiaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\AuthController;
@@ -40,9 +46,15 @@ Route::prefix('authentication')->name('auth.')->group(function () {
 
 Route::prefix('/admin')->name('admin.')->group(function () {
     Route::prefix('pemkab')->name('pemkab.')->group(function () {
+        Route::resource('sastra', PemkabSastraController::class);
+        Route::resource('pengukuran', PemkabPengukuranController::class);
         Route::resource('pelaporan', PemkabPelaporanController::class);
     });
     Route::prefix('perda')->name('perda.')->group(function () {
+        Route::resource('sastra', PerdaSastraController::class);
+        Route::resource('saspro', PerdaProgController::class);
+        Route::resource('saske', PerdaKegiaController::class);
+        Route::resource('sasubkegia', PerdaSubKegiaController::class);
     });
     Route::prefix('inspek')->name('inspek.')->group(function () {
     });
