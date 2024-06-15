@@ -10,8 +10,6 @@ use App\Models\PemkabSastraIn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\StorePemkabSastraRequest;
-use App\Http\Requests\UpdatePemkabSastraRequest;
 use App\Http\Controllers\Admin\AdminBaseController;
 
 class PemkabSastraController extends AdminBaseController
