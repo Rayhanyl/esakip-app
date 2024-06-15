@@ -25,7 +25,7 @@
                 </a>
             </div>
             <form
-                action="{{ route('aspu.pengukuran.detail') }}"
+                action="#"
                 method="get">
                 @csrf
                 <div class="row g-3">
@@ -65,7 +65,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-perangkat-daerah-detail">
+                                <table class="table table-striped table-hover" id="data-perangkat-daerah-detail" style="width: 100%">
                                     <thead class="table-info">
                                         <tr style="font-size:13px;">
                                             <th class="text-center" colspan="8">Kinerja</th>
@@ -73,6 +73,7 @@
                                         </tr>
                                         <tr style="font-size:12px;">
                                             <th class="text-center">No</th>
+                                            <th class="text-center">Perangkat Daerah</th>
                                             <th class="text-center">Sasaran Strategis</th>
                                             <th class="text-center">Indikator Sasaran</th>
                                             <th class="text-center">Sasaran Sub-kegiatan</th>
@@ -87,7 +88,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr style="font-size:12px;">
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

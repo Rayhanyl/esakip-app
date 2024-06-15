@@ -27,16 +27,6 @@
                             @endfor
                         </select>
                     </div>
-                    {{-- <div class="col-12 col-lg-3">
-                        <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
-                        <select class="form-select select2" id="perda" name="perda">
-                            <option value="" selected>-- All --</option>
-                            @foreach ($user as $item)
-                                <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
-                                    {{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
                     <div class="col-12 col-lg-3 py-4">
                         <button type="submit" class="btn btn-primary btn-sm w-100">Search</button>
                     </div>
@@ -50,7 +40,8 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-table-rpjmd-pemkab">
+                                <table class="table table-striped table-hover" id="data-table-rpjmd-pemkab"
+                                    style="width:100%;">
                                     <thead class="table-info">
                                         <tr>
                                             <th class="text-center">No</th>
