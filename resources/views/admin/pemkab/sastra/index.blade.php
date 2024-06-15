@@ -27,29 +27,22 @@
                                     <td>{{ $sastra->sasaran }}</td>
                                     <td>{{ $sastra->tahun }}</td>
                                     <td>
-                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Download File Pelaporan Kinerja" class="text-primary"
-                                            href="{{ route('pemkab.pelaporan-kinerja.download', $sastra->upload) }}">
-                                            <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                        </a>
-                                    </td>
-                                    <td>
                                         <div class="d-flex justify-content-center">
                                             <div class="p-2">
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
                                                     title="Edit Pelaporan Kinerja" class="btn btn-warning btn-sm"
-                                                    href="{{ route('pemkab.pelaporan-kinerja.edit', $sastra->id) }}">
+                                                    href="{{ route('admin.pemkab.sastra.edit', $sastra->id) }}">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
                                             </div>
                                             <div class="p-2">
-                                                <button class="btn btn-danger btn-sm delete-laporan-kinerja"
-                                                    data-id="{{ $sastra->id }}" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Delete Pelaporan Kinerja">
+                                                <button class="btn btn-danger btn-sm delete-laporan-kinerja" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Delete Pelaporan Kinerja"
+                                                    onclick="confirmDelete({{ $sastra->id }})">
                                                     <i class="bi bi-trash3"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $sastra->id }}"
-                                                    action="{{ route('pemkab.pelaporan-kinerja.destroy', $sastra->id) }}"
+                                                    action="{{ route('admin.pemkab.sastra.destroy', $sastra->id) }}"
                                                     method="POST" style="display: none;">
                                                     @csrf
                                                     @method('DELETE')

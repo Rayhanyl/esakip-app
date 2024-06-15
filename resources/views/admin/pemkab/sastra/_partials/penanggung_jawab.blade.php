@@ -3,7 +3,8 @@
 @endphp
 <div class="row row-penanggung-jawab-{{ $key }}">
     <x-admin.form.text col="col-11" label="Penanggung Jawab"
-        name="indikator_sasaran_bupati[{{ $params }}][penanggung_jawab][]" placeholder="Penanggung Jawab" />
+        name="indikator[{{ $params }}][penanggung_jawab][{{ $key }}][value]"
+        placeholder="Penanggung Jawab" />
     <div class="col-1">
         <label for="" class="form-label fw-bold">&nbsp;</label>
         <div>

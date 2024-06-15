@@ -11,36 +11,35 @@
                         onclick="removeComponent('col-indikator-sasaran-bupati-{{ $key }}')">Hapus</button>
                 </div>
                 <hr>
-                <x-admin.form.text label="Indikator Sasaran Bupati"
-                    name="indikator_sasaran_bupati[{{ $key }}][indikator_sasaran_bupati]" />
+                <x-admin.form.text-area col="col-12" label="Indikator Sasaran Bupati"
+                    name="indikator[{{ $key }}][indikator]" />
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12">
                             <label class="fw-bold">Target</label>
                         </div>
-                        <x-admin.form.text col="col-4" label="2024"
-                            name="indikator_sasaran_bupati[{{ $key }}][target1]" decimal="true" type="text"
-                            classinput="label-target-1" />
-                        <x-admin.form.text col="col-4" label="2025"
-                            name="indikator_sasaran_bupati[{{ $key }}][target2]" decimal="true" type="text"
-                            classinput="label-target-2" />
-                        <x-admin.form.text col="col-4" label="2026"
-                            name="indikator_sasaran_bupati[{{ $key }}][target3]" decimal="true" type="text"
-                            classinput="label-target-3" />
+                        <x-admin.form.text col="col-4" label="2024" name="indikator[{{ $key }}][target1]"
+                            decimal="true" type="text" classinput="label-target-1" />
+                        <x-admin.form.text col="col-4" label="2025" name="indikator[{{ $key }}][target2]"
+                            decimal="true" type="text" classinput="label-target-2" />
+                        <x-admin.form.text col="col-4" label="2026" name="indikator[{{ $key }}][target3]"
+                            decimal="true" type="text" classinput="label-target-3" />
                     </div>
                 </div>
-                <x-admin.form.select col="col-12 col-lg-6" label="Satuan"
-                    name="indikator_sasaran_bupati[{{ $key }}][satuan_id]" :lists="$satuan_options" />
-                <x-admin.form.text col="col-12 col-lg-6" label="Penjelasan"
-                    name="indikator_sasaran_bupati[{{ $key }}][penjelasan]" />
-                <x-admin.form.select col="col-12 col-lg-6" label="Tipe Perhitungan"
-                    name="indikator_sasaran_bupati[{{ $key }}][tipe_perhitungan]" :lists="$tipe_perhitungan_options" />
-                <x-admin.form.text col="col-12 col-lg-6" label="Sumber Data"
-                    name="indikator_sasaran_bupati[{{ $key }}][sumber_data]" />
+                <x-admin.form.select col="col-4" label="Satuan" name="indikator[{{ $key }}][satuan_id]"
+                    :lists="$satuan_options" />
+                <x-admin.form.text-area col="col-8" label="Penjelasan"
+                    name="indikator[{{ $key }}][penjelasan]" />
+                <x-admin.form.select label="Tipe Perhitungan" name="indikator[{{ $key }}][tipe_perhitungan]"
+                    :lists="$tipe_perhitungan_options" />
+                <x-admin.form.text label="Sumber Data" name="indikator[{{ $key }}][sumber_data]" />
                 <div class="col-12" id="col-penanggung-jawab-{{ $key }}">
+                    @php
+                        $key2 = Str::random(4);
+                    @endphp
                     <div class="row row-penanggung-jawab-{{ $key }}">
                         <x-admin.form.text col="col-11" label="Penanggung Jawab"
-                            name="indikator_sasaran_bupati[{{ $key }}][penanggung_jawab][]"
+                            name="indikator[{{ $key }}][penanggung_jawab][{{ $key2 }}][value]"
                             placeholder="Penanggung Jawab" />
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
@@ -54,15 +53,17 @@
                     </div>
                 </div>
                 <div class="col-12" id="col-simple-action-{{ $key }}">
-                    <div class="row row-simple-action">
+                    @php
+                        $key2 = Str::random(4);
+                    @endphp
+                    <div class="row row-simple-action-{{ $key }}">
                         <x-admin.form.text col="col-11" label="Simple Action"
-                            name="indikator_sasaran_bupati[{{ $key }}][simple_action][]"
-                            placeholder="Simple Action" />
+                            name="indikator[{{ $key }}][action][{{ $key2 }}][value]" placeholder="Simple Action" />
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
                             <div>
                                 <button class="btn btn-success" type="button"
-                                    onclick="addSubComponent('col-simple-action-{{ $key }}', '{{ route('admin.pemkab.sastra.penanggung-jawab') }}', '{{ $key }}')">
+                                    onclick="addSubComponent('col-simple-action-{{ $key }}', '{{ route('admin.pemkab.sastra.simple-action') }}', '{{ $key }}')">
                                     <i class="bi bi-plus"></i>
                                 </button>
                             </div>
