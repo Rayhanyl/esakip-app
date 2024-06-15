@@ -18,7 +18,8 @@ class PerdaPelaporanController extends AdminBaseController
      */
     public function index()
     {
-        //
+        $perdaPelaporan = PerdaPelaporan::all();
+        return view('admin.perda.pelaporan.index', compact('perdaPelaporan'));
     }
 
     /**
@@ -26,7 +27,7 @@ class PerdaPelaporanController extends AdminBaseController
      */
     public function create()
     {
-        //
+        return view('admin.perda.pelaporan.create');
     }
 
     /**
@@ -34,7 +35,8 @@ class PerdaPelaporanController extends AdminBaseController
      */
     public function store(StorePerdaPelaporanRequest $request)
     {
-        //
+        PerdaPelaporan::create($request->only(PerdaPelaporan::FILLABLE_FIELDS));
+        return to_route('admin.perda.perdaPelaporan.index');
     }
 
     /**
@@ -42,7 +44,7 @@ class PerdaPelaporanController extends AdminBaseController
      */
     public function show(PerdaPelaporan $perdaPelaporan)
     {
-        //
+        return view('admin.perda.pelaporan.show');
     }
 
     /**
@@ -50,7 +52,7 @@ class PerdaPelaporanController extends AdminBaseController
      */
     public function edit(PerdaPelaporan $perdaPelaporan)
     {
-        //
+        return view('admin.perda.pelaporan.edit', compact('perdaPelaporan'));
     }
 
     /**
@@ -58,7 +60,8 @@ class PerdaPelaporanController extends AdminBaseController
      */
     public function update(UpdatePerdaPelaporanRequest $request, PerdaPelaporan $perdaPelaporan)
     {
-        //
+        $perdaPelaporan->update($request->only(PerdaPelaporan::FILLABLE_FIELDS));
+        return to_route('admin.perda.perdaPelaporan.index');
     }
 
     /**
@@ -66,6 +69,7 @@ class PerdaPelaporanController extends AdminBaseController
      */
     public function destroy(PerdaPelaporan $perdaPelaporan)
     {
-        //
+        $perdaPelaporan->delete();
+        return to_route('admin.perda.perdaPelaporan.index');
     }
 }

@@ -57,8 +57,6 @@
         </div>
     </div>
 
-    {{-- Modal --}}
-    {{-- Modal --}}
     @push('scripts')
         <script>
             // 
