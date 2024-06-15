@@ -51,18 +51,18 @@ class AuthController extends Controller
                     'token' => $data->result->token,
                 ]);
                 Alert::toast('Berhasil login', 'success');
-                // switch (session('role')) {
-                //     case 'perda':
-                //         return redirect()->route('perda.index');
-                //     case 'pemkab':
-                //         return redirect()->route('pemkab.index');
-                //     case 'inspek':
-                //         return redirect()->route('inspek.index');
-                //     case 'admin':
-                //         return redirect()->route('admin.index');
-                //     default:
-                //         return redirect()->route('/');
-                // }
+                switch (session('role')) {
+                    case 'perda':
+                        return view('admin.perda.beranda.index');
+                    case 'pemkab':
+                        return
+                        view('admin.pemkab.beranda.index');
+                    case 'inspek':
+                        return
+                        view('admin.inspek.beranda.index');
+                    default:
+                        return redirect()->route('/');
+                }
             } else {
                 return redirect()->back()->with('error', 'Gagal login: Token generation failed.');
             }
