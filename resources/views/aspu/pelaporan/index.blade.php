@@ -18,7 +18,7 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <form class="row g-3" action="{{ route('aspu.pelaporan.kinerja') }}" method="GET">
+                <form class="row g-3" action="{{ route('aspu.pelaporan.index') }}" method="GET">
                     @csrf
                     <div class="col-12 col-lg-3">
                         <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
@@ -61,8 +61,9 @@
                                             <th class="text-center">No</th>
                                             <th class="text-center">Perangkat Daerah</th>
                                             <th class="text-center">Tahun</th>
-                                            <th class="text-center">Pelaporan Kinerja</th>
-                                            <th class="text-center">keterangan</th>
+                                            <th class="text-center">File pelaporan Kinerja</th>
+                                            <th class="text-center">Keterangan</th>
+                                            <th class="text-center">Terdownload</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,16 +76,19 @@
                                                     <a data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Download File Pelaporan Kinerja"
                                                         class="text-primary btn-count-file" data-id="{{ $pelaporan->id }}"
-                                                        href="{{ route('perda.pelaporan-kinerja.download', $pelaporan->upload) }}">
+                                                        href="{{ route('aspu.pelaporan.download', ['id' => $pelaporan->id]) }}">
                                                         <i class="bi bi-file-earmark-arrow-down-fill"></i>
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
+                                                    {{ $pelaporan->keterangan }}
+                                                </td>
+                                                <td class="text-center">
                                                     <span class="keterangan-count" id="keterangan-{{ $pelaporan->id }}">
                                                         <b class="text-primary">
-                                                            ({{ $pelaporan->keterangan ?? '0' }})
+                                                            ({{ $pelaporan->count ?? '0' }})
                                                         </b>
-                                                        Kali didownload</span>
+                                                    </span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -118,9 +122,7 @@
 
                 $('.btn-count-file').on('click', function(event) {
                     event.preventDefault();
-
                     var pelaporanId = $(this).data('id');
-
                     $.ajax({
                         url: '{{ route('aspu.pelaporan.count') }}',
                         type: 'POST',
@@ -130,7 +132,7 @@
                         },
                         success: function(response) {
                             if (response.success) {
-                                $('#keterangan-' + pelaporanId).text(response.keterangan);
+                                $('#keterangan-' + pelaporanId).text(response.count);
                             } else {
                                 console.log('Gagal menambahkan keterangan.');
                             }

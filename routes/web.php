@@ -1,24 +1,26 @@
 <?php
 
-use App\Http\Controllers\Admin\PemkabSastraController;
-use App\Http\Controllers\Admin\PemkabPelaporanController;
-use App\Http\Controllers\Admin\PemkabPengukuranController;
-use App\Http\Controllers\Admin\PerdaKegiaController;
-use App\Http\Controllers\Admin\PerdaPelaporanController;
-use App\Http\Controllers\Admin\PerdaPengukuranController;
-use App\Http\Controllers\Admin\PerdaProgController;
-use App\Http\Controllers\Admin\PerdaSastraController;
-use App\Http\Controllers\Admin\PerdaSubKegiaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\PerdaProgController;
+use App\Http\Controllers\Admin\PerdaKegiaController;
 use App\Http\Controllers\Aspu\AspuBerandaController;
+use App\Http\Controllers\Admin\PerdaSastraController;
+use App\Http\Controllers\Admin\PemkabSastraController;
+use App\Http\Controllers\Admin\PerdaBerandaController;
+use App\Http\Controllers\Admin\PemkabBerandaController;
+use App\Http\Controllers\Admin\PerdaSubKegiaController;
+use App\Http\Controllers\Admin\PerdaPelaporanController;
+use App\Http\Controllers\Admin\PemkabPelaporanController;
+use App\Http\Controllers\Admin\PerdaPengukuranController;
+use App\Http\Controllers\Admin\PemkabPengukuranController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuIkuController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuAksiController;
-use App\Http\Controllers\Aspu\Perencanaan\AspuRenjaController;
 use App\Http\Controllers\Aspu\Evaluasi\AspuEvaluasiController;
-use App\Http\Controllers\Aspu\Perencanaan\AspuRenstraController;
+use App\Http\Controllers\Aspu\Perencanaan\AspuRenjaController;
 use App\Http\Controllers\Aspu\Pelaporan\AspuPelaporanController;
+use App\Http\Controllers\Aspu\Perencanaan\AspuRenstraController;
 use App\Http\Controllers\Aspu\Pengukuran\AspuPengukuranController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuPerjanjianController;
 
@@ -80,8 +82,10 @@ Route::prefix('/')->name('aspu.')->group(function () {
     Route::prefix('pelaporan')->name('pelaporan.')->group(function () {
         Route::get('/index', [AspuPelaporanController::class, 'index'])
             ->name('index');
-        Route::get('/count', [AspuPelaporanController::class, 'count'])
+        Route::post('/count', [AspuPelaporanController::class, 'count'])
             ->name('count');
+        Route::get('/download/{id}', [AspuPelaporanController::class, 'download'])
+            ->name('download');
     });
     Route::prefix('evaluasi')->name('evaluasi.')->group(function () {
         Route::get('/index', [AspuEvaluasiController::class, 'index'])
@@ -94,17 +98,23 @@ Route::prefix('/')->name('aspu.')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/admin')->name('admin.')->group(function () {
         Route::prefix('pemkab')->name('pemkab.')->group(function () {
+            Route::resource('beranda', PemkabBerandaController::class);
             Route::resource('sastra', PemkabSastraController::class);
             Route::resource('pengukuran', PemkabPengukuranController::class);
             Route::resource('pelaporan', PemkabPelaporanController::class);
+            Route::get('pelaporan/{pelaporan}/download', [PerdaPelaporanController::class, 'download'])
+                ->name('pelaporan.download');
         });
         Route::prefix('perda')->name('perda.')->group(function () {
+            Route::resource('beranda', PerdaBerandaController::class);
             Route::resource('sastra', PerdaSastraController::class);
             Route::resource('saspro', PerdaProgController::class);
             Route::resource('saske', PerdaKegiaController::class);
             Route::resource('sasubkegia', PerdaSubKegiaController::class);
             Route::resource('pengukuran', PerdaPengukuranController::class);
             Route::resource('pelaporan', PerdaPelaporanController::class);
+            Route::get('pelaporan/{pelaporan}/download', [PerdaPelaporanController::class, 'download'])
+                ->name('pelaporan.download');
         });
         Route::prefix('inspek')->name('inspek.')->group(function () {
         });

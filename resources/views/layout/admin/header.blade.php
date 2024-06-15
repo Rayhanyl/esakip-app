@@ -79,7 +79,7 @@
                         @endif
                         @if (session('role') == 'perda')
                             <li class="sidebar-title">Menu Pemerintah Daerah</li>
-                            <x-layout.list-sidebar route="perda.index" icon="house">
+                            <x-layout.list-sidebar route="admin.perda.beranda.index" icon="house">
                                 Dashboard
                             </x-layout.list-sidebar>
                             <li class="sidebar-item has-sub">
@@ -89,43 +89,41 @@
                                 </a>
                                 <ul
                                     class="submenu {{ Route::is('perda.perencanaan-kinerja.sasaran-strategis.index') || Route::is('perda.perencanaan-kinerja.sasaran-program.index') || Route::is('perda.perencanaan-kinerja.sasaran-kegiatan.index') || Route::is('perda.perencanaan-kinerja.sasaran-sub-kegiatan.index') ? 'active' : '' }}">
-                                    <x-layout.list-sidebar-item
-                                        route="perda.perencanaan-kinerja.sasaran-strategis.index">
+                                    <x-layout.list-sidebar-item route="admin.perda.sastra.index">
                                         Sasaran Strategis
                                     </x-layout.list-sidebar-item>
-                                    <x-layout.list-sidebar-item route="perda.perencanaan-kinerja.sasaran-program.index">
+                                    <x-layout.list-sidebar-item route="admin.perda.saspro.index">
                                         Sasaran Program
                                     </x-layout.list-sidebar-item>
-                                    <x-layout.list-sidebar-item route="perda.perencanaan-kinerja.sasaran-kegiatan.index">
+                                    <x-layout.list-sidebar-item route="admin.perda.saske.index">
                                         Sasaran Kegiatan
                                     </x-layout.list-sidebar-item>
-                                    <x-layout.list-sidebar-item
-                                        route="perda.perencanaan-kinerja.sasaran-sub-kegiatan.index">
+                                    <x-layout.list-sidebar-item route="admin.perda.sasubkegia.index">
                                         Sasaran Sub-Kegiatan
                                     </x-layout.list-sidebar-item>
                                 </ul>
                             </li>
-                            <x-layout.list-sidebar route="perda.pengukuran-kinerja.index" icon="card-checklist">
+                            <x-layout.list-sidebar route="admin.perda.pengukuran.index" icon="card-checklist">
                                 Pengukuran Kinerja
                             </x-layout.list-sidebar>
-                            <x-layout.list-sidebar route="perda.pelaporan-kinerja.index" icon="archive">
+                            <x-layout.list-sidebar route="admin.perda.pelaporan.index" icon="archive">
                                 Pelaporan Kinerja
                             </x-layout.list-sidebar>
-                            <x-layout.list-sidebar route="perda.evaluasi-internal.index" icon="clipboard-data">
+                            <x-layout.list-sidebar route="admin.perda.pelaporan.index" icon="clipboard-data">
                                 Evaluasi internal
                             </x-layout.list-sidebar>
                         @elseif (session('role') == 'pemkab')
                             <li class="sidebar-title">Menu Pemerintah Kabupaten</li>
-                            <x-layout.list-sidebar route="pemkab.index" icon="house">
+                            <x-layout.list-sidebar route="admin.pemkab.beranda.index" icon="house">
                                 Dashboard
                             </x-layout.list-sidebar>
-                            <x-layout.list-sidebar route="pemkab.perencanaan-kinerja.index" icon="person-lines-fill">
+                            <x-layout.list-sidebar route="admin.pemkab.sastra.index" icon="person-lines-fill">
                                 Perencanaan Kinerja
                             </x-layout.list-sidebar>
-                            <x-layout.list-sidebar route="pemkab.pengukuran-kinerja.index" icon="card-checklist">
+                            <x-layout.list-sidebar route="admin.pemkab.pengukuran.index" icon="card-checklist">
                                 Pengukuran Kinerja
                             </x-layout.list-sidebar>
-                            <x-layout.list-sidebar route="pemkab.pelaporan-kinerja.index" icon="archive">
+                            <x-layout.list-sidebar route="admin.pemkab.pelaporan.index" icon="archive">
                                 Pelaporan Kinerja
                             </x-layout.list-sidebar>
                         @elseif (session('role') == 'inspek')

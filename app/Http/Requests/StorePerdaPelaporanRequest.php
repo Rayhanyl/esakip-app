@@ -22,7 +22,9 @@ class StorePerdaPelaporanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'tahun' => 'required|integer',
+            'file' => 'required|file|mimes:doc,docx,pdf|max:10000',
+            'keterangan' => 'required|string|max:1000',
         ];
     }
 }

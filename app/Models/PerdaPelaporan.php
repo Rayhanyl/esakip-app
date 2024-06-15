@@ -13,6 +13,7 @@ class PerdaPelaporan extends Model
         'tahun',
         'file',
         'keterangan',
+        'count',
     ];
     protected $fillable = self::FILLABLE_FIELDS;
     
