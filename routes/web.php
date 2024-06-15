@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\Admin\PemkabSastraController;
+use App\Http\Controllers\Admin\PemkabSastraController;
 use App\Http\Controllers\Admin\PemkabPelaporanController;
 use App\Http\Controllers\Admin\PemkabPengukuranController;
 use App\Http\Controllers\Admin\PerdaKegiaController;

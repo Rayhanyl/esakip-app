@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\PemkabSastra;
 use App\Http\Requests\StorePemkabSastraRequest;
@@ -18,7 +18,7 @@ class PemkabSastraController extends AdminBaseController
      */
     public function index()
     {
-        //
+        return view('admin.pemkab.sastra.index');
     }
 
     /**
@@ -26,7 +26,7 @@ class PemkabSastraController extends AdminBaseController
      */
     public function create()
     {
-        //
+        return view('admin.pemkab.sastra.create');
     }
 
     /**
