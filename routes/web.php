@@ -108,10 +108,14 @@ Route::middleware(['auth'])->group(function () {
                     ->name('simple-action');
             });
             Route::resource('sastra', PemkabSastraController::class);
+            Route::get('pengukuran/get-indikator', [PemkabPengukuranController::class, 'getIndicator'])
+                ->name('pengukuran.get-indikator');
+            Route::get('pengukuran/get-target', [PemkabPengukuranController::class, 'getTarget'])
+                ->name('pengukuran.get-target');
             Route::resource('pengukuran', PemkabPengukuranController::class);
-            Route::resource('pelaporan', PemkabPelaporanController::class);
             Route::get('pelaporan/{pelaporan}/download', [PerdaPelaporanController::class, 'download'])
                 ->name('pelaporan.download');
+            Route::resource('pelaporan', PemkabPelaporanController::class);
         });
         Route::prefix('perda')->name('perda.')->group(function () {
             Route::resource('beranda', PerdaBerandaController::class);
@@ -120,9 +124,9 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('saske', PerdaKegiaController::class);
             Route::resource('sasubkegia', PerdaSubKegiaController::class);
             Route::resource('pengukuran', PerdaPengukuranController::class);
-            Route::resource('pelaporan', PerdaPelaporanController::class);
             Route::get('pelaporan/{pelaporan}/download', [PerdaPelaporanController::class, 'download'])
                 ->name('pelaporan.download');
+            Route::resource('pelaporan', PerdaPelaporanController::class);
         });
         Route::prefix('inspek')->name('inspek.')->group(function () {
         });

@@ -22,9 +22,10 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-12 text-end">
-                                        <a href="{{ route('admin.pemkab.pelaporan.create') }}" class="btn btn-success">
+                                        <a href="{{ route('admin.pemkab.pelaporan.create') }}"
+                                            class="btn btn-success rounded-4">
                                             <i class="bi bi-plus-lg"></i>
-                                            Buat Laporan Baru
+                                            Create New
                                         </a>
                                     </div>
                                 </div>

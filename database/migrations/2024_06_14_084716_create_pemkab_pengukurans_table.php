@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('pemkab_sastra_id');
             $table->foreignId('pemkab_sastra_in_id');
+            $table->integer('tahun');
             $table->double('target');
             $table->double('realisasi');
             $table->double('capaian');

@@ -14,13 +14,10 @@
 <script>
     $(document).ready(function() {
         initPlugins();
-
     })
 
     function confirmDelete(id) {
         var form = $('#delete-form-' + id);
-
-        // SweetAlert confirmation dialog
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -63,12 +60,11 @@
         });
     }
 
-
-
     function initPlugins() {
         $('.select2').select2({
             theme: 'bootstrap-5'
         });
+
         $('.table-datatable').DataTable({
             responsive: true,
             lengthMenu: [
@@ -91,17 +87,16 @@
             removeMaskOnSubmit: true
         });
 
-        // Initialize Inputmask for currency input in IDR format
         $('.idr-currency').inputmask('numeric', {
-            radixPoint: ',', // Decimal separator
-            groupSeparator: '.', // Thousand separator
+            radixPoint: ',',
+            groupSeparator: '.',
             alias: 'numeric',
             digits: 0,
             autoGroup: true,
             autoUnmask: true,
-            prefix: 'Rp ', // IDR currency symbol
+            prefix: 'Rp ',
             rightAlign: false,
-            removeMaskOnSubmit: true // Remove mask when form submitted
+            removeMaskOnSubmit: true
         });
     }
 

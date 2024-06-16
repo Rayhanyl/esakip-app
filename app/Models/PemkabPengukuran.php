@@ -12,6 +12,7 @@ class PemkabPengukuran extends Model
         'user_id',
         'pemkab_sastra_id',
         'pemkab_sastra_in_id',
+        'tahun',
         'target',
         'realisasi',
         'capaian',

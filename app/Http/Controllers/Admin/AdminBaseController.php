@@ -26,7 +26,7 @@ class AdminBaseController extends BaseController
             View::share('satuan_options', Satuan::all()->keyBy('id')->transform(function ($list) {
                 return $list->satuan;
             }));
-            View::share('tahun_options', collect(array_combine(range(2029, 2020, -1), range(2029, 2020, -1)))->transform(function ($list) {
+            View::share('tahun_options', collect(array_combine(range(2029, 2024, -1), range(2029, 2024, -1)))->transform(function ($list) {
                 return $list;
             }));
             return $next($request);
