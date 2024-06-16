@@ -21,9 +21,13 @@ class PerdaKegia extends Model
     {
         return $this->belongsTo(User::class);
     }
-
     public function perda_prog()
     {
         return $this->belongsTo(PerdaProg::class);
+    }
+
+    public function perda_kegia_ins()
+    {
+        return $this->hasMany(PerdaKegiaIn::class);
     }
 }

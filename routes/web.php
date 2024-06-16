@@ -132,6 +132,10 @@ Route::middleware(['auth'])->group(function () {
                     ->name('indicator');
             });
             Route::resource('saspro', PerdaProgController::class);
+            Route::prefix('saske')->name('saske.')->group(function () {
+                Route::get('indicator', [PerdaKegiaController::class, 'indicator'])
+                    ->name('indicator');
+            });
             Route::resource('saske', PerdaKegiaController::class);
             Route::resource('sasubkegia', PerdaSubKegiaController::class);
             Route::resource('pengukuran', PerdaPengukuranController::class);
