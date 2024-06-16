@@ -42,7 +42,8 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-table-rencana-aksi-pemkab" style="width: 100%;">
+                                <table class="table table-striped table-hover" id="data-table-rencana-aksi-pemkab"
+                                    style="width: 100%;">
                                     <thead class="table-info">
                                         <tr>
                                             <th class="text-center">No</th>
@@ -52,12 +53,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($data as $item)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-start">{{ $item->indikator }}</td>
+                                                <td>
+                                                    <ul>
+                                                        @foreach ($item->simple_actions as $simple)
+                                                            <li>{{ $simple->action }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        @foreach ($item->penanggung_jawabs as $penja)
+                                                            <li>{{ $penja->penanggung_jawab }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

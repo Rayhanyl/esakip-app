@@ -50,19 +50,21 @@
                                     style="width: 100%;">
                                     <thead class="table-info">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Sasaran Strategis</th>
-                                            <th>Indikator</th>
-                                            <th>Target</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Sasaran Strategis</th>
+                                            <th class="text-center">Indikator</th>
+                                            <th class="text-center">Target</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($data as $item)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{ $item->pemkab_sastra->sasaran }}</td>
+                                                <td class="text-start">{{ $item->indikator }}</td>
+                                                <td class="text-center"> {{ $item->target1 }} </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
