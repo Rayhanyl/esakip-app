@@ -16,6 +16,30 @@
         initPlugins();
 
     })
+    function getDataPengampu(el){
+        $(`#${el}`).select2({
+            theme: 'bootstrap-5',
+            ajax: {
+                url: "",
+                dataType: 'json',
+                delay: 250,
+                processResults: function(response) {
+                    var items = response.data;
+                    var formattedData = $.map(items, function(item) {
+                        return {
+                            id: item.nip,
+                            text: item.nip + '-' + item.nama_pegawai
+                        };
+                    });
+                    return {
+                        results: formattedData
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 1
+        });
+    }
 
     function confirmDelete(id) {
         var form = $('#delete-form-' + id);

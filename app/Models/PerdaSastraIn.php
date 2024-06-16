@@ -37,7 +37,7 @@ class PerdaSastraIn extends Model
         return $this->belongsTo(Satuan::class);
     }
 
-    public function perda_sastra_penja()
+    public function penanggung_jawabs()
     {
         return $this->hasMany(PerdaSastraPenja::class);
     }

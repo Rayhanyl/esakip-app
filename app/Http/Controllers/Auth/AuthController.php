@@ -33,42 +33,66 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'User-Agent' => 'insomnia/2023.5.8'
-            ])->post("{$this->baseUrl}/auth", [
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret
+            $request->session()->regenerate();
+            $request->session()->put([
+                'email' => Auth::user()->email,
+                'name' => Auth::user()->name,
+                'role' => Auth::user()->role,
+                'id_user' => Auth::user()->id,
             ]);
-            if ($response->successful()) {
-                $data = json_decode($response->getBody()->getContents());
-                $request->session()->regenerate();
-                $request->session()->put([
-                    'email' => Auth::user()->email,
-                    'name' => Auth::user()->name,
-                    'role' => Auth::user()->role,
-                    'id_user' => Auth::user()->id,
-                    'token' => $data->result->token,
-                ]);
-                Alert::toast('Berhasil login', 'success');
-                switch (session('role')) {
-                    case 'perda':
-                        return view('admin.perda.beranda.index');
-                    case 'pemkab':
-                        return
-                            view('admin.pemkab.beranda.index');
-                    case 'inspek':
-                        return
-                            view('admin.inspek.beranda.index');
-                    default:
-                        return redirect()->route('/');
-                }
-            } else {
-                return redirect()->back()->with('error', 'Gagal login: Token generation failed.');
+            Alert::toast('Berhasil login', 'success');
+            switch (session('role')) {
+                case 'perda':
+                    return view('admin.perda.beranda.index');
+                case 'pemkab':
+                    return
+                        view('admin.pemkab.beranda.index');
+                case 'inspek':
+                    return
+                        view('admin.inspek.beranda.index');
+                default:
+                    return redirect()->route('/');
             }
         } else {
             return redirect()->back()->with('error', 'Email & Kata Sandi Tidak cocok dengan database kami');
         }
+        // if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        //     $response = Http::withHeaders([
+        //         'Content-Type' => 'application/json',
+        //         'User-Agent' => 'insomnia/2023.5.8'
+        //     ])->post("{$this->baseUrl}/auth", [
+        //         'client_id' => $this->clientId,
+        //         'client_secret' => $this->clientSecret
+        //     ]);
+        //     if ($response->successful()) {
+        //         $data = json_decode($response->getBody()->getContents());
+        //         $request->session()->regenerate();
+        //         $request->session()->put([
+        //             'email' => Auth::user()->email,
+        //             'name' => Auth::user()->name,
+        //             'role' => Auth::user()->role,
+        //             'id_user' => Auth::user()->id,
+        //             'token' => $data->result->token,
+        //         ]);
+        //         Alert::toast('Berhasil login', 'success');
+        //         switch (session('role')) {
+        //             case 'perda':
+        //                 return view('admin.perda.beranda.index');
+        //             case 'pemkab':
+        //                 return
+        //                     view('admin.pemkab.beranda.index');
+        //             case 'inspek':
+        //                 return
+        //                     view('admin.inspek.beranda.index');
+        //             default:
+        //                 return redirect()->route('/');
+        //         }
+        //     } else {
+        //         return redirect()->back()->with('error', 'Gagal login: Token generation failed.');
+        //     }
+        // } else {
+        //     return redirect()->back()->with('error', 'Email & Kata Sandi Tidak cocok dengan database kami');
+        // }
     }
 
     public function logout(Request $request)

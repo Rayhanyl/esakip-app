@@ -26,4 +26,10 @@ class PerdaProg extends Model
     {
         return $this->belongsTo(PerdaSastra::class);
     }
+
+        public function perda_prog_ins()
+    {
+        return $this->hasMany(PerdaProgIn::class);
+    }
+
 }
