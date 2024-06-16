@@ -21,17 +21,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($perdaSastraData as $sastra)
+                            @foreach ($pemkabSastraData as $sastra)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $sastra->sasaran }}</td>
                                     <td>{{ $sastra->tahun }}</td>
                                     <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <x-admin.form.button-edit title="Edit Sasaran Strategis"
-                                                route="admin.perda.sastra.edit" id="{{ $sastra->id }}" />
-                                            <x-admin.form.button-delete title="Delete  Sasaran Strategis"
-                                                route="admin.perda.sastra.destroy" id="{{ $sastra->id }}" />
+                                        <div class="d-flex justify-content-center gap-x-2">
+                                            <x-admin.form.button-edit
+                                                title="Edit Pelaporan Kinerja"route="admin.pemkab.sastra.edit"
+                                                id="{{ $sastra->id }}" />
+                                            <x-admin.form.button-delete title="Delete Pelaporan Kinerja"
+                                                route="admin.pemkab.sastra.destroy" id="{{ $sastra->id }}" />
                                         </div>
                                     </td>
                                 </tr>

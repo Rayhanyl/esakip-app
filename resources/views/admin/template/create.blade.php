@@ -2,9 +2,9 @@
 @section('content')
     <x-admin.layout.header title="Sasaran Strategis" />
     <section class="section">
-        <form class="row g-3" action="{{ route('admin.perda.sastra.store') }}" enctype="multipart/form-data" method="POST">
+        <form class="row g-3" action="{{ route('admin.pemkab.sastra.store') }}" enctype="multipart/form-data" method="POST">
             @csrf
-            @include('admin.perda.perencanaan.sastra._partials.form')
+            @include('admin.pemkab.sastra._partials.form')
         </form>
     </section>
 @endsection

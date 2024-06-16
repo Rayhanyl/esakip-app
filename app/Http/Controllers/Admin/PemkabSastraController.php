@@ -45,11 +45,11 @@ class PemkabSastraController extends AdminBaseController
             $params = array_merge($value, ['user_id' => Auth::user()->id], ['pemkab_sastra_id' => $data->id]);
             $data2 = PemkabSastraIn::create($params);
             foreach ($value['penanggung_jawab'] as $value2) {
-                $params2 = ['pemkab_sastra_in_id' => $data2->id, 'penanggung_jawab' => $value2];
+                $params2 = ['pemkab_sastra_in_id' => $data2->id, 'penanggung_jawab' => $value2['value']];
                 PemkabPenja::create($params2);
             }
             foreach ($value['action'] as $value2) {
-                $params2 = ['pemkab_sastra_in_id' => $data2->id, 'action' => $value2];
+                $params2 = ['pemkab_sastra_in_id' => $data2->id, 'action' => $value2['value']];
                 PemkabSimact::create($params2);
             }
         }

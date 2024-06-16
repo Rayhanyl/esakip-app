@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminBaseController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\AuthController;
@@ -46,6 +47,10 @@ Route::prefix('authentication')->name('auth.')->group(function () {
         ->name('login');
     Route::get('/logout', [AuthController::class, 'logout'])
         ->name('logout');
+});
+
+Route::prefix('get-data')->name('get-data')->group(function () {
+    Route::get('pengampu', [AdminBaseController::class, 'get_pengampu'])->name('pengampu');
 });
 
 Route::prefix('/')->name('aspu.')->group(function () {
@@ -96,7 +101,7 @@ Route::prefix('/')->name('aspu.')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::prefix('/admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('pemkab')->name('pemkab.')->group(function () {
             Route::resource('beranda', PemkabBerandaController::class);
             Route::prefix('sastra')->name('sastra.')->group(function () {
@@ -119,7 +124,17 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('perda')->name('perda.')->group(function () {
             Route::resource('beranda', PerdaBerandaController::class);
+            Route::prefix('sastra')->name('sastra.')->group(function () {
+                Route::get('indicator', [PerdaSastraController::class, 'indicator'])
+                    ->name('indicator');
+                Route::get('penanggung-jawab', [PerdaSastraController::class, 'penanggung_jawab'])
+                    ->name('penanggung-jawab');
+            });
             Route::resource('sastra', PerdaSastraController::class);
+            Route::prefix('saspro')->name('saspro.')->group(function () {
+                Route::get('indicator', [PerdaProgController::class, 'indicator'])
+                    ->name('indicator');
+            });
             Route::resource('saspro', PerdaProgController::class);
             Route::resource('saske', PerdaKegiaController::class);
             Route::resource('sasubkegia', PerdaSubKegiaController::class);

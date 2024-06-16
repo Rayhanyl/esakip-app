@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">{{ $title ?? '' }} Sasaran Bupati</h4>
+        <h4 class="card-title">Form Sasaran Bupati</h4>
     </div>
     <div class="card-body">
         <div class="row">
