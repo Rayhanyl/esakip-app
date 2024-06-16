@@ -3,8 +3,11 @@
     <x-admin.layout.header title="Sasaran Strategis" />
     <section class="section">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
                 <h4 class="card-title">Tabel Sasaran Strategis</h4>
+                <a href="{{ route('admin.pemkab.sastra.create') }}" class="btn btn-success">
+                    Tambah
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -18,34 +21,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pemkabPelaporan as $pelaporan)
+                            @foreach ($pemkabSastraData as $sastra)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $pelaporan->tahun }}</td>
-                                    <td>
-                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Download File Pelaporan Kinerja" class="text-primary"
-                                            href="{{ route('pemkab.pelaporan-kinerja.download', $pelaporan->upload) }}">
-                                            <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                        </a>
-                                    </td>
+                                    <td>{{ $sastra->sasaran }}</td>
+                                    <td>{{ $sastra->tahun }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <div class="p-2">
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
                                                     title="Edit Pelaporan Kinerja" class="btn btn-warning btn-sm"
-                                                    href="{{ route('pemkab.pelaporan-kinerja.edit', $pelaporan->id) }}">
+                                                    href="{{ route('admin.pemkab.sastra.edit', $sastra->id) }}">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
                                             </div>
                                             <div class="p-2">
-                                                <button class="btn btn-danger btn-sm delete-laporan-kinerja"
-                                                    data-id="{{ $pelaporan->id }}" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Delete Pelaporan Kinerja">
+                                                <button class="btn btn-danger btn-sm delete-laporan-kinerja" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Delete Pelaporan Kinerja"
+                                                    onclick="confirmDelete({{ $sastra->id }})">
                                                     <i class="bi bi-trash3"></i>
                                                 </button>
-                                                <form id="delete-form-{{ $pelaporan->id }}"
-                                                    action="{{ route('pemkab.pelaporan-kinerja.destroy', $pelaporan->id) }}"
+                                                <form id="delete-form-{{ $sastra->id }}"
+                                                    action="{{ route('admin.pemkab.sastra.destroy', $sastra->id) }}"
                                                     method="POST" style="display: none;">
                                                     @csrf
                                                     @method('DELETE')

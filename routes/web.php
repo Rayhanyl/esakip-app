@@ -99,6 +99,14 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/admin')->name('admin.')->group(function () {
         Route::prefix('pemkab')->name('pemkab.')->group(function () {
             Route::resource('beranda', PemkabBerandaController::class);
+            Route::prefix('sastra')->name('sastra.')->group(function () {
+                Route::get('indicator', [PemkabSastraController::class, 'indicator'])
+                    ->name('indicator');
+                Route::get('penanggung-jawab', [PemkabSastraController::class, 'penanggung_jawab'])
+                    ->name('penanggung-jawab');
+                Route::get('simple-action', [PemkabSastraController::class, 'simple_action'])
+                    ->name('simple-action');
+            });
             Route::resource('sastra', PemkabSastraController::class);
             Route::resource('pengukuran', PemkabPengukuranController::class);
             Route::resource('pelaporan', PemkabPelaporanController::class);
