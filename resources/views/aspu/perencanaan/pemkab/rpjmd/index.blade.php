@@ -27,8 +27,8 @@
                             @endfor
                         </select>
                     </div>
-                    <div class="col-12 col-lg-3 py-4">
-                        <button type="submit" class="btn btn-primary btn-sm w-100">Search</button>
+                    <div class="col-12 my-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </form>
             </div>
@@ -59,14 +59,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($data as $item)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-start">{{ $item->pemkab_sastra->sasaran }}</td>
+                                                <td class="text-start">
+                                                    {{ $item->indikator }}</td>
+                                                <td class="text-center">{{ $item->target1 }}</td>
+                                                <td class="text-center">{{ $item->target2 }}</td>
+                                                <td class="text-center">{{ $item->target3 }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

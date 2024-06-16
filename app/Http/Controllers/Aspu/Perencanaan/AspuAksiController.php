@@ -32,9 +32,8 @@ class AspuAksiController extends Controller
     public function pemkab(Request $request)
     {
         $user = User::where('role', 'perda')->get();
-        $perda = $request->perda;
         $tahun = $request->tahun;
-        $data = PemkabSastraIn::with('user', 'pemkab_sastra')->whereHas('user', function ($q) use ($request) {
+        $data = PemkabSastraIn::with('user', 'pemkab_sastra', 'simple_actions', 'penanggung_jawabs')->whereHas('user', function ($q) use ($request) {
             if ($request->perda != null) {
                 $q->where('user_id', $request->perda);
             }
@@ -43,6 +42,6 @@ class AspuAksiController extends Controller
                 $r->where('tahun', $request->tahun ?? '');
             }
         })->get();
-        return view('aspu.perencanaan.pemkab.aksi.index', compact('user', 'data', 'tahun', 'perda'));
+        return view('aspu.perencanaan.pemkab.aksi.index', compact('user', 'data', 'tahun'));
     }
 }
