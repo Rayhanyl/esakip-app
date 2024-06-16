@@ -182,6 +182,9 @@
             </div>
         @endforeach
     @else
+        @php
+            $key = Str::random(4);
+        @endphp
         <div class="col-indikator-sasaran-bupati mt-3">
             <div class="card">
                 <div class="card-body">
@@ -242,7 +245,8 @@
                             @endphp
                             <div class="row row-simple-action-{{ $key2 }}">
                                 <x-admin.form.text col="col-11" label="Simple Action"
-                                    name="indikator[{{ $key }}][action][{{ $key2 }}][value]" placeholder="Simple Action" />
+                                    name="indikator[{{ $key }}][action][{{ $key2 }}][value]"
+                                    placeholder="Simple Action" />
                                 <div class="col-1">
                                     <label for="" class="form-label fw-bold">&nbsp;</label>
                                     <div>
