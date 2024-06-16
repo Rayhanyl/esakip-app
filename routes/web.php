@@ -141,6 +141,12 @@ Route::middleware(['auth'])->group(function () {
                     ->name('indicator');
             });
             Route::resource('saske', PerdaKegiaController::class);
+            Route::prefix('sasubkegia')->name('sasubkegia.')->group(function () {
+                Route::get('indicator', [PerdaSubKegiaController::class, 'indicator'])
+                    ->name('indicator');
+                Route::get('pengampu', [PerdaSubKegiaController::class, 'pengampu'])
+                    ->name('pengampu');
+            });
             Route::resource('sasubkegia', PerdaSubKegiaController::class);
             Route::resource('pengukuran', PerdaPengukuranController::class);
             Route::get('pelaporan/{pelaporan}/download', [PerdaPelaporanController::class, 'download'])

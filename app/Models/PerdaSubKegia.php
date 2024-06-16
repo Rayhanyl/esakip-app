@@ -16,6 +16,12 @@ class PerdaSubKegia extends Model
     ];
     protected $fillable = self::FILLABLE_FIELDS;
 
+    public function perda_subkegia_ins(){
+        return $this->hasMany(PerdaSubKegiaIn::class, 'perda_subkegia_id', 'id');
+    }
+    public function perda_subkegia_pengampus(){
+        return $this->hasMany(PerdaSubKegiaPengampu::class, 'perda_subkegia_id', 'id');
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
