@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PemkabSastraIn;
+use App\Models\PerdaSastra;
 
 class AspuRenstraController extends Controller
 {
@@ -14,7 +15,15 @@ class AspuRenstraController extends Controller
         $user = User::where('role', 'perda')->get();
         $perda = $request->perda;
         $tahun = $request->tahun;
-        $data = [];
+        $data = PerdaSastra::with('user', 'perda_sastra_ins')->whereHas('user', function ($q) use ($request) {
+            $q->where('role', 'perda');
+            if ($request->perda != null) {
+                $q->where('user_id', $request->perda);
+            }
+            if ($request->tahun != null) {
+                $q->where('tahun', $request->tahun ?? '');
+            }
+        })->get();
         return view('aspu.perencanaan.perda.renstra.index', compact('data', 'user', 'perda', 'tahun'));
     }
 

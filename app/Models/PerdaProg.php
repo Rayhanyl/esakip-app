@@ -32,4 +32,9 @@ class PerdaProg extends Model
         return $this->hasMany(PerdaProgIn::class);
     }
 
+    public function perda_kegias()
+    {
+        return $this->hasMany(PerdaKegia::class, 'perda_prog_id', 'id');
+    }
+
 }

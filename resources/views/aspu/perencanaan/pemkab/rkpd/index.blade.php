@@ -45,7 +45,6 @@
                                     <thead class="table-info">
                                         <tr style="font-size: 12px">
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Perangkat Daerah</th>
                                             <th class="text-center">Sasaran Strategis</th>
                                             <th class="text-center">Indikator</th>
                                             <th class="text-center">Target</th>
@@ -56,17 +55,51 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="font-size: 12px">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @php $iter = 0; @endphp
+                                        @foreach ($data as $item)
+                                            @foreach ($item->perda_sastras as $strategis)
+                                                @foreach ($strategis->perda_progs as $program)
+                                                    @foreach ($program->perda_prog_ins as $indikator_program)
+                                                        @foreach ($program->perda_kegias as $kegiatan)
+                                                            @foreach ($kegiatan->perda_kegia_ins as $indikator_kegiatan)
+                                                                @foreach ($kegiatan->perda_sub_kegias as $sub_kegiatan)
+                                                                    @foreach ($sub_kegiatan->perda_subkegia_ins as $indikator_sub)
+                                                                        @foreach ($item->pemkab_sastra_ins as $indikator_bupati)
+                                                                            @php $iter++; @endphp
+                                                                            <tr style="font-size: 12px">
+                                                                                <td class="text-center">{{ $iter }}
+                                                                                </td>
+                                                                                <td>{{ $item->sasaran }}</td>
+                                                                                <td>
+                                                                                    {{ $indikator_bupati->indikator }}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ $indikator_bupati->target1 }}
+                                                                                </td>
+                                                                                <td class="text-start">
+                                                                                    {{ $indikator_program->program }}
+                                                                                </td>
+                                                                                <td class="text-start">
+                                                                                    {{ $indikator_kegiatan->kegiatan }}
+                                                                                </td>
+                                                                                <td class="text-start">
+                                                                                    {{ $indikator_sub->subkegiatan }}
+                                                                                </td>
+                                                                                <td class="text-start">
+                                                                                    <div class="idr-currency">
+                                                                                        {{ $indikator_sub->anggaran }}
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                @endforeach
+                                                            @endforeach
+                                                        @endforeach
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

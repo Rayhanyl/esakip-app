@@ -30,4 +30,9 @@ class PerdaKegia extends Model
     {
         return $this->hasMany(PerdaKegiaIn::class);
     }
+
+    public function perda_sub_kegias()
+    {
+        return $this->hasMany(PerdaSubKegia::class, 'perda_kegia_id', 'id');
+    }
 }

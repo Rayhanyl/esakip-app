@@ -52,7 +52,7 @@
                                 <table class="table table-striped table-hover"
                                     id="data-table-indikator-kinerja-utama-pemkab" style="width: 100%;">
                                     <thead class="table-info">
-                                        <tr style="font-size: 12px">
+                                        <tr style="font-size: 10px">
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -62,7 +62,7 @@
                                             <th></th>
                                             <th class="text-center" colspan="3">Target Kinerja</th>
                                         </tr>
-                                        <tr style="font-size: 12px">
+                                        <tr style="font-size: 10px">
                                             <th class="text-center">No</th>
                                             <th class="text-center">Sasaran Strategis</th>
                                             <th class="text-center">Indikator Sasaran</th>
@@ -76,18 +76,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="font-size: 12px">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($data as $item)
+                                            <tr style="font-size: 10px">
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{ $item->pemkab_sastra->sasaran }}</td>
+                                                <td>{{ $item->indikator }}</td>
+                                                <td class="text-center">{{ $item->satuan->satuan }}</td>
+                                                <td>{{ $item->penjelasan }}</td>
+                                                <td>{{ $item->sumber_data }}</td>
+                                                <td>
+                                                    <ul>
+                                                        @foreach ($item->penanggung_jawabs as $penanggung_jawab)
+                                                            <li>{{ $penanggung_jawab->penanggung_jawab }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td class="text-center">{{ $item->target1 }}</td>
+                                                <td class="text-center">{{ $item->target2 }}</td>
+                                                <td class="text-center">{{ $item->target3 }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -101,10 +109,9 @@
         <script>
             $(document).ready(function() {
                 $('#data-table-indikator-kinerja-utama-pemkab').DataTable({
-                    responsive: true,
                     lengthMenu: [
-                        [10, 25, 50, -1],
-                        [10, 25, 50, 'All'],
+                        [5, 25, 50, -1],
+                        [5, 25, 50, 'All'],
                     ],
                     order: [
                         [0, 'asc']

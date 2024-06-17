@@ -25,4 +25,9 @@ class PemkabSastra extends Model
     {
         return $this->hasMany(PemkabSastraIn::class);
     }
+
+    public function perda_sastras()
+    {
+        return $this->hasMany(PerdaSastra::class);
+    }
 }

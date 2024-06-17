@@ -84,19 +84,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="font-size: 12px">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($data as $item)
+                                            <tr style="font-size: 12px">
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-start">{{ $item->user->name }}</td>
+                                                <td class="text-start">{{ $item->perda_sastra->sasaran }}</td>
+                                                <td class="text-start">{{ $item->indikator }}</td>
+                                                <td class="text-center">{{ $item->satuan->satuan }}</td>
+                                                <td class="text-start">{{ $item->penjelasan }}</td>
+                                                <td class="text-start">{{ $item->sumber_data }}
+                                                </td>
+                                                <td class="text-start">
+                                                    <ul>
+                                                        @foreach ($item->penanggung_jawabs as $penanggung)
+                                                            <li>{{ $penanggung->penanggung_jawab }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td class="text-center">{{ $item->target1 }}</td>
+                                                <td class="text-center">{{ $item->target2 }}</td>
+                                                <td class="text-center">{{ $item->target3 }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -110,7 +119,6 @@
         <script>
             $(document).ready(function() {
                 $('#data-table-indikator-kinerja-utama').DataTable({
-                    responsive: true,
                     lengthMenu: [
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],

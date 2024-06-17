@@ -52,14 +52,14 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover" id="data-table-renstra" style="width:100%;">
                                     <thead class="table-info">
-                                        <tr>
+                                        <tr style="font-size:14px">
                                             <th class="text-center">No</th>
                                             <th class="text-center">Perangkat Daerah</th>
                                             <th class="text-center">Sasaran Strategis</th>
                                             <th class="text-center">Indikator</th>
                                             <th class="text-center" colspan="3">Target</th>
                                         </tr>
-                                        <tr>
+                                        <tr style="font-size:14px">
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -70,15 +70,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @php
+                                            $iter = 0;
+                                        @endphp
+                                        @foreach ($data as $item)
+                                            @foreach ($item->perda_sastra_ins as $indikator)
+                                                @php
+                                                    $iter++;
+                                                @endphp
+                                                <tr style="font-size:13px">
+                                                    <td class="text-center">{{ $iter }}</td>
+                                                    <td>{{ $item->user->name }}</td>
+                                                    <td>{{ $item->sasaran }}</td>
+                                                    <td>{{ $indikator->indikator }}</td>
+                                                    <td class="text-center">{{ $indikator->target1 }}</td>
+                                                    <td class="text-center">{{ $indikator->target2 }}</td>
+                                                    <td class="text-center">{{ $indikator->target3 }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

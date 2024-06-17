@@ -66,17 +66,50 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="font-size: 12px">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @php
+                                            $iter = 0;
+                                        @endphp
+                                        @foreach ($data as $item)
+                                            @foreach ($item->perda_progs as $program)
+                                                @foreach ($program->perda_kegias as $kegiatan)
+                                                    @foreach ($kegiatan->perda_sub_kegias as $subkegiatan)
+                                                        @foreach ($program->perda_prog_ins as $indikator_program)
+                                                            @foreach ($kegiatan->perda_kegia_ins as $indikator_kegiatan)
+                                                                @foreach ($subkegiatan->perda_subkegia_ins as $indikator_sub)
+                                                                    @foreach ($item->perda_sastra_ins as $indikator_strategis)
+                                                                        @php
+                                                                            $iter++;
+                                                                        @endphp
+                                                                        <tr style="font-size: 12px">
+                                                                            <td class="text-center">{{ $iter }}</td>
+                                                                            <td>{{ $indikator_strategis->user->name }}</td>
+                                                                            <td>{{ $item->sasaran }}</td>
+                                                                            <td>{{ $indikator_strategis->indikator }}</td>
+                                                                            <td class="text-center">
+                                                                                {{ $indikator_strategis->target1 }}
+                                                                            </td>
+                                                                            <td class="text-start">
+                                                                                {{ $indikator_program->program }}
+                                                                            </td>
+                                                                            <td class="text-start">
+                                                                                {{ $indikator_kegiatan->kegiatan }}
+                                                                            </td>
+                                                                            <td class="text-start">
+                                                                                {{ $indikator_sub->subkegiatan }}
+                                                                            </td>
+                                                                            <td class="text-start">
+                                                                                <div class="idr-currency">
+                                                                                    {{ $indikator_sub->anggaran }}</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @endforeach
+                                                            @endforeach
+                                                        @endforeach
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -96,8 +129,8 @@
                 $('#data-table-renja').DataTable({
                     responsive: true,
                     lengthMenu: [
-                        [10, 25, 50, -1],
-                        [10, 25, 50, 'All'],
+                        [5, 25, 50, -1],
+                        [5, 25, 50, 'All'],
                     ],
                     order: [
                         [0, 'asc']

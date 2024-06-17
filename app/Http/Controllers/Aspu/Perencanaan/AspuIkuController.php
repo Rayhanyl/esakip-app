@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Aspu\Perencanaan;
 use App\Models\User;
 use App\Models\Satuan;
 use App\Models\PerdaSastra;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\PemkabSastra;
+use Illuminate\Http\Request;
+use App\Models\PerdaSastraIn;
+use App\Http\Controllers\Controller;
+use App\Models\PemkabSastraIn;
 
 class AspuIkuController extends Controller
 {
@@ -16,24 +18,17 @@ class AspuIkuController extends Controller
         $user = User::where('role', 'perda')->get();
         $perda = $request->perda;
         $tahun = $request->tahun;
-        $satuans = Satuan::all();
-        $data = PerdaSastra::with([
-            'user',
-            'perda_sastra_ins',
-            'perda_sastra_ins.perda_sastra_penjas',
-        ])->whereHas(
-            'user',
-            function ($q) use ($request) {
-                $q->where('role', 'perda');
-                if ($request->perda != null) {
-                    $q->where('user_id', $request->perda ?? '');
-                }
-                if ($request->tahun != null) {
-                    $q->where('tahun', $request->tahun ?? '');
-                }
+        $data = PerdaSastraIn::with('user', 'perda_sastra', 'satuan', 'penanggung_jawabs')->whereHas('user', function ($q) use ($request) {
+            $q->where('role', 'perda');
+            if ($request->perda != null) {
+                $q->where('user_id', $request->perda);
             }
-        )->get();
-        return view('aspu.perencanaan.perda.iku.index', compact('user', 'data', 'perda', 'tahun', 'satuans'));
+        })->whereHas('perda_sastra', function ($r) use ($request) {
+            if ($request->tahun != null) {
+                $r->where('tahun', $request->tahun ?? '');
+            }
+        })->get();
+        return view('aspu.perencanaan.perda.iku.index', compact('user', 'data', 'perda', 'tahun'));
     }
 
     public function pemkab(Request $request)
@@ -42,11 +37,12 @@ class AspuIkuController extends Controller
         $perda = $request->perda;
         $tahun = $request->tahun;
         $satuans = Satuan::all();
-        $data = PemkabSastra::with([
+        $data = PemkabSastraIn::with([
             'user',
-            'pemkab_sastra_ins',
-            'pemkab_sastra_ins.simple_actions',
-            'pemkab_sastra_ins.penanggung_jawabs'
+            'pemkab_sastra',
+            'satuan',
+            'simple_actions',
+            'penanggung_jawabs'
         ])->whereHas(
             'user',
             function ($q) use ($request) {
@@ -57,8 +53,7 @@ class AspuIkuController extends Controller
                     $q->where('tahun', $request->tahun ?? '');
                 }
             }
-        )
-            ->get();
+        )->get();
         return view('aspu.perencanaan.pemkab.iku.index', compact('user', 'data', 'perda', 'tahun', 'satuans'));
     }
 }

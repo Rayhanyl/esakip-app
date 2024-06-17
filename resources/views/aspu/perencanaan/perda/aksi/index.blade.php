@@ -78,18 +78,49 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="font-size: 12px">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @php
+                                            $iter = 0;
+                                        @endphp
+                                        @foreach ($data as $item)
+                                            @foreach ($item->perda_sastra->perda_progs as $program)
+                                                @foreach ($program->perda_kegias as $kegiatan)
+                                                    @foreach ($kegiatan->perda_sub_kegias as $subkegiatan)
+                                                        @foreach ($subkegiatan->perda_subkegia_ins as $indikator)
+                                                            @php
+                                                                $iter++;
+                                                            @endphp
+                                                            <tr style="font-size: 12px">
+                                                                <td class="text-center">{{ $iter }}</td>
+                                                                <td>{{ $indikator->user->name }}</td>
+                                                                <td>{{ $item->indikator }}</td>
+                                                                <td>{{ $subkegiatan->sasaran }}</td>
+                                                                <td>{{ $indikator->indikator }}</td>
+                                                                <td class="text-center">
+                                                                    {{ $indikator->triwulan1 ? $indikator->triwulan1 : '-' }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $indikator->triwulan2 ? $indikator->triwulan2 : '-' }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $indikator->triwulan3 ? $indikator->triwulan3 : '-' }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $indikator->triwulan4 ? $indikator->triwulan4 : '-' }}
+                                                                </td>
+                                                                <td>
+                                                                    <ul>
+                                                                        @foreach ($item->penanggung_jawabs as $penanggung_jawab)
+                                                                            <li>{{ $penanggung_jawab->penanggung_jawab }}
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -105,8 +136,8 @@
                 $('#data-table-rencana-aksi').DataTable({
                     responsive: true,
                     lengthMenu: [
-                        [5, 25, 50, -1],
-                        [5, 25, 50, 'All'],
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
                     ],
                     order: [
                         [0, 'asc']

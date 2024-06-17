@@ -69,14 +69,14 @@
                                                 <td class="text-center">
                                                     {{ $loop->iteration }}
                                                 </td>
-                                                <td class="text-center">
-                                                    -
+                                                <td class="text-start">
+                                                    {{ $item->user->name }}
                                                 </td>
-                                                <td class="text-center">
-                                                    {{ $item->sasaran_strategis->sasaran_strategis }}
+                                                <td class="text-start">
+                                                    {{ $item->perda_sastra->sasaran }}
                                                 </td>
-                                                <td class="text-center">
-                                                    {{ $item->indikator_sasaran_strategis }}
+                                                <td class="text-start">
+                                                    {{ $item->indikator }}
                                                 </td>
                                                 <td class="text-center">
                                                     {{ $item->target1 }}
