@@ -56,6 +56,8 @@
             }
         })
     </script>
+    <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
     @stack('script-landingpage')
     </body>
 

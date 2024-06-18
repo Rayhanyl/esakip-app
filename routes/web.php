@@ -24,6 +24,7 @@ use App\Http\Controllers\Aspu\Evaluasi\AspuEvaluasiController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuRenjaController;
 use App\Http\Controllers\Admin\PerdaEvaluasiInternalController;
 use App\Http\Controllers\Admin\InspekEvaluasiInternalController;
+use App\Http\Controllers\Aspu\CascadingController;
 use App\Http\Controllers\Aspu\Pelaporan\AspuPelaporanController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuRenstraController;
 use App\Http\Controllers\Aspu\Pengukuran\AspuPengukuranController;
@@ -81,6 +82,8 @@ Route::prefix('/')->name('aspu.')->group(function () {
             ->name('perda-iku');
         Route::get('/pemkab-iku', [AspuIkuController::class, 'pemkab'])
             ->name('pemkab-iku');
+        Route::get('/cascading', [CascadingController::class, 'index'])
+            ->name('cascading');
     });
     Route::prefix('pengukuran-kinerja')->name('pengukuran.')->group(function () {
         Route::get('/index', [AspuPengukuranController::class, 'index'])
