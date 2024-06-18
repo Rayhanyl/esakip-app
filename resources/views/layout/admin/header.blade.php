@@ -109,7 +109,7 @@
                             <x-layout.list-sidebar route="admin.perda.pelaporan.index" icon="archive">
                                 Pelaporan Kinerja
                             </x-layout.list-sidebar>
-                            <x-layout.list-sidebar route="admin.perda.pelaporan.index" icon="clipboard-data">
+                            <x-layout.list-sidebar route="admin.perda.evaluasi-internal.index" icon="clipboard-data">
                                 Evaluasi internal
                             </x-layout.list-sidebar>
                         @elseif (session('role') == 'pemkab')
@@ -128,13 +128,13 @@
                             </x-layout.list-sidebar>
                         @elseif (session('role') == 'inspek')
                             <li class="sidebar-title">Menu Inspektorat</li>
-                            <x-layout.list-sidebar route="inspek.index" icon="house">
+                            <x-layout.list-sidebar route="admin.inspek.index" icon="house">
                                 Dashboard
                             </x-layout.list-sidebar>
-                            <x-layout.list-sidebar route="inspek.self-assesment.index" icon="clipboard2-check">
+                            <x-layout.list-sidebar route="admin.inspek.self-assesment.index" icon="clipboard2-check">
                                 Self Assesment Perangkat Daerah
                             </x-layout.list-sidebar>
-                            <x-layout.list-sidebar route="inspek.evaluasi-internal.index" icon="clipboard-data">
+                            <x-layout.list-sidebar route="admin.inspek.evaluasi-internal.index" icon="clipboard-data">
                                 Evaluasi Internal
                             </x-layout.list-sidebar>
                         @endif

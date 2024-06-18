@@ -207,8 +207,8 @@
         Hasil evaluasi atas akuntabilitas kinerja Dinas <b>{{ $user->name }}</b>. menunjukkan bahwa nilai sebesar
         <b>{{ $evaluasi->nilai_akuntabilitas_kinerja }}</b> dengan predikat “<b>{{ $predikat }}</b>”. Hal tersebut
         menunjukkan bahwa implementasi akuntabilitas kinerja “{{ $predikat_name }}”, <b>yaitu kualitas penerapan
-            manajemen
-            kinerja birokrasi dan penyelenggaraan pemerintahan yang berorientasi pada hasil telah menunjukkan hasil yang
+            manajemen kinerja birokrasi dan penyelenggaraan pemerintahan yang berorientasi pada hasil telah menunjukkan
+            hasil yang
             baik pada sebagian unit kerja.</b>
         <br>
         Rincian hasil evaluasi tersebut adalah sebagai berikut:
@@ -263,19 +263,19 @@
         </h4>
         <p>1.) Perencanaan Kinerja
             <br>
-            Catatan dari aplikasi terkait perencanaan Kinerja
+            {{ $catatan[0] }}
         </p>
         <p>2.) Pengukuran Kinerja
             <br>
-            Catatan dari aplikasi terkait Pengukuran Kinerja
+            {{ $catatan[1] }}
         </p>
         <p>3.) Pelaporan Kinerja
             <br>
-            Catatan dari aplikasi terkait Pelaporan Kinerja
+            {{ $catatan[2] }}
         </p>
         <p>4.) Evaluasi Internal
             <br>
-            Catatan dari aplikasi terkait Evaluasi Internal
+            {{ $catatan[3] }}
         </p>
     </div>
     <br><br><br><br><br><br><br>
@@ -286,9 +286,8 @@
             merekomendasikan beberapa hal sebagai berikut:</p>
         <p>
             1.) Gabungan rekomendasi Perencanaan Kinerja, Pengukuran Kinerja, Pelaporan Kinerja dan Evaluasi Internal
-        </p>
-        <p>
-            2.) dst.
+            <br>
+            {{ $rekomendasi[0] }},{{ $rekomendasi[1] }},{{ $rekomendasi[2] }},{{ $rekomendasi[3] }}
         </p>
     </div>
 

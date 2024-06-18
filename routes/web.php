@@ -1,17 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminBaseController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Controllers\Admin\PerdaProgController;
 use App\Http\Controllers\Admin\PerdaKegiaController;
 use App\Http\Controllers\Aspu\AspuBerandaController;
 use App\Http\Controllers\Admin\PerdaSastraController;
 use App\Http\Controllers\Admin\PemkabSastraController;
 use App\Http\Controllers\Admin\PerdaBerandaController;
+use App\Http\Controllers\Admin\InspekBerandaController;
 use App\Http\Controllers\Admin\PemkabBerandaController;
 use App\Http\Controllers\Admin\PerdaSubKegiaController;
+use App\Http\Controllers\Admin\SelfAssesmentController;
 use App\Http\Controllers\Admin\PerdaPelaporanController;
 use App\Http\Controllers\Admin\PemkabPelaporanController;
 use App\Http\Controllers\Admin\PerdaPengukuranController;
@@ -20,6 +22,8 @@ use App\Http\Controllers\Aspu\Perencanaan\AspuIkuController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuAksiController;
 use App\Http\Controllers\Aspu\Evaluasi\AspuEvaluasiController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuRenjaController;
+use App\Http\Controllers\Admin\PerdaEvaluasiInternalController;
+use App\Http\Controllers\Admin\InspekEvaluasiInternalController;
 use App\Http\Controllers\Aspu\Pelaporan\AspuPelaporanController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuRenstraController;
 use App\Http\Controllers\Aspu\Pengukuran\AspuPengukuranController;
@@ -152,8 +156,34 @@ Route::middleware(['auth'])->group(function () {
             Route::get('pelaporan/{pelaporan}/download', [PerdaPelaporanController::class, 'download'])
                 ->name('pelaporan.download');
             Route::resource('pelaporan', PerdaPelaporanController::class);
+            Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
+                Route::get('/', [PerdaEvaluasiInternalController::class, 'index'])
+                    ->name('index');
+                Route::put('/update/{id}', [PerdaEvaluasiInternalController::class, 'update'])
+                    ->name('update');
+                Route::get('/download/{filename}', [PerdaEvaluasiInternalController::class, 'download'])
+                    ->name('download');
+            });
         });
-        Route::prefix('inspek')->name('inspek.')->group(function () {
+        Route::prefix('inspektorat')->name('inspek.')->group(function () {
+            Route::get('/index', InspekBerandaController::class)
+                ->name('index');
+            Route::prefix('/self-assesment')->name('self-assesment.')->group(function () {
+                Route::get('/', [SelfAssesmentController::class, 'index'])
+                    ->name('index');
+                Route::post('/store', [SelfAssesmentController::class, 'store'])
+                    ->name('store');
+                Route::put('/update/{id}', [SelfAssesmentController::class, 'update'])
+                ->name('update');
+            });
+            Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
+                Route::get('/', [InspekEvaluasiInternalController::class, 'index'])
+                    ->name('index');
+                Route::post('/store', [InspekEvaluasiInternalController::class, 'store'])
+                    ->name('store');
+                Route::put('/update/{id}', [InspekEvaluasiInternalController::class, 'update'])
+                ->name('update');
+            });
         });
     });
 });

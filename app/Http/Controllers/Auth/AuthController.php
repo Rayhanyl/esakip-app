@@ -32,6 +32,7 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        
         // if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
         //     $response = Http::withHeaders([
         //         'Content-Type' => 'application/json',
