@@ -18,4 +18,9 @@ class PerdaPengukuran extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function tahunans()
+    {
+        return $this->hasMany(PerdaPengukuranTahunan::class);
+    }
 }
