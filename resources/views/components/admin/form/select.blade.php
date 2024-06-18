@@ -2,7 +2,7 @@
     <label for="{{ $name }}" class="form-label fw-bold">
         {{ $label }}
     </label>
-    <select class="form-select select2" name="{{ $name }}" id="{{ $id ?? 'id-' . $name }}">
+    <select class="form-select select2 {{ $class }}" name="{{ $name }}" id="{{ $id ?? 'id-' . $name }}">
         <option value="-" selected disabled>- Pilih {{ $label }} -</option>
         @foreach ($lists ?? [] as $key => $list)
             <option value="{{ $key }}">{{ $list }}</option>

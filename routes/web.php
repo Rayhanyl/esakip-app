@@ -53,7 +53,7 @@ Route::prefix('authentication')->name('auth.')->group(function () {
         ->name('logout');
 });
 
-Route::prefix('get-data')->name('get-data')->group(function () {
+Route::prefix('get-data')->name('get-data.')->group(function () {
     Route::get('pengampu', [AdminBaseController::class, 'get_pengampu'])->name('pengampu');
 });
 

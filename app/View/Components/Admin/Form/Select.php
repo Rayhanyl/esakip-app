@@ -18,8 +18,9 @@ class Select extends Component
     public $lists;
     public $readonly;
     public $value;
+    public $class;
 
-    public function __construct($col = 'col-12 col-lg-6', $id = '', $label = '', $name = '', $lists = [], $value = '', $readonly = false)
+    public function __construct($col = 'col-12 col-lg-6', $id = '', $label = '', $name = '', $lists = [], $value = '', $readonly = false, $class='')
     {
         $this->col = $col;
         $this->label = $label;
@@ -28,6 +29,7 @@ class Select extends Component
         $this->value = $value;
         $this->id = $id;
         $this->readonly = $readonly;
+        $this->class = $class;
     }
 
     /**

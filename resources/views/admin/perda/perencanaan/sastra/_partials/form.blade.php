@@ -7,8 +7,7 @@
             <x-admin.form.select label="Tahun" name="tahun" value="{{ $sastra->tahun ?? '2024' }}" :lists="$tahun_options" />
             <x-admin.form.select label="Sasaran Bupati" name="pemkab_sastra_id"
                 value="{{ $sastra->pemkab_sastra_id ?? '' }}" :lists="$sasaran_bupati_options" />
-            <x-admin.form.select label="Pengampu" name="pengampu_id" :lists="[]" readonly="true" />
-            <input type="hidden" name="pengampu_id" value="1">
+            <x-admin.form.select label="Pengampu" name="pengampu_id" :lists="[]" id="get-data-pengampu" />
             <x-admin.form.text label="Sasaran Strategis" name="sasaran" value="{{ $sastra->sasaran ?? '' }}" />
         </div>
     </div>
@@ -190,3 +189,11 @@
         <button class="btn btn-primary btn-lg w-50">Submit</button>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            getDataPengampu('#get-data-pengampu');
+        })
+    </script>
+@endpush

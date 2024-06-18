@@ -15,11 +15,12 @@
     $(document).ready(function() {
         initPlugins();
     })
+
     function getDataPengampu(el){
-        $(`#${el}`).select2({
+        $(`${el}`).select2({
             theme: 'bootstrap-5',
             ajax: {
-                url: "",
+                url: "{{ route('get-data.pengampu') }}",
                 dataType: 'json',
                 delay: 250,
                 processResults: function(response) {

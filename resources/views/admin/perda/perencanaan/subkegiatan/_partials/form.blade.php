@@ -16,10 +16,8 @@
                         $keyp = Str::random(4);
                     @endphp
                     <div class="row col-pengampu-{{ $keyp }}">
-                        <x-admin.form.select col="col-11" label="Pengampu" name="pengampu_id" :lists="[]"
-                            readonly="true" />
-                        <input type="hidden" name="pengampu[{{ $keyp }}][id]" value="1">
-                        <input type="hidden" name="pengampu[{{ $keyp }}][value]" value="1">
+                        <x-admin.form.select col="col-11" class="get-data-pengampu" label="Pengampu" name="pengampu[{{ $keyp }}][value]" :lists="[]"/>
+                        <input type="hidden" name="pengampu[{{ $keyp }}][id]">
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
                             <div>
@@ -42,9 +40,7 @@
                         $keyp = Str::random(4);
                     @endphp
                     <div class="row col-pengampu-{{ $keyp }}">
-                        <x-admin.form.select col="col-11" label="Pengampu" name="pengampu_id" :lists="[]"
-                            readonly="true" />
-                        <input type="hidden" name="pengampu[{{ $keyp }}][value]" value="1">
+                        <x-admin.form.select col="col-11" class="get-data-pengampu" label="Pengampu" name="pengampu[{{ $keyp }}][value]" :lists="[]" />
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
                             <div>
@@ -166,3 +162,11 @@
         <button class="btn btn-primary btn-lg w-50">Submit</button>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            getDataPengampu('.get-data-pengampu');
+        })
+    </script>
+@endpush
