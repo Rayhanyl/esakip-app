@@ -35,7 +35,7 @@ class PerdaSastraController extends AdminBaseController
      */
     public function index()
     {
-        $data = PerdaSastra::where('id', Auth::user()->id)->get(); 
+        $data = PerdaSastra::whereUserId(Auth::user()->id)->get();
         return view('admin.perda.perencanaan.sastra.index',compact('data'));
     }
 
