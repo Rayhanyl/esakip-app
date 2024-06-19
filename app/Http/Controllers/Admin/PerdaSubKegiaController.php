@@ -27,7 +27,8 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function index()
     {
-        return view('admin.perda.perencanaan.subkegiatan.index');
+        $data = PerdaSubKegia::where('id', Auth::user()->id)->get();
+        return view('admin.perda.perencanaan.subkegiatan.index',compact('data'));
     }
 
     /**
