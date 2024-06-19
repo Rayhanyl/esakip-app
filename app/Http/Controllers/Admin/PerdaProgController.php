@@ -35,7 +35,8 @@ class PerdaProgController extends AdminBaseController
      */
     public function index()
     {
-        return view('admin.perda.perencanaan.program.index');
+        $data = PerdaProg::where('id', Auth::user()->id)->get();
+        return view('admin.perda.perencanaan.program.index',compact('data'));
     }
 
     /**

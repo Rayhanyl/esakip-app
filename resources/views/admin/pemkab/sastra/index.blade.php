@@ -35,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pemkabSastraData as $sastra)
+                                    @foreach ($data as $sastra)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-start">{{ $sastra->sasaran }}</td>

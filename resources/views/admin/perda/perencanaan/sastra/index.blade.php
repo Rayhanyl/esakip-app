@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($perdaSastraData as $sastra)
+                            @foreach ($data as $sastra)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $sastra->sasaran }}</td>

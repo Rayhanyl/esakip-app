@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($perdaKegiaData as $saske)
+                            @foreach ($data as $saske)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $saske->sasaran }}</td>

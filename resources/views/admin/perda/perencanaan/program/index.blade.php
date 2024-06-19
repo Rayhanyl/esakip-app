@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($perdaProgData as $saspro)
+                            @foreach ($data as $saspro)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $saspro->sasaran }}</td>

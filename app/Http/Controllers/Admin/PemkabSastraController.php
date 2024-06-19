@@ -8,7 +8,6 @@ use App\Models\PemkabSimact;
 use Illuminate\Http\Request;
 use App\Models\PemkabSastraIn;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Admin\AdminBaseController;
 
