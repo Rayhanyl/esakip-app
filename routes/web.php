@@ -24,6 +24,7 @@ use App\Http\Controllers\Aspu\Evaluasi\AspuEvaluasiController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuRenjaController;
 use App\Http\Controllers\Admin\PerdaEvaluasiInternalController;
 use App\Http\Controllers\Admin\InspekEvaluasiInternalController;
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Aspu\CascadingController;
 use App\Http\Controllers\Aspu\Pelaporan\AspuPelaporanController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuRenstraController;
@@ -109,6 +110,9 @@ Route::prefix('/')->name('aspu.')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('user-management/profile/{user}', [UserManagementController::class, 'profile'])
+            ->name('user-management.profile');
+        Route::resource('user-management', UserManagementController::class);
         Route::prefix('pemkab')->name('pemkab.')->group(function () {
             Route::resource('beranda', PemkabBerandaController::class);
             Route::prefix('sastra')->name('sastra.')->group(function () {
@@ -177,7 +181,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/store', [SelfAssesmentController::class, 'store'])
                     ->name('store');
                 Route::put('/update/{id}', [SelfAssesmentController::class, 'update'])
-                ->name('update');
+                    ->name('update');
             });
             Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
                 Route::get('/', [InspekEvaluasiInternalController::class, 'index'])
@@ -185,7 +189,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/store', [InspekEvaluasiInternalController::class, 'store'])
                     ->name('store');
                 Route::put('/update/{id}', [InspekEvaluasiInternalController::class, 'update'])
-                ->name('update');
+                    ->name('update');
             });
         });
     });

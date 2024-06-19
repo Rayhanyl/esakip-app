@@ -178,11 +178,11 @@
                                     <li>
                                         <h6 class="dropdown-header">Hello, {{ session('name') ?? 'No name' }}</h6>
                                     </li>
-                                    {{-- <li>
-                                        <a class="dropdown-item" href="#"><i
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.user-management.profile', ['user' => Auth::user()->id]) }}"><i
                                                 class="icon-mid bi bi-person me-2"></i> My
                                             Profile</a>
-                                    </li> --}}
+                                    </li>
                                     {{-- <li>
                                         <a class="dropdown-item" href="#"><i
                                                 class="icon-mid bi bi-gear me-2"></i>

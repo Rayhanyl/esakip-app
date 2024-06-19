@@ -63,40 +63,54 @@ class AspuEvaluasiController extends Controller
         $rekomendasi = $komponens->pluck('rekomendasi');
         $nilai = $evaluasi->nilai_akuntabilitas_kinerja;
         $predikat = 'N/A';
-        if ($nilai == 0) {
-            $predikat = 'E';
-        } elseif ($nilai <= 30) {
-            $predikat = 'D';
-        } elseif ($nilai <= 50) {
-            $predikat = 'C';
-        } elseif ($nilai <= 60) {
-            $predikat = 'CC';
-        } elseif ($nilai <= 70) {
-            $predikat = 'B';
-        } elseif ($nilai <= 80) {
-            $predikat = 'BB';
-        } elseif ($nilai <= 90) {
-            $predikat = 'A';
-        } elseif ($nilai <= 100) {
+        if ($nilai > 90 && $nilai <= 100) {
             $predikat = 'AA';
+        } elseif ($nilai > 80 && $nilai <= 90) {
+            $predikat = 'A';
+        } elseif ($nilai > 70 && $nilai <= 80) {
+            $predikat = 'BB';
+        } elseif ($nilai > 60 && $nilai <= 70) {
+            $predikat = 'B';
+        } elseif ($nilai > 50 && $nilai <= 60) {
+            $predikat = 'CC';
+        } elseif ($nilai > 30 && $nilai <= 50) {
+            $predikat = 'C';
+        } elseif ($nilai > 0 && $nilai <= 30) {
+            $predikat = 'D';
+        } elseif ($nilai == 0) {
+            $predikat = 'E';
+        } else {
+            $predikat = 'Invalid nilai';
         }
+
         $predikat_name = 'N/A';
-        if ($nilai == 0) {
-            $predikat_name = 'Sangat Kurang';
-        } elseif ($nilai <= 30) {
-            $predikat_name = 'Kurang';
-        } elseif ($nilai <= 50) {
-            $predikat_name = 'Cukup Kurang';
-        } elseif ($nilai <= 60) {
-            $predikat_name = 'Cukup';
-        } elseif ($nilai <= 70) {
-            $predikat_name = 'Baik';
-        } elseif ($nilai <= 80) {
-            $predikat_name = 'Cukup Baik';
-        } elseif ($nilai <= 90) {
-            $predikat_name = 'Baik Sekali';
-        } elseif ($nilai <= 100) {
+        if ($nilai > 90 && $nilai <= 100) {
+            $predikat_name = 'Sangat Memuaskan';
+            $predikat_description = 'Telah terwujud Good Governance. Seluruh kinerja  dikelola dengan sangat memuaskan di seluruh unit  kerja. Telah terbentuk pemerintah yang yang  dinamis, adaptif, dan efisien (Reform). Pengukuran  kinerja telah dilakukan sampai ke level individu.';
+        } elseif ($nilai > 80 && $nilai <= 90) {
+            $predikat_name = 'Memuaskan';
+            $predikat_description = 'Terdapat gambaran bahwa instansi pemerintah/unit  kerja dapat memimpin perubahan dalam  mewujudkan pemerintahan berorientasi hasil,  karena pengukuran kinerja telah dilakukan sampai  ke level eselon 4/Pengawas/Subkoordinator.';
+        } elseif ($nilai > 70 && $nilai <= 80) {
             $predikat_name = 'Sangat Baik';
+            $predikat_description = 'Terdapat gambaran bahwa AKIP sangat baik pada  2/3 unit kerja, baik itu unit kerja utama, maupun  unit kerja pendukung. Akuntabilitas yang sangat  baik ditandai dengan mulai terwujudnya efisiensi  penggunaan anggaran dalam mencapai kinerja, memiliki sistem manajemen kinerja yang andal dan berbasis teknologi informasi, serta pengukuran kinerja telah dilakukan sampai ke level eselon  3/koordinator.';
+        } elseif ($nilai > 60 && $nilai <= 70) {
+            $predikat_name = 'Baik';
+            $predikat_description = 'Terdapat gambaran bahwa AKIP sudah baik pada 1/3 unit kerja, khususnya pada unit kerja utama. Terlihat masih perlu adanya sedikit perbaikan pada  unit kerja, serta komitmen dalam manajemen  kinerja. Pengukuran kinerja baru dilaksanakan  sampai dengan level eselon 2/unit kerja.';
+        } elseif ($nilai > 50 && $nilai <= 60) {
+            $predikat_name = 'Cukup (Memadai)';
+            $predikat_description = 'Terdapat gambaran bahwa AKIP cukup baik. Namun  demikian, masih perlu banyak perbaikan walaupun  tidak mendasar khususnya akuntabilitas kinerja  pada unit kerja.';
+        } elseif ($nilai > 30 && $nilai <= 50) {
+            $predikat_name = 'Kurang';
+            $predikat_description = 'Sistem dan tatanan dalam AKIP kurang dapat diandalkan. Belum terimplementasi sistem manajemen kinerja sehingga masih perlu banyak  perbaikan mendasar di level pusat.';
+        } elseif ($nilai > 0 && $nilai <= 30) {
+            $predikat_name = 'Sangat Kurang';
+            $predikat_description = 'Sistem dan tatanan dalam AKIP sama sekali tidak  dapat diandalkan. Sama sekali belum terdapat penerapan manajemen kinerja sehingga masih perlu  banyak perbaikan/perubahan yang sifatnya sangat  mendasar, khususnya dalam implementasi SAKIP.';
+        } elseif ($nilai == 0) {
+            $predikat_name = 'Sangat Kurang';
+            $predikat_description = 'Sistem dan tatanan dalam AKIP sama sekali tidak  dapat diandalkan. Sama sekali belum terdapat penerapan manajemen kinerja sehingga masih perlu  banyak perbaikan/perubahan yang sifatnya sangat  mendasar, khususnya dalam implementasi SAKIP.';
+        } else {
+            $predikat_name = 'Invalid nilai';
+            $predikat_description = 'Invalid';
         }
 
         $user = User::findOrFail($evaluasi->user_id);
@@ -104,6 +118,7 @@ class AspuEvaluasiController extends Controller
             'evaluasi' => $evaluasi,
             'user' => $user,
             'predikat_name' => $predikat_name,
+            'predikat_description' => $predikat_description,
             'totalBobot' => $nilai,
             'predikat' => $predikat,
             'komponens' => $komponens,
