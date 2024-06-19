@@ -31,3 +31,4 @@ class PemkabSastra extends Model
         return $this->hasMany(PerdaSastra::class);
     }
 }
+
