@@ -43,17 +43,15 @@ class AspuIkuController extends Controller
             'satuan',
             'simple_actions',
             'penanggung_jawabs'
-        ])->whereHas(
-            'user',
-            function ($q) use ($request) {
-                if ($request->perda != null) {
-                    $q->where('user_id', $request->perda ?? '');
-                }
-                if ($request->tahun != null) {
-                    $q->where('tahun', $request->tahun ?? '');
-                }
+        ])->whereHas('user', function ($q) use ($request) {
+            if ($request->perda != null) {
+                $q->where('user_id', $request->perda ?? '');
             }
-        )->get();
+        })->whereHas('pemkab_sastra', function ($r) use ($request) {
+            if ($request->tahun != null) {
+                $r->where('tahun', $request->tahun ?? '');
+            }
+        })->get();
         return view('aspu.perencanaan.pemkab.iku.index', compact('user', 'data', 'perda', 'tahun', 'satuans'));
     }
 }
