@@ -27,11 +27,11 @@
                     </div>
                 </div>
                 <x-admin.form.select col="col-4" label="Satuan" name="indikator[{{ $key }}][satuan_id]"
-                    :lists="$satuan_options" />
+                    :lists="$satuan_options" id="satuan_select2{{ $key }}" />
                 <x-admin.form.text-area col="col-8" label="Penjelasan"
                     name="indikator[{{ $key }}][penjelasan]" />
                 <x-admin.form.select label="Tipe Perhitungan" name="indikator[{{ $key }}][tipe_perhitungan]"
-                    :lists="$tipe_perhitungan_options" />
+                    :lists="$tipe_perhitungan_options" id="tipe_perhitungan_select2{{ $key }}" />
                 <x-admin.form.text label="Sumber Data" name="indikator[{{ $key }}][sumber_data]" />
                 <div class="col-12" id="col-penanggung-jawab-{{ $key }}">
                     @php

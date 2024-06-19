@@ -7,7 +7,15 @@
             <x-admin.form.select label="Tahun" name="tahun" value="{{ $saspro->tahun ?? '2024' }}" :lists="$tahun_options" />
             <x-admin.form.select label="Sasaran Strategis" name="perda_sastra_id"
                 value="{{ $saspro->perda_sastra_id ?? '' }}" :lists="$sastra_options" />
-            <x-admin.form.select label="Pengampu" name="pengampu_id" :lists="[]" id="get-data-pengampu"/>
+            @if ($old_pengampu['id'] ?? false)
+                <input type="hidden" value="{{ $old_pengampu['id'] }}" name="old_pengampu_id">
+                <x-admin.form.text col="{{ $old_pengampu['id'] ?? false ? 'col-3' : 'col-6' }}"
+                    label="Pengampu yg dipilih" name="old_pengampu_name" value="{{ $old_pengampu['name'] }}"
+                    readonly=true />
+            @endif
+            <x-admin.form.select col="{{ $old_pengampu['id'] ?? false ? 'col-3' : 'col-6' }}"
+                label="{{ $old_pengampu['id'] ?? false ? 'Ubah Pengampu' : 'Pengampu' }}" name="pengampu_id"
+                :lists="[]" id="get-data-pengampu" value="{{ $sastra->pengampu_id ?? '' }}" />
             <x-admin.form.text label="Sasaran Program" name="sasaran" value="{{ $saspro->sasaran ?? '' }}" />
         </div>
     </div>
@@ -39,7 +47,7 @@
                         <x-admin.form.text label="Target" name="indikator[{{ $key }}][target]"
                             value="{{ $item->target }}" />
                         <x-admin.form.select label="Satuan" name="indikator[{{ $key }}][satuan_id]"
-                            :lists="$satuan_options" value="{{ $item->satuan_id }}" />
+                            :lists="$satuan_options" value="{{ $item->satuan_id }}" id="satuan_select2" />
                         <x-admin.form.text label="Program" name="indikator[{{ $key }}][program]"
                             value="{{ $item->program }}" />
                         <x-admin.form.text label="Anggaran" name="indikator[{{ $key }}][anggaran]"

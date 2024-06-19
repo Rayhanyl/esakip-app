@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Admin\AdminBaseController;
-use App\Http\Requests\StorePemkabPengukuranRequest;
-use App\Http\Requests\UpdatePemkabPengukuranRequest;
 
 class PemkabPengukuranController extends AdminBaseController
 {
@@ -59,7 +57,7 @@ class PemkabPengukuranController extends AdminBaseController
                 'user_id' => Auth::id(),
                 'pemkab_sastra_id' => $validated['pemkab_sastra_id'],
                 'pemkab_sastra_in_id' => $validated['pemkab_sastra_in_id'],
-                'tahun' => null,
+                'tahun' => 0,
                 'target' => $validated['target'],
                 'realisasi' => $validated['realisasi'],
                 'capaian' => $validated['capaian'],
@@ -71,6 +69,7 @@ class PemkabPengukuranController extends AdminBaseController
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->validator)->withInput();
         } catch (\Exception $e) {
+            dd($e);
             Alert::toast('Gagal membuat data. Silakan coba lagi.', 'error');
             return redirect()->back()->withInput();
         }

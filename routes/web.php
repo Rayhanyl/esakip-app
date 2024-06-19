@@ -125,7 +125,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('pengukuran/get-target', [PemkabPengukuranController::class, 'getTarget'])
                 ->name('pengukuran.get-target');
             Route::resource('pengukuran', PemkabPengukuranController::class);
-            Route::get('pelaporan/{pelaporan}/download', [PerdaPelaporanController::class, 'download'])
+            Route::get('pelaporan/{pelaporan}/download', [PemkabPelaporanController::class, 'download'])
                 ->name('pelaporan.download');
             Route::resource('pelaporan', PemkabPelaporanController::class);
         });

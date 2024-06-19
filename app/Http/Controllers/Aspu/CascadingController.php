@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Aspu;
 
-use App\Models\PerdaSastra;
 use App\Models\PemkabSastra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

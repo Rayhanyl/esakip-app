@@ -4,9 +4,11 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <x-admin.form.select label="Tahun" name="tahun" value="{{ $sastra->tahun ?? '2024' }}" :lists="$tahun_options" />
+            <x-admin.form.select label="Tahun" name="tahun" value="{{ $sastra->tahun ?? '2024' }}" :lists="$tahun_options"
+                value="{{ $sastra->tahun ?? '' }}" id="tahun_select2" />
             <x-admin.form.text label="Sasaran Bupati" name="sasaran" value="{{ $sastra->sasaran ?? '' }}" />
-            <x-admin.form.select label="Pengampu" name="pengampu_id" :lists="[]" readonly="true" />
+            <x-admin.form.select label="Pengampu" name="pengampu_id" :lists="['0' => 'Bupati']" value="0" readonly="true"
+                id="pengampu_select2" />
             <input type="hidden" name="pengampu_id" value="1">
         </div>
     </div>
@@ -53,12 +55,12 @@
                         </div>
                         <x-admin.form.select col="col-4" label="Satuan"
                             name="indikator[{{ $key }}][satuan_id]" :lists="$satuan_options"
-                            value="{{ $item->satuan_id }}" />
+                            value="{{ $item->satuan_id }}" id="satuan_select2{{ $key }}" />
                         <x-admin.form.textarea col="col-8" label="Penjelasan"
                             name="indikator[{{ $key }}][penjelasan]" value="{{ $item->penjelasan }}" />
                         <x-admin.form.select label="Tipe Perhitungan"
                             name="indikator[{{ $key }}][tipe_perhitungan]" :lists="$tipe_perhitungan_options"
-                            value="{{ $item->tipe_perhitungan }}" />
+                            value="{{ $item->tipe_perhitungan }}" id="tipe_perhitungan_select2{{ $key }}" />
                         <x-admin.form.text label="Sumber Data" name="indikator[{{ $key }}][sumber_data]"
                             value="{{ $item->sumber_data }}" />
                         <div class="col-12" id="col-penanggung-jawab-{{ $key }}">

@@ -7,9 +7,7 @@ use App\Models\PemkabPelaporan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\StorePemkabPelaporanRequest;
 use App\Http\Controllers\Admin\AdminBaseController;
-use App\Http\Requests\UpdatePemkabPelaporanRequest;
 
 class PemkabPelaporanController extends AdminBaseController
 {

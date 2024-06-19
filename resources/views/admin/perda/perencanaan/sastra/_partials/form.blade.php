@@ -4,10 +4,16 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <x-admin.form.select label="Tahun" name="tahun" value="{{ $sastra->tahun ?? '2024' }}" :lists="$tahun_options" />
+            <x-admin.form.select label="Tahun" name="tahun" value="{{ $sastra->tahun ?? '2024' }}" :lists="$tahun_options" id="tahun_select2" />
             <x-admin.form.select label="Sasaran Bupati" name="pemkab_sastra_id"
                 value="{{ $sastra->pemkab_sastra_id ?? '' }}" :lists="$sasaran_bupati_options" />
-            <x-admin.form.select label="Pengampu" name="pengampu_id" :lists="[]" id="get-data-pengampu" />
+            @if($old_pengampu['id'] ?? false)
+                <input type="hidden" value="{{ $old_pengampu['id'] }}" name="old_pengampu_id" >
+                <x-admin.form.text col="{{ ($old_pengampu['id'] ?? false) ? 'col-3' : 'col-6' }}" label="Pengampu yg dipilih"
+                    name="old_pengampu_name" value="{{ $old_pengampu['name'] }}" readonly=true />
+            @endif
+            <x-admin.form.select col="{{ ($old_pengampu['id'] ?? false) ? 'col-3' : 'col-6' }}" label="{{ ($old_pengampu['id'] ?? false) ? 'Ubah Pengampu' : 'Pengampu' }}" name="pengampu_id"
+                :lists="[]" id="get-data-pengampu" value="{{ $sastra->pengampu_id ?? '' }}" />
             <x-admin.form.text label="Sasaran Strategis" name="sasaran" value="{{ $sastra->sasaran ?? '' }}" />
         </div>
     </div>
@@ -54,12 +60,12 @@
                         </div>
                         <x-admin.form.select col="col-4" label="Satuan"
                             name="indikator[{{ $key }}][satuan_id]" :lists="$satuan_options"
-                            value="{{ $item->satuan_id }}" />
+                            value="{{ $item->satuan_id }}" id="satuan_select2" />
                         <x-admin.form.textarea col="col-8" label="Penjelasan"
                             name="indikator[{{ $key }}][penjelasan]" value="{{ $item->penjelasan }}" />
                         <x-admin.form.select label="Tipe Perhitungan"
                             name="indikator[{{ $key }}][tipe_perhitungan]" :lists="$tipe_perhitungan_options"
-                            value="{{ $item->tipe_perhitungan }}" />
+                            value="{{ $item->tipe_perhitungan }}" id="perhitungan_select2" />
                         <x-admin.form.text label="Sumber Data" name="indikator[{{ $key }}][sumber_data]"
                             value="{{ $item->sumber_data }}" />
                         <div class="col-12" id="col-penanggung-jawab-{{ $key }}">

@@ -7,14 +7,23 @@ use App\Models\PerdaProgIn;
 use App\Models\PerdaSastra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\View;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Admin\AdminBaseController;
 
 class PerdaProgController extends AdminBaseController
 {
+    public $baseUrl;
+    public $clientId;
+    public $clientSecret;
+
     public function __construct()
     {
+        parent::__construct();
+        $this->baseUrl = 'https://sammara.majalengkakab.go.id/public_api';
+        $this->clientId = '3c15eda4-f16a-444a-9807-f03ac2d73ea6';
+        $this->clientSecret = 'a36KxQjb6KQO89o6zgb2ld9fC9LwPZ3Tir5chWGC';
         parent::__construct();
         View::share('sastra_options', PerdaSastra::all()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran;
@@ -63,8 +72,11 @@ class PerdaProgController extends AdminBaseController
      */
     public function edit(PerdaProg $saspro)
     {
+        $data = $this->getPengampuNip($saspro->pengampu_id);
+        $old_pengampu['id'] = $data->nip;
+        $old_pengampu['name'] = $data->nama_pegawai_gelar;
         $saspro->load('perda_prog_ins');
-        return view('admin.perda.perencanaan.program.edit', compact('saspro'));
+        return view('admin.perda.perencanaan.program.edit', compact('saspro', 'old_pengampu'));
     }
 
     /**
@@ -72,6 +84,9 @@ class PerdaProgController extends AdminBaseController
      */
     public function update(Request $request, PerdaProg $saspro)
     {
+        if($request->pengampu_id == ''){
+            $request->pengampu_id = $request->old_pengampu_id;
+        }
         $saspro->update($request->only(PerdaProg::FILLABLE_FIELDS));
         $savedIds = [];
         foreach (($request->indikator ?? []) as $indikator) {
@@ -110,5 +125,23 @@ class PerdaProgController extends AdminBaseController
     public function indicator()
     {
         return view('admin.perda.perencanaan.program._partials.indicator');
+    }
+
+    public function getPengampuNip($nip){
+        $response1 = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'User-Agent' => 'insomnia/2023.5.8'
+        ])->post("{$this->baseUrl}/auth", [
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret
+        ]);
+        $token = json_decode($response1->getBody()->getContents());
+        $response2 = Http::withHeaders([
+            'User-Agent' => 'insomnia/2023.5.8',
+            'Authorization' => 'Bearer ' . $token->result->token
+        ])->get('https://sammara.majalengkakab.go.id/public_api/esakip/list_pengampu/' . $nip);
+        $detail = json_decode($response2->getBody()->getContents());
+        $result = $detail->result;
+        return $result;
     }
 }

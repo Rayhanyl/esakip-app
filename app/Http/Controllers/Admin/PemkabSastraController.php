@@ -17,14 +17,14 @@ class PemkabSastraController extends AdminBaseController
     public function __construct()
     {
         parent::__construct();
-        View::share('pemkabSastraData', PemkabSastra::all());
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.pemkab.sastra.index');
+        $pemkabSastraData = PemkabSastra::whereUserId(Auth::user()->id)->get();
+        return view('admin.pemkab.sastra.index', compact('pemkabSastraData'));
     }
 
     /**
@@ -53,7 +53,7 @@ class PemkabSastraController extends AdminBaseController
                 PemkabSimact::create($params2);
             }
         }
-        to_route('admin.pemkab.sastra.index');
+        return redirect()->route('admin.pemkab.sastra.index')->with('success','Menambahkan data sukses');
     }
 
     /**
