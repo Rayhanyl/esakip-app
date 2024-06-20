@@ -53,16 +53,22 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function store(Request $request)
     {
-        $data = PerdaSubKegia::create(array_merge($request->only(PerdaSubKegia::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
-        foreach (($request->pengampu ?? []) as $pengampu) {
-            $param_pengampus = array_merge(['perda_subkegia_id' => $data->id],['pengampu_id' => $pengampu['value']]);
-            PerdaSubKegiaPengampu::create($param_pengampus);
+        try {
+            $data = PerdaSubKegia::create(array_merge($request->only(PerdaSubKegia::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
+            foreach (($request->pengampu ?? []) as $pengampu) {
+                $param_pengampus = array_merge(['perda_subkegia_id' => $data->id], ['pengampu_id' => $pengampu['value']]);
+                PerdaSubKegiaPengampu::create($param_pengampus);
+            }
+            foreach ($request->indikator as $value) {
+                $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_subkegia_id' => $data->id]);
+                PerdaSubKegiaIn::create($params);
+            }
+            Alert::toats('Berhasil menambahkan data', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            Alert::toats('Gagal menambahkan data', 'danger');
+            return redirect()->back();
         }
-        foreach ($request->indikator as $value) {
-            $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_subkegia_id' => $data->id]);
-            PerdaSubKegiaIn::create($params);
-        }
-        return redirect()->back();
     }
 
     /**
