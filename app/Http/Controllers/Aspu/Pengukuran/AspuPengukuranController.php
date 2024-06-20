@@ -15,20 +15,24 @@ class AspuPengukuranController extends Controller
         $perda = $request->perda;
         $tahun = $request->tahun;
         $triwulan = $request->triwulan;
-        $data = PerdaPengukuran::with('user')->whereHas('user', function ($q) use ($request) {
-            $q->where('role', 'perda');
-            if ($request->perda != null) {
-                $q->where('user_id', $request->perda);
-            }
-            if ($request->tahun != null) {
-                $q->where('user_id', $request->perda);
-            }
-            if ($request->triwulan != null) {
-                $q->where('user_id', $request->perda);
-            }
-        })->get();
+
+        $data = PerdaPengukuran::with('user', 'tahunans', 'triwulans')
+            ->whereHas('user', function ($q) use ($perda) {
+                $q->where('role', 'perda');
+                if ($perda) {
+                    $q->where('id', $perda);
+                }
+            })
+            ->when($tahun, function ($query, $tahun) {
+                return $query->where('tahun', $tahun);
+            })
+            ->when($triwulan, function ($query, $triwulan) {
+                return $query->where('triwulan', $triwulan);
+            })
+            ->get();
         return view('aspu.pengukuran.index', compact('user', 'perda', 'tahun', 'triwulan', 'data'));
     }
+
 
     public function detail(Request $request, $user)
     {
