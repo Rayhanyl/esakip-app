@@ -164,6 +164,10 @@ Route::middleware(['auth'])->group(function () {
                     ->name('indicator');
                 Route::get('get-data', [PerdaPengukuranController::class, 'get_data'])
                     ->name('get-data');
+                Route::get('get-sub-data', [PerdaPengukuranController::class, 'get_sub_data'])
+                    ->name('get-sub-data');
+                Route::get('get-pagu', [PerdaPengukuranController::class, 'get_pagu'])
+                    ->name('get-pagu');
                 Route::get('get-value', [PerdaPengukuranController::class, 'get_value'])
                     ->name('get-value');
             });

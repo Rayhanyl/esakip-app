@@ -34,7 +34,7 @@
                                     @csrf
                                     <x-admin.form.select col="col-12 col-lg-6" label="Tahun" name="tahun"
                                         :lists="$tahun_options" id="tahun-select2" />
-                                    <x-admin.form.select col="col-12 col-lg-6" label="Triwulan" name="triwulan"
+                                    <x-admin.form.select col="col-12 col-lg-6" label="Triwulan" name="tipe"
                                         :lists="$triwulan_options" id="triwulan-select2" />
                                     <div class="col-12" id="section-triwulan">
                                         <div class="row g-3">
@@ -189,26 +189,90 @@
             $('#section-tahunan').hide();
             $('#triwulan-select2').on('select2:select', function() {
                 show_hide($(this).val());
+                getData('sastra', $('#tahun-select2').val(), '#tahunan_sasaran_strategis_id');
+                getData('sastra', $('#tahun-select2').val(), '#id-sasaran_strategis_id');
+                getData('sasubkegia', $('#tahun-select2').val(), '#id-sasaran_sub_kegiatan_id');
+                getData('sasubkegia', $('#tahun-select2').val(), '#id-anggaran_sub_kegiatan_id');
             })
             $('#tahun-select2').on('select2:select', function() {
                 getData('sastra', $(this).val(), '#tahunan_sasaran_strategis_id');
                 getData('sastra', $(this).val(), '#id-sasaran_strategis_id');
+                getData('sasubkegia', $(this).val(), '#id-sasaran_sub_kegiatan_id');
+                getData('sasubkegia', $(this).val(), '#id-anggaran_sub_kegiatan_id');
                 reset_form();
             })
+
+            $('#id-sasaran_strategis_id').on('select2:select', function() {
+                getData('sastra_in', $(this).val(), $('#id-sasaran_strategis_indikator_id'));
+            });
+            $('#id-sasaran_sub_kegiatan_id').on('select2:select', function() {
+                getData('sasubkegia_in', $(this).val(), $('#id-sasaran_sub_kegiatan_indikator_id'));
+            });
+            $('#id-anggaran_sub_kegiatan_id').on('select2:select', function() {
+                getPagu($(this).val(), $('#anggaran_pagu'));
+            });
+            $('#id-sasaran_sub_kegiatan_indikator_id').on('select2:select', function() {
+                getSubData($(this).val(), $('#triwulan-select2').val(), $('#sasaran_sub_kegiatan_target'));
+            });
+
+            function getPagu(id, element) {
+                $.get("{{ route('admin.perda.pengukuran.get-pagu') }}", {
+                    id
+                }, function(data) {
+                    $(element).val(data);
+                });
+            }
+
             $('#tahunan_sasaran_strategis_id').on('select2:select', function() {
                 getData('sastra_in', $(this).val(), $(
                     '#tahunan_sasaran_strategis_indikator_id'));
             });
+
             $('#tahunan_sasaran_strategis_indikator_id').on('select2:select', function() {
                 getValue('target_tahunan', $(this).val(), $(
                     '#tahunan_target'));
             });
+            $('#realisasi').on('keydown', function() {
+                calculateCapaian();
+            })
+            $('#karakteristik').on('select2:select', function() {
+                calculateCapaian();
+            })
+
             $('#tahunan_realisasi').on('keydown', function() {
                 calculateCapaianTahunan();
             })
             $('#tahunan_karakteristik').on('select2:select', function() {
                 calculateCapaianTahunan();
             })
+
+            function calculateCapaian() {
+                const realisasi = parseFloat($('#realisasi').val()) || 0;
+                const target = parseFloat($('#sasaran_sub_kegiatan_target').val()) || 0;
+                const karakteristik = $('#id-karakteristik').val();
+                let capaian = 0;
+                if (karakteristik === "1") {
+                    capaian = (realisasi / target) * 100;
+                } else if (karakteristik === "2") {
+                    capaian = ((target - (realisasi - target)) / target) * 100;
+                }
+
+                $('#capaian').val(capaian.toFixed(2));
+            }
+
+            $('#anggaran_realisasi').on('keydown', function() {
+                calculateCapaianAnggaran();
+            })
+            $('#id-anggaran_karakteristik').on('select2:select', function() {
+                calculateCapaianAnggaran();
+            })
+
+            function calculateCapaianAnggaran() {
+                const realisasi = parseFloat($('#anggaran_realisasi').val()) || 0;
+                const pagu = parseFloat($('#anggaran_pagu').val().replace(/\D/g, '').replace(',', '.')) || 0;
+                let achievement = pagu !== 0 ? (realisasi / pagu) * 100 : 0;
+                $('#anggaran_capaian').val(achievement.toFixed(2));
+            }
 
             function calculateCapaianTahunan() {
                 const realisasi = parseFloat($('#tahunan_realisasi').val()) || 0;
@@ -233,6 +297,19 @@
                     },
                     success: function(result) {
                         $(element).val(result.target1);
+                    }
+                });
+            }
+
+            function getSubData(id, triwulan, element) {
+                $.ajax({
+                    url: "{{ route('admin.perda.pengukuran.get-sub-data') }}",
+                    data: {
+                        id,
+                        triwulan,
+                    },
+                    success: function(result) {
+                        $(element).val(result);
                     }
                 });
             }
