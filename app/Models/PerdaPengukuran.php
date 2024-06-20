@@ -11,6 +11,7 @@ class PerdaPengukuran extends Model
     const FILLABLE_FIELDS = [
         'user_id',
         'tahun',
+        'tipe',
     ];
     protected $fillable = self::FILLABLE_FIELDS;
 
