@@ -6,10 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PerdaPengukuran;
 use App\Http\Controllers\Controller;
+use App\Models\PemkabPengukuran;
 
 class AspuPengukuranController extends Controller
 {
-    public function index(Request $request)
+    public function perda(Request $request)
     {
         $user = User::where('role', 'perda')->get();
         $perda = $request->perda;
@@ -31,6 +32,12 @@ class AspuPengukuranController extends Controller
             })
             ->get();
         return view('aspu.pengukuran.index', compact('user', 'perda', 'tahun', 'triwulan', 'data'));
+    }
+
+    public function pemkab(Request $request)
+    {
+        $data = PemkabPengukuran::with('pemkab_sastra', 'pemkab_sastra_in')->get();
+        return view('aspu.pengukuran.pemkab', compact('data'));
     }
 
 

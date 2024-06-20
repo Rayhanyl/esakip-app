@@ -131,11 +131,27 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="{{ Route::is('aspu.pengukuran.index') ? 'active' : '' }}">
-                                    <a href="{{ route('aspu.pengukuran.index') }}">Pengukuran Kinerja</a>
+                                <li class="has-children {{ Route::is('aspu.pengukuran.perda-index') || Route::is('aspu.pengukuran.pemkab-index') ? 'active' : '' }}">
+                                    <a>Pengukuran Kinerja</a>
+                                    <ul class="dropdown">
+                                        <li>
+                                            <a href="{{ route('aspu.pengukuran.perda-index') }}">Perangkat Daerah</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('aspu.pengukuran.pemkab-index') }}">Pemerintah Kabupaten</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li class="{{ Route::is('aspu.pelaporan.index') ? 'active' : '' }}">
-                                    <a href="{{ route('aspu.pelaporan.index') }}">Pelaporan Kinerja</a>
+                                <li class="has-children {{ Route::is('aspu.pelaporan.perda-index') || Route::is('aspu.pelaporan.pemkab-index') ? 'active' : '' }}">
+                                    <a>Pelaporan Kinerja</a>
+                                    <ul class="dropdown">
+                                        <li>
+                                            <a href="{{ route('aspu.pelaporan.perda-index') }}">Perangkat Daerah</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('aspu.pelaporan.pemkab-index') }}">Pemerintah Kabupaten</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="{{ Route::is('aspu.evaluasi.index') ? 'active' : '' }}">
                                     <a href="{{ route('aspu.evaluasi.index') }}">Evaluasi Internal</a>

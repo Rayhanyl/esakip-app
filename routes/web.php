@@ -87,17 +87,21 @@ Route::prefix('/')->name('aspu.')->group(function () {
             ->name('cascading');
     });
     Route::prefix('pengukuran-kinerja')->name('pengukuran.')->group(function () {
-        Route::get('/index', [AspuPengukuranController::class, 'index'])
-            ->name('index');
+        Route::get('/perangkat-daerah/index', [AspuPengukuranController::class, 'perda'])
+            ->name('perda-index');
+        Route::get('/pemerintah-kabupaten/index', [AspuPengukuranController::class, 'pemkab'])
+            ->name('pemkab-index');
         Route::get('/detail', [AspuPengukuranController::class, 'detail'])
             ->name('detail');
     });
     Route::prefix('pelaporan')->name('pelaporan.')->group(function () {
-        Route::get('/index', [AspuPelaporanController::class, 'index'])
-            ->name('index');
+        Route::get('/perangkat-daerah/index', [AspuPelaporanController::class, 'perda'])
+            ->name('perda-index');
+        Route::get('/pemerintah-kabupaten/index', [AspuPelaporanController::class, 'pemkab'])
+            ->name('pemkab-index');
         Route::post('/count', [AspuPelaporanController::class, 'count'])
             ->name('count');
-        Route::get('/download/{id}', [AspuPelaporanController::class, 'download'])
+        Route::get('/download/{id}/{tipe}', [AspuPelaporanController::class, 'download'])
             ->name('download');
     });
     Route::prefix('evaluasi')->name('evaluasi.')->group(function () {

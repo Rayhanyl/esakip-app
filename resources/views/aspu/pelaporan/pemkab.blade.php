@@ -18,17 +18,7 @@
     <div class="section sec-services">
         <div class="container">
             <div class="row">
-                <form class="row g-3" action="{{ route('aspu.pelaporan.perda-index') }}" method="GET">
-                    <div class="col-12 col-lg-3">
-                        <label class="form-label fs-5 fw-bold" for="perda">Perangkat Daerah</label>
-                        <select class="form-select select2" id="perda" name="perda">
-                            <option value="" selected>-- All --</option>
-                            @foreach ($user as $item)
-                                <option value="{{ $item->id }}" {{ $item->id == $perda ? 'selected' : '' }}>
-                                    {{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                <form class="row g-3" action="{{ route('aspu.pelaporan.pemkab-index') }}" method="GET">
                     <div class="col-12 col-lg-3">
                         <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
                         <select class="form-select" id="tahun" name="tahun">
@@ -54,11 +44,11 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-pelaporan-kinerja" style="width: 100%;">
+                                <table class="table table-striped table-hover" id="data-pelaporan-kinerja-pemkab"
+                                    style="width: 100%;">
                                     <thead class="table-info">
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Perangkat Daerah</th>
                                             <th class="text-center">Tahun</th>
                                             <th class="text-center">File pelaporan Kinerja</th>
                                             <th class="text-center">Keterangan</th>
@@ -69,13 +59,13 @@
                                         @foreach ($data as $index => $pelaporan)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">{{ $pelaporan->user->name }}</td>
                                                 <td class="text-center">{{ $pelaporan->tahun }}</td>
                                                 <td class="text-center">
                                                     <a data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Download File Pelaporan Kinerja"
-                                                        class="text-primary btn-count-file" data-id="{{ $pelaporan->id }}" data-tipe="perda"
-                                                        href="{{ route('aspu.pelaporan.download', ['id' => $pelaporan->id, 'tipe'=>'perda']) }}">
+                                                        class="text-primary btn-count-file" data-id="{{ $pelaporan->id }}"
+                                                        data-tipe="pemkab"
+                                                        href="{{ route('aspu.pelaporan.download', ['id' => $pelaporan->id, 'tipe' => 'pemkab']) }}">
                                                         <i class="bi bi-file-earmark-arrow-down-fill"></i>
                                                     </a>
                                                 </td>
@@ -103,7 +93,7 @@
     @push('script-landingpage')
         <script>
             $(document).ready(function() {
-                $('#data-pelaporan-kinerja').DataTable({
+                $('#data-pelaporan-kinerja-pemkab').DataTable({
                     responsive: true,
                     lengthMenu: [
                         [10, 25, 50, -1],
