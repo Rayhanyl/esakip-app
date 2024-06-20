@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
+use App\Models\Answer;
 use App\Models\Komponen;
 use App\Models\Kriteria;
 use App\Models\SubKomponen;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Answer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\PerdaEvaluasiInternal;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class PerdaEvaluasiInternalController extends Controller
+class PerdaEvaluasiInternalController extends AdminBaseController
 {
     public function __construct()
     {
+        parent::__construct();
+        View::share('user_options', User::whereRole('perda')->get()->keyBy('id')->transform(function ($list) {
+            return $list->name;
+        }));
     }
     /**
      * Display a listing of the resource.

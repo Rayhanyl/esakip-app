@@ -27,12 +27,12 @@
             <section class="section">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('inspek.self-assesment.index') }}" method="get">
+                        <form action="{{ route('admin.inspek.self-assesment.index') }}" method="get">
                             <div class="row g-3">
                                 <x-admin.form.select col="col-12 col-lg-6" label="Tahun" name="tahun"
-                                    value="{{ $tahun }}" :lists="$tahun_options" />
+                                    value="{{ $tahun ?? '' }}" :lists="$tahun_options" id="tahun_select2" />
                                 <x-admin.form.select col="col-12 col-lg-6" label="Perangkat Daerah" name="perangkat_daerah"
-                                    value="{{ $perangkat_daerah }}" :lists="$user_options" />
+                                    value="{{ $perangkat_daerah ?? '' }}" :lists="$user_options" id="perda_select2" />
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">Cari</button>
                                 </div>
@@ -75,7 +75,7 @@
                                     </thead>
                                     <tbody>
                                         <form
-                                            action="{{ route('inspek.self-assesment.update', $perda_evaluasi_internal->id ?? 0) }}"
+                                            action="{{ route('admin.inspek.self-assesment.update', $perda_evaluasi_internal->id ?? 0) }}"
                                             method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
                                             @csrf
                                             @method('put')
