@@ -22,8 +22,8 @@ class PemkabSastraController extends AdminBaseController
      */
     public function index()
     {
-        $pemkabSastraData = PemkabSastra::whereUserId(Auth::user()->id)->get();
-        return view('admin.pemkab.sastra.index', compact('pemkabSastraData'));
+        $data = PemkabSastra::whereUserId(Auth::user()->id)->get();
+        return view('admin.pemkab.sastra.index', compact('data'));
     }
 
     /**
