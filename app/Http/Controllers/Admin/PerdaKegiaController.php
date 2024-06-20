@@ -51,12 +51,19 @@ class PerdaKegiaController extends AdminBaseController
      */
     public function store(Request $request)
     {
-        $data = PerdaKegia::create(array_merge($request->only(PerdaKegia::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
-        foreach ($request->indikator as $value) {
-            $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_kegia_id' => $data->id]);
-            PerdaKegiaIn::create($params);
+        try {
+            $data = PerdaKegia::create(array_merge($request->only(PerdaKegia::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
+            foreach ($request->indikator as $value) {
+                $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_kegia_id' => $data->id]);
+                PerdaKegiaIn::create($params);
+            }
+            Alert::toats('Berhasil menambahkan data', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            Alert::toats('Gagal menambahkan data', 'danger');
+            return redirect()->back();
         }
-        return redirect()->back();
+
     }
 
     /**

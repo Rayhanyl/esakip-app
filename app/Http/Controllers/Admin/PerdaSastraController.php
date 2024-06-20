@@ -52,16 +52,22 @@ class PerdaSastraController extends AdminBaseController
      */
     public function store(Request $request)
     {
-        $data = PerdaSastra::create(array_merge($request->only(PerdaSastra::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
-        foreach ($request->indikator as $value) {
-            $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_sastra_id' => $data->id]);
-            $data2 = PerdaSastraIn::create($params);
-            foreach ($value['penanggung_jawab'] as $value2) {
-                $params2 = ['perda_sastra_in_id' => $data2->id, 'penanggung_jawab' => $value2['value']];
-                PerdaSastraPenja::create($params2);
+        try {
+            $data = PerdaSastra::create(array_merge($request->only(PerdaSastra::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
+            foreach ($request->indikator as $value) {
+                $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_sastra_id' => $data->id]);
+                $data2 = PerdaSastraIn::create($params);
+                foreach ($value['penanggung_jawab'] as $value2) {
+                    $params2 = ['perda_sastra_in_id' => $data2->id, 'penanggung_jawab' => $value2['value']];
+                    PerdaSastraPenja::create($params2);
+                }
             }
+            Alert::toast('Berhasil mengisi data', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            Alert::toast('Gagal mengisi data', 'danger');
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 
     /**
