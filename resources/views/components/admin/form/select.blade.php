@@ -13,7 +13,7 @@
 @push('scripts')
     <script>
         @if ($readonly)
-            $("#{{ $id == '' ? $id : 'id-' . $name }}").select2({
+            $("#{{ $id != '' ? $id : 'id-' . $name }}").select2({
                 theme: 'bootstrap-5',
                 disabled: 'readonly',
             }).val("{{ $value }}").trigger('change');

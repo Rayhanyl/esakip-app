@@ -14,7 +14,6 @@ use App\Models\PerdaPengukuranTahunan;
 use App\Models\PerdaPengukuranTriwulan;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Admin\AdminBaseController;
-use App\Http\Requests\UpdatePerdaPengukuranRequest;
 
 class PerdaPengukuranController extends AdminBaseController
 {
@@ -23,10 +22,10 @@ class PerdaPengukuranController extends AdminBaseController
         parent::__construct();
 
         View::share('sasaran_strategis_options', PerdaSastra::all()->keyBy('id')->transform(function ($item) {
-            return $item->sasaran_strategis;
+            return $item->sasaran;
         }));
         View::share('sasaran_sub_kegiatan_options', PerdaSubKegia::all()->keyBy('id')->transform(function ($item) {
-            return $item->sasaran_sub_kegiatan;
+            return $item->sasaran;
         }));
         View::share('tahun_options', collect(array_combine(range(2029, 2020, -1), range(2029, 2020, -1)))->transform(function ($list) {
             return $list;
@@ -96,22 +95,74 @@ class PerdaPengukuranController extends AdminBaseController
         //
     }
 
-    public function edit(PerdaPengukuran $perdaPengukuran)
+    public function edit(PerdaPengukuran $pengukuran)
     {
-        //
+        $pengukuran->load('tahunans', 'triwulans');
+        $sasaran_strategis_id_options = [];
+        $sasaran_sub_kegiatan_id_options = [];
+        if (count($pengukuran->tahunans) > 0 ) {
+            $sasaran_strategis_id_options =  PerdaSastraIn::wherePerdaSastraId($pengukuran->tahunans[0]->perda_sastra_id)->get()->keyBy('id')->transform(function ($item) {
+                return $item->indikator;
+            });
+        }
+        if (count($pengukuran->triwulans) > 0 ) {
+            $sasaran_strategis_id_options =  PerdaSastraIn::wherePerdaSastraId($pengukuran->triwulans[0]->perda_sastra_id)->get()->keyBy('id')->transform(function ($item) {
+                return $item->indikator;
+            });
+            $sasaran_sub_kegiatan_id_options =  PerdaSubKegiaIn::wherePerdaSubkegiaId($pengukuran->triwulans[0]->perda_sub_kegia_id)->get()->keyBy('id')->transform(function ($item) {
+                return $item->indikator;
+            });
+        }
+        return view('admin.perda.pengukuran.edit', compact('pengukuran', 'sasaran_strategis_id_options', 'sasaran_sub_kegiatan_id_options'));
     }
 
-    public function update(UpdatePerdaPengukuranRequest $request, PerdaPengukuran $perdaPengukuran)
+    public function update(Request $request, PerdaPengukuran $pengukuran)
     {
-        //
+        try {
+            $pengukuran->update(array_merge($request->only(PerdaPengukuran::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
+            if ($pengukuran->tipe == 'tahun') {
+                $pengukuranTahun = PerdaPengukuranTahunan::find($request->tahunan_id);
+                $pengukuranTahun->update([
+                    'perda_sastra_id' => $request->tahunan_sasaran_strategis_id,
+                    'perda_sastra_in_id' => $request->tahunan_sasaran_strategis_indikator_id,
+                    'tahunan_target' => $request->tahunan_target,
+                    'tahunan_realisasi' => $request->tahunan_realisasi,
+                    'tahunan_karakteristik' => $request->tahunan_karakteristik,
+                    'tahunan_capaian' => $request->tahunan_capaian,
+                ]);
+            }else{
+                $pengukuranTriwulan = PerdaPengukuranTriwulan::find($request->triwulan_id);
+                $pengukuranTriwulan->update([
+                    'perda_sastra_id' => $request->sasaran_strategis_id,
+                    'perda_sastra_in_id' => $request->sasaran_strategis_indikator_id,
+                    'perda_sub_kegia_id' => $request->sasaran_sub_kegiatan_id,
+                    'perda_sub_kegia_in_id' => $request->sasaran_sub_kegiatan_indikator_id,
+                    'perda_sub_kegia_target' => $request->sasaran_sub_kegiatan_target,
+                    'realisasi' => $request->realisasi,
+                    'karakteristik' => $request->karakteristik,
+                    'capaian' => $request->capaian,
+                    'anggaran_perda_sub_kegia_id' => $request->anggaran_sub_kegiatan_id,
+                    'anggaran_perda_sub_kegia_pagu' => $request->anggaran_pagu,
+                    'anggaran_perda_sub_kegia_realisasi' => $request->anggaran_realisasi,
+                    'anggaran_perda_sub_kegia_capaian' => $request->anggaran_capaian,
+                ]);
+            }
+            Alert::toast('Data berhasil diubah', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            dd($e);
+            Alert::toast('Data gagal diubah', 'danger');
+            return redirect()->back();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PerdaPengukuran $perdaPengukuran)
+    public function destroy(PerdaPengukuran $pengukuran)
     {
-        //
+        $pengukuran->delete();
+        return redirect()->back();
     }
     public function get_data(Request $request)
     {
@@ -169,7 +220,15 @@ class PerdaPengukuranController extends AdminBaseController
         switch ($request->type) {
             case 'target_tahunan':
                 $data = PerdaSastraIn::whereid($request->params)->first();
+                $data = $data->target1 ?? 0;
                 break;
+            case 'sasubkegia':
+                $data = PerdaSubKegia::whereTahun($request->params)->first();
+                $data = $data->sasaran;
+                break;
+            case 'anggaran_sasubkegia':
+                $data = PerdaSubKegiaIn::whereId($request->params)->first();
+                $data = $data->subkegiatan;
             default:
                 break;
         }

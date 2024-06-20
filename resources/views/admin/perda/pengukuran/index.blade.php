@@ -62,8 +62,7 @@
                                             <x-admin.form.label-heading>
                                                 Anggaran
                                             </x-admin.form.label-heading>
-                                            <x-admin.form.select col="col-12 col-lg-6" label="Sub-Kegiatan"
-                                                name="anggaran_sub_kegiatan_id" :lists="$sasaran_sub_kegiatan_options" readonly=true />
+                                            <x-admin.form.text col="col-12 col-lg-6" label="Sub Kegiatan" name="anggaran_sub_kegiatan_id" readonly=true placeholder='-' />
                                             <x-admin.form.text col="col-12 col-lg-6" label="Pagu" name="anggaran_pagu"
                                                 currency=true readonly=true />
                                             <x-admin.form.text col="col-12 col-lg-6" label="Realisasi"
@@ -126,34 +125,37 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($data as $index => $item)
-                                            <tr>
-                                                <td class="text-center">{{ $index + 1 }}</td>
-                                                <td class="text-center">{{ $item->tahun }}</td>
-                                                <td class="text-center">{{ $item->tipe }}</td>
-                                                <td class="text-center">
-                                                    @if ($item->tahunans->isEmpty())
-                                                        -
-                                                    @else
-                                                        @foreach ($item->tahunans as $tahunan)
-                                                            {{ $tahunan->tahunan_capaian }}
-                                                        @endforeach
-                                                    @endif
-                                                </td>
-                                                <td class="text-center">
-                                                    @if ($item->triwulans->isEmpty())
-                                                        -
-                                                    @else
-                                                        @foreach ($item->triwulans as $triwulan)
-                                                            {{ $triwulan->capaian }}
-                                                        @endforeach
-                                                    @endif
-                                                </td>
-                                                <td class="text-center">
-                                                    {{--  --}}
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                            @foreach ($data as $index => $item)
+                                                <tr>
+                                                    <td class="text-center">{{ $index + 1 }}</td>
+                                                    <td class="text-center">{{ $item->tahun }}</td>
+                                                    <td class="text-center">{{ $item->tipe }}</td>
+                                                    <td class="text-center">
+                                                        @if ($item->tahunans->isEmpty())
+                                                            -
+                                                        @else
+                                                            @foreach ($item->tahunans as $tahunan)
+                                                                {{ $tahunan->tahunan_capaian }}
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($item->triwulans->isEmpty())
+                                                            -
+                                                        @else
+                                                            @foreach ($item->triwulans as $triwulan)
+                                                                {{ $triwulan->capaian }}
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td class="d-flex justify-content-center gap-2">
+                                                        <x-admin.form.button-edit title="Edit Pengukuran Kinerja"
+                                                            route="admin.perda.pengukuran.edit" id="{{ $item->id }}" />
+                                                        <x-admin.form.button-delete title="Delete Pengukuran Kinerja"
+                                                            route="admin.perda.pengukuran.destroy" id="{{ $item->id }}" />
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -178,27 +180,24 @@
                 getData('sastra', $('#tahun-select2').val(), '#tahunan_sasaran_strategis_id');
                 getData('sastra', $('#tahun-select2').val(), '#id-sasaran_strategis_id');
                 getData('sasubkegia', $('#tahun-select2').val(), '#id-sasaran_sub_kegiatan_id');
-                getData('sasubkegia', $('#tahun-select2').val(), '#id-anggaran_sub_kegiatan_id');
             })
             $('#tahun-select2').on('select2:select', function() {
                 getData('sastra', $(this).val(), '#tahunan_sasaran_strategis_id');
                 getData('sastra', $(this).val(), '#id-sasaran_strategis_id');
                 getData('sasubkegia', $(this).val(), '#id-sasaran_sub_kegiatan_id');
-                getData('sasubkegia', $(this).val(), '#id-anggaran_sub_kegiatan_id');
                 reset_form();
             })
 
             $('#id-sasaran_strategis_id').on('select2:select', function() {
                 getData('sastra_in', $(this).val(), $('#id-sasaran_strategis_indikator_id'));
+                getPagu($(this).val(), $('#anggaran_pagu'));
             });
             $('#id-sasaran_sub_kegiatan_id').on('select2:select', function() {
                 getData('sasubkegia_in', $(this).val(), $('#id-sasaran_sub_kegiatan_indikator_id'));
             });
-            $('#id-anggaran_sub_kegiatan_id').on('select2:select', function() {
-                getPagu($(this).val(), $('#anggaran_pagu'));
-            });
             $('#id-sasaran_sub_kegiatan_indikator_id').on('select2:select', function() {
                 getSubData($(this).val(), $('#triwulan-select2').val(), $('#sasaran_sub_kegiatan_target'));
+                getValue('anggaran_sasubkegia', $(this).val(), '#anggaran_sub_kegiatan_id');
             });
 
             function getPagu(id, element) {
@@ -282,7 +281,7 @@
                         params,
                     },
                     success: function(result) {
-                        $(element).val(result.target1);
+                        $(element).val(result);
                     }
                 });
             }
