@@ -61,28 +61,52 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-pengukuran-kinerja" style="width: 100%;">
+                                <table class="table table-striped table-hover" id="data-pengukuran-kinerja"
+                                    style="width: 100%;">
                                     <thead class="table-info">
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th class="text-center">Perangkat Daerah</th>
                                             <th class="text-center">Tahun</th>
                                             <th class="text-center">Triwulan</th>
-                                            <th class="text-center">Capaian (%)</th>
+                                            <th class="text-center">Capaian Tahunan (%)</th>
+                                            <th class="text-center">Capaian Triwulan (%)</th>
                                             <th class="text-center">Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($data as $index => $item)
+                                            <tr>
+                                                <td class="text-center">{{ $index + 1 }}</td>
+                                                <td class="text-center">{{ $item->user->name }}</td>
+                                                <td class="text-center">{{ $item->tahun }}</td>
+                                                <td class="text-center">{{ $item->tipe }}</td>
+                                                <td class="text-center">
+                                                    @if ($item->tahunans->isEmpty())
+                                                        -
+                                                    @else
+                                                        @foreach ($item->tahunans as $tahunan)
+                                                            {{ $tahunan->tahunan_capaian }}
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($item->triwulans->isEmpty())
+                                                        -
+                                                    @else
+                                                        @foreach ($item->triwulans as $triwulan)
+                                                            {{ $triwulan->capaian }}
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    {{--  --}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>

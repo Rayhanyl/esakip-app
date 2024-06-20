@@ -23,4 +23,9 @@ class PerdaPengukuran extends Model
     {
         return $this->hasMany(PerdaPengukuranTahunan::class);
     }
+
+    public function triwulans()
+    {
+        return $this->hasMany(PerdaPengukuranTriwulan::class);
+    }
 }
