@@ -9,7 +9,7 @@ class PerdaPengukuranTriwulan extends Model
 {
     use HasFactory;
     const FILLABLE_FIELDS = [
-        'user_id',
+        'perda_pengukuran_id',
         'perda_sastra_id',
         'perda_sastra_in_id',
         'perda_sub_kegia_id',

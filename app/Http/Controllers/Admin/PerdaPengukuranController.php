@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\PerdaSastraIn;
 use App\Models\PerdaSubKegia;
 use App\Models\PerdaPengukuran;
+use App\Models\PerdaSubKegiaIn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\PerdaPengukuranTahunan;
+use App\Models\PerdaPengukuranTriwulan;
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Requests\UpdatePerdaPengukuranRequest;
 
@@ -61,6 +63,21 @@ class PerdaPengukuranController extends AdminBaseController
                 'tahunan_karakteristik' => $request->tahunan_karakteristik,
                 'tahunan_capaian' => $request->tahunan_capaian,
             ]);
+            $triwulan = PerdaPengukuranTriwulan::create([
+                'perda_pengukuran_id' => $pengukuran->id,
+                'perda_sastra_id' => $request->sasaran_strategis_id,
+                'perda_sastra_in_id' => $request->sasaran_strategis_indikator_id,
+                'perda_sub_kegia_id' => $request->sasaran_sub_kegiatan_id,
+                'perda_sub_kegia_in_id' => $request->sasaran_sub_kegiatan_indikator_id,
+                'perda_sub_kegia_target' => $request->sasaran_sub_kegiatan_target,
+                'realisasi' => $request->realisasi,
+                'karakteristik' => $request->karakteristik,
+                'capaian' => $request->capaian,
+                'anggaran_perda_sub_kegia_id' => $request->anggaran_sub_kegiatan_id,
+                'anggaran_perda_sub_kegia_pagu' => $request->anggaran_pagu,
+                'anggaran_perda_sub_kegia_realisasi' => $request->anggaran_realisasi,
+                'anggaran_perda_sub_kegia_capaian' => $request->anggaran_capaian,
+            ]);
         }
         return redirect()->back()->with('success', '');
     }
@@ -96,10 +113,47 @@ class PerdaPengukuranController extends AdminBaseController
             case 'sastra_in':
                 $data = PerdaSastraIn::wherePerdaSastraId($request->params)->get();
                 break;
+            case 'sasubkegia':
+                $data = PerdaSubKegia::whereTahun($request->params)->get();
+                break;
+            case 'sasubkegia_in':
+                $data = PerdaSubKegiaIn::wherePerdaSubkegiaId($request->params)->get();
+                break;
             default:
                 break;
         }
         return response()->json($data);
+    }
+
+    public function get_sub_data(Request $request)
+    {
+        $target = PerdaSubKegiaIn::whereId($request->id)->first();
+        switch ($request->triwulan) {
+            case '1':
+                $value = $target->triwulan1;
+                break;
+            case '2':
+                $value = $target->triwulan2;
+                break;
+            case '3':
+                $value = $target->triwulan3;
+                break;
+            case '4':
+                $value = $target->triwulan4;
+                break;
+            default:
+                $value = 0;
+                break;
+        }
+        if ($value == null) {
+            $value = 0;
+        }
+        return response()->json($value);
+    }
+    public function get_pagu(Request $request)
+    {
+        $data = PerdaSubKegiaIn::whereid($request->id)->first();
+        return response()->json($data->anggaran);
     }
     public function get_value(Request $request)
     {
