@@ -90,7 +90,7 @@ class PerdaSastraController extends AdminBaseController
     public function update(Request $request, PerdaSastra $sastra)
     {
         if($request->pengampu_id == ''){
-            $request->pengampu_id = $request->old_pengampu_id;
+            $request->merge(['pengampu_id' => $request->old_pengampu_id]);
         }
         $sastra->update($request->only(PerdaSastra::FILLABLE_FIELDS));
         $savedIds = [];

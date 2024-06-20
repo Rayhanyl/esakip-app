@@ -16,7 +16,7 @@
         initPlugins();
     })
 
-    function getDataPengampu(el){
+    function getDataPengampu(el) {
         $(`${el}`).select2({
             theme: 'bootstrap-5',
             ajax: {

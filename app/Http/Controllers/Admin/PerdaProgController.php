@@ -86,7 +86,7 @@ class PerdaProgController extends AdminBaseController
     public function update(Request $request, PerdaProg $saspro)
     {
         if($request->pengampu_id == ''){
-            $request->pengampu_id = $request->old_pengampu_id;
+            $request->merge(['pengampu_id' => $request->old_pengampu_id]);
         }
         $saspro->update($request->only(PerdaProg::FILLABLE_FIELDS));
         $savedIds = [];

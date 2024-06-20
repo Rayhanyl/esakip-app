@@ -5,9 +5,9 @@
     <div class="card-body">
         <div class="row">
             <x-admin.form.select col="col-4" label="Tahun" name="tahun" value="{{ $sasubkegium->tahun ?? '2024' }}"
-                :lists="$tahun_options" />
+                :lists="$tahun_options" id="tahun_select2" />
             <x-admin.form.select col="col-4" label="Sasaran Kegiatan" name="perda_kegia_id"
-                value="{{ $sasubkegium->perda_kegia_id ?? '' }}" :lists="$kegia_options" />
+                value="{{ $sasubkegium->perda_kegia_id ?? '' }}" :lists="$kegia_options" id="sasaran_select2" />
             <x-admin.form.text col="col-4" label="Sasaran Sub Kegiatan" name="sasaran"
                 value="{{ $sasubkegium->sasaran ?? '' }}" />
             <div class="row" id="row-pengampu">
@@ -16,8 +16,16 @@
                         $keyp = Str::random(4);
                     @endphp
                     <div class="row col-pengampu-{{ $keyp }}">
-                        <x-admin.form.select col="col-11" class="get-data-pengampu" label="Pengampu" name="pengampu[{{ $keyp }}][value]" :lists="[]"/>
-                        <input type="hidden" name="pengampu[{{ $keyp }}][id]">
+                        @if ($pengampu->old_pengampu_id ?? false)
+                            <input type="hidden" value="{{ $pengampu->old_pengampu_id }}" name="pengampu[{{ $keyp }}][old_id]">
+                            <x-admin.form.text col="{{ ($pengampu->old_pengampu_id ?? false) ? 'col-5' : 'col-11' }}"
+                                label="Pengampu yg dipilih" name="pengampu[{{ $keyp }}][old_value]" value="{{ $pengampu->old_pengampu_name }}"
+                                readonly=true />
+                        @endif
+                        <x-admin.form.select col="{{ ($pengampu->old_pengampu_id ?? false) ? 'col-6' : 'col-11' }}"
+                            label="{{ ($pengampu->old_pengampu_id ?? false) ? 'Ubah Pengampu' : 'Pengampu' }}"
+                            name="pengampu[{{ $keyp }}][value]" :lists="[]" id="get-data-pengampu{{ $keyp }}" pengampu=true
+                            value="{{ $value->pengampu_id ?? '' }}" />
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
                             <div>
@@ -40,7 +48,8 @@
                         $keyp = Str::random(4);
                     @endphp
                     <div class="row col-pengampu-{{ $keyp }}">
-                        <x-admin.form.select col="col-11" class="get-data-pengampu" label="Pengampu" name="pengampu[{{ $keyp }}][value]" :lists="[]" />
+                        <x-admin.form.select col="col-11" class="get-data-pengampu" label="Pengampu"
+                            name="pengampu[{{ $keyp }}][value]" :lists="[]" />
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
                             <div>
@@ -100,7 +109,7 @@
                             </div>
                         </div>
                         <x-admin.form.select label="Satuan" name="indikator[{{ $key }}][satuan_id]"
-                            :lists="$satuan_options" value="{{ $item->satuan_id }}" />
+                            :lists="$satuan_options" value="{{ $item->satuan_id }}" id="satuan_select2" />
                         <x-admin.form.text label="Sub Kegiatan" name="indikator[{{ $key }}][subkegiatan]"
                             value="{{ $item->subkegiatan }}" />
                         <x-admin.form.text label="Anggaran" name="indikator[{{ $key }}][anggaran]"
@@ -163,10 +172,3 @@
     </div>
 </div>
 
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            getDataPengampu('.get-data-pengampu');
-        })
-    </script>
-@endpush
