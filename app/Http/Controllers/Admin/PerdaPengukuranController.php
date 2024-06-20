@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\PerdaPengukuranTahunan;
 use App\Models\PerdaPengukuranTriwulan;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Requests\UpdatePerdaPengukuranRequest;
 
@@ -41,8 +42,8 @@ class PerdaPengukuranController extends AdminBaseController
 
     public function index()
     {
-        $data_pengukuran = PerdaPengukuran::with('tahunans')->where('user_id', Auth::user()->id)->get();
-        return view('admin.perda.pengukuran.index', compact('data_pengukuran'));
+        $data = PerdaPengukuran::with('tahunans', 'triwulans')->where('user_id', Auth::user()->id)->get();
+        return view('admin.perda.pengukuran.index', compact('data'));
     }
 
     public function create()
@@ -52,34 +53,42 @@ class PerdaPengukuranController extends AdminBaseController
 
     public function store(Request $request)
     {
-        $pengukuran = PerdaPengukuran::create(array_merge($request->only(PerdaPengukuran::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
-        if ($request->tahunan_sasaran_strategis_id ?? false) {
-            $tahunan = PerdaPengukuranTahunan::create([
-                'perda_pengukuran_id' => $pengukuran->id,
-                'perda_sastra_id' => $request->tahunan_sasaran_strategis_id,
-                'perda_sastra_in_id' => $request->tahunan_sasaran_strategis_indikator_id,
-                'tahunan_target' => $request->tahunan_target,
-                'tahunan_realisasi' => $request->tahunan_realisasi,
-                'tahunan_karakteristik' => $request->tahunan_karakteristik,
-                'tahunan_capaian' => $request->tahunan_capaian,
-            ]);
-            $triwulan = PerdaPengukuranTriwulan::create([
-                'perda_pengukuran_id' => $pengukuran->id,
-                'perda_sastra_id' => $request->sasaran_strategis_id,
-                'perda_sastra_in_id' => $request->sasaran_strategis_indikator_id,
-                'perda_sub_kegia_id' => $request->sasaran_sub_kegiatan_id,
-                'perda_sub_kegia_in_id' => $request->sasaran_sub_kegiatan_indikator_id,
-                'perda_sub_kegia_target' => $request->sasaran_sub_kegiatan_target,
-                'realisasi' => $request->realisasi,
-                'karakteristik' => $request->karakteristik,
-                'capaian' => $request->capaian,
-                'anggaran_perda_sub_kegia_id' => $request->anggaran_sub_kegiatan_id,
-                'anggaran_perda_sub_kegia_pagu' => $request->anggaran_pagu,
-                'anggaran_perda_sub_kegia_realisasi' => $request->anggaran_realisasi,
-                'anggaran_perda_sub_kegia_capaian' => $request->anggaran_capaian,
-            ]);
+        try {
+            $pengukuran = PerdaPengukuran::create(array_merge($request->only(PerdaPengukuran::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
+            if ($request->tipe == 'tahun') {
+                $tahunan = PerdaPengukuranTahunan::create([
+                    'perda_pengukuran_id' => $pengukuran->id,
+                    'perda_sastra_id' => $request->tahunan_sasaran_strategis_id,
+                    'perda_sastra_in_id' => $request->tahunan_sasaran_strategis_indikator_id,
+                    'tahunan_target' => $request->tahunan_target,
+                    'tahunan_realisasi' => $request->tahunan_realisasi,
+                    'tahunan_karakteristik' => $request->tahunan_karakteristik,
+                    'tahunan_capaian' => $request->tahunan_capaian,
+                ]);
+            }else{
+                $triwulan = PerdaPengukuranTriwulan::create([
+                    'perda_pengukuran_id' => $pengukuran->id,
+                    'perda_sastra_id' => $request->sasaran_strategis_id,
+                    'perda_sastra_in_id' => $request->sasaran_strategis_indikator_id,
+                    'perda_sub_kegia_id' => $request->sasaran_sub_kegiatan_id,
+                    'perda_sub_kegia_in_id' => $request->sasaran_sub_kegiatan_indikator_id,
+                    'perda_sub_kegia_target' => $request->sasaran_sub_kegiatan_target,
+                    'realisasi' => $request->realisasi,
+                    'karakteristik' => $request->karakteristik,
+                    'capaian' => $request->capaian,
+                    'anggaran_perda_sub_kegia_id' => $request->anggaran_sub_kegiatan_id,
+                    'anggaran_perda_sub_kegia_pagu' => $request->anggaran_pagu,
+                    'anggaran_perda_sub_kegia_realisasi' => $request->anggaran_realisasi,
+                    'anggaran_perda_sub_kegia_capaian' => $request->anggaran_capaian,
+                ]);
+            }
+            Alert::toast('Data berhasil ditambahkan', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            dd($e);
+            Alert::toast('Data gagal ditambahkan', 'danger');
+            return redirect()->back();
         }
-        return redirect()->back()->with('success', '');
     }
 
     public function show(PerdaPengukuran $perdaPengukuran)

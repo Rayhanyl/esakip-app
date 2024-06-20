@@ -120,54 +120,40 @@
                                                 <th class="text-center">No</th>
                                                 <th class="text-center">Tahun</th>
                                                 <th class="text-center">Triwulan</th>
-                                                <th class="text-center">Capaian</th>
+                                                <th class="text-center">Capaian Tahun</th>
+                                                <th class="text-center">Capaian Triwulan</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($data_pengukuran ?? [] as $index => $item)
-                                                <tr>
-                                                    <td class="text-center">{{ $index + 1 }}</td>
-                                                    <td class="text-center">{{ $item->tahun }}</td>
-                                                    <td class="text-center text-capitalize">
-                                                        {{ $item->triwulan }}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if ($item->triwulan == 'tahun')
-                                                            {{ $item->tahunan_capaian }} %
-                                                        @else
-                                                            {{ $item->capaian }} %
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="d-flex justify-content-center">
-                                                            {{-- <div class="p-2">
-                                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                    title="Edit Pengukuran Kinerja"
-                                                                    class="btn btn-warning btn-sm"
-                                                                    href="{{ route('perda.pengukuran-kinerja.edit', $item->id) }}">
-                                                                    <i class="bi bi-pencil-square"></i>
-                                                                </a>
-                                                            </div>
-                                                            <div class="p-2">
-                                                                <button
-                                                                    class="btn btn-danger btn-sm delete-pengukuran-kinerja"
-                                                                    data-id="{{ $item->id }}" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Delete Pengukuran Kinerja">
-                                                                    <i class="bi bi-trash3"></i>
-                                                                </button>
-                                                                <form id="delete-form-{{ $item->id }}"
-                                                                    action="{{ route('perda.pengukuran-kinerja.delete', $item->id) }}"
-                                                                    method="POST" style="display: none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                </form>
-                                                            </div> --}}
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                        @foreach ($data as $index => $item)
+                                            <tr>
+                                                <td class="text-center">{{ $index + 1 }}</td>
+                                                <td class="text-center">{{ $item->tahun }}</td>
+                                                <td class="text-center">{{ $item->tipe }}</td>
+                                                <td class="text-center">
+                                                    @if ($item->tahunans->isEmpty())
+                                                        -
+                                                    @else
+                                                        @foreach ($item->tahunans as $tahunan)
+                                                            {{ $tahunan->tahunan_capaian }}
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($item->triwulans->isEmpty())
+                                                        -
+                                                    @else
+                                                        @foreach ($item->triwulans as $triwulan)
+                                                            {{ $triwulan->capaian }}
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    {{--  --}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
