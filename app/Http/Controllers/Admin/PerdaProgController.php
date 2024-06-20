@@ -24,11 +24,6 @@ class PerdaProgController extends AdminBaseController
         $this->baseUrl = 'https://sammara.majalengkakab.go.id/public_api';
         $this->clientId = '3c15eda4-f16a-444a-9807-f03ac2d73ea6';
         $this->clientSecret = 'a36KxQjb6KQO89o6zgb2ld9fC9LwPZ3Tir5chWGC';
-        parent::__construct();
-        View::share('sastra_options', PerdaSastra::all()->keyBy('id')->transform(function ($sasaran) {
-            return $sasaran->sasaran;
-        }));
-        View::share('perdaProgData', PerdaProg::all());
     }
     /**
      * Display a listing of the resource.
@@ -44,7 +39,10 @@ class PerdaProgController extends AdminBaseController
      */
     public function create()
     {
-        return view('admin.perda.perencanaan.program.create');
+        $sastra_options = PerdaSastra::whereUserId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+            return $sasaran->sasaran;
+        });
+        return view('admin.perda.perencanaan.program.create', compact('sastra_options'));
     }
 
     /**
@@ -73,11 +71,14 @@ class PerdaProgController extends AdminBaseController
      */
     public function edit(PerdaProg $saspro)
     {
+        $sastra_options = PerdaSastra::whereUserId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+            return $sasaran->sasaran;
+        });
         $data = $this->getPengampuNip($saspro->pengampu_id);
         $old_pengampu['id'] = $data->nip;
         $old_pengampu['name'] = $data->nama_pegawai_gelar;
         $saspro->load('perda_prog_ins');
-        return view('admin.perda.perencanaan.program.edit', compact('saspro', 'old_pengampu'));
+        return view('admin.perda.perencanaan.program.edit', compact('saspro', 'old_pengampu', 'sastra_options'));
     }
 
     /**
