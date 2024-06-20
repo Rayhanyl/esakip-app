@@ -62,7 +62,7 @@ class AuthController extends Controller
                         return
                             view('admin.inspek.beranda.index');
                     default:
-                        return redirect()->route('/');
+                        return redirect()->route('admin.perda.beranda.index');
                 }
             } else {
                 return redirect()->back()->with('error', 'Gagal login: Token generation failed.');

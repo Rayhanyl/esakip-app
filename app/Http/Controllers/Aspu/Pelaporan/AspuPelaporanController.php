@@ -13,18 +13,16 @@ class AspuPelaporanController extends Controller
 {
     public function index(Request $request)
     {
-        $user  = User::where('role', 'perda')->get();
+        $user  = User::get();
         $perda = $request->perda;
         $tahun = $request->tahun;
-        $data = PerdaPelaporan::with('user')->whereHas('user', function ($q) use ($request) {
-            $q->where('role', 'perda');
-            if ($request->tahun != null) {
-                $q->where('tahun', $request->tahun);
-            }
-            if ($request->perda != null) {
-                $q->where('user_id', $request->perda);
-            }
-        })->get();
+        $data = PerdaPelaporan::when($request->tahun, function ($query, $tahun) {
+            return $query->where('tahun', $tahun);
+        })
+        ->when($request->perda, function ($query, $perda) {
+            return $query->where('user_id', $perda);
+        })
+        ->get();
         return view('aspu.pelaporan.index', compact('data', 'user', 'perda', 'tahun'));
     }
 

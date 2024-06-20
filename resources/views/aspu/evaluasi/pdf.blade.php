@@ -166,7 +166,7 @@
         (AKIP) Tahun
         {{ $evaluasi->tahun }}
     </p>
-    <p>Yth.&nbsp;&nbsp;Kepala Dinas {{ $user->name }}
+    <p>Yth.&nbsp;&nbsp;{{ $user->name }}
         <br>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;di
@@ -206,10 +206,7 @@
     <p style="text-align:justify; padding:0px 20px; line-height:1.5;margin:0;">
         Hasil evaluasi atas akuntabilitas kinerja Dinas <b>{{ $user->name }}</b>. menunjukkan bahwa nilai sebesar
         <b>{{ $evaluasi->nilai_akuntabilitas_kinerja }}</b> dengan predikat “<b>{{ $predikat }}</b>”. Hal tersebut
-        menunjukkan bahwa implementasi akuntabilitas kinerja “{{ $predikat_name }}”, <b>yaitu kualitas penerapan
-            manajemen kinerja birokrasi dan penyelenggaraan pemerintahan yang berorientasi pada hasil telah menunjukkan
-            hasil yang
-            baik pada sebagian unit kerja.</b>
+        menunjukkan bahwa implementasi akuntabilitas kinerja “<b>{{ $predikat_name }}</b>”, yaitu <b>{{ $predikat_description }}</b>
         <br>
         Rincian hasil evaluasi tersebut adalah sebagai berikut:
     </p>

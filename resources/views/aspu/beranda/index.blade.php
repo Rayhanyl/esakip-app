@@ -76,7 +76,8 @@
                                 title: {
                                     display: true,
                                     text: 'Value'
-                                }
+                                },
+                                min: 65
                             }
                         }
                     }
