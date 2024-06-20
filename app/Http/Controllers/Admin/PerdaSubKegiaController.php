@@ -25,11 +25,6 @@ class PerdaSubKegiaController extends AdminBaseController
         $this->baseUrl = 'https://sammara.majalengkakab.go.id/public_api';
         $this->clientId = '3c15eda4-f16a-444a-9807-f03ac2d73ea6';
         $this->clientSecret = 'a36KxQjb6KQO89o6zgb2ld9fC9LwPZ3Tir5chWGC';
-        parent::__construct();
-        View::share('kegia_options', PerdaKegia::all()->keyBy('id')->transform(function ($sasaran) {
-            return $sasaran->sasaran;
-        }));
-        View::share('perdaSubKegiaData', PerdaSubKegia::all());
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +40,10 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function create()
     {
-        return view('admin.perda.perencanaan.subkegiatan.create');
+        $kegia_options = PerdaKegia::whereUserId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+            return $sasaran->sasaran;
+        });
+        return view('admin.perda.perencanaan.subkegiatan.create', compact('kegia_options'));
     }
 
     /**
@@ -84,13 +82,16 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function edit(PerdaSubKegia $sasubkegium)
     {
+        $kegia_options = PerdaKegia::whereUserId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+            return $sasaran->sasaran;
+        });
         $sasubkegium->load('perda_subkegia_ins', 'perda_subkegia_pengampus');
         foreach ($sasubkegium->perda_subkegia_pengampus as $key => $value) {
             $data = $this->getPengampuNip($value->pengampu_id);
             $value->old_pengampu_id = $data->nip;
             $value->old_pengampu_name = $data->nama_pegawai_gelar;
         }
-        return view('admin.perda.perencanaan.subkegiatan.edit', compact('sasubkegium'));
+        return view('admin.perda.perencanaan.subkegiatan.edit', compact('sasubkegium', 'kegia_options'));
     }
 
     /**
