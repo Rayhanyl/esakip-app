@@ -40,7 +40,7 @@ class PerdaPengukuranController extends AdminBaseController
 
     public function index()
     {
-        $data_pengukuran = PerdaPengukuran::with('tahunans')->get();
+        $data_pengukuran = PerdaPengukuran::with('tahunans')->where('user_id', Auth::user()->id)->get();
         return view('admin.perda.pengukuran.index', compact('data_pengukuran'));
     }
 
