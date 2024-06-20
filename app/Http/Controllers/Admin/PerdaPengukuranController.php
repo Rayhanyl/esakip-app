@@ -64,7 +64,7 @@ class PerdaPengukuranController extends AdminBaseController
                     'tahunan_karakteristik' => $request->tahunan_karakteristik,
                     'tahunan_capaian' => $request->tahunan_capaian,
                 ]);
-            }else{
+            } else {
                 $triwulan = PerdaPengukuranTriwulan::create([
                     'perda_pengukuran_id' => $pengukuran->id,
                     'perda_sastra_id' => $request->sasaran_strategis_id,
