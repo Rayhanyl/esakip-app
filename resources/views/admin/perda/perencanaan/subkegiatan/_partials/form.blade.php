@@ -17,14 +17,15 @@
                     @endphp
                     <div class="row col-pengampu-{{ $keyp }}">
                         @if ($pengampu->old_pengampu_id ?? false)
-                            <input type="hidden" value="{{ $pengampu->old_pengampu_id }}" name="pengampu[{{ $keyp }}][old_id]">
-                            <x-admin.form.text col="{{ ($pengampu->old_pengampu_id ?? false) ? 'col-5' : 'col-11' }}"
-                                label="Pengampu yg dipilih" name="pengampu[{{ $keyp }}][old_value]" value="{{ $pengampu->old_pengampu_name }}"
-                                readonly=true />
+                            <input type="hidden" value="{{ $pengampu->old_pengampu_id }}"
+                                name="pengampu[{{ $keyp }}][old_id]">
+                            <x-admin.form.text col="{{ $pengampu->old_pengampu_id ?? false ? 'col-5' : 'col-11' }}"
+                                label="Pengampu yg dipilih" name="pengampu[{{ $keyp }}][old_value]"
+                                value="{{ $pengampu->old_pengampu_name }}" readonly=true />
                         @endif
-                        <x-admin.form.select col="{{ ($pengampu->old_pengampu_id ?? false) ? 'col-6' : 'col-11' }}"
-                            label="{{ ($pengampu->old_pengampu_id ?? false) ? 'Ubah Pengampu' : 'Pengampu' }}"
-                            name="pengampu[{{ $keyp }}][value]" :lists="[]" id="get-data-pengampu{{ $keyp }}" pengampu=true
+                        <x-admin.form.select col="{{ $pengampu->old_pengampu_id ?? false ? 'col-6' : 'col-11' }}" className="pengampu-select2"
+                            label="{{ $pengampu->old_pengampu_id ?? false ? 'Ubah Pengampu' : 'Pengampu' }}"
+                            name="pengampu[{{ $keyp }}][value]" :lists="[]" pengampu=true
                             value="{{ $value->pengampu_id ?? '' }}" />
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
@@ -48,7 +49,7 @@
                         $keyp = Str::random(4);
                     @endphp
                     <div class="row col-pengampu-{{ $keyp }}">
-                        <x-admin.form.select col="col-11" class="get-data-pengampu" label="Pengampu"
+                        <x-admin.form.select col="col-11" className="pengampu-select2" label="Pengampu"
                             name="pengampu[{{ $keyp }}][value]" :lists="[]" />
                         <div class="col-1">
                             <label for="" class="form-label fw-bold">&nbsp;</label>
@@ -171,4 +172,3 @@
         <button class="btn btn-primary btn-lg w-50">Submit</button>
     </div>
 </div>
-

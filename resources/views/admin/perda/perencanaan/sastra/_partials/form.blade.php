@@ -4,16 +4,19 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <x-admin.form.select label="Tahun" name="tahun" value="{{ $sastra->tahun ?? '2024' }}" :lists="$tahun_options" id="tahun_select2" />
+            <x-admin.form.select label="Tahun" name="tahun" value="{{ $sastra->tahun ?? '2024' }}" :lists="$tahun_options"
+                id="tahun_select2" />
             <x-admin.form.select label="Sasaran Bupati" name="pemkab_sastra_id"
                 value="{{ $sastra->pemkab_sastra_id ?? '' }}" :lists="$sasaran_bupati_options" />
-            @if($old_pengampu['id'] ?? false)
-                <input type="hidden" value="{{ $old_pengampu['id'] }}" name="old_pengampu_id" >
-                <x-admin.form.text col="{{ ($old_pengampu['id'] ?? false) ? 'col-3' : 'col-6' }}" label="Pengampu yg dipilih"
-                    name="old_pengampu_name" value="{{ $old_pengampu['name'] }}" readonly=true />
+            @if ($old_pengampu['id'] ?? false)
+                <input type="hidden" value="{{ $old_pengampu['id'] }}" name="old_pengampu_id">
+                <x-admin.form.text col="{{ $old_pengampu['id'] ?? false ? 'col-3' : 'col-6' }}"
+                    label="Pengampu yg dipilih" name="old_pengampu_name" value="{{ $old_pengampu['name'] }}"
+                    readonly=true />
             @endif
-            <x-admin.form.select col="{{ ($old_pengampu['id'] ?? false) ? 'col-3' : 'col-6' }}" label="{{ ($old_pengampu['id'] ?? false) ? 'Ubah Pengampu' : 'Pengampu' }}" name="pengampu_id"
-                :lists="[]" id="get-data-pengampu" value="{{ $sastra->pengampu_id ?? '' }}" />
+            <x-admin.form.select col="{{ $old_pengampu['id'] ?? false ? 'col-3' : 'col-6' }}"
+                label="{{ $old_pengampu['id'] ?? false ? 'Ubah Pengampu' : 'Pengampu' }}" name="pengampu_id"
+                :lists="[]" className="pengampu-select2" value="{{ $sastra->pengampu_id ?? '' }}" />
             <x-admin.form.text label="Sasaran Strategis" name="sasaran" value="{{ $sastra->sasaran ?? '' }}" />
         </div>
     </div>
@@ -195,11 +198,3 @@
         <button class="btn btn-primary btn-lg w-50">Submit</button>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            getDataPengampu('#get-data-pengampu');
-        })
-    </script>
-@endpush

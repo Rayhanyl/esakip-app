@@ -89,7 +89,8 @@
         $('.select2').select2({
             theme: 'bootstrap-5'
         });
-
+        getDataPengampu('.pengampu-select2');
+        
         $('.table-datatable').DataTable({
             responsive: true,
             lengthMenu: [

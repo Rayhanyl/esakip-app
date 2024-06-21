@@ -15,7 +15,7 @@
             @endif
             <x-admin.form.select col="{{ $old_pengampu['id'] ?? false ? 'col-3' : 'col-6' }}"
                 label="{{ $old_pengampu['id'] ?? false ? 'Ubah Pengampu' : 'Pengampu' }}" name="pengampu_id"
-                :lists="[]" id="get-data-pengampu" value="{{ $saspro->pengampu_id ?? '' }}" />
+                :lists="[]" className="pengampu-select2" value="{{ $saspro->pengampu_id ?? '' }}" />
             <x-admin.form.text label="Sasaran Kegiatan" name="sasaran" value="{{ $saske->sasaran ?? '' }}" />
         </div>
     </div>
@@ -89,12 +89,3 @@
         <button class="btn btn-primary btn-lg w-50">Submit</button>
     </div>
 </div>
-
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            getDataPengampu('#get-data-pengampu');
-        })
-    </script>
-@endpush
