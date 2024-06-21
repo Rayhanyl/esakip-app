@@ -23,7 +23,8 @@
                                 label="Pengampu yg dipilih" name="pengampu[{{ $keyp }}][old_value]"
                                 value="{{ $pengampu->old_pengampu_name }}" readonly=true />
                         @endif
-                        <x-admin.form.select col="{{ $pengampu->old_pengampu_id ?? false ? 'col-6' : 'col-11' }}" className="pengampu-select2"
+                        <x-admin.form.select col="{{ $pengampu->old_pengampu_id ?? false ? 'col-6' : 'col-11' }}"
+                            className="pengampu-select2"
                             label="{{ $pengampu->old_pengampu_id ?? false ? 'Ubah Pengampu' : 'Pengampu' }}"
                             name="pengampu[{{ $keyp }}][value]" :lists="[]" pengampu=true
                             value="{{ $value->pengampu_id ?? '' }}" />

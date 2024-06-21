@@ -31,8 +31,8 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function index()
     {
-        $data = PerdaSubKegia::whereUserId( Auth::user()->id)->get();
-        return view('admin.perda.perencanaan.subkegiatan.index',compact('data'));
+        $data = PerdaSubKegia::whereUserId(Auth::user()->id)->get();
+        return view('admin.perda.perencanaan.subkegiatan.index', compact('data'));
     }
 
     /**
@@ -99,7 +99,7 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function update(Request $request, PerdaSubKegia $sasubkegium)
     {
-        if($request->pengampu_id == ''){
+        if ($request->pengampu_id == '') {
             $request->merge(['pengampu_id' => $request->old_pengampu_id]);
         }
         $sasubkegium->update($request->only(PerdaSubKegia::FILLABLE_FIELDS));
@@ -167,7 +167,8 @@ class PerdaSubKegiaController extends AdminBaseController
     {
         return view('admin.perda.perencanaan.subkegiatan._partials.pengampu');
     }
-        public function getPengampuNip($nip){
+    public function getPengampuNip($nip)
+    {
         $response1 = Http::withHeaders([
             'Content-Type' => 'application/json',
             'User-Agent' => 'insomnia/2023.5.8'

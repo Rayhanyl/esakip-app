@@ -9,6 +9,7 @@ class PerdaPengukuranTriwulan extends Model
 {
     use HasFactory;
     const FILLABLE_FIELDS = [
+        'user_id',
         'perda_pengukuran_id',
         'perda_sastra_id',
         'perda_sastra_in_id',
@@ -24,4 +25,24 @@ class PerdaPengukuranTriwulan extends Model
         'anggaran_perda_sub_kegia_capaian',
     ];
     protected $fillable = self::FILLABLE_FIELDS;
+
+    public function perda_sastra()
+    {
+        return $this->belongsTo(PerdaSastra::class);
+    }
+
+    public function perda_sastra_in()
+    {
+        return $this->belongsTo(PerdaSastraIn::class);
+    }
+
+    public function perda_sub_kegia()
+    {
+        return $this->belongsTo(PerdaSubKegia::class);
+    }
+
+    public function perda_sub_kegia_in()
+    {
+        return $this->belongsTo(PerdaSubKegiaIn::class);
+    }
 }

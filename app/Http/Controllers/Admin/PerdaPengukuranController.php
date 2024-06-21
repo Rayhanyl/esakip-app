@@ -100,12 +100,12 @@ class PerdaPengukuranController extends AdminBaseController
         $pengukuran->load('tahunans', 'triwulans');
         $sasaran_strategis_id_options = [];
         $sasaran_sub_kegiatan_id_options = [];
-        if (count($pengukuran->tahunans) > 0 ) {
+        if (count($pengukuran->tahunans) > 0) {
             $sasaran_strategis_id_options =  PerdaSastraIn::wherePerdaSastraId($pengukuran->tahunans[0]->perda_sastra_id)->get()->keyBy('id')->transform(function ($item) {
                 return $item->indikator;
             });
         }
-        if (count($pengukuran->triwulans) > 0 ) {
+        if (count($pengukuran->triwulans) > 0) {
             $sasaran_strategis_id_options =  PerdaSastraIn::wherePerdaSastraId($pengukuran->triwulans[0]->perda_sastra_id)->get()->keyBy('id')->transform(function ($item) {
                 return $item->indikator;
             });
@@ -130,7 +130,7 @@ class PerdaPengukuranController extends AdminBaseController
                     'tahunan_karakteristik' => $request->tahunan_karakteristik,
                     'tahunan_capaian' => $request->tahunan_capaian,
                 ]);
-            }else{
+            } else {
                 $pengukuranTriwulan = PerdaPengukuranTriwulan::find($request->triwulan_id);
                 $pengukuranTriwulan->update([
                     'perda_sastra_id' => $request->sasaran_strategis_id,

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Aspu\Pengukuran;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PerdaPengukuran;
-use App\Http\Controllers\Controller;
 use App\Models\PemkabPengukuran;
+use App\Http\Controllers\Controller;
+use App\Models\PerdaPengukuranTahunan;
+use App\Models\PerdaPengukuranTriwulan;
 
 class AspuPengukuranController extends Controller
 {
@@ -28,7 +30,7 @@ class AspuPengukuranController extends Controller
                 return $query->where('tahun', $tahun);
             })
             ->when($triwulan, function ($query, $triwulan) {
-                return $query->where('triwulan', $triwulan);
+                return $query->where('tipe', $triwulan);
             })
             ->get();
         return view('aspu.pengukuran.index', compact('user', 'perda', 'tahun', 'triwulan', 'data'));
@@ -40,14 +42,15 @@ class AspuPengukuranController extends Controller
         return view('aspu.pengukuran.pemkab', compact('data'));
     }
 
-
-    public function detail(Request $request, $user)
+    public function detail(Request $request, $id)
     {
-        $user = User::findOrFail($user);
-        $perda = $request->perda;
-        $tahun = $request->tahun;
-        $triwulan = $request->triwulan;
-        $data = [];
-        return view('aspu.pengukuran.detail', compact('user', 'perda', 'tahun', 'triwulan', 'data'));
+        $pengukuran  = PerdaPengukuran::with('user')->findOrfail($id);
+        if ($pengukuran->tipe == 'tahun') {
+            $tahunan = PerdaPengukuranTahunan::with('perda_sastra', 'perda_sastra_in')->where('perda_pengukuran_id', $id)->first();
+            return view('aspu.pengukuran.detail_tahun', compact('pengukuran', 'tahunan'));
+        } else {
+            $triwulan = PerdaPengukuranTriwulan::with('perda_sastra', 'perda_sastra_in', 'perda_sub_kegia', 'perda_sub_kegia_in')->where('perda_pengukuran_id', $id)->first();
+            return view('aspu.pengukuran.detail', compact('pengukuran', 'triwulan'));
+        }
     }
 }

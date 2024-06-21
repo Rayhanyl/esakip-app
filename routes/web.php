@@ -91,8 +91,8 @@ Route::prefix('/')->name('aspu.')->group(function () {
             ->name('perda-index');
         Route::get('/pemerintah-kabupaten/index', [AspuPengukuranController::class, 'pemkab'])
             ->name('pemkab-index');
-        Route::get('/detail', [AspuPengukuranController::class, 'detail'])
-            ->name('detail');
+        Route::get('/perangkat-daerah/detail/{id}', [AspuPengukuranController::class, 'detail'])
+            ->name('perda-detail');
     });
     Route::prefix('pelaporan')->name('pelaporan.')->group(function () {
         Route::get('/perangkat-daerah/index', [AspuPelaporanController::class, 'perda'])

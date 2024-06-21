@@ -19,4 +19,14 @@ class PerdaPengukuranTahunan extends Model
         'tahunan_capaian',
     ];
     protected $fillable = self::FILLABLE_FIELDS;
+
+    public function perda_sastra()
+    {
+        return $this->belongsTo(PerdaSastra::class);
+    }
+
+    public function perda_sastra_in()
+    {
+        return $this->belongsTo(PerdaSastraIn::class);
+    }
 }

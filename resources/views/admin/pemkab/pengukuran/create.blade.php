@@ -128,7 +128,7 @@
                                 data: list,
                                 theme: 'bootstrap-5'
                             });
-                            if (list.length === 1) {
+                            if (list.length >= 1) {
                                 $('#indikator_sasaran').val(list[0].id).trigger('select2:select');
                             }
                         }

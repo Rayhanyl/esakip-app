@@ -9,7 +9,7 @@
             <x-admin.form.text label="Sasaran Bupati" name="sasaran" value="{{ $sastra->sasaran ?? '' }}" />
             <x-admin.form.select label="Pengampu" name="pengampu_id" :lists="['0' => 'Bupati']" value="0" readonly="true"
                 id="pengampu_select2" />
-            <input type="hidden" name="pengampu_id" value="1">
+            <input type="hidden" name="pengampu_id" value="0">
         </div>
     </div>
 </div>

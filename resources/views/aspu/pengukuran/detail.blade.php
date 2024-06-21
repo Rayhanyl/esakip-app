@@ -6,7 +6,7 @@
             <div class="row align-items-center justify-content-center text-center pt-5">
                 <div class="col-lg-6">
                     <h4 class="text-white mb-3" data-aos="fade-up">
-                        Pengukuran Kinerja {{ $user->name }} Detail
+                        Pengukuran Kinerja {{ $pengukuran->user->name }} Detail
                     </h4>
                     <h1 class="heading text-white mb-3" data-aos="fade-up">
                         Rangking ( 1 )
@@ -20,59 +20,27 @@
     <div class="section sec-services">
         <div class="container">
             <div class="col-12 mb-4">
-                <a href="{{ route('aspu.pengukuran.index') }}" class="fw-bold">
+                <a href="{{ route('aspu.pengukuran.perda-index') }}" class="fw-bold">
                     Back to pengukuran kinerja
                 </a>
             </div>
-            <form
-                action="#"
-                method="get">
-                @csrf
-                <div class="row g-3">
-                    <div class="col-12 col-lg-3">
-                        <label class="form-label fs-5 fw-bold" for="tahun">Tahun</label>
-                        <select class="form-select" id="tahun" name="tahun">
-                            <option value="" selected>- Pilih Tahun -</option>
-                            @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
-                                <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>
-                                    {{ $i }}
-                                </option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div class="col-12 col-lg-3">
-                        <label class="form-label fs-5 fw-bold" for="triwulan">Triwulan</label>
-                        <select class="form-select" id="triwulan" name="triwulan">
-                            <option value="" selected>- Pilih Triwulan -</option>
-                            <option value="1" {{ $triwulan == '1' ? 'selected' : '' }}>1</option>
-                            <option value="2" {{ $triwulan == '2' ? 'selected' : '' }}>2</option>
-                            <option value="3" {{ $triwulan == '3' ? 'selected' : '' }}>3</option>
-                            <option value="4" {{ $triwulan == '4' ? 'selected' : '' }}>4</option>
-                            <option value="tahun" {{ $triwulan == 'tahun' ? 'selected' : '' }}>Tahun</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-lg-3 py-4">
-                        <button class="btn btn-primary btn-sm w-100 ">Search</button>
-                    </div>
-                </div>
-            </form>
 
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Pengukuran Kinerja {{ $user->name }} Detail</h4>
+                            <h4 class="card-title">Pengukuran Kinerja {{ $pengukuran->user->name }} Detail</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="data-perangkat-daerah-detail" style="width: 100%">
+                                <table class="table table-striped table-hover" id="data-perangkat-daerah-detail"
+                                    style="width: 100%">
                                     <thead class="table-info">
                                         <tr style="font-size:13px;">
-                                            <th class="text-center" colspan="8">Kinerja</th>
-                                            <th class="text-center" colspan="4">Anggaran</th>
+                                            <th class="text-center" colspan="7">Kinerja</th>
+                                            <th class="text-center" colspan="5">Anggaran</th>
                                         </tr>
-                                        <tr style="font-size:12px;">
-                                            <th class="text-center">No</th>
+                                        <tr style="font-size:10px;">
                                             <th class="text-center">Perangkat Daerah</th>
                                             <th class="text-center">Sasaran Strategis</th>
                                             <th class="text-center">Indikator Sasaran</th>
@@ -89,19 +57,24 @@
                                     </thead>
                                     <tbody>
                                         <tr style="font-size:12px;">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td class="text-start">{{ $pengukuran->user->name }}</td>
+                                            <td class="text-start">{{ $triwulan->perda_sastra->sasaran }}</td>
+                                            <td class="text-start">{{ $triwulan->perda_sastra_in->indikator }}</td>
+                                            <td class="text-start">{{ $triwulan->perda_sub_kegia->sasaran }}</td>
+                                            <td class="text-start">{{ $triwulan->perda_sub_kegia_in->indikator }}</td>
+                                            <td class="text-center">{{ $triwulan->perda_sub_kegia_target }}</td>
+                                            <td class="text-center">{{ $triwulan->realisasi }}</td>
+                                            <td class="text-center">{{ $triwulan->capaian }}</td>
+                                            <td class="text-start">{{ $triwulan->anggaran_perda_sub_kegia_id }}</td>
+                                            <td class="text-center">
+                                                {{ $triwulan->anggaran_perda_sub_kegia_pagu }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $triwulan->anggaran_perda_sub_kegia_realisasi }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ $triwulan->anggaran_perda_sub_kegia_capaian }}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -116,7 +89,6 @@
         <script>
             $(document).ready(function() {
                 $('#data-perangkat-daerah-detail').DataTable({
-                    responsive: true,
                     lengthMenu: [
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],

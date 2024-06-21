@@ -40,12 +40,12 @@
                     <div class="col-12 col-lg-3">
                         <label class="form-label fs-5 fw-bold" for="triwulan">Triwulan</label>
                         <select class="form-select" id="triwulan" name="triwulan">
-                            <option value="" selected>- Pilih Triwulan -</option>
-                            <option value="1" selected>1</option>
-                            <option value="2" selected>2</option>
-                            <option value="3" selected>3</option>
-                            <option value="4" selected>4</option>
-                            <option value="tahun" selected>tahun</option>
+                            <option value="">-- All --</option>
+                            <option value="1" {{ $triwulan == '1' ? 'selected' : '' }}>1</option>
+                            <option value="2" {{ $triwulan == '2' ? 'selected' : '' }}>2</option>
+                            <option value="3" {{ $triwulan == '3' ? 'selected' : '' }}>3</option>
+                            <option value="4" {{ $triwulan == '4' ? 'selected' : '' }}>4</option>
+                            <option value="tahun" {{ $triwulan == 'tahun' ? 'selected' : '' }}>tahun</option>
                         </select>
                     </div>
                     <div class="col-12 col-lg-3 py-4">
@@ -100,7 +100,10 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    {{--  --}}
+                                                    <a
+                                                        href="{{ route('aspu.pengukuran.perda-detail', ['id' => $item->id]) }}">
+                                                        Detail
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

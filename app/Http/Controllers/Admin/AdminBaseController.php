@@ -36,6 +36,7 @@ class AdminBaseController extends BaseController
             return $next($request);
         });
     }
+    
     public function get_pengampu(Request $request)
     {
         $nip = '';
@@ -45,18 +46,15 @@ class AdminBaseController extends BaseController
         } else {
             $nama = $request->q;
         }
-        // Set the page number and number of items per page
         $page = $request->input('page', 1);
-        $perPage = 12202; // You can adjust this value as needed
+        $perPage = 100000;
 
         $response = Http::withHeaders([
             'User-Agent' => 'insomnia/2023.5.8',
             'Authorization' => 'Bearer ' . session('token')
         ])->get($this->baseUrl . '/esakip/list_pengampu?opd=&nip=' . $nip . '&nama=' . $nama);
-        // Check if the request was successful
         if ($response->successful()) {
             $data = json_decode($response->getBody()->getContents());
-            // Paginate the data
             $paginatedData = Paginator::resolveCurrentPage('page') ?: 1;
             $paginatedData = new LengthAwarePaginator(
                 collect($data->result)->forPage($page, $perPage),
@@ -67,7 +65,6 @@ class AdminBaseController extends BaseController
             );
             return response()->json($paginatedData);
         } else {
-            // Handle error response
             return response()->json(['error' => 'Failed to fetch data'], $response->status());
         }
     }

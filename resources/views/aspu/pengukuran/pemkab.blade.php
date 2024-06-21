@@ -43,13 +43,12 @@
                                                 <td class="text-start">{{ $item->pemkab_sastra_in->indikator }}</td>
                                                 <td class="text-center">{{ $item->target }}</td>
                                                 <td class="text-center">{{ $item->realisasi }}</td>
-                                                <td class="text-start">
+                                                <td class="text-center">
                                                     @if ($item->karakteristik == '1')
                                                         Semakin tinggi realisasi maka capaian semakin bagus
                                                     @else
                                                         Semakin rendah realisasi maka capaian semakin bagus
                                                     @endif
-
                                                 </td>
                                                 <td class="text-center">{{ $item->capaian }}</td>
                                             </tr>
