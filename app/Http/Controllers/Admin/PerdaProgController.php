@@ -39,7 +39,7 @@ class PerdaProgController extends AdminBaseController
      */
     public function create()
     {
-        $sastra_options = PerdaSastra::whereUserId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+        $sastra_options = PerdaSastra::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran;
         });
         return view('admin.perda.perencanaan.program.create', compact('sastra_options'));
@@ -71,7 +71,7 @@ class PerdaProgController extends AdminBaseController
      */
     public function edit(PerdaProg $saspro)
     {
-        $sastra_options = PerdaSastra::whereUserId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+        $sastra_options = PerdaSastra::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran;
         });
         $data = $this->getPengampuNip($saspro->pengampu_id);
