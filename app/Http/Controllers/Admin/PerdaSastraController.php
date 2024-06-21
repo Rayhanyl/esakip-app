@@ -30,6 +30,7 @@ class PerdaSastraController extends AdminBaseController
         }));
         View::share('perdaSastraData', PerdaSastra::all());
     }
+    
     /**
      * Display a listing of the resource.
      */
@@ -153,6 +154,7 @@ class PerdaSastraController extends AdminBaseController
         $sastra->delete();
         return redirect()->back();
     }
+
     public function indicator()
     {
         return view('admin.perda.perencanaan.sastra._partials.indicator');
@@ -163,6 +165,7 @@ class PerdaSastraController extends AdminBaseController
         $params = $request->params;
         return view('admin.perda.perencanaan.sastra._partials.penanggung_jawab', compact('params'));
     }
+
     public function getPengampuNip($nip){
         $response1 = Http::withHeaders([
             'Content-Type' => 'application/json',
