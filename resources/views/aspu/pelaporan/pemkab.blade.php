@@ -70,7 +70,7 @@
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $pelaporan->keterangan }}
+                                                    {{ $pelaporan->keterangan ?? '-' }}
                                                 </td>
                                                 <td class="text-center">
                                                     <span class="keterangan-count" id="keterangan-{{ $pelaporan->id }}">
