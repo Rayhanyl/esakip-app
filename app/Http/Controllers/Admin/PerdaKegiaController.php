@@ -39,7 +39,7 @@ class PerdaKegiaController extends AdminBaseController
      */
     public function create()
     {
-        $saspro_options = PerdaProg::whereUseId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+        $saspro_options = PerdaProg::whereUseId(Auth::user()->id)->get()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran;
         });
         return view('admin.perda.perencanaan.kegiatan.create', compact('saspro_options'));
@@ -82,7 +82,7 @@ class PerdaKegiaController extends AdminBaseController
         $old_pengampu['id'] = $data->nip;
         $old_pengampu['name'] = $data->nama_pegawai_gelar;
         $saske->load('perda_kegia_ins');
-        $saspro_options = PerdaProg::whereUseId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+        $saspro_options = PerdaProg::whereUseId(Auth::user()->id)->get()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran;
         });
         return view('admin.perda.perencanaan.kegiatan.edit', compact('saske', 'saspro_options'));
