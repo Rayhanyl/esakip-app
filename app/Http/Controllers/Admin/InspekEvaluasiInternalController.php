@@ -10,8 +10,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use App\Models\InspekEvaluasiInternal;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\StoreInspekEvaluasiInternalRequest;
-use App\Http\Requests\UpdateInspekEvaluasiInternalRequest;
 
 class InspekEvaluasiInternalController extends Controller
 {

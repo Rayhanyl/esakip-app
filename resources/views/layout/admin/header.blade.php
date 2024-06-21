@@ -11,6 +11,8 @@
     <link
         href="https://cdn.datatables.net/v/bs5/dt-2.0.6/date-1.5.2/fc-5.0.0/fh-4.0.1/r-3.0.2/rg-1.5.0/rr-1.5.0/sc-2.4.2/datatables.min.css"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css"
+        referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/x-icon" />
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/pemkab_favicon.png') }}" type="image/png" />
@@ -179,7 +181,8 @@
                                         <h6 class="dropdown-header">Hello, {{ session('name') ?? 'No name' }}</h6>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('admin.user-management.profile', ['user' => Auth::user()->id]) }}"><i
+                                        <a class="dropdown-item"
+                                            href="{{ route('admin.user-management.profile', ['user' => Auth::user()->id]) }}"><i
                                                 class="icon-mid bi bi-person me-2"></i> My
                                             Profile</a>
                                     </li>

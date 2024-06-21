@@ -10,6 +10,7 @@
 <script
     src="https://cdn.datatables.net/v/bs5/dt-2.0.6/date-1.5.2/fc-5.0.0/fh-4.0.1/r-3.0.2/rg-1.5.0/rr-1.5.0/sc-2.4.2/datatables.min.js">
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -90,7 +91,7 @@
             theme: 'bootstrap-5'
         });
         getDataPengampu('.pengampu-select2');
-        
+
         $('.table-datatable').DataTable({
             responsive: true,
             lengthMenu: [
