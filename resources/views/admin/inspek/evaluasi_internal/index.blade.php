@@ -165,6 +165,16 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                $('#summernote-catatan').summernote({
+                    placeholder: 'Hello Bootstrap 5',
+                    tabsize: 2,
+                    height: 100
+                });
+                $('#summernote-rekomendasi').summernote({
+                    placeholder: 'Hello Bootstrap 5',
+                    tabsize: 2,
+                    height: 100
+                });
                 $('.input-bobot').on('keyup', function() {
                     let sumKom = 0;
                     $('input[id^="sub_komponen[' + $(this).data('komponen') + ']"]')
