@@ -40,7 +40,7 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function create()
     {
-        $kegia_options = PerdaKegia::whereUserId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+        $kegia_options = PerdaKegia::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran;
         });
         return view('admin.perda.perencanaan.subkegiatan.create', compact('kegia_options'));
@@ -82,7 +82,7 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function edit(PerdaSubKegia $sasubkegium)
     {
-        $kegia_options = PerdaKegia::whereUserId(Auth::user()->id)->keyBy('id')->transform(function ($sasaran) {
+        $kegia_options = PerdaKegia::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran;
         });
         $sasubkegium->load('perda_subkegia_ins', 'perda_subkegia_pengampus');
