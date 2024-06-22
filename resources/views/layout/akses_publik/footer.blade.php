@@ -40,6 +40,9 @@
     <script src="https://fastly.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+    <script type="text/javascript" src="https://code.jscharting.com/latest/modules/types.js"></script>
+    <script type="text/javascript" src="https://code.jscharting.com/latest/modules/toolbar.js">
     @include('sweetalert::alert')
     <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

@@ -57,12 +57,35 @@ class CascadingController extends Controller
         //         $sastra->pengampu = $data_pengampu;
         //     }
         // }
-        // $dummydata = [
-        //     [
-
-        //     ]
-        // ]
-        return view('aspu.perencanaan.cascading.index');
+        $dummy_data = [
+            [
+                'id' => '1',
+                'x' => '
+                Meningkatnya Produktivitas Daerah<br/><br/>Indikator : Tingkat Pengangguran Terbuka (TPT)
+                ',
+                'parent' => '',
+                'color' => '#00b050',
+            ],
+            [
+                'id' => '2',
+                'x' => 'Meningkatnya Investasi<br/><br/>Indikator : Nilai Realisasi Investasi',
+                'parent' => '1',
+                'color' => '#ffff00'
+            ],
+            [
+                'id' => '3',
+                'x' => 'Meningkatnya Akses terhadap Peluang dan Potensi Penanaman Modal<br/><br/>Indikator : Persentase investor yang mengakses Data Potensi Penanaman Modal',
+                'parent' => '2',
+                'color' => '#0070c0'
+            ],
+            [
+                'id' => '4',
+                'x' => 'Meningkatnya Akses terhadap Peluang dan Potensi Penanaman Modal<br/><br/>Indikator : Persentase investor yang mengakses Data Potensi Penanaman Modal',
+                'parent' => '2',
+                'color' => '#0070c0'
+            ],
+        ];
+        return view('aspu.perencanaan.cascading.index', compact('dummy_data'));
     }
 
     public function getPengampuNip($nip)
