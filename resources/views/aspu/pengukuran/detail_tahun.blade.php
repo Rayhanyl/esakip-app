@@ -42,7 +42,6 @@
                                             <td class="text-center">Indikator Sasaran</td>
                                             <td class="text-center">Target</td>
                                             <td class="text-center">Realisasi</td>
-                                            <td class="text-center">Karakteristik</td>
                                             <td class="text-center">Capaian</td>
                                         </tr>
                                     </thead>
@@ -54,13 +53,6 @@
                                             <td class="text-start">{{ $tahunan->perda_sastra_in->indikator }}</td>
                                             <td class="text-center">{{ $tahunan->tahunan_target }}</td>
                                             <td class="text-center">{{ $tahunan->tahunan_realisasi }}</td>
-                                            <td class="text-center">
-                                                @if ($tahunan->karakteristik == '1')
-                                                    Semakin tinggi realisasi maka capaian semakin bagus
-                                                @else
-                                                    Semakin rendah realisasi maka capaian semakin bagus
-                                                @endif
-                                            </td>
                                             <td class="text-center">{{ $tahunan->tahunan_capaian }}</td>
                                         </tr>
                                     </tbody>
