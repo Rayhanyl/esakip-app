@@ -43,7 +43,7 @@ class PerdaPengukuranController extends AdminBaseController
         $sasaran_sub_kegiatan_options = PerdaSubKegia::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($item) {
             return $item->sasaran;
         });
-        return view('admin.perda.pengukuran.index', compact('data', 'sasaran_strategis_options', 'sasasran_sub_kegiatan_options'));
+        return view('admin.perda.pengukuran.index', compact('data', 'sasaran_strategis_options', 'sasaran_sub_kegiatan_options'));
     }
 
     public function create()
