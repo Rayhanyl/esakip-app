@@ -5,60 +5,65 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Self Assesment Perangkat Daerah</h3>
-                        {{-- <p class="text-subtitle text-muted">
-                            Navbar will appear on the top of the page.
-                        </p> --}}
+                        <h3>Evaluasi Internal</h3>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                {{-- <li class="breadcrumb-item">
-                                    <a href="index.html">Pengukuran Kinerja</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Layout Vertical Navbar
-                                </li> --}}
                             </ol>
                         </nav>
                     </div>
                 </div>
             </div>
             <section class="section">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="{{ route('admin.inspek.self-assesment.index') }}" method="get">
-                            <div class="row g-3">
-                                <x-admin.form.select col="col-12 col-lg-6" label="Tahun" name="tahun"
-                                    value="{{ $tahun ?? '' }}" :lists="$tahun_options" id="tahun_select2" />
+                <form class="row g-3" action="{{ route('admin.perda.evaluasi-internal.index') }}" method="GET"
+                    enctype="multipart/form-data">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group">
+                                        <h6>Tahun</h6>
+                                        <fieldset class="form-group">
+                                            <select class="form-select" id="basicSelect" name="tahun">
+                                                <option value="" selected>- Pilih Tahun -</option>
+                                                @for ($i = date('Y') + 5; $i >= date('Y') - 5; $i--)
+                                                    <option value="{{ $i }}"
+                                                        {{ app('request')->input('tahun') == $i ? 'selected' : '' }}>
+                                                        {{ $i }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                    <button class="btn btn-primary">Cari</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
                 @if ($perda_evaluasi_internal)
                     <div class="card">
                         <div class="card-header">
                             @switch($status)
                                 @case('new')
-                                    <h3 class="text-danger">Data Evaluasi Internal belum tersedia</h3>
+                                    <h3 class="text-primary">Data Evaluasi Internal dapat diisi.</h3>
                                 @break
 
                                 @case('submit')
-                                    <h3 class="text-warning">Data Evaluasi Internal belum dinilai</h3>
+                                    <h3 class="text-warning">Data Evaluasi Internal telah disubmit.</h3>
                                 @break
 
                                 @case('complete')
-                                    <h3 class="text-success">Data Evaluasi Internal telah dinilai</h3>
+                                    <h3 class="text-success">Data Evaluasi Internal telah dinilai.</h3>
                                 @break
 
                                 @default
                             @endswitch
                         </div>
                         <div class="card-body">
-                            <h4 class="card-title">Tabel Pelaporan Kinerja</h4>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class="table-info">
@@ -67,54 +72,47 @@
                                             <th></th>
                                             <th></th>
                                             <th>Komponen/Sub Komponen/Kriteria</th>
-                                            <th width="10%">Keterangan</th>
+                                            <th width="20%">Keterangan</th>
                                             <th>Eviden</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <form
-                                            action="{{ route('admin.inspek.self-assesment.update', $perda_evaluasi_internal->id ?? 0) }}"
+                                            action="{{ route('admin.perda.evaluasi-internal.update', $perda_evaluasi_internal->id ?? 0) }}"
                                             method="post" id="form_perda_evaluasi_internal" enctype="multipart/form-data">
                                             @csrf
                                             @method('put')
                                             @foreach ($perda_evaluasi_internal->komponens as $komponen)
-                                                <tr class="fw-bold text-light" style="background: #333333">
-                                                    <td>
+                                                <tr>
+                                                    <td class="bg-info fw-bold text-light" colspan="1">
                                                         {{ $komponen->no }}</td>
-                                                    <td colspan="3">
+                                                    <td class="bg-info fw-bold text-light" colspan="1"></td>
+                                                    <td class="bg-info fw-bold text-light" colspan="4">
                                                         {{ $komponen->komponen }}
-                                                    </td>
-                                                    <td colspan="2">
                                                         <input type="hidden"
                                                             name="komponen[{{ $komponen->id }}][total_bobot]">
-                                                        <span
-                                                            id="komponen{{ $komponen->id }}">{{ $komponen->nilai ?? 0 }}</span>
                                                     </td>
                                                 </tr>
                                                 @foreach ($komponen->sub_komponens as $sub_komponen)
-                                                    <tr class="bg-secondary fw-bold text-light">
-                                                        <td>
-                                                        </td>
-                                                        <td>
+                                                    <tr>
+                                                        <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                                        <td class="bg-secondary fw-bold text-light" colspan="1">
                                                             {{ $sub_komponen->no }}
                                                         </td>
-                                                        <td colspan="2">
+                                                        <td class="bg-secondary fw-bold text-light" colspan="4">
                                                             {{ $sub_komponen->sub_komponen }}
-                                                        </td>
-                                                        <td colspan="2">
                                                             <input type="hidden"
                                                                 name="sub_komponen[{{ $sub_komponen->id }}][total_bobot]">
-                                                            <span
-                                                                id="sub_komponen{{ $sub_komponen->id }}">{{ $sub_komponen->nilai ?? 0 }}</span>
                                                         </td>
                                                     </tr>
                                                     @foreach ($sub_komponen->kriterias as $kriteria)
-                                                        <tr class="fw-bold">
-                                                            <td colspan="2"></td>
-                                                            <td>
+                                                        <tr>
+                                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                                            <td class="bg-secondary fw-bold text-light" colspan="1"></td>
+                                                            <td class="bg-secondary fw-bold text-light" colspan="1">
                                                                 {{ $kriteria->no }}
                                                             </td>
-                                                            <td>
+                                                            <td class="bg-secondary fw-bold text-light" colspan="1">
                                                                 {{ $kriteria->kriteria }}
                                                             </td>
                                                             <td>
@@ -124,70 +122,52 @@
                                                                     data-komponen="{{ $komponen->id }}"
                                                                     data-sub-komponen="{{ $sub_komponen->id }}"
                                                                     data-kriteria="{{ $kriteria->id }}"
-                                                                    {{ in_array($status, ['new']) ? 'disabled' : '' }}>
-                                                                    <option value="0" selected disabled>- Pilih -
-                                                                    </option>
+                                                                    {{ in_array($status, ['complete']) ? 'disabled' : '' }}>
                                                                     @foreach ($kriteria->answers as $answer)
-                                                                        <option value="{{ $answer->bobot }}"
-                                                                            {{ (float) $answer->bobot == (float) ($kriteria->inspek_status ?? $kriteria->status) ? 'selected' : '' }}>
+                                                                        <option
+                                                                            value="
+                                                                        {{ $answer->bobot }}"
+                                                                            {{ $kriteria->status == $answer->bobot ? 'selected' : '' }}>
                                                                             {{ $answer->jawaban }}
-                                                                            ({{ $answer->bobot }})
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
                                                             </td>
                                                             <td>
-                                                                @if ($kriteria->upload)
-                                                                    <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                        title="Download File Kriteria"
-                                                                        class="btn btn-success btn-sm"
-                                                                        href="{{ route('perda.evaluasi-internal.download', $kriteria->upload) }}">
-                                                                        <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                                                        Download
-                                                                    </a>
-                                                                @endif
+                                                                <div class="input-group">
+                                                                    @if (!in_array($status, ['complete']))
+                                                                        <input class="form-control form-control-sm"
+                                                                            type="file"
+                                                                            name="kriteria[{{ $kriteria->id }}][upload]">
+                                                                    @endif
+                                                                    @if ($kriteria->upload)
+                                                                        <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                            title="Download File Kriteria"
+                                                                            class="btn btn-success btn-sm"
+                                                                            href="{{ route('admin.perda.evaluasi-internal.download', $kriteria->upload) }}">
+                                                                            <i
+                                                                                class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                                            Download
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+
                                                             </td>
                                                         </tr>
                                                     @endforeach
                                                 @endforeach
                                             @endforeach
-
+                                            <input type="hidden" name="total-nilai" id="total-nilai" value="">
+                                            <input type="hidden" name="predikat-nilai" id="predikat-nilai" value="">
                                         </form>
                                     </tbody>
                                     <tfoot>
-                                        <tr>
-                                            <td colspan="3"></td>
-                                            <td class="text-end">
-                                                Nilai Akuntabilitas Kinerja :
+                                        @if (!in_array($status, ['complete']))
+                                            <td colspan="6" class="text-end">
+                                                <button class="btn btn-primary btn-lg" type="submit"
+                                                    form="form_perda_evaluasi_internal">Submit</button>
                                             </td>
-                                            <td class="d-flex justify-content-center align-items-center gap-1">
-                                                <div class="input-group">
-                                                    <input type="number" name="total_nilai" id="total-nilai"
-                                                        class="form-control" value="0" readonly>
-                                                </div>
-                                                <input type="hidden" name="total_bobot" id="total-bobot"
-                                                    class="form-control" value="0" readonly disabled>
-                                            </td>
-                                            <td rowspan="2">
-                                                @if (!in_array($status, ['new']))
-                                                    <button class="btn btn-success btn-lg"
-                                                        form="form_perda_evaluasi_internal">
-                                                        <i class="bi bi-save"></i>
-                                                        Submit
-                                                    </button>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3"></td>
-                                            <td class="text-end">
-                                                Predikat :
-                                            </td>
-                                            <td>
-                                                <input type="text" name="predikat_nilai" id="predikat-nilai"
-                                                    class="form-control" value="0" readonly>
-                                            </td>
-                                        </tr>
+                                        @endif
                                     </tfoot>
                                 </table>
                             </div>
@@ -197,9 +177,12 @@
             </section>
         </div>
     </div>
+
+    {{-- Modal --}}
+    {{-- Modal --}}
     @push('scripts')
         <script>
-            $(document).ready(function() {
+            $('select[id^="kriteria"]').on('change', function() {
                 let sum = 0;
                 $('select[id^="kriteria"]')
                     .each(function() {
@@ -209,58 +192,47 @@
                 let total = 100;
                 let p = predikat(sum / total * 100);
                 $('#predikat-nilai').val(p);
-                $('select[id^="kriteria"]').trigger('change');
-                $('select[id^="kriteria"]').on('change', function() {
-                    let sum = 0;
-                    $('select[id^="kriteria"]')
-                        .each(function() {
-                            sum += Number($(this).val());
-                        });
-                    $('#total-nilai').val(sum);
-                    let total = 100;
-                    let p = predikat(sum / total * 100);
-                    $('#predikat-nilai').val(p);
 
-                    let sumKom = 0;
-                    $('select[id^="kriteria[' + $(this).data('komponen') + ']"]')
-                        .each(function() {
-                            sumKom += Number($(this).val());
-                        });
-                    $('#komponen' + $(this).data('komponen')).text(sumKom);
-                    $('input[name="komponen[' + $(this).data('komponen') + '][total_bobot]"]').val(sumKom);
-                    let sumSub = 0;
-                    $('select[id^="kriteria[' + $(this).data('komponen') + '][' + $(this).data('sub-komponen') +
-                            ']"]')
-                        .each(function() {
-                            sumSub += Number($(this).val());
-                        });
-                    $('#sub_komponen' + $(this).data('sub-komponen')).text(sumSub);
-                    $('input[name="sub_komponen[' + $(this).data('sub-komponen') + '][total_bobot]"]').val(
-                        sumSub);
-                });
+                let sumKom = 0;
+                $('select[id^="kriteria[' + $(this).data('komponen') + ']"]')
+                    .each(function() {
+                        sumKom += Number($(this).val());
+                    });
+                $('#komponen' + $(this).data('komponen')).text(sumKom);
+                $('input[name="komponen[' + $(this).data('komponen') + '][total_bobot]"]').val(sumKom);
+                let sumSub = 0;
+                $('select[id^="kriteria[' + $(this).data('komponen') + '][' + $(this).data('sub-komponen') +
+                        ']"]')
+                    .each(function() {
+                        sumSub += Number($(this).val());
+                    });
+                $('#sub_komponen' + $(this).data('sub-komponen')).text(sumSub);
+                $('input[name="sub_komponen[' + $(this).data('sub-komponen') + '][total_bobot]"]').val(
+                    sumSub);
+            });
 
-                function predikat(nilai) {
-                    let predikat;
-                    if (nilai == 0) {
-                        predikat = 'E';
-                    } else if (nilai <= 30) {
-                        predikat = 'D';
-                    } else if (nilai <= 50) {
-                        predikat = 'C';
-                    } else if (nilai <= 60) {
-                        predikat = 'CC';
-                    } else if (nilai <= 70) {
-                        predikat = 'B';
-                    } else if (nilai <= 80) {
-                        predikat = 'BB';
-                    } else if (nilai <= 90) {
-                        predikat = 'A';
-                    } else if (nilai <= 100) {
-                        predikat = 'AA';
-                    };
-                    return predikat;
-                }
-            })
+            function predikat(nilai) {
+                let predikat;
+                if (nilai == 0) {
+                    predikat = 'E';
+                } else if (nilai <= 30) {
+                    predikat = 'D';
+                } else if (nilai <= 50) {
+                    predikat = 'C';
+                } else if (nilai <= 60) {
+                    predikat = 'CC';
+                } else if (nilai <= 70) {
+                    predikat = 'B';
+                } else if (nilai <= 80) {
+                    predikat = 'BB';
+                } else if (nilai <= 90) {
+                    predikat = 'A';
+                } else if (nilai <= 100) {
+                    predikat = 'AA';
+                };
+                console.log(nilai, predikat);
+                return predikat;
+            }
         </script>
     @endpush
 @endsection
