@@ -48,26 +48,33 @@ class AspuPengukuranController extends Controller
         if ($pengukuran->tipe == 'tahun') {
             $tahunan = PerdaPengukuranTahunan::with('perda_sastra', 'perda_sastra_in')->where('perda_pengukuran_id', $id)->first();
             $tahunans = PerdaPengukuranTahunan::with('perda_sastra', 'perda_sastra_in')
-                ->where('perda_pengukuran_id', $id)
                 ->orderBy('tahunan_capaian', 'desc')
                 ->get();
-            $ranking = $tahunans->map(function ($tahunan, $index) {
+            $data_ranking = $tahunans->map(function ($tahunan, $index) {
                 return (object) [
+                    'id' => $tahunan->perda_pengukuran_id,
                     'ranking' => $index + 1
                 ];
             });
+            $ranking = $data_ranking->firstWhere('id', $tahunan->perda_pengukuran_id);
             return view('aspu.pengukuran.detail_tahun', compact('pengukuran', 'tahunan', 'ranking'));
         } else {
-            $triwulan = PerdaPengukuranTriwulan::with('perda_sastra', 'perda_sastra_in', 'perda_sub_kegia', 'perda_sub_kegia_in')->where('perda_pengukuran_id', $id)->first();
-            $triwulans = PerdaPengukuranTriwulan::with('perda_sastra', 'perda_sastra_in', 'perda_sub_kegia', 'perda_sub_kegia_in')
-                ->where('perda_pengukuran_id', $id)
+            $tipe = $pengukuran->tipe;
+            $triwulan = PerdaPengukuranTriwulan::with('perda_sastra', 'perda_sastra_in', 'perda_sub_kegia', 'perda_sub_kegia_in')
+                ->where('perda_pengukuran_id', $id)->first();
+            $triwulans = PerdaPengukuranTriwulan::with('perda_pengukuran', 'perda_sastra', 'perda_sastra_in', 'perda_sub_kegia', 'perda_sub_kegia_in')
                 ->orderBy('capaian', 'desc')
+                ->whereHas('perda_pengukuran', function ($r) use ($tipe) {
+                    $r->where('tipe', $tipe);
+                })
                 ->get();
-            $ranking = $triwulans->map(function ($triwulan, $index) {
+            $data_ranking = $triwulans->map(function ($triwulan, $index) {
                 return (object) [
+                    'id' => $triwulan->perda_pengukuran_id,
                     'ranking' => $index + 1
                 ];
             });
+            $ranking = $data_ranking->firstWhere('id', $triwulan->perda_pengukuran_id);
             return view('aspu.pengukuran.detail', compact('pengukuran', 'triwulan', 'ranking'));
         }
     }

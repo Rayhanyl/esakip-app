@@ -26,6 +26,11 @@ class PerdaPengukuranTriwulan extends Model
     ];
     protected $fillable = self::FILLABLE_FIELDS;
 
+    public function perda_pengukuran()
+    {
+        return $this->belongsTo(PerdaPengukuran::class);
+    }
+
     public function perda_sastra()
     {
         return $this->belongsTo(PerdaSastra::class);
