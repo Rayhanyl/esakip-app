@@ -50,7 +50,7 @@
                                                 value="{{ $pengukuran->triwulans[0]->perda_sastra_id ?? '' }}" />
                                             <x-admin.form.select col="col-12 col-lg-6" label="Indikator Sasaran"
                                                 name="sasaran_strategis_indikator_id" :lists="$sasaran_strategis_id_options"
-                                                value="{{ $pengukuran->triwulans[0]->perda_sastra_id ?? '' }}" />
+                                                value="{{ $pengukuran->triwulans[0]->perda_sastra_in_id ?? '' }}" />
                                             <x-admin.form.select col="col-12 col-lg-4" label="Sasaran Sub-Kegiatan"
                                                 name="sasaran_sub_kegiatan_id" :lists="$sasaran_sub_kegiatan_options"
                                                 value="{{ $pengukuran->triwulans[0]->perda_sub_kegia_id ?? '' }}" />
