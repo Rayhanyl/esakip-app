@@ -114,7 +114,7 @@
                             :lists="$satuan_options" value="{{ $item->satuan_id }}" id="satuan_select2" />
                         <x-admin.form.text label="Sub Kegiatan" name="indikator[{{ $key }}][subkegiatan]"
                             value="{{ $item->subkegiatan }}" />
-                        <x-admin.form.text label="Anggaran" name="indikator[{{ $key }}][anggaran]"
+                        <x-admin.form.text label="Anggaran" currency=true name="indikator[{{ $key }}][anggaran]"
                             value="{{ $item->anggaran }}" />
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                             name="indikator[{{ $key }}][satuan_id]" :lists="$satuan_options" />
                         <x-admin.form.text col="col-4" label="Sub Kegiatan"
                             name="indikator[{{ $key }}][subkegiatan]" />
-                        <x-admin.form.text col="col-4" label="Anggaran"
+                        <x-admin.form.text col="col-4" label="Anggaran" currency=true
                             name="indikator[{{ $key }}][anggaran]" />
                     </div>
                 </div>

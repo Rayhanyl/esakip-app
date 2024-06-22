@@ -44,13 +44,13 @@
                         <input type="hidden" name="indikator[{{ $key }}][id]" value="{{ $item->id }}">
                         <x-admin.form.text-area col="col-12" label="Indikator Program"
                             name="indikator[{{ $key }}][indikator]" value="{{ $item->indikator }}" />
-                        <x-admin.form.text label="Target" decimal="true" name="indikator[{{ $key }}][target]"
+                        <x-admin.form.text label="Target" decimal=true name="indikator[{{ $key }}][target]"
                             value="{{ $item->target }}" />
                         <x-admin.form.select label="Satuan" name="indikator[{{ $key }}][satuan_id]"
                             :lists="$satuan_options" value="{{ $item->satuan_id }}" id="satuan_select2" />
                         <x-admin.form.text label="Program" name="indikator[{{ $key }}][program]"
                             value="{{ $item->program }}" />
-                        <x-admin.form.text label="Anggaran" currency="true" name="indikator[{{ $key }}][anggaran]"
+                        <x-admin.form.text label="Anggaran" currency=true name="indikator[{{ $key }}][anggaran]"
                             value="{{ $item->anggaran }}" />
                     </div>
                 </div>
@@ -72,11 +72,11 @@
                         <hr>
                         <x-admin.form.text-area col="col-12" label="Indikator Program"
                             name="indikator[{{ $key }}][indikator]" />
-                        <x-admin.form.text label="Target" name="indikator[{{ $key }}][target]" />
+                        <x-admin.form.text label="Target" decimal=true name="indikator[{{ $key }}][target]" />
                         <x-admin.form.select label="Satuan" name="indikator[{{ $key }}][satuan_id]"
                             :lists="$satuan_options" />
                         <x-admin.form.text label="Program" name="indikator[{{ $key }}][program]" />
-                        <x-admin.form.text label="Anggaran" name="indikator[{{ $key }}][anggaran]" />
+                        <x-admin.form.text label="Anggaran" currency=true name="indikator[{{ $key }}][anggaran]" />
                     </div>
                 </div>
             </div>
