@@ -15,7 +15,7 @@
             @endif
             <x-admin.form.select col="{{ $old_pengampu['id'] ?? false ? 'col-3' : 'col-6' }}"
                 label="{{ $old_pengampu['id'] ?? false ? 'Ubah Pengampu' : 'Pengampu' }}" name="pengampu_id"
-                :lists="[]" className="pengampu-select2" value="{{ $saspro->pengampu_id ?? '' }}" />
+                :lists="[]" className="pengampu-select2" />
             <x-admin.form.text label="Sasaran Kegiatan" name="sasaran" value="{{ $saske->sasaran ?? '' }}" />
         </div>
     </div>
@@ -47,7 +47,7 @@
                         <x-admin.form.text label="Target" decimal=true name="indikator[{{ $key }}][target]"
                             value="{{ $item->target }}" />
                         <x-admin.form.select label="Satuan" name="indikator[{{ $key }}][satuan_id]"
-                            :lists="$satuan_options" value="{{ $item->satuan_id }}" />
+                            :lists="$satuan_options" value="{{ $item->satuan_id }}" id="satuan-select2" />
                         <x-admin.form.text label="Kegiatan" name="indikator[{{ $key }}][kegiatan]"
                             value="{{ $item->kegiatan }}" />
                         <x-admin.form.text label="Anggaran" currency=true name="indikator[{{ $key }}][anggaran]"

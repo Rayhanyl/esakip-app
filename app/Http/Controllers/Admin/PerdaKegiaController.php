@@ -86,7 +86,7 @@ class PerdaKegiaController extends AdminBaseController
         $saspro_options = PerdaProg::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($sasaran) {
             return $sasaran->sasaran;
         });
-        return view('admin.perda.perencanaan.kegiatan.edit', compact('saske', 'saspro_options'));
+        return view('admin.perda.perencanaan.kegiatan.edit', compact('saske', 'saspro_options', 'old_pengampu'));
     }
 
     /**
