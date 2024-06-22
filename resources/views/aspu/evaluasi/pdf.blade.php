@@ -166,7 +166,7 @@
         (AKIP) Tahun
         {{ $evaluasi->tahun }}
     </p>
-    <p>Yth.&nbsp;&nbsp;{{ $user->name }}
+    <p>Yth.&nbsp;&nbsp;{{ $yth }} {{ $user->name }}
         <br>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;di
@@ -283,19 +283,19 @@
             kinerja, kami merekomendasikan beberapa hal sebagai berikut:</p>
         <p>1.) Rekomendasi Perencanaan Kinerja
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[0] }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[0] ?? '-' }}
         </p>
         <p>2.) Rekomendasi Pengukuran Kinerja
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[1] }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[1] ?? '-' }}
         </p>
         <p>3.) Rekomendasi Pelaporan Kinerja
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[2] }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[2] ?? '-' }}
         </p>
         <p>4.) Rekomendasi Evaluasi Internal
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[3] }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[3] ?? '-' }}
         </p>
     </div>
 

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Aspu\Evaluasi;
 
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PelaporanKinerja;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\InspekEvaluasiInternal;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -62,6 +64,7 @@ class AspuEvaluasiController extends Controller
         $catatan = $komponens->pluck('catatan');
         $rekomendasi = $komponens->pluck('rekomendasi');
         $nilai = $evaluasi->nilai_akuntabilitas_kinerja;
+
         $predikat = 'N/A';
         if ($nilai > 90 && $nilai <= 100) {
             $predikat = 'AA';
@@ -114,9 +117,25 @@ class AspuEvaluasiController extends Controller
         }
 
         $user = User::findOrFail($evaluasi->user_id);
+        $yth = 'N/A';
+        if (Str::contains($user->name, 'Kecamatan') == true) {
+            $yth = 'Camat';
+        } else if (Str::contains($user->name, 'Dinas') == true || Str::contains($user->name, 'Badan') == true) {
+            $yth = 'Kepala';
+        } else if (Str::contains($user->name, 'Sekretariat Daerah') == true) {
+            $yth = 'Sekertaris daerah';
+        } else if (Str::contains($user->name, 'Sekretariat Dewan') == true) {
+            $yth = 'Sekertaris dprd';
+        } else if (Str::contains($user->name, 'Inspektorat') == true) {
+            $yth = 'Inspektur';
+        } else if (Str::contains($user->name, 'Pamong Praja') == true) {
+            $yth = 'Kepala satuan polisi pamong praja';
+        }
+
         $pdf = PDF::loadView('aspu.evaluasi.pdf', [
             'evaluasi' => $evaluasi,
             'user' => $user,
+            'yth' => $yth,
             'predikat_name' => $predikat_name,
             'predikat_description' => $predikat_description,
             'totalBobot' => $nilai,
