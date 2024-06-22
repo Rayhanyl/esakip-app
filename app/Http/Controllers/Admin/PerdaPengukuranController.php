@@ -57,6 +57,7 @@ class PerdaPengukuranController extends AdminBaseController
             $pengukuran = PerdaPengukuran::create(array_merge($request->only(PerdaPengukuran::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
             if ($request->tipe == 'tahun') {
                 $tahunan = PerdaPengukuranTahunan::create([
+                    'user_id' => Auth::user()->id,
                     'perda_pengukuran_id' => $pengukuran->id,
                     'perda_sastra_id' => $request->tahunan_sasaran_strategis_id,
                     'perda_sastra_in_id' => $request->tahunan_sasaran_strategis_indikator_id,
@@ -67,6 +68,7 @@ class PerdaPengukuranController extends AdminBaseController
                 ]);
             } else {
                 $triwulan = PerdaPengukuranTriwulan::create([
+                    'user_id' => Auth::user()->id,
                     'perda_pengukuran_id' => $pengukuran->id,
                     'perda_sastra_id' => $request->sasaran_strategis_id,
                     'perda_sastra_in_id' => $request->sasaran_strategis_indikator_id,

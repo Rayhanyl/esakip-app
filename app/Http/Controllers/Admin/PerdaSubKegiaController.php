@@ -61,10 +61,10 @@ class PerdaSubKegiaController extends AdminBaseController
                 $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_subkegia_id' => $data->id]);
                 PerdaSubKegiaIn::create($params);
             }
-            Alert::toats('Berhasil menambahkan data', 'success');
+            Alert::toast('Berhasil menambahkan data', 'success');
             return redirect()->back();
         } catch (\Exception $e) {
-            Alert::toats('Gagal menambahkan data', 'danger');
+            Alert::toast('Gagal menambahkan data', 'danger');
             return redirect()->back();
         }
     }
