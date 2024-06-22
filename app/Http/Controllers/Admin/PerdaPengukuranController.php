@@ -21,12 +21,6 @@ class PerdaPengukuranController extends AdminBaseController
     {
         parent::__construct();
 
-        View::share('sasaran_strategis_options', PerdaSastra::all()->keyBy('id')->transform(function ($item) {
-            return $item->sasaran;
-        }));
-        View::share('sasaran_sub_kegiatan_options', PerdaSubKegia::all()->keyBy('id')->transform(function ($item) {
-            return $item->sasaran;
-        }));
         View::share('tahun_options', collect(array_combine(range(2029, 2020, -1), range(2029, 2020, -1)))->transform(function ($list) {
             return $list;
         }));
@@ -42,7 +36,14 @@ class PerdaPengukuranController extends AdminBaseController
     public function index()
     {
         $data = PerdaPengukuran::with('tahunans', 'triwulans')->where('user_id', Auth::user()->id)->get();
-        return view('admin.perda.pengukuran.index', compact('data'));
+
+        $sasaran_strategis_options =  PerdaSastra::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($item) {
+            return $item->sasaran;
+        });
+        $sasaran_sub_kegiatan_options = PerdaSubKegia::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($item) {
+            return $item->sasaran;
+        });
+        return view('admin.perda.pengukuran.index', compact('data', 'sasaran_strategis_options', 'sasaran_sub_kegiatan_options'));
     }
 
     public function create()
@@ -98,6 +99,12 @@ class PerdaPengukuranController extends AdminBaseController
     public function edit(PerdaPengukuran $pengukuran)
     {
         $pengukuran->load('tahunans', 'triwulans');
+        $sasaran_strategis_options =  PerdaSastra::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($item) {
+            return $item->sasaran;
+        });
+        $sasaran_sub_kegiatan_options = PerdaSubKegia::whereUserId(Auth::user()->id)->keyBy('id')->get()->transform(function ($item) {
+            return $item->sasaran;
+        });
         $sasaran_strategis_id_options = [];
         $sasaran_sub_kegiatan_id_options = [];
         if (count($pengukuran->tahunans) > 0) {
@@ -113,7 +120,7 @@ class PerdaPengukuranController extends AdminBaseController
                 return $item->indikator;
             });
         }
-        return view('admin.perda.pengukuran.edit', compact('pengukuran', 'sasaran_strategis_id_options', 'sasaran_sub_kegiatan_id_options'));
+        return view('admin.perda.pengukuran.edit', compact('pengukuran', 'sasaran_strategis_id_options', 'sasaran_sub_kegiatan_id_options', 'sasaran_strategis_options', 'sasaran_sub_kegiatan_options'));
     }
 
     public function update(Request $request, PerdaPengukuran $pengukuran)
@@ -168,16 +175,16 @@ class PerdaPengukuranController extends AdminBaseController
     {
         switch ($request->type) {
             case 'sastra':
-                $data = PerdaSastra::whereTahun($request->params)->get();
+                $data = PerdaSastra::whereUserId(Auth::user()->id)->whereTahun($request->params)->get();
                 break;
             case 'sastra_in':
-                $data = PerdaSastraIn::wherePerdaSastraId($request->params)->get();
+                $data = PerdaSastraIn::whereUserId(Auth::user()->id)->wherePerdaSastraId($request->params)->get();
                 break;
             case 'sasubkegia':
-                $data = PerdaSubKegia::whereTahun($request->params)->get();
+                $data = PerdaSubKegia::whereUserId(Auth::user()->id)->whereTahun($request->params)->get();
                 break;
             case 'sasubkegia_in':
-                $data = PerdaSubKegiaIn::wherePerdaSubkegiaId($request->params)->get();
+                $data = PerdaSubKegiaIn::whereUserId(Auth::user()->id)->wherePerdaSubkegiaId($request->params)->get();
                 break;
             default:
                 break;
@@ -187,7 +194,7 @@ class PerdaPengukuranController extends AdminBaseController
 
     public function get_sub_data(Request $request)
     {
-        $target = PerdaSubKegiaIn::whereId($request->id)->first();
+        $target = PerdaSubKegiaIn::whereUserId(Auth::user()->id)->whereId($request->id)->first();
         switch ($request->triwulan) {
             case '1':
                 $value = $target->triwulan1;
@@ -212,22 +219,22 @@ class PerdaPengukuranController extends AdminBaseController
     }
     public function get_pagu(Request $request)
     {
-        $data = PerdaSubKegiaIn::whereid($request->id)->first();
+        $data = PerdaSubKegiaIn::whereUserId(Auth::user()->id)->whereid($request->id)->first();
         return response()->json($data->anggaran);
     }
     public function get_value(Request $request)
     {
         switch ($request->type) {
             case 'target_tahunan':
-                $data = PerdaSastraIn::whereid($request->params)->first();
+                $data = PerdaSastraIn::whereUserId(Auth::user()->id)->whereid($request->params)->first();
                 $data = $data->target1 ?? 0;
                 break;
             case 'sasubkegia':
-                $data = PerdaSubKegia::whereTahun($request->params)->first();
+                $data = PerdaSubKegia::whereUserId(Auth::user()->id)->whereTahun($request->params)->first();
                 $data = $data->sasaran;
                 break;
             case 'anggaran_sasubkegia':
-                $data = PerdaSubKegiaIn::whereId($request->params)->first();
+                $data = PerdaSubKegiaIn::whereUserId(Auth::user()->id)->whereId($request->params)->first();
                 $data = $data->subkegiatan;
             default:
                 break;

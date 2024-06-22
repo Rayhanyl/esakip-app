@@ -25,38 +25,43 @@ class CascadingController extends Controller
      */
     public function index()
     {
-        $response1 = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'User-Agent' => 'insomnia/2023.5.8'
-        ])->post("{$this->baseUrl}/auth", [
-            'client_id' => $this->clientId,
-            'client_secret' => $this->clientSecret
-        ]);
-        $token = json_decode($response1->getBody()->getContents());
-        $response2 = Http::withHeaders([
-            'User-Agent' => 'insomnia/2023.5.8',
-            'Authorization' => 'Bearer ' . $token->result->token
-        ])->get($this->baseUrl . '/esakip/list_pengampu');
-        $pengampu = json_decode($response2->getBody()->getContents());
-        $data = PemkabSastra::with([
-            'user',
-            'pemkab_sastra_ins',
-            'perda_sastras',
-            'perda_sastras.perda_progs.perda_prog_ins',
-            'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
-            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
-            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
-        ])->get();
+        // $response1 = Http::withHeaders([
+        //     'Content-Type' => 'application/json',
+        //     'User-Agent' => 'insomnia/2023.5.8'
+        // ])->post("{$this->baseUrl}/auth", [
+        //     'client_id' => $this->clientId,
+        //     'client_secret' => $this->clientSecret
+        // ]);
+        // $token = json_decode($response1->getBody()->getContents());
+        // $response2 = Http::withHeaders([
+        //     'User-Agent' => 'insomnia/2023.5.8',
+        //     'Authorization' => 'Bearer ' . $token->result->token
+        // ])->get($this->baseUrl . '/esakip/list_pengampu');
+        // $pengampu = json_decode($response2->getBody()->getContents());
+        // $data = PemkabSastra::with([
+        //     'user',
+        //     'pemkab_sastra_ins',
+        //     'perda_sastras',
+        //     'perda_sastras.perda_progs.perda_prog_ins',
+        //     'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
+        //     'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
+        //     'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
+        // ])->get();
 
-        foreach ($data as $value) {
-            foreach ($value->perda_sastras as $sastra) {
-                if ($sastra->pengampu_id == 0) {
-                    continue;
-                }
-                $data_pengampu = $this->getPengampuNip($sastra->pengampu_id);
-                $sastra->pengampu = $data_pengampu;
-            }
-        }
+        // foreach ($data as $value) {
+        //     foreach ($value->perda_sastras as $sastra) {
+        //         if ($sastra->pengampu_id == 0) {
+        //             continue;
+        //         }
+        //         $data_pengampu = $this->getPengampuNip($sastra->pengampu_id);
+        //         $sastra->pengampu = $data_pengampu;
+        //     }
+        // }
+        // $dummydata = [
+        //     [
+
+        //     ]
+        // ]
         return view('aspu.perencanaan.cascading.index');
     }
 

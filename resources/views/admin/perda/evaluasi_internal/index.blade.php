@@ -31,8 +31,6 @@
                             <div class="row g-3">
                                 <x-admin.form.select col="col-12 col-lg-6" label="Tahun" name="tahun"
                                     value="{{ $tahun ?? '' }}" :lists="$tahun_options" id="tahun_select2" />
-                                <x-admin.form.select col="col-12 col-lg-6" label="Perangkat Daerah" name="perangkat_daerah"
-                                    value="{{ $perangkat_daerah ?? '' }}" :lists="$user_options" id="perda_select2" />
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">Cari</button>
                                 </div>

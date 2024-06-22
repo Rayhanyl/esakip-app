@@ -56,10 +56,11 @@ class PerdaKegiaController extends AdminBaseController
                 $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_kegia_id' => $data->id]);
                 PerdaKegiaIn::create($params);
             }
-            Alert::toats('Berhasil menambahkan data', 'success');
+            Alert::toast('Berhasil menambahkan data', 'success');
             return redirect()->back();
         } catch (\Exception $e) {
-            Alert::toats('Gagal menambahkan data', 'danger');
+            dd($e);
+            Alert::toast('Gagal menambahkan data', 'danger');
             return redirect()->back();
         }
 
