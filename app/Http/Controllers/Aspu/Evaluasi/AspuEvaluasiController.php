@@ -130,6 +130,8 @@ class AspuEvaluasiController extends Controller
             $yth = 'Inspektur';
         } else if (Str::contains($user->name, 'Pamong Praja') == true) {
             $yth = 'Kepala satuan polisi pamong praja';
+        } else {
+            $yth = '';
         }
 
         $pdf = PDF::loadView('aspu.evaluasi.pdf', [
