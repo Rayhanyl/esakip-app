@@ -9,7 +9,7 @@
                         Pengukuran Kinerja {{ $pengukuran->user->name }} Detail
                     </h4>
                     <h1 class="heading text-white mb-3" data-aos="fade-up">
-                        Rangking ( 1 )
+                        Rangking ( {{ $ranking[0]->ranking }} )
                     </h1>
                 </div>
             </div>

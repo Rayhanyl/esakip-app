@@ -118,7 +118,7 @@ class AspuEvaluasiController extends Controller
 
         $user = User::findOrFail($evaluasi->user_id);
         $yth = 'N/A';
-        if (Str::contains($user->name, 'Kecamatan') == true) {
+        if (Str::contains($user->name, 'Kecamatan') == true || Str::contains($user->name, 'Perangkat Daerah') == true) {
             $yth = 'Camat';
         } else if (Str::contains($user->name, 'Dinas') == true || Str::contains($user->name, 'Badan') == true) {
             $yth = 'Kepala';

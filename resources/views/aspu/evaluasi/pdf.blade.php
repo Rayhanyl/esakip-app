@@ -260,16 +260,24 @@
             {{ $evaluasi->tahun }} sebagai berikut:
         </h4>
         <p>1.) Perencanaan Kinerja
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $catatan[0] ?? '-' !!}
+            <div style="padding-left:30px;">
+                {!! $catatan[0] ?? '-' !!}
+            </div>
         </p>
         <p>2.) Pengukuran Kinerja
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $catatan[1] ?? '-' !!}
+            <div style="padding-left:30px;">
+                {!! $catatan[1] ?? '-' !!}
+            </div>
         </p>
         <p>3.) Pelaporan Kinerja
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $catatan[2] ?? '-' !!}
+            <div style="padding-left:30px;">
+                {!! $catatan[2] ?? '-' !!}
+            </div>
         </p>
         <p>4.) Evaluasi Internal
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $catatan[3] ?? '-' !!}
+            <div style="padding-left:30px;">
+                {!! $catatan[3] ?? '-' !!}
+            </div>
         </p>
     </div>
     <br><br>
@@ -278,16 +286,24 @@
         <p style="margin:0;">Berdasarkan uraian di atas serta dalam rangka lebih mengefektifkan penerapan akuntabilitas
             kinerja, kami merekomendasikan beberapa hal sebagai berikut:</p>
         <p>1.) Rekomendasi Perencanaan Kinerja
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $rekomendasi[0] ?? '-' !!}
+            <div style="padding-left:30px;">
+                {!! $rekomendasi[0] ?? '-' !!}
+            </div>
         </p>
         <p>2.) Rekomendasi Pengukuran Kinerja
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $rekomendasi[1] ?? '-' !!}
+            <div style="padding-left:30px;">
+                {!! $rekomendasi[1] ?? '-' !!}
+            </div>
         </p>
         <p>3.) Rekomendasi Pelaporan Kinerja
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $rekomendasi[2] ?? '-' !!}
+            <div style="padding-left:30px;">
+                {!! $rekomendasi[2] ?? '-' !!}
+            </div>
         </p>
         <p>4.) Rekomendasi Evaluasi Internal
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $rekomendasi[3] ?? '-' !!}
+            <div style="padding-left:30px;">
+                {!! $rekomendasi[3] ?? '-' !!}
+            </div>
         </p>
     </div>
 
