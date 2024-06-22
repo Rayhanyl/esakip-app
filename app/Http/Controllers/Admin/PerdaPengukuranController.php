@@ -104,7 +104,7 @@ class PerdaPengukuranController extends AdminBaseController
         $sasaran_strategis_options =  PerdaSastra::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($item) {
             return $item->sasaran;
         });
-        $sasaran_sub_kegiatan_options = PerdaSubKegia::whereUserId(Auth::user()->id)->keyBy('id')->get()->transform(function ($item) {
+        $sasaran_sub_kegiatan_options = PerdaSubKegia::whereUserId(Auth::user()->id)->get()->keyBy('id')->transform(function ($item) {
             return $item->sasaran;
         });
         $sasaran_strategis_id_options = [];
