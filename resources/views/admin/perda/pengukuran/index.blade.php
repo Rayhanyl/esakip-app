@@ -190,10 +190,10 @@
 
             $('#id-sasaran_strategis_id').on('select2:select', function() {
                 getData('sastra_in', $(this).val(), $('#id-sasaran_strategis_indikator_id'));
-                getPagu($(this).val(), $('#anggaran_pagu'));
             });
             $('#id-sasaran_sub_kegiatan_id').on('select2:select', function() {
                 getData('sasubkegia_in', $(this).val(), $('#id-sasaran_sub_kegiatan_indikator_id'));
+                getPagu($(this).val(), $('#anggaran_pagu'));
             });
             $('#id-sasaran_sub_kegiatan_indikator_id').on('select2:select', function() {
                 getSubData($(this).val(), $('#triwulan-select2').val(), $('#sasaran_sub_kegiatan_target'));
