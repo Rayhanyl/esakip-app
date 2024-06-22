@@ -78,7 +78,7 @@
                                                         </span> /
                                                         {{ $item->bobot }}
                                                     </td>
-                                                    <td class="d-flex justify-content-between row-action">
+                                                    <td class="d-flex justify-content-between row-action gap-1">
                                                         <input type="hidden" name="komponen[{{ $item->id }}][catatan]"
                                                             value="{{ $item->catatan }}" class="input-catatan">
                                                         <button type="button"
