@@ -260,20 +260,16 @@
             {{ $evaluasi->tahun }} sebagai berikut:
         </h4>
         <p>1.) Perencanaan Kinerja
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $catatan[0] ?? '-' }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $catatan[0] ?? '-' !!}
         </p>
         <p>2.) Pengukuran Kinerja
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $catatan[1] ?? '-' }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $catatan[1] ?? '-' !!}
         </p>
         <p>3.) Pelaporan Kinerja
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $catatan[2] ?? '-' }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $catatan[2] ?? '-' !!}
         </p>
         <p>4.) Evaluasi Internal
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $catatan[3] ?? '-' }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $catatan[3] ?? '-' !!}
         </p>
     </div>
     <br><br>
@@ -282,20 +278,16 @@
         <p style="margin:0;">Berdasarkan uraian di atas serta dalam rangka lebih mengefektifkan penerapan akuntabilitas
             kinerja, kami merekomendasikan beberapa hal sebagai berikut:</p>
         <p>1.) Rekomendasi Perencanaan Kinerja
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[0] ?? '-' }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $rekomendasi[0] ?? '-' !!}
         </p>
         <p>2.) Rekomendasi Pengukuran Kinerja
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[1] ?? '-' }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $rekomendasi[1] ?? '-' !!}
         </p>
         <p>3.) Rekomendasi Pelaporan Kinerja
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[2] ?? '-' }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $rekomendasi[2] ?? '-' !!}
         </p>
         <p>4.) Rekomendasi Evaluasi Internal
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[3] ?? '-' }}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!! $rekomendasi[3] ?? '-' !!}
         </p>
     </div>
 

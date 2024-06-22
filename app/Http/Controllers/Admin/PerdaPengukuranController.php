@@ -87,7 +87,6 @@ class PerdaPengukuranController extends AdminBaseController
             Alert::toast('Data berhasil ditambahkan', 'success');
             return redirect()->back();
         } catch (\Exception $e) {
-            dd($e);
             Alert::toast('Data gagal ditambahkan', 'danger');
             return redirect()->back();
         }
