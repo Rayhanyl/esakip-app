@@ -31,7 +31,7 @@ class PerdaProgController extends AdminBaseController
     public function index()
     {
         $data = PerdaProg::whereUserId(Auth::user()->id)->get();
-        return view('admin.perda.perencanaan.program.index',compact('data'));
+        return view('admin.perda.perencanaan.program.index', compact('data'));
     }
 
     /**
@@ -50,12 +50,18 @@ class PerdaProgController extends AdminBaseController
      */
     public function store(Request $request)
     {
-        $data = PerdaProg::create(array_merge($request->only(PerdaProg::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
-        foreach ($request->indikator as $value) {
-            $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_prog_id' => $data->id]);
-            PerdaProgIn::create($params);
+        try {
+            $data = PerdaProg::create(array_merge($request->only(PerdaProg::FILLABLE_FIELDS), ['user_id' => Auth::user()->id]));
+            foreach ($request->indikator as $value) {
+                $params = array_merge($value, ['user_id' => Auth::user()->id], ['perda_prog_id' => $data->id]);
+                PerdaProgIn::create($params);
+            }
+            Alert::toast('Berhasil menambahkan data', 'success');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            Alert::toast('Gagal menambahkan data', 'danger');
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 
     /**
@@ -86,7 +92,7 @@ class PerdaProgController extends AdminBaseController
      */
     public function update(Request $request, PerdaProg $saspro)
     {
-        if($request->pengampu_id == ''){
+        if ($request->pengampu_id == '') {
             $request->merge(['pengampu_id' => $request->old_pengampu_id]);
         }
         $saspro->update($request->only(PerdaProg::FILLABLE_FIELDS));
@@ -129,7 +135,8 @@ class PerdaProgController extends AdminBaseController
         return view('admin.perda.perencanaan.program._partials.indicator');
     }
 
-    public function getPengampuNip($nip){
+    public function getPengampuNip($nip)
+    {
         $response1 = Http::withHeaders([
             'Content-Type' => 'application/json',
             'User-Agent' => 'insomnia/2023.5.8'
