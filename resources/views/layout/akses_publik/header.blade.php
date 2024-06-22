@@ -35,6 +35,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <title>e-SAKIP</title>
 </head>
 
@@ -131,25 +132,29 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="has-children {{ Route::is('aspu.pengukuran.perda-index') || Route::is('aspu.pengukuran.pemkab-index') ? 'active' : '' }}">
+                                <li
+                                    class="has-children {{ Route::is('aspu.pengukuran.perda-index') || Route::is('aspu.pengukuran.pemkab-index') ? 'active' : '' }}">
                                     <a>Pengukuran Kinerja</a>
                                     <ul class="dropdown">
                                         <li>
                                             <a href="{{ route('aspu.pengukuran.perda-index') }}">Perangkat Daerah</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('aspu.pengukuran.pemkab-index') }}">Pemerintah Kabupaten</a>
+                                            <a href="{{ route('aspu.pengukuran.pemkab-index') }}">Pemerintah
+                                                Kabupaten</a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="has-children {{ Route::is('aspu.pelaporan.perda-index') || Route::is('aspu.pelaporan.pemkab-index') ? 'active' : '' }}">
+                                <li
+                                    class="has-children {{ Route::is('aspu.pelaporan.perda-index') || Route::is('aspu.pelaporan.pemkab-index') ? 'active' : '' }}">
                                     <a>Pelaporan Kinerja</a>
                                     <ul class="dropdown">
                                         <li>
                                             <a href="{{ route('aspu.pelaporan.perda-index') }}">Perangkat Daerah</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('aspu.pelaporan.pemkab-index') }}">Pemerintah Kabupaten</a>
+                                            <a href="{{ route('aspu.pelaporan.pemkab-index') }}">Pemerintah
+                                                Kabupaten</a>
                                         </li>
                                     </ul>
                                 </li>

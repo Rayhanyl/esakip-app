@@ -51,7 +51,7 @@
                 theme: 'bootstrap-5'
             });
 
-           function formatIDR(number) {
+            function formatIDR(number) {
                 return 'Rp ' + number.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             }
         })
