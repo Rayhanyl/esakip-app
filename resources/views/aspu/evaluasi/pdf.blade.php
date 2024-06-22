@@ -206,7 +206,8 @@
     <p style="text-align:justify; padding:0px 20px; line-height:1.5;margin:0;">
         Hasil evaluasi atas akuntabilitas kinerja Dinas <b>{{ $user->name }}</b>. menunjukkan bahwa nilai sebesar
         <b>{{ $evaluasi->nilai_akuntabilitas_kinerja }}</b> dengan predikat “<b>{{ $predikat }}</b>”. Hal tersebut
-        menunjukkan bahwa implementasi akuntabilitas kinerja “<b>{{ $predikat_name }}</b>”, yaitu <b>{{ $predikat_description }}</b>
+        menunjukkan bahwa implementasi akuntabilitas kinerja “<b>{{ $predikat_name }}</b>”, yaitu
+        <b>{{ $predikat_description }}</b>
         <br>
         Rincian hasil evaluasi tersebut adalah sebagai berikut:
     </p>
@@ -275,16 +276,26 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $catatan[3] ?? '-' }}
         </p>
     </div>
-    <br><br><br><br><br><br><br>
+    <br><br>
     <div style="text-align:justify; padding:0px 20px; line-height:1.5;">
         <h3 style="margin:0;">3. Rekomendasi</h3>
         <p style="margin:0;">Berdasarkan uraian di atas serta dalam rangka lebih mengefektifkan penerapan akuntabilitas
-            kinerja, kami
-            merekomendasikan beberapa hal sebagai berikut:</p>
-        <p>
-            1.) Gabungan rekomendasi Perencanaan Kinerja, Pengukuran Kinerja, Pelaporan Kinerja dan Evaluasi Internal
+            kinerja, kami merekomendasikan beberapa hal sebagai berikut:</p>
+        <p>1.) Rekomendasi Perencanaan Kinerja
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[0] }},{{ $rekomendasi[1] }},{{ $rekomendasi[2] }},{{ $rekomendasi[3] }}
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[0] }}
+        </p>
+        <p>2.) Rekomendasi Pengukuran Kinerja
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[1] }}
+        </p>
+        <p>3.) Rekomendasi Pelaporan Kinerja
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[2] }}
+        </p>
+        <p>4.) Rekomendasi Evaluasi Internal
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ $rekomendasi[3] }}
         </p>
     </div>
 
