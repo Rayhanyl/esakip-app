@@ -47,10 +47,28 @@ class AspuPengukuranController extends Controller
         $pengukuran  = PerdaPengukuran::with('user')->findOrfail($id);
         if ($pengukuran->tipe == 'tahun') {
             $tahunan = PerdaPengukuranTahunan::with('perda_sastra', 'perda_sastra_in')->where('perda_pengukuran_id', $id)->first();
-            return view('aspu.pengukuran.detail_tahun', compact('pengukuran', 'tahunan'));
+            $tahunans = PerdaPengukuranTahunan::with('perda_sastra', 'perda_sastra_in')
+                ->where('perda_pengukuran_id', $id)
+                ->orderBy('tahunan_capaian', 'desc')
+                ->get();
+            $ranking = $tahunans->map(function ($tahunan, $index) {
+                return (object) [
+                    'ranking' => $index + 1
+                ];
+            });
+            return view('aspu.pengukuran.detail_tahun', compact('pengukuran', 'tahunan', 'ranking'));
         } else {
             $triwulan = PerdaPengukuranTriwulan::with('perda_sastra', 'perda_sastra_in', 'perda_sub_kegia', 'perda_sub_kegia_in')->where('perda_pengukuran_id', $id)->first();
-            return view('aspu.pengukuran.detail', compact('pengukuran', 'triwulan'));
+            $triwulans = PerdaPengukuranTriwulan::with('perda_sastra', 'perda_sastra_in', 'perda_sub_kegia', 'perda_sub_kegia_in')
+                ->where('perda_pengukuran_id', $id)
+                ->orderBy('capaian', 'desc')
+                ->get();
+            $ranking = $triwulans->map(function ($triwulan, $index) {
+                return (object) [
+                    'ranking' => $index + 1
+                ];
+            });
+            return view('aspu.pengukuran.detail', compact('pengukuran', 'triwulan', 'ranking'));
         }
     }
 }
