@@ -41,7 +41,7 @@ class PerdaEvaluasiInternalController extends AdminBaseController
             }
             $status = $perda_evaluasi_internal->status;
         }
-        return view('admin.perda.evaluasi_internal.index', compact('perda_evaluasi_internal', 'status'));
+        return view('admin.perda.evaluasi_internal.index', compact('perda_evaluasi_internal', 'status','tahun'));
     }
 
     /**
