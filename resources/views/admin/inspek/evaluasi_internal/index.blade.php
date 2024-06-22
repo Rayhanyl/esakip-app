@@ -166,14 +166,12 @@
         <script>
             $(document).ready(function() {
                 $('#summernote-catatan').summernote({
-                    placeholder: 'Hello Bootstrap 5',
                     tabsize: 2,
-                    height: 100
+                    height: 400
                 });
                 $('#summernote-rekomendasi').summernote({
-                    placeholder: 'Hello Bootstrap 5',
                     tabsize: 2,
-                    height: 100
+                    height: 400
                 });
                 $('.input-bobot').on('keyup', function() {
                     let sumKom = 0;
