@@ -99,19 +99,18 @@ class PerdaSubKegiaController extends AdminBaseController
      */
     public function update(Request $request, PerdaSubKegia $sasubkegium)
     {
-        if ($request->pengampu_id == '') {
-            $request->merge(['pengampu_id' => $request->old_pengampu_id]);
-        }
         $sasubkegium->update($request->only(PerdaSubKegia::FILLABLE_FIELDS));
         $savedIds = [];
         foreach (($request->pengampu ?? []) as $pengampu) {
-            if ($pengampu['id'] ?? false) {
-                $params_pengampu = PerdaSubKegiaPengampu::find($pengampu['id']);
+            if ($pengampu['old_id'] ?? false) {
+                $params_pengampu = PerdaSubKegiaPengampu::wherePengampuId($pengampu['old_id'])->first();
             } else {
                 $params_pengampu = new PerdaSubKegiaPengampu();
             }
             $params_pengampu->perda_subkegia_id = $sasubkegium->id;
-            $params_pengampu->pengampu_id = $pengampu['value'];
+            if ($pengampu['value'] ?? false) {
+                $params_pengampu->pengampu_id = $pengampu['value'];
+            }
             $params_pengampu->save();
             $savedIdPengampus[] = $params_pengampu->id;
         }
