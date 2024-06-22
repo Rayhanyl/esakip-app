@@ -165,11 +165,11 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
-                $('#summernote-catatan').summernote({
+                $('.text-catatan').summernote({
                     tabsize: 2,
                     height: 400
                 });
-                $('#summernote-rekomendasi').summernote({
+                $('.text-rekomendasi').summernote({
                     tabsize: 2,
                     height: 400
                 });
@@ -224,7 +224,7 @@
                 $('.btn-catatan').on('click', function() {
                     activeCatatan = $(this).closest('.row-action').find('.input-catatan');
                     activeButtonCatatan = $(this);
-                    $('.text-catatan').val(activeCatatan.val());
+                    $('.text-catatan').summernote("code", activeCatatan.val());
                     $('#inputCatatanModal').modal('show');
                 })
                 $('.btn-save-catatan').on('click', function() {
@@ -234,13 +234,13 @@
                     } else {
                         activeButtonCatatan.addClass('btn-light').removeClass('btn-info');
                     }
-                    $('.text-catatan').val('');
+                    $('.text-catatan').summernote('reset');
                     $('#inputCatatanModal').modal('hide');
                 })
                 $('.btn-rekomendasi').on('click', function() {
                     activeRekomendasi = $(this).closest('.row-action').find('.input-rekomendasi');
                     activeButtonRekomendasi = $(this);
-                    $('.text-rekomendasi').val(activeRekomendasi.val());
+                    $('.text-rekomendasi').summernote("code", activeRekomendasi.val());
                     $('#inputRekomendasiModal').modal('show');
                 })
                 $('.btn-save-rekomendasi').on('click', function() {
@@ -250,7 +250,7 @@
                     } else {
                         activeButtonRekomendasi.addClass('btn-light').removeClass('btn-info');
                     }
-                    $('.text-rekomendasi').val('');
+                    $('.text-rekomendasi').summernote('reset');
                     $('#inputRekomendasiModal').modal('hide');
                 })
             })

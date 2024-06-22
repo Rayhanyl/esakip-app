@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <textarea name="catatan" cols="30" rows="10" class="form-control text-catatan" id="summernote-catatan"></textarea>
+                <textarea name="catatan" cols="30" rows="10" class="form-control text-catatan"></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
