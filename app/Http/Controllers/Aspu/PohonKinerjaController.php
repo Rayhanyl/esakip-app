@@ -39,7 +39,6 @@ class PohonKinerjaController extends Controller
                 'style' => [
                     'color' => 'black',
                     'align' => 'left',
-                    'fontSize' => '16px',
                     'fontWeight' => 'bolder',
                 ],
             ];
@@ -70,7 +69,6 @@ class PohonKinerjaController extends Controller
                         'style' => [
                             'color' => 'white',
                             'align' => 'left',
-                            'fontSize' => '12px',
                         ],
                     ];
                     $subdata['parent'] = $uid2;
@@ -90,7 +88,6 @@ class PohonKinerjaController extends Controller
                             'style' => [
                                 'color' => 'black',
                                 'align' => 'left',
-                                'fontSize' => '12px',
                             ],
                         ];
                         $data_chart[] = $subdata;

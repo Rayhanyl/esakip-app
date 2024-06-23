@@ -49,7 +49,7 @@ class CascadingController extends Controller
             $uid_pemkab = Str::random(4);
             $subdata['id'] = $uid_pemkab;
             $subdata['x'] = '<b>'.$data->sasaran.'<br/><br/>'.$indicators_pemkab.'</b>';
-            $subdata['color'] = '#00b050';
+            $subdata['color'] = '#a9d08e';
             $data_chart[] = $subdata;
             foreach ($data->perda_sastras as $key => $item) {
                 $indicators = '<ul>';
@@ -60,7 +60,7 @@ class CascadingController extends Controller
                 $uid = Str::random(4);
                 $subdata['id'] = $uid;
                 $subdata['x'] = '<b>'.$item->sasaran.'<br/><br/>'.$indicators.'</b>';
-                $subdata['color'] = '#00b050';
+                $subdata['color'] = '#ffff00';
                 $subdata['parent'] = $uid_pemkab;
                 $data_chart[] = $subdata;
                 foreach ($item->perda_progs as $key2 => $item2) {
@@ -72,7 +72,7 @@ class CascadingController extends Controller
                     $uid2 = Str::random(4);
                     $subdata['id'] = $uid2;
                     $subdata['x'] = '<b>'.$item2->sasaran.'<br/><br/>'.$indicators2.'</b>';
-                    $subdata['color'] = '#ffff00';
+                    $subdata['color'] = '#0070c0';
                     $subdata['parent'] = $uid;
                     $data_chart[] = $subdata;
                     foreach ($item2->perda_kegias as $key3 => $item3) {
@@ -84,7 +84,7 @@ class CascadingController extends Controller
                         $uid3 = Str::random(4);
                         $subdata['id'] = $uid3;
                         $subdata['x'] = '<b>'.$item3->sasaran.'<br/><br/>'.$indicators3.'</b>';
-                        $subdata['color'] = '#0070c0';
+                        $subdata['color'] = '#00b0f0';
                         $subdata['parent'] = $uid2;
                         $data_chart[] = $subdata;
                         foreach ($item3->perda_sub_kegias as $key4 => $item4) {
@@ -97,7 +97,7 @@ class CascadingController extends Controller
                             $subdata['id'] = $uid4;
                             $subdata['x'] = '<b>'.$item4->sasaran.'<br/><br/>'.$indicators4.'</b>';
                             $subdata['parent'] = $uid3;
-                            $subdata['color'] = '#d9d9d9';
+                            $subdata['color'] = '#aeaaaa';
                             $data_chart[] = $subdata;
                         }
                     }
