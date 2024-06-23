@@ -26,3 +26,19 @@
         @endif
     </script>
 @endpush
+@push('script-landingpage')
+    <script>
+        @if (!$pengampu)
+            @if ($readonly)
+                $("#{{ $id != '' ? $id : 'id-' . $name }}").select2({
+                    theme: 'bootstrap-5',
+                    disabled: 'readonly',
+                }).val("{{ $value }}").trigger('change');
+            @else
+                $("#{{ $id != '' ? $id : 'id-' . $name }}").select2({
+                    theme: 'bootstrap-5',
+                }).val("{{ $value }}").trigger('change');
+            @endif
+        @endif
+    </script>
+@endpush

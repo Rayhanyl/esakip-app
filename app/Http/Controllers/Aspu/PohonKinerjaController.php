@@ -12,8 +12,9 @@ class PohonKinerjaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $id = $request->id ?? '';
         $data = PerdaSastra::with([
             'perda_sastra_ins',
             'perda_progs',
@@ -22,13 +23,7 @@ class PohonKinerjaController extends Controller
             'perda_progs.perda_kegias.perda_kegia_ins',
             'perda_progs.perda_kegias.perda_sub_kegias',
             'perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
-        ])->get();
-                //         'id' => '1',
-                // 'x' => '
-                // Meningkatnya Produktivitas Daerah<br/><br/>Indikator : Tingkat Pengangguran Terbuka (TPT)
-                // ',
-                // 'parent' => '',
-                // 'color' => '#00b050',);
+        ])->whereId($id)->get();
         $data_chart = [];
         foreach ($data as $key => $item) {
             $indicators = '<ul>';
@@ -40,6 +35,14 @@ class PohonKinerjaController extends Controller
             $subdata['id'] = $uid;
             $subdata['x'] = $item->sasaran.'<br/><br/>'.$indicators;
             $subdata['color'] = '#00b050';
+            $subdata['label'] = [
+                'style' => [
+                    'color' => 'black',
+                    'align' => 'left',
+                    'fontSize' => '16px',
+                    'fontWeight' => 'bolder',
+                ],
+            ];
             $data_chart[] = $subdata;
             foreach ($item->perda_progs as $key2 => $item2) {
                 $indicators2 = '<ul>';
@@ -61,8 +64,15 @@ class PohonKinerjaController extends Controller
                     $indicators3 .= '</ul>';
                     $uid3 = Str::random(4);
                     $subdata['id'] = $uid3;
-                    $subdata['x'] = $item3->sasaran.'<br/><br/>'.$indicators3;
+                    $subdata['x'] = '<b>'.$item3->sasaran.'<br/><br/>'.$indicators3.'</b>';
                     $subdata['color'] = '#0070c0';
+                    $subdata['label'] = [
+                        'style' => [
+                            'color' => 'white',
+                            'align' => 'left',
+                            'fontSize' => '12px',
+                        ],
+                    ];
                     $subdata['parent'] = $uid2;
                     $data_chart[] = $subdata;
                     foreach ($item3->perda_sub_kegias as $key4 => $item4) {
@@ -73,15 +83,25 @@ class PohonKinerjaController extends Controller
                         $indicators4 .= '</ul>';
                         $uid4 = Str::random(4);
                         $subdata['id'] = $uid4;
-                        $subdata['x'] = $item4->sasaran.'<br/><br/>'.$indicators4;
+                        $subdata['x'] = '<b>'.$item4->sasaran.'<br/><br/>'.$indicators4.'</b>';
                         $subdata['parent'] = $uid3;
                         $subdata['color'] = '#d9d9d9';
+                        $subdata['label'] = [
+                            'style' => [
+                                'color' => 'black',
+                                'align' => 'left',
+                                'fontSize' => '12px',
+                            ],
+                        ];
                         $data_chart[] = $subdata;
                     }
                 }
             }
         }
-        return view('aspu.perencanaan.pohon-kinerja.index', compact('data_chart'));
+        $sastra_options = PerdaSastra::all()->keyBy('id')->transform(function ($sasaran) {
+            return $sasaran->sasaran;
+        });
+        return view('aspu.perencanaan.pohon-kinerja.index', compact('data_chart', 'sastra_options', 'id'));
     }
 
     /**
