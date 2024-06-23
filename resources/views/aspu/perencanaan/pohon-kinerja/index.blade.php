@@ -13,7 +13,7 @@
 
     {{-- Table --}}
     <div class="section">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
