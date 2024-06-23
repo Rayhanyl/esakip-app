@@ -71,33 +71,33 @@
                         points: @json($data_chart)
                     }],
 
-                    toolbar: {
-                        defaultItem: {
-                            margin: 5,
-                            events_click: orientChart
-                        },
-                        items: {
-                            Left_icon: 'system/default/zoom/arrow-left',
-                            Right_icon: 'system/default/zoom/arrow-right',
-                            Down_icon: 'system/default/zoom/arrow-down',
-                            Up_icon: 'system/default/zoom/arrow-up'
-                        }
-                    }
+                    // toolbar: {
+                    //     defaultItem: {
+                    //         margin: 5,
+                    //         events_click: orientChart
+                    //     },
+                    //     items: {
+                    //         Left_icon: 'system/default/zoom/arrow-left',
+                    //         Right_icon: 'system/default/zoom/arrow-right',
+                    //         Down_icon: 'system/default/zoom/arrow-down',
+                    //         Up_icon: 'system/default/zoom/arrow-up'
+                    //     }
+                    // }
                 });
 
-                function orientChart(direction) {
-                    var isVertical = /up|down/.test(
-                        direction.toLowerCase()
-                    );
-                    chart.options({
-                        type: 'organizational ' + direction,
-                        defaultPoint_annotation: {
-                            syncWidth: !isVertical,
-                            syncHeight: isVertical,
-                            margin: isVertical ? [15, 5] : [5, 15]
-                        }
-                    });
-                }
+                // function orientChart(direction) {
+                //     var isVertical = /up|down/.test(
+                //         direction.toLowerCase()
+                //     );
+                //     chart.options({
+                //         type: 'organizational ' + direction,
+                //         defaultPoint_annotation: {
+                //             syncWidth: !isVertical,
+                //             syncHeight: isVertical,
+                //             margin: isVertical ? [15, 5] : [5, 15]
+                //         }
+                //     });
+                // }
             @endif
             $('#sastra_select2').on('change', function() {
                 $('#form-sastra').submit();

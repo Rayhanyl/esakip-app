@@ -53,13 +53,13 @@ class CascadingController extends Controller
             $data_chart[] = $subdata;
             foreach ($data->perda_sastras as $key => $item) {
                 $indicators = '<ul>';
-                $targets = '<ol>';
+                $targets = '<ul>';
                 foreach ($item->perda_sastra_ins as $ins) {
                     $indicators .= '<li>'.$ins->indikator.'</li>';
                     $targets .= '<li>'.$ins->target1.'</li>';
                 }
                 $indicators .= '</ul>';
-                $targets .= '</ol>';
+                $targets .= '</ul>';
                 $uid = Str::random(4);
                 $subdata['id'] = $uid;
                 $subdata['x'] = '<b>'.$item->sasaran.'<br/><br/>'.$indicators.'<br/><br/>'.$targets.'</b>';
