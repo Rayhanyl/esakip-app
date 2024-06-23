@@ -48,18 +48,21 @@ class CascadingController extends Controller
             $indicators_pemkab .= '</ul>';
             $uid_pemkab = Str::random(4);
             $subdata['id'] = $uid_pemkab;
-            $subdata['x'] = '<b>'.$data->sasaran.'<br/><br/>'.$indicators_pemkab.'</b>';
+            $subdata['x'] = '<b>'.$data->sasaran.'<br/><br/>'.$indicators_pemkab.'<br/><br/>Pengampu : Bupati</b>';
             $subdata['color'] = '#a9d08e';
             $data_chart[] = $subdata;
             foreach ($data->perda_sastras as $key => $item) {
                 $indicators = '<ul>';
+                $targets = '<ol>';
                 foreach ($item->perda_sastra_ins as $ins) {
                     $indicators .= '<li>'.$ins->indikator.'</li>';
+                    $targets .= '<li>'.$ins->target1.'</li>';
                 }
                 $indicators .= '</ul>';
+                $targets .= '</ol>';
                 $uid = Str::random(4);
                 $subdata['id'] = $uid;
-                $subdata['x'] = '<b>'.$item->sasaran.'<br/><br/>'.$indicators.'</b>';
+                $subdata['x'] = '<b>'.$item->sasaran.'<br/><br/>'.$indicators.'<br/><br/>'.$targets.'</b>';
                 $subdata['color'] = '#ffff00';
                 $subdata['parent'] = $uid_pemkab;
                 $data_chart[] = $subdata;
