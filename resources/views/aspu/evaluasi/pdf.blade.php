@@ -161,10 +161,7 @@
     <p>Nomor &nbsp;:&nbsp;&nbsp; {{ $evaluasi->no_surat ?? '' }}</p>
     <p>Hal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
         Hasil Evaluasi Akuntabilitas Kinerja <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instansi
-        Pemerintah
-        (AKIP) Tahun
-        {{ $evaluasi->tahun }}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instansi Pemerintah (AKIP) Tahun {{ $evaluasi->tahun }}
     </p>
     <p>Yth.&nbsp;&nbsp;{{ $yth }} {{ $user->name }}
         <br>
@@ -175,15 +172,13 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Majalengka
     </p>
 
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dengan ini kami sampaikan hasil evaluasi AKIP Tahun
-        {{ $evaluasi->tahun }} pada Dinas {{ $user->name }}, <br>
-        dengan uraian sebagai berikut:</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dengan ini kami sampaikan hasil evaluasi AKIP Tahun {{ $evaluasi->tahun }} pada {{ $user->name }} dengan uraian sebagai berikut:</p>
 
     <h3 style="margin:0;">1. Pendahuluan</h3>
     <p style="text-align:justify; padding:0px 20px; line-height:1.5;margin:0;">
         Berdasarkan Peraturan Pemerintah Nomor 8 Tahun 2006 tentang Pelaporan Keuangan dan Kinerja Instansi Pemerintah
         dan Peraturan Presiden Nomor 29 Tahun 2014 tentang Sistem Akuntabilitas Kinerja Instansi Pemerintah (SAKIP),
-        kami telah melakukan evaluasi akuntabilitas kinerja pada Dinas {{ $user->name }}. Pelaksanaan evaluasi Tahun
+        kami telah melakukan evaluasi akuntabilitas kinerja pada {{ $user->name }}. Pelaksanaan evaluasi Tahun
         {{ $evaluasi->tahun }} berpedoman pada Peraturan Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi
         Nomor 88 Tahun 2021 tentang Evaluasi Akuntabilitas Kinerja Instansi Pemerintah.
         <br>
@@ -204,7 +199,7 @@
     <br>
     <h3 style="margin:0;">2. Hasil Evaluasi</h3>
     <p style="text-align:justify; padding:0px 20px; line-height:1.5;margin:0;">
-        Hasil evaluasi atas akuntabilitas kinerja Dinas <b>{{ $user->name }}</b>. menunjukkan bahwa nilai sebesar
+        Hasil evaluasi atas akuntabilitas kinerja <b>{{ $user->name }}</b>. menunjukkan bahwa nilai sebesar
         <b>{{ $evaluasi->nilai_akuntabilitas_kinerja }}</b> dengan predikat “<b>{{ $predikat }}</b>”. Hal tersebut
         menunjukkan bahwa implementasi akuntabilitas kinerja “<b>{{ $predikat_name }}</b>”, yaitu
         <b>{{ $predikat_description }}</b>
@@ -256,7 +251,7 @@
     </div>
 
     <div style="text-align:justify; padding:0px 20px; line-height:1.5;">
-        <h4>Penjelasan lebih lanjut atas hasil evaluasi akuntabilitas kinerja pada Dinas {{ $user->name }}. Tahun
+        <h4>Penjelasan lebih lanjut atas hasil evaluasi akuntabilitas kinerja pada {{ $user->name }}. Tahun
             {{ $evaluasi->tahun }} sebagai berikut:
         </h4>
         <p>1.) Perencanaan Kinerja
@@ -311,7 +306,7 @@
         AKIP sebagai penerapan manajemen kinerja. Kami
         menghargai upaya yang telah dilakukan dalam implementasi SAKIP di Dinan {{ $user->name }}. Terhadap hasil
         evaluasi yang telah disampaikan, Kami mengharapkan agara Saudara beserta seluruh jajaran memberikan perhatian
-        yang lebih besar pada upaya implementasi SAKIP di Dinas {{ $user->name }}. dan menindaklanjuti rekomendasi
+        yang lebih besar pada upaya implementasi SAKIP di {{ $user->name }}. dan menindaklanjuti rekomendasi
         yang telah kami sampaikan.
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
