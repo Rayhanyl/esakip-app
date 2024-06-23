@@ -85,7 +85,7 @@ class CascadingController extends Controller
                     $pengampus2 = '<br/>Pengampu : <br/>' . $pengampu2->nama_pegawai_gelar;
                     $indicators2 = '<br/>Indikator : <br/><ul>';
                     $targets2 = '<br/>Target : <br/><ul>';
-                    foreach ($item2->perda_sastra_ins as $ins2) {
+                    foreach ($item2->perda_prog_ins as $ins2) {
                         $indicators2 .= '<li>'.$ins2->indikator.'</li>';
                         $targets2 .= '<li>'.$ins2->target1.'</li>';
                     }
@@ -103,7 +103,7 @@ class CascadingController extends Controller
                         $pengampus3 = '<br/>Pengampu : <br/>' . $pengampu3->nama_pegawai_gelar;
                         $indicators3 = '<br/>Indikator : <br/><ul>';
                         $targets3 = '<br/>Target : <br/><ul>';
-                        foreach ($item3->perda_sastra_ins as $ins3) {
+                        foreach ($item3->perda_kegia_ins as $ins3) {
                             $indicators3 .= '<li>'.$ins3->indikator.'</li>';
                             $targets3 .= '<li>'.$ins3->target.'</li>';
                         }
@@ -125,7 +125,7 @@ class CascadingController extends Controller
                             $pengampus4 .= '</ul>';
                             $indicators4 = '<br/>Indikator : <br/><ul>';
                             $targets4 = '<br/>Target : <br/><ul>';
-                            foreach ($item4->perda_sastra_ins as $ins4) {
+                            foreach ($item4->perda_subkegia_ins as $ins4) {
                                 $indicators4 .= '<li>'.$ins4->indikator.'</li>';
                                 $targets4 .= '<li>'.$ins4->target.'</li>';
                             }
