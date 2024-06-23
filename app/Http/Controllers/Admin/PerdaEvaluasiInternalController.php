@@ -41,7 +41,7 @@ class PerdaEvaluasiInternalController extends AdminBaseController
             }
             $status = $perda_evaluasi_internal->status;
         }
-        return view('admin.perda.evaluasi_internal.index', compact('perda_evaluasi_internal', 'status','tahun'));
+        return view('admin.perda.evaluasi_internal.index', compact('perda_evaluasi_internal', 'status', 'tahun'));
     }
 
     /**
@@ -120,9 +120,9 @@ class PerdaEvaluasiInternalController extends AdminBaseController
     public function download($filename)
     {
         $filePath = storage_path('app/public/evaluasi-internal/' . $filename);
-        if (!Storage::exists('public/evaluasi-internal/' . $filename)) {
+        if (!Storage::exists('app/public/evaluasi-internal/' . $filename)) {
             Alert::toast('Gagal download file', 'danger');
-            return redirect()->back()->with('error', 'File not found.');
+            return redirect()->back();
         }
 
         Alert::toast('Berhasil download file', 'success');
