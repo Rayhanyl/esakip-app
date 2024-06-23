@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Aspu;
 
+use App\Models\PerdaSastra;
+use Illuminate\Support\Str;
 use App\Models\PemkabSastra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,69 +25,89 @@ class CascadingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $response1 = Http::withHeaders([
-        //     'Content-Type' => 'application/json',
-        //     'User-Agent' => 'insomnia/2023.5.8'
-        // ])->post("{$this->baseUrl}/auth", [
-        //     'client_id' => $this->clientId,
-        //     'client_secret' => $this->clientSecret
-        // ]);
-        // $token = json_decode($response1->getBody()->getContents());
-        // $response2 = Http::withHeaders([
-        //     'User-Agent' => 'insomnia/2023.5.8',
-        //     'Authorization' => 'Bearer ' . $token->result->token
-        // ])->get($this->baseUrl . '/esakip/list_pengampu');
-        // $pengampu = json_decode($response2->getBody()->getContents());
-        // $data = PemkabSastra::with([
-        //     'user',
-        //     'pemkab_sastra_ins',
-        //     'perda_sastras',
-        //     'perda_sastras.perda_progs.perda_prog_ins',
-        //     'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
-        //     'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
-        //     'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
-        // ])->get();
-
-        // foreach ($data as $value) {
-        //     foreach ($value->perda_sastras as $sastra) {
-        //         if ($sastra->pengampu_id == 0) {
-        //             continue;
-        //         }
-        //         $data_pengampu = $this->getPengampuNip($sastra->pengampu_id);
-        //         $sastra->pengampu = $data_pengampu;
-        //     }
-        // }
-        $dummy_data = [
-            [
-                'id' => '1',
-                'x' => '
-                Meningkatnya Produktivitas Daerah<br/><br/>Indikator : Tingkat Pengangguran Terbuka (TPT)
-                ',
-                'parent' => '',
-                'color' => '#00b050',
-            ],
-            [
-                'id' => '2',
-                'x' => 'Meningkatnya Investasi<br/><br/>Indikator : Nilai Realisasi Investasi',
-                'parent' => '1',
-                'color' => '#ffff00'
-            ],
-            [
-                'id' => '3',
-                'x' => 'Meningkatnya Akses terhadap Peluang dan Potensi Penanaman Modal<br/><br/>Indikator : Persentase investor yang mengakses Data Potensi Penanaman Modal',
-                'parent' => '2',
-                'color' => '#0070c0'
-            ],
-            [
-                'id' => '4',
-                'x' => 'Meningkatnya Akses terhadap Peluang dan Potensi Penanaman Modal<br/><br/>Indikator : Persentase investor yang mengakses Data Potensi Penanaman Modal',
-                'parent' => '2',
-                'color' => '#0070c0'
-            ],
-        ];
-        return view('aspu.perencanaan.cascading.index', compact('dummy_data'));
+        $id = $request->id ?? '';
+        $data_pemkab = PemkabSastra::with([
+            'pemkab_sastra_ins',
+            'perda_sastras',
+            'perda_sastras.perda_sastra_ins',
+            'perda_sastras.perda_progs',
+            'perda_sastras.perda_progs.perda_prog_ins',
+            'perda_sastras.perda_progs.perda_kegias',
+            'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
+            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
+            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
+        ])->whereId($id)->get();
+        $data_chart = [];
+        foreach ($data_pemkab as $data) {
+            $indicators_pemkab = '<ul>';
+            foreach ($data->pemkab_sastra_ins as $ins) {
+                $indicators_pemkab .= '<li>'.$ins->indikator.'</li>';
+            }
+            $indicators_pemkab .= '</ul>';
+            $uid_pemkab = Str::random(4);
+            $subdata['id'] = $uid_pemkab;
+            $subdata['x'] = '<b>'.$data->sasaran.'<br/><br/>'.$indicators_pemkab.'</b>';
+            $subdata['color'] = '#00b050';
+            $data_chart[] = $subdata;
+            foreach ($data->perda_sastras as $key => $item) {
+                $indicators = '<ul>';
+                foreach ($item->perda_sastra_ins as $ins) {
+                    $indicators .= '<li>'.$ins->indikator.'</li>';
+                }
+                $indicators .= '</ul>';
+                $uid = Str::random(4);
+                $subdata['id'] = $uid;
+                $subdata['x'] = '<b>'.$item->sasaran.'<br/><br/>'.$indicators.'</b>';
+                $subdata['color'] = '#00b050';
+                $subdata['parent'] = $uid_pemkab;
+                $data_chart[] = $subdata;
+                foreach ($item->perda_progs as $key2 => $item2) {
+                    $indicators2 = '<ul>';
+                    foreach ($item2->perda_prog_ins as $ins2) {
+                        $indicators2 .= '<li>'.$ins2->indikator.'</li>';
+                    }
+                    $indicators2 .= '</ul>';
+                    $uid2 = Str::random(4);
+                    $subdata['id'] = $uid2;
+                    $subdata['x'] = '<b>'.$item2->sasaran.'<br/><br/>'.$indicators2.'</b>';
+                    $subdata['color'] = '#ffff00';
+                    $subdata['parent'] = $uid;
+                    $data_chart[] = $subdata;
+                    foreach ($item2->perda_kegias as $key3 => $item3) {
+                        $indicators3 = '<ul>';
+                        foreach ($item3->perda_kegia_ins as $ins3) {
+                            $indicators3 .= '<li>'.$ins3->indikator.'</li>';
+                        }
+                        $indicators3 .= '</ul>';
+                        $uid3 = Str::random(4);
+                        $subdata['id'] = $uid3;
+                        $subdata['x'] = '<b>'.$item3->sasaran.'<br/><br/>'.$indicators3.'</b>';
+                        $subdata['color'] = '#0070c0';
+                        $subdata['parent'] = $uid2;
+                        $data_chart[] = $subdata;
+                        foreach ($item3->perda_sub_kegias as $key4 => $item4) {
+                            $indicators4 = '<ul>';
+                            foreach ($item4->perda_subkegia_ins as $ins4) {
+                                $indicators4 .= '<li>'.$ins4->indikator.'</li>';
+                            }
+                            $indicators4 .= '</ul>';
+                            $uid4 = Str::random(4);
+                            $subdata['id'] = $uid4;
+                            $subdata['x'] = '<b>'.$item4->sasaran.'<br/><br/>'.$indicators4.'</b>';
+                            $subdata['parent'] = $uid3;
+                            $subdata['color'] = '#d9d9d9';
+                            $data_chart[] = $subdata;
+                        }
+                    }
+                }
+            }
+        }
+        $sastra_options = PemkabSastra::all()->keyBy('id')->transform(function ($sasaran) {
+            return $sasaran->sasaran;
+        });
+        return view('aspu.perencanaan.cascading.index', compact('data_chart', 'sastra_options', 'id'));
     }
 
     public function getPengampuNip($nip)
