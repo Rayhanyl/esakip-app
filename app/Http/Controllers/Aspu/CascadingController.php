@@ -52,6 +52,7 @@ class CascadingController extends Controller
             $subdata['color'] = '#a9d08e';
             $data_chart[] = $subdata;
             foreach ($data->perda_sastras as $key => $item) {
+                $pengampu = $this->getPengampuNip($item->pengampu_id);
                 $indicators = '<ul>';
                 $targets = '<ul>';
                 foreach ($item->perda_sastra_ins as $ins) {
@@ -62,7 +63,7 @@ class CascadingController extends Controller
                 $targets .= '</ul>';
                 $uid = Str::random(4);
                 $subdata['id'] = $uid;
-                $subdata['x'] = '<b>'.$item->sasaran.'<br/><br/>'.$indicators.'<br/><br/>'.$targets.'</b>';
+                $subdata['x'] = '<b>Indikator Sasaran Strategis : <br/>'.$item->sasaran.'<br/><br/>'.$indicators.'<br/><br/>Target : <br/>'.$targets.'<br/>Pengampu : '.$pengampu->nama_pegawai_gelar.'</b>';
                 $subdata['color'] = '#ffff00';
                 $subdata['parent'] = $uid_pemkab;
                 $data_chart[] = $subdata;
@@ -128,7 +129,7 @@ class CascadingController extends Controller
             'Authorization' => 'Bearer ' . $token->result->token
         ])->get('https://sammara.majalengkakab.go.id/public_api/esakip/list_pengampu/' . $nip);
         $detail = json_decode($response2->getBody()->getContents());
-        $result = $detail->result;
+        $result = $detail->result ?? '';
         return $result;
     }
 
