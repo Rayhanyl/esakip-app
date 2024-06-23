@@ -87,7 +87,7 @@ class CascadingController extends Controller
                     $targets2 = '<br/>Target : <br/><ul>';
                     foreach ($item2->perda_prog_ins as $ins2) {
                         $indicators2 .= '<li>'.$ins2->indikator.'</li>';
-                        $targets2 .= '<li>'.$ins2->target1.'</li>';
+                        $targets2 .= '<li>'.$ins2->target.'</li>';
                     }
                     $indicators2 .= '</ul>';
                     $targets2 .= '</ul>';
@@ -125,13 +125,16 @@ class CascadingController extends Controller
                             $pengampus4 .= '</ul>';
                             $indicators4 = '<br/>Indikator : <br/><ul>';
                             $targets4 = '<br/>Target : <br/><ul>';
+                            $pagus4 = '<br/>Pagu : <br/><ul>';
                             foreach ($item4->perda_subkegia_ins as $ins4) {
                                 $indicators4 .= '<li>'.$ins4->indikator.'</li>';
                                 $targets4 .= '<li>'.$ins4->target.'</li>';
+                                $pagus4 .= '<li>'.$ins4->anggaran.'</li>';
                             }
                             $indicators4 .= '</ul>';
                             $targets4 .= '</ul>';
-                            $subdata['x'] = $sasaran4.$indicators4.$targets4.$pengampus4;
+                            $pagus4 .= '</ul>';
+                            $subdata['x'] = $sasaran4.$indicators4.$targets4.$pengampus4.$pagus4;
                             $subdata['parent'] = $uid3;
                             $subdata['color'] = '#aeaaaa';
                             $data_chart[] = $subdata;
