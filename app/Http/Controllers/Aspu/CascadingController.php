@@ -50,6 +50,14 @@ class CascadingController extends Controller
             $subdata['id'] = $uid_pemkab;
             $subdata['x'] = '<b>'.$data->sasaran.'<br/><br/>'.$indicators_pemkab.'<br/><br/>Pengampu : Bupati</b>';
             $subdata['color'] = '#a9d08e';
+            $subdata['label'] = [
+                'style' => [
+                    'color' => 'black',
+                    'align' => 'left',
+                    'fontWeight' => 'bolder',
+                    'minHeight' => '300px',
+                ],
+            ];
             $data_chart[] = $subdata;
             foreach ($data->perda_sastras as $key => $item) {
                 $pengampu = $this->getPengampuNip($item->pengampu_id);
