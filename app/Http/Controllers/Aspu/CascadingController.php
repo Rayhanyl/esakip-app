@@ -129,7 +129,7 @@ class CascadingController extends Controller
                             foreach ($item4->perda_subkegia_ins as $ins4) {
                                 $indicators4 .= '<li>'.$ins4->indikator.'</li>';
                                 $targets4 .= '<li>'.$ins4->target.'</li>';
-                                $pagus4 .= '<li>'.$ins4->anggaran.'</li>';
+                                $pagus4 .= '<li>'.$this->to_rp($ins4->anggaran).'</li>';
                             }
                             $indicators4 .= '</ul>';
                             $targets4 .= '</ul>';
@@ -214,5 +214,12 @@ class CascadingController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    function to_rp(int $value)
+    {
+        $nominal = number_format($value, 0, '', '.');
+        $ret = 'Rp ' . $nominal;
+        return $ret;
     }
 }
