@@ -119,8 +119,8 @@ class CascadingController extends Controller
                             $sasaran4 = '<b>Sasaran Sub Kegiatan : <br/>'.$item4->sasaran.'</b>';
                             $pengampus4 = '<br/>Pengampu : <br/><ul>';
                             foreach ($item4->perda_subkegia_pengampus as $sk_pengampu) {
-                                $pengampu4 = $this->getPengampuNip($item4->pengampu_id);
-                                $pengampus4 .= '<li>'.$pengampu4.'</li>';
+                                $pengampu4 = $this->getPengampuNip($sk_pengampu->pengampu_id);
+                                $pengampus4 .= '<li>'.$pengampu4->nama_pegawai_gelar ?? '-'.'</li>';
                             }
                             $pengampus4 .= '</ul>';
                             $indicators4 = '<br/>Indikator : <br/><ul>';
