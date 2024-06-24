@@ -27,6 +27,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="text-center" id="label-chart">Pilih Perda & Sasaran Strategis</h3>
+                            <h3 class="text-center text-danger" id="label-chart">Failed to Fetch Data</h3>
                             <div id="box-chart" style="display: none">
                                 <div id="chartDiv1" style="max-width: 100%; height:800px;"></div>
                             </div>
@@ -137,6 +138,7 @@
                         id
                     },
                     beforeSend: function() {
+                        $('#error-chart').hide();
                         $('#label-chart').hide();
                         $('#box-chart').hide();
                         $('#loading-chart').show();
@@ -150,7 +152,7 @@
                         if (jqXHR.status == 500) {
                             $('#loading-chart').hide();
                             $('#box-chart').hide();
-                            $('#label-chart').html('Failed to Fetching Data').show();
+                            $('#error-chart').show();
                         }
                     }
                 });
