@@ -148,6 +148,8 @@
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         if (jqXHR.status == 500) {
+                            $('#loading-chart').hide();
+                            $('#box-chart').hide();
                             $('#label-chart').html('Failed to Fetching Data').show();
                         }
                     }
