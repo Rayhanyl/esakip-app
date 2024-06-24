@@ -101,6 +101,9 @@
                                     </div>
                                 </div>
                             @empty
+                                @php
+                                    $key2 = Str::random(4);
+                                @endphp
                                 <div class="row row-penanggung-jawab-{{ $key2 }}">
                                     <x-admin.form.text col="col-11" label="Penanggung Jawab"
                                         name="indikator[{{ $key }}][penanggung_jawab][{{ $key2 }}][value]"
