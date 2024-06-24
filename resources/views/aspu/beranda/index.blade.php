@@ -78,6 +78,7 @@
                                     text: 'Value'
                                 },
                                 min: 65
+                                max: 70
                             }
                         }
                     }
