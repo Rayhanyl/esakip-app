@@ -151,7 +151,7 @@ class CascadingController extends Controller
                 $subdata['id'] = $uid;
                 $sasaran_strategis = '<b>Sasaran Strategis : <br/>'.$item->sasaran.'</b>';
                 $pengampu = $this->getPengampuNip($item->pengampu_id);
-                $pengampus = '<br/>Pengampu : <br/>' . $pengampu->nama_pegawai_gelar;
+                $pengampus = '<br/>Pengampu : <br/>' . $pengampu->opd;
                 $indicators = '<br/><br/>Indikator : <br/><ul>';
                 $targets = '<br/>Target : <br/><ul>';
                 foreach ($item->perda_sastra_ins as $ins) {
@@ -169,7 +169,7 @@ class CascadingController extends Controller
                     $subdata['id'] = $uid2;
                     $sasaran2 = '<b>Sasaran Program : <br/>'.$item2->sasaran.'</b>';
                     $pengampu2 = $this->getPengampuNip($item2->pengampu_id);
-                    $pengampus2 = '<br/>Pengampu : <br/>' . $pengampu2->nama_pegawai_gelar;
+                    $pengampus2 = '<br/>Pengampu : <br/>' . $pengampu2->opd;
                     $indicators2 = '<br/><br/>Indikator : <br/><ul>';
                     $targets2 = '<br/>Target : <br/><ul>';
                     foreach ($item2->perda_prog_ins as $ins2) {
@@ -195,7 +195,7 @@ class CascadingController extends Controller
                         $subdata['id'] = $uid3;
                         $sasaran3 = '<b>Sasaran Kegiatan : <br/>'.$item3->sasaran.'</b>';
                         $pengampu3 = $this->getPengampuNip($item3->pengampu_id);
-                        $pengampus3 = '<br/>Pengampu : <br/>' . $pengampu3->nama_pegawai_gelar;
+                        $pengampus3 = '<br/>Pengampu : <br/>' . $pengampu3->opd;
                         $indicators3 = '<br/>Indikator : <br/><ul>';
                         $targets3 = '<br/>Target : <br/><ul>';
                         foreach ($item3->perda_kegia_ins as $ins3) {
@@ -223,7 +223,7 @@ class CascadingController extends Controller
                             $pengampus4 = '<br/>Pengampu : <br/><ul>';
                             foreach ($item4->perda_subkegia_pengampus as $sk_pengampu) {
                                 $pengampu4 = $this->getPengampuNip($sk_pengampu->pengampu_id);
-                                $pengampus4 .= '<li>'.$pengampu4->nama_pegawai_gelar ?? '-'.'</li>';
+                                $pengampus4 .= '<li>'.$pengampu4->opd ?? '-'.'</li>';
                             }
                             $pengampus4 .= '</ul>';
                             $indicators4 = '<br/>Indikator : <br/><ul>';

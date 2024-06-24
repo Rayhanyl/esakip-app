@@ -145,6 +145,11 @@
                         $('#loading-chart').hide();
                         $('#box-chart').show();
                         init_chart(result, 'chartDiv1');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status == 500) {
+                            $('#label-chart').html('Failed to Fetching Data').show();
+                        }
                     }
                 });
             })
