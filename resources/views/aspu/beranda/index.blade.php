@@ -77,7 +77,8 @@
                                     display: true,
                                     text: 'Value'
                                 },
-                                min: 65
+                                min: 65,
+                                max: 70
                             }
                         }
                     }
