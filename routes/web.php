@@ -95,6 +95,10 @@ Route::prefix('/')->name('aspu.')->group(function () {
         Route::prefix('pohon-kinerja')->name('pohon-kinerja.')->group(function () {
             Route::get('/', [PohonKinerjaController::class, 'index'])
                 ->name('index');
+            Route::get('/get-sasaran', [PohonKinerjaController::class, 'get_sasaran'])
+                ->name('get-sasaran');
+            Route::get('/get-chart', [PohonKinerjaController::class, 'get_chart'])
+                ->name('get-chart');
         });
     });
     Route::prefix('pengukuran-kinerja')->name('pengukuran.')->group(function () {

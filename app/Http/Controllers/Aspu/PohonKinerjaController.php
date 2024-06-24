@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Aspu;
 
+use App\Models\User;
 use App\Models\PerdaSastra;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -14,6 +15,63 @@ class PohonKinerjaController extends Controller
      */
     public function index(Request $request)
     {
+        $user_options = User::whereRole('perda')->get()->keyBy('id')->transform(function ($list) {
+            return $list->name;
+        });
+        return view('aspu.perencanaan.pohon-kinerja.index', compact( 'user_options'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    function get_chart(Request $request)
+    {
+
         $id = $request->id ?? '';
         $data = PerdaSastra::with([
             'perda_sastra_ins',
@@ -95,57 +153,11 @@ class PohonKinerjaController extends Controller
                 }
             }
         }
-        $sastra_options = PerdaSastra::all()->keyBy('id')->transform(function ($sasaran) {
-            return $sasaran->sasaran;
-        });
-        return view('aspu.perencanaan.pohon-kinerja.index', compact('data_chart', 'sastra_options', 'id'));
+        return response()->json($data_chart);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    function get_sasaran(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $sastra_options = PerdaSastra::whereUserId($request->user_id)->get();
+        return response()->json($sastra_options);
     }
 }

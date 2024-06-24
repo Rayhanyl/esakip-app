@@ -18,19 +18,26 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <form action="{{ route('aspu.perencanaan.pohon-kinerja') }}" method="get" id="form-sastra">
-                                <div class="row">
-                                    <x-admin.form.select label="Sasaran Strategis" name="id"
-                                        value="{{ $id ?? '' }}" :lists="$sastra_options" id="sastra_select2" />
-                                </div>
-                            </form>
+                            <div class="row">
+                                <x-admin.form.select label="Perda" name="user_id" value="{{ $user_id ?? '' }}"
+                                    :lists="$user_options ?? []" id="user_id_select2" />
+                                <x-admin.form.select label="Sasaran Strategis" name="id" value="{{ $id ?? '' }}"
+                                    :lists="$sastra_options ?? []" id="sastra_select2" />
+                            </div>
                         </div>
                         <div class="card-body">
-                            @if ($data_chart)
+                            <h3 class="text-center" id="label-chart">Pilih Perda & Sasaran Strategis</h3>
+                            <div id="box-chart" style="display: none">
                                 <div id="chartDiv1" style="max-width: 100%; height:800px;"></div>
-                            @else
-                                <h3 class="text-center">Silahkan Pilih Sasaran Strategis</h3>
-                            @endif
+                            </div>
+                            <div id="loading-chart" style="display: none">
+                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                    <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <h3>Fetching Data ....</h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -41,8 +48,8 @@
     </style>
     @push('script-landingpage')
         <script type="text/javascript">
-            @if ($data_chart)
-                var chart = JSC.chart('chartDiv1', {
+            function init_chart(data_chart, element) {
+                var chart = JSC.chart(element, {
                     debug: true,
                     type: 'organizational',
                     defaultAnnotation: {
@@ -68,7 +75,7 @@
                         }
                     },
                     series: [{
-                        points: @json($data_chart)
+                        points: data_chart
                     }],
 
                     toolbar: {
@@ -98,9 +105,53 @@
                         }
                     });
                 }
-            @endif
+            }
+            $('#user_id_select2').on('select2:select', function() {
+                const user_id = $(this).val();
+                $.ajax({
+                    url: "{{ route('aspu.perencanaan.pohon-kinerja.get-sasaran') }}",
+                    data: {
+                        user_id
+                    },
+                    success: function(result) {
+                        let list = result.map(el => ({
+                            id: el.id,
+                            text: el.sasaran
+                        }));
+                        list.unshift({
+                            id: '',
+                            text: '- Pilih Sasaran Strategis -',
+                        })
+                        $('#sastra_select2').html('').select2({
+                            data: list,
+                            theme: 'bootstrap-5'
+                        });
+                    }
+                });
+            })
             $('#sastra_select2').on('change', function() {
-                $('#form-sastra').submit();
+                const id = $(this).val()
+                $.ajax({
+                    url: "{{ route('aspu.perencanaan.pohon-kinerja.get-chart') }}",
+                    data: {
+                        id
+                    },
+                    beforeSend: function() {
+                        $('#label-chart').hide();
+                        $('#box-chart').hide();
+                        $('#loading-chart').show();
+                    },
+                    success: function(result) {
+                        $('#loading-chart').hide();
+                        $('#box-chart').show();
+                        init_chart(result, 'chartDiv1');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status == 500) {
+                            $('#label-chart').html('Failed to Fetching Data').show();
+                        }
+                    }
+                });
             })
         </script>
     @endpush
