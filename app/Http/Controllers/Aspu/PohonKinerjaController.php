@@ -112,6 +112,13 @@ class PohonKinerjaController extends Controller
                 $subdata['x'] = $item2->sasaran.'<br/><br/>'.$indicators2;
                 $subdata['color'] = '#ffff00';
                 $subdata['parent'] = $uid;
+                $subdata['label'] = [
+                    'style' => [
+                        'color' => 'black',
+                        'align' => 'left',
+                        'fontWeight' => 'bolder',
+                    ],
+                ];
                 $data_chart[] = $subdata;
                 foreach ($item2->perda_kegias as $key3 => $item3) {
                     $indicators3 = '<ul>';
