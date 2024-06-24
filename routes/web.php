@@ -84,10 +84,18 @@ Route::prefix('/')->name('aspu.')->group(function () {
             ->name('perda-iku');
         Route::get('/pemkab-iku', [AspuIkuController::class, 'pemkab'])
             ->name('pemkab-iku');
-        Route::get('/cascading', [CascadingController::class, 'index'])
-            ->name('cascading');
-        Route::get('/pohon-kinerja', [PohonKinerjaController::class, 'index'])
-            ->name('pohon-kinerja');
+        Route::prefix('cascading')->name('cascading.')->group(function () {
+            Route::get('/', [CascadingController::class, 'index'])
+                ->name('index');
+            Route::get('/get-sasaran', [CascadingController::class, 'get_sasaran'])
+                ->name('get-sasaran');
+            Route::get('/get-chart', [CascadingController::class, 'get_chart'])
+                ->name('get-chart');
+        });
+        Route::prefix('pohon-kinerja')->name('pohon-kinerja.')->group(function () {
+            Route::get('/', [PohonKinerjaController::class, 'index'])
+                ->name('index');
+        });
     });
     Route::prefix('pengukuran-kinerja')->name('pengukuran.')->group(function () {
         Route::get('/perangkat-daerah/index', [AspuPengukuranController::class, 'perda'])

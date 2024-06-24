@@ -126,10 +126,12 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="{{ route('aspu.perencanaan.pohon-kinerja') }}">Pohon Kinerja</a>
+                                        <li><a href="{{ route('aspu.perencanaan.pohon-kinerja.index') }}">Pohon
+                                                Kinerja</a>
                                         </li>
-                                        <li class="{{ Route::is('aspu.perencanaan.cascading') ? 'active' : '' }}">
-                                            <a href="{{ route('aspu.perencanaan.cascading') }}">Cascading</a>
+                                        <li
+                                            class="{{ Route::is('aspu.perencanaan.cascading.index') ? 'active' : '' }}">
+                                            <a href="{{ route('aspu.perencanaan.cascading.index') }}">Cascading</a>
                                         </li>
                                     </ul>
                                 </li>

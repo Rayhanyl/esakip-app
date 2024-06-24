@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Aspu;
 
+use App\Models\User;
 use App\Models\PerdaSastra;
 use Illuminate\Support\Str;
 use App\Models\PemkabSastra;
@@ -25,128 +26,12 @@ class CascadingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $id = $request->id ?? '';
-        $data_pemkab = PemkabSastra::with([
-            'pemkab_sastra_ins',
-            'perda_sastras',
-            'perda_sastras.perda_sastra_ins',
-            'perda_sastras.perda_progs',
-            'perda_sastras.perda_progs.perda_prog_ins',
-            'perda_sastras.perda_progs.perda_kegias',
-            'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
-            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
-            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
-        ])->whereId($id)->get();
-        $data_chart = [];
-        foreach ($data_pemkab as $data) {
-            $uid_pemkab = Str::random(4);
-            $subdata['id'] = $uid_pemkab;
-            $indicators_pemkab = '<ul>';
-            foreach ($data->pemkab_sastra_ins as $ins) {
-                $indicators_pemkab .= '<li>'.$ins->indikator.'</li>';
-            }
-            $indicators_pemkab .= '</ul>';
-            $subdata['x'] = '<b>'.$data->sasaran.'</b><br/><br/>'.$indicators_pemkab.'<br/><br/>Pengampu : <br/>Bupati';
-            $subdata['color'] = '#a9d08e';
-            $subdata['label'] = [
-                'style' => [
-                    'color' => 'black',
-                    'align' => 'left',
-                    'fontWeight' => 'bolder',
-                    'minHeight' => '300px',
-                ],
-            ];
-            $data_chart[] = $subdata;
-            foreach ($data->perda_sastras as $key => $item) {
-                $uid = Str::random(4);
-                $subdata['id'] = $uid;
-                $sasaran_strategis = '<b>Sasaran Strategis : <br/>'.$item->sasaran.'</b>';
-                $pengampu = $this->getPengampuNip($item->pengampu_id);
-                $pengampus = '<br/>Pengampu : <br/>' . $pengampu->nama_pegawai_gelar;
-                $indicators = 'Indikator : <br/><ul>';
-                $targets = '<br/><br/>Target : <br/><ul>';
-                foreach ($item->perda_sastra_ins as $ins) {
-                    $indicators .= '<li>'.$ins->indikator.'</li>';
-                    $targets .= '<li>'.$ins->target1.'</li>';
-                }
-                $indicators .= '</ul>';
-                $targets .= '</ul>';
-                $subdata['x'] = $sasaran_strategis.$indicators.$targets.$pengampus;
-                $subdata['color'] = '#ffff00';
-                $subdata['parent'] = $uid_pemkab;
-                $data_chart[] = $subdata;
-                foreach ($item->perda_progs as $key2 => $item2) {
-                    $uid2 = Str::random(4);
-                    $subdata['id'] = $uid2;
-                    $sasaran2 = '<b>Sasaran Program : <br/>'.$item2->sasaran.'</b>';
-                    $pengampu2 = $this->getPengampuNip($item2->pengampu_id);
-                    $pengampus2 = '<br/>Pengampu : <br/>' . $pengampu2->nama_pegawai_gelar;
-                    $indicators2 = '<br/>Indikator : <br/><ul>';
-                    $targets2 = '<br/>Target : <br/><ul>';
-                    foreach ($item2->perda_prog_ins as $ins2) {
-                        $indicators2 .= '<li>'.$ins2->indikator.'</li>';
-                        $targets2 .= '<li>'.$ins2->target.'</li>';
-                    }
-                    $indicators2 .= '</ul>';
-                    $targets2 .= '</ul>';
-                    $subdata['x'] = $sasaran2.$indicators2.$targets2.$pengampus2;
-                    $subdata['color'] = '#0070c0';
-                    $subdata['parent'] = $uid;
-                    $data_chart[] = $subdata;
-                    foreach ($item2->perda_kegias as $key3 => $item3) {
-                        $uid3 = Str::random(4);
-                        $subdata['id'] = $uid3;
-                        $sasaran3 = '<b>Sasaran Kegiatan : <br/>'.$item3->sasaran.'</b>';
-                        $pengampu3 = $this->getPengampuNip($item3->pengampu_id);
-                        $pengampus3 = '<br/>Pengampu : <br/>' . $pengampu3->nama_pegawai_gelar;
-                        $indicators3 = '<br/>Indikator : <br/><ul>';
-                        $targets3 = '<br/>Target : <br/><ul>';
-                        foreach ($item3->perda_kegia_ins as $ins3) {
-                            $indicators3 .= '<li>'.$ins3->indikator.'</li>';
-                            $targets3 .= '<li>'.$ins3->target.'</li>';
-                        }
-                        $indicators3 .= '</ul>';
-                        $targets3 .= '</ul>';
-                        $subdata['x'] = $sasaran3.$indicators3.$targets3.$pengampus3;
-                        $subdata['color'] = '#00b0f0';
-                        $subdata['parent'] = $uid2;
-                        $data_chart[] = $subdata;
-                        foreach ($item3->perda_sub_kegias as $key4 => $item4) {
-                            $uid4 = Str::random(4);
-                            $subdata['id'] = $uid4;
-                            $sasaran4 = '<b>Sasaran Sub Kegiatan : <br/>'.$item4->sasaran.'</b>';
-                            $pengampus4 = '<br/>Pengampu : <br/><ul>';
-                            foreach ($item4->perda_subkegia_pengampus as $sk_pengampu) {
-                                $pengampu4 = $this->getPengampuNip($sk_pengampu->pengampu_id);
-                                $pengampus4 .= '<li>'.$pengampu4->nama_pegawai_gelar ?? '-'.'</li>';
-                            }
-                            $pengampus4 .= '</ul>';
-                            $indicators4 = '<br/>Indikator : <br/><ul>';
-                            $targets4 = '<br/>Target : <br/><ul>';
-                            $pagus4 = '<br/>Pagu : <br/><ul>';
-                            foreach ($item4->perda_subkegia_ins as $ins4) {
-                                $indicators4 .= '<li>'.$ins4->indikator.'</li>';
-                                $targets4 .= '<li>'.$ins4->target.'</li>';
-                                $pagus4 .= '<li>'.$this->to_rp($ins4->anggaran).'</li>';
-                            }
-                            $indicators4 .= '</ul>';
-                            $targets4 .= '</ul>';
-                            $pagus4 .= '</ul>';
-                            $subdata['x'] = $sasaran4.$indicators4.$targets4.$pengampus4.$pagus4;
-                            $subdata['parent'] = $uid3;
-                            $subdata['color'] = '#aeaaaa';
-                            $data_chart[] = $subdata;
-                        }
-                    }
-                }
-            }
-        }
-        $sastra_options = PemkabSastra::all()->keyBy('id')->transform(function ($sasaran) {
-            return $sasaran->sasaran;
+        $user_options = User::whereRole('perda')->get()->keyBy('id')->transform(function ($list) {
+            return $list->name;
         });
-        return view('aspu.perencanaan.cascading.index', compact('data_chart', 'sastra_options', 'id'));
+        return view('aspu.perencanaan.cascading.index', compact( 'user_options'));
     }
 
     public function getPengampuNip($nip)
@@ -221,5 +106,159 @@ class CascadingController extends Controller
         $nominal = number_format($value, 0, '', '.');
         $ret = 'Rp ' . $nominal;
         return $ret;
+    }
+
+    function get_chart(Request $request)
+    {
+        $id = $request->id ?? '';
+        $data_pemkab = PemkabSastra::with([
+            'pemkab_sastra_ins',
+            'perda_sastras' => function($query) use ($id) {
+                $query->where('id', $id);
+            },
+            'perda_sastras.perda_sastra_ins',
+            'perda_sastras.perda_progs',
+            'perda_sastras.perda_progs.perda_prog_ins',
+            'perda_sastras.perda_progs.perda_kegias',
+            'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
+            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
+            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
+        ])->whereHas('perda_sastras', function($query) use ($id) {
+            $query->where('id', $id);
+        })->get();
+        $data_chart = [];
+        foreach ($data_pemkab as $data) {
+            $uid_pemkab = Str::random(4);
+            $subdata['id'] = $uid_pemkab;
+            $indicators_pemkab = '<ul>';
+            foreach ($data->pemkab_sastra_ins as $ins) {
+                $indicators_pemkab .= '<li>'.$ins->indikator.'</li>';
+            }
+            $indicators_pemkab .= '</ul>';
+            $subdata['x'] = '<b>'.$data->sasaran.'</b><br/><br/>Indikator : <br/>'.$indicators_pemkab.'<br/>Pengampu : <br/>Bupati';
+            $subdata['color'] = '#a9d08e';
+            $subdata['label'] = [
+                'style' => [
+                    'color' => 'black',
+                    'align' => 'left',
+                    'fontWeight' => 'bolder',
+                    'minHeight' => '300px',
+                ],
+            ];
+            $data_chart[] = $subdata;
+            foreach ($data->perda_sastras as $key => $item) {
+                $uid = Str::random(4);
+                $subdata['id'] = $uid;
+                $sasaran_strategis = '<b>Sasaran Strategis : <br/>'.$item->sasaran.'</b>';
+                $pengampu = $this->getPengampuNip($item->pengampu_id);
+                $pengampus = '<br/>Pengampu : <br/>' . $pengampu->nama_pegawai_gelar;
+                $indicators = '<br/><br/>Indikator : <br/><ul>';
+                $targets = '<br/>Target : <br/><ul>';
+                foreach ($item->perda_sastra_ins as $ins) {
+                    $indicators .= '<li>'.$ins->indikator.'</li>';
+                    $targets .= '<li>'.$ins->target1.'</li>';
+                }
+                $indicators .= '</ul>';
+                $targets .= '</ul>';
+                $subdata['x'] = $sasaran_strategis.$indicators.$targets.$pengampus;
+                $subdata['color'] = '#ffff00';
+                $subdata['parent'] = $uid_pemkab;
+                $data_chart[] = $subdata;
+                foreach ($item->perda_progs as $key2 => $item2) {
+                    $uid2 = Str::random(4);
+                    $subdata['id'] = $uid2;
+                    $sasaran2 = '<b>Sasaran Program : <br/>'.$item2->sasaran.'</b>';
+                    $pengampu2 = $this->getPengampuNip($item2->pengampu_id);
+                    $pengampus2 = '<br/>Pengampu : <br/>' . $pengampu2->nama_pegawai_gelar;
+                    $indicators2 = '<br/><br/>Indikator : <br/><ul>';
+                    $targets2 = '<br/>Target : <br/><ul>';
+                    foreach ($item2->perda_prog_ins as $ins2) {
+                        $indicators2 .= '<li>'.$ins2->indikator.'</li>';
+                        $targets2 .= '<li>'.$ins2->target.'</li>';
+                    }
+                    $indicators2 .= '</ul>';
+                    $targets2 .= '</ul>';
+                    $subdata['x'] = $sasaran2.$indicators2.$targets2.$pengampus2;
+                    $subdata['color'] = '#0070c0';
+                    $subdata['parent'] = $uid;
+                    $subdata['label'] = [
+                        'style' => [
+                            'color' => 'white',
+                            'align' => 'left',
+                            'fontWeight' => 'bolder',
+                            'minHeight' => '300px',
+                        ],
+                    ];
+                    $data_chart[] = $subdata;
+                    foreach ($item2->perda_kegias as $key3 => $item3) {
+                        $uid3 = Str::random(4);
+                        $subdata['id'] = $uid3;
+                        $sasaran3 = '<b>Sasaran Kegiatan : <br/>'.$item3->sasaran.'</b>';
+                        $pengampu3 = $this->getPengampuNip($item3->pengampu_id);
+                        $pengampus3 = '<br/>Pengampu : <br/>' . $pengampu3->nama_pegawai_gelar;
+                        $indicators3 = '<br/>Indikator : <br/><ul>';
+                        $targets3 = '<br/>Target : <br/><ul>';
+                        foreach ($item3->perda_kegia_ins as $ins3) {
+                            $indicators3 .= '<li>'.$ins3->indikator.'</li>';
+                            $targets3 .= '<li>'.$ins3->target.'</li>';
+                        }
+                        $indicators3 .= '</ul>';
+                        $targets3 .= '</ul>';
+                        $subdata['x'] = $sasaran3.$indicators3.$targets3.$pengampus3;
+                        $subdata['color'] = '#00b0f0';
+                        $subdata['parent'] = $uid2;
+                        $subdata['label'] = [
+                            'style' => [
+                                'color' => 'black',
+                                'align' => 'left',
+                                'fontWeight' => 'bolder',
+                                'minHeight' => '300px',
+                            ],
+                        ];
+                        $data_chart[] = $subdata;
+                        foreach ($item3->perda_sub_kegias as $key4 => $item4) {
+                            $uid4 = Str::random(4);
+                            $subdata['id'] = $uid4;
+                            $sasaran4 = '<b>Sasaran Sub Kegiatan : <br/>'.$item4->sasaran.'</b>';
+                            $pengampus4 = '<br/>Pengampu : <br/><ul>';
+                            foreach ($item4->perda_subkegia_pengampus as $sk_pengampu) {
+                                $pengampu4 = $this->getPengampuNip($sk_pengampu->pengampu_id);
+                                $pengampus4 .= '<li>'.$pengampu4->nama_pegawai_gelar ?? '-'.'</li>';
+                            }
+                            $pengampus4 .= '</ul>';
+                            $indicators4 = '<br/>Indikator : <br/><ul>';
+                            $targets4 = '<br/>Target : <br/><ul>';
+                            $pagus4 = '<br/>Pagu : <br/><ul>';
+                            foreach ($item4->perda_subkegia_ins as $ins4) {
+                                $indicators4 .= '<li>'.$ins4->indikator.'</li>';
+                                $targets4 .= '<li>'.$ins4->target.'</li>';
+                                $pagus4 .= '<li>'.$this->to_rp($ins4->anggaran).'</li>';
+                            }
+                            $indicators4 .= '</ul>';
+                            $targets4 .= '</ul>';
+                            $pagus4 .= '</ul>';
+                            $subdata['x'] = $sasaran4.$indicators4.$targets4.$pengampus4.$pagus4;
+                            $subdata['parent'] = $uid3;
+                            $subdata['color'] = '#aeaaaa';
+                            $subdata['label'] = [
+                                'style' => [
+                                    'color' => 'black',
+                                    'align' => 'left',
+                                    'fontWeight' => 'bolder',
+                                    'minHeight' => '300px',
+                                ],
+                            ];
+                            $data_chart[] = $subdata;
+                        }
+                    }
+                }
+            }
+        }
+        return response()->json($data_chart);
+    }
+    function get_sasaran(Request $request)
+    {
+        $sastra_options = PerdaSastra::whereUserId($request->user_id)->get();
+        return response()->json($sastra_options);
     }
 }
