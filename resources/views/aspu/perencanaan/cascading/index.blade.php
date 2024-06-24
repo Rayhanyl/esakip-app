@@ -138,6 +138,7 @@
                     },
                     beforeSend: function() {
                         $('#label-chart').hide();
+                        $('#box-chart').hide();
                         $('#loading-chart').show();
                     },
                     success: function(result) {
