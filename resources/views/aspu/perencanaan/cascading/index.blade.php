@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <x-admin.form.select label="Perda" name="user_id" value="{{ $user_id ?? '' }}"
+                                <x-admin.form.select label="Perangkat Daerah" name="user_id" value="{{ $user_id ?? '' }}"
                                     :lists="$user_options ?? []" id="user_id_select2" />
                                 <x-admin.form.select label="Sasaran Strategis" name="id" value="{{ $id ?? '' }}"
                                     :lists="$sastra_options ?? []" id="sastra_select2" />
@@ -27,7 +27,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="text-center" id="label-chart">Pilih Perda & Sasaran Strategis</h3>
-                            <h3 class="text-center text-danger" id="label-chart">Failed to Fetch Data</h3>
+                            <h3 class="text-center text-danger" id="error-chart" style="display: none">Failed to Fetch Data</h3>
                             <div id="box-chart" style="display: none">
                                 <div id="chartDiv1" style="max-width: 100%; height:800px;"></div>
                             </div>
@@ -52,10 +52,11 @@
             function init_chart(data_chart, element) {
                 var chart = JSC.chart(element, {
                     debug: true,
+                    export: true,
                     type: 'organizational',
                     defaultAnnotation: {
-                        padding: [5, 5],
-                        margin: [5, 5],
+                        padding: [30, 30],
+                        margin: [30, 30],
                     },
                     defaultTooltip_enabled: false,
                     defaultSeries: {
@@ -78,34 +79,7 @@
                     series: [{
                         points: data_chart
                     }],
-
-                    toolbar: {
-                        defaultItem: {
-                            margin: 5,
-                            events_click: orientChart
-                        },
-                        items: {
-                            Left_icon: 'system/default/zoom/arrow-left',
-                            Right_icon: 'system/default/zoom/arrow-right',
-                            Down_icon: 'system/default/zoom/arrow-down',
-                            Up_icon: 'system/default/zoom/arrow-up'
-                        }
-                    }
                 });
-
-                function orientChart(direction) {
-                    var isVertical = /up|down/.test(
-                        direction.toLowerCase()
-                    );
-                    chart.options({
-                        type: 'organizational ' + direction,
-                        defaultPoint_annotation: {
-                            syncWidth: !isVertical,
-                            syncHeight: isVertical,
-                            margin: isVertical ? [15, 5] : [5, 15]
-                        }
-                    });
-                }
             }
             $('#user_id_select2').on('select2:select', function() {
                 const user_id = $(this).val();

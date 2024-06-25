@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\InspekEvaluasiInternalController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Aspu\CascadingController;
 use App\Http\Controllers\Aspu\Pelaporan\AspuPelaporanController;
+use App\Http\Controllers\Aspu\PemkabCascadingController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuRenstraController;
 use App\Http\Controllers\Aspu\Pengukuran\AspuPengukuranController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuPerjanjianController;
@@ -84,6 +85,10 @@ Route::prefix('/')->name('aspu.')->group(function () {
             ->name('perda-iku');
         Route::get('/pemkab-iku', [AspuIkuController::class, 'pemkab'])
             ->name('pemkab-iku');
+        Route::get('/pemkab-cascading', [PemkabCascadingController::class, 'index'])
+            ->name('pemkab-cascading');
+            Route::get('/pemkab-cascading/get-chart', [PemkabCascadingController::class, 'get_chart'])
+                ->name('pemkab-cascading.get-chart');
         Route::prefix('cascading')->name('cascading.')->group(function () {
             Route::get('/', [CascadingController::class, 'index'])
                 ->name('index');

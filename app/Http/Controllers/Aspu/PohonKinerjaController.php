@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Aspu;
 use App\Models\User;
 use App\Models\PerdaSastra;
 use Illuminate\Support\Str;
+use App\Models\PemkabSastra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -71,91 +72,108 @@ class PohonKinerjaController extends Controller
 
     function get_chart(Request $request)
     {
-
         $id = $request->id ?? '';
-        $data = PerdaSastra::with([
-            'perda_sastra_ins',
-            'perda_progs',
-            'perda_progs.perda_prog_ins',
-            'perda_progs.perda_kegias',
-            'perda_progs.perda_kegias.perda_kegia_ins',
-            'perda_progs.perda_kegias.perda_sub_kegias',
-            'perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
-        ])->whereId($id)->get();
+        $data_pemkab = PemkabSastra::with([
+            'pemkab_sastra_ins',
+            'perda_sastras' => function($query) use ($id) {
+                $query->where('id', $id);
+            },
+            'perda_sastras.perda_sastra_ins',
+            'perda_sastras.perda_progs',
+            'perda_sastras.perda_progs.perda_prog_ins',
+            'perda_sastras.perda_progs.perda_kegias',
+            'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
+            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
+            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
+        ])->whereHas('perda_sastras', function($query) use ($id) {
+            $query->where('id', $id);
+        })->get();
         $data_chart = [];
-        foreach ($data as $key => $item) {
-            $indicators = '<ul>';
-            foreach ($item->perda_sastra_ins as $ins) {
-                $indicators .= '<li>'.$ins->indikator.'</li>';
+        foreach ($data_pemkab as $data) {
+            $uid_pemkab = Str::random(4);
+            $subdata['id'] = $uid_pemkab;
+            $sasaran_strategis = '<span style="font-size: 18px; font-weight: bold">'.$data->sasaran.'</span><br/>';
+            $indicators_pemkab = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
+            foreach ($data->pemkab_sastra_ins as $ins) {
+                $indicators_pemkab .= '<span style="font-size: 16px; font-weight: bold">- '.$ins->indikator.'</span><br/>';;
             }
-            $indicators .= '</ul>';
-            $uid = Str::random(4);
-            $subdata['id'] = $uid;
-            $subdata['x'] = $item->sasaran.'<br/><br/>'.$indicators;
-            $subdata['color'] = '#00b050';
+            $indicators_pemkab .= '<br/>';
+            $subdata['x'] = $sasaran_strategis.$indicators_pemkab;
+            $subdata['color'] = '#a9d08e';
             $subdata['label'] = [
                 'style' => [
                     'color' => 'black',
-                    'align' => 'left',
-                    'fontWeight' => 'bolder',
                 ],
             ];
             $data_chart[] = $subdata;
-            foreach ($item->perda_progs as $key2 => $item2) {
-                $indicators2 = '<ul>';
-                foreach ($item2->perda_prog_ins as $ins2) {
-                    $indicators2 .= '<li>'.$ins2->indikator.'</li>';
+            foreach ($data->perda_sastras as $item) {
+                $uid = Str::random(4);
+                $subdata['id'] = $uid;
+                $sasaran_strategis = '<span style="font-size: 16px">Sasaran Strategis : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item->sasaran.'</span><br/>';
+                $indicators = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
+                foreach ($item->perda_sastra_ins as $ins) {
+                    $indicators .= '<span style="font-size: 16px; font-weight: bold">- '.$ins->indikator.'</span><br/>';;
                 }
-                $indicators2 .= '</ul>';
-                $uid2 = Str::random(4);
-                $subdata['id'] = $uid2;
-                $subdata['x'] = $item2->sasaran.'<br/><br/>'.$indicators2;
+                $indicators .= '<br/>';
+                $subdata['x'] = $sasaran_strategis.$indicators;
                 $subdata['color'] = '#ffff00';
-                $subdata['parent'] = $uid;
-                $subdata['label'] = [
-                    'style' => [
-                        'color' => 'black',
-                        'align' => 'left',
-                        'fontWeight' => 'bolder',
-                    ],
-                ];
+                $subdata['parent'] = $uid_pemkab;
                 $data_chart[] = $subdata;
-                foreach ($item2->perda_kegias as $key3 => $item3) {
-                    $indicators3 = '<ul>';
-                    foreach ($item3->perda_kegia_ins as $ins3) {
-                        $indicators3 .= '<li>'.$ins3->indikator.'</li>';
+                foreach ($item->perda_progs as $item2) {
+                    $uid2 = Str::random(4);
+                    $subdata['id'] = $uid2;
+                    $sasaran2 = '<span style="font-size: 16px">Sasaran Program : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item2->sasaran.'</span><br/>';
+                    $indicators2 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
+                    foreach ($item2->perda_prog_ins as $ins2) {
+                        $indicators2 .= '<span style="font-size: 16px; font-weight: bold">- '.$ins2->indikator.'</span><br/>';;
                     }
-                    $indicators3 .= '</ul>';
-                    $uid3 = Str::random(4);
-                    $subdata['id'] = $uid3;
-                    $subdata['x'] = '<b>'.$item3->sasaran.'<br/><br/>'.$indicators3.'</b>';
+                    $indicators2 .= '<br/>';
+                    $subdata['x'] = $sasaran2.$indicators2;
                     $subdata['color'] = '#0070c0';
+                    $subdata['parent'] = $uid;
                     $subdata['label'] = [
                         'style' => [
                             'color' => 'white',
-                            'align' => 'left',
                         ],
                     ];
-                    $subdata['parent'] = $uid2;
                     $data_chart[] = $subdata;
-                    foreach ($item3->perda_sub_kegias as $key4 => $item4) {
-                        $indicators4 = '<ul>';
-                        foreach ($item4->perda_subkegia_ins as $ins4) {
-                            $indicators4 .= '<li>'.$ins4->indikator.'</li>';
+                    foreach ($item2->perda_kegias as $item3) {
+                        $uid3 = Str::random(4);
+                        $subdata['id'] = $uid3;
+                        $sasaran3 = '<span style="font-size: 16px">Sasaran Kegiatan : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item3->sasaran.'</span><br/>';
+                        $indicators3 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
+                        foreach ($item3->perda_kegia_ins as $ins3) {
+                            $indicators3 .= '<span style="font-size: 16px; font-weight: bold">- '.$ins3->indikator.'</span><br/>';;
                         }
-                        $indicators4 .= '</ul>';
-                        $uid4 = Str::random(4);
-                        $subdata['id'] = $uid4;
-                        $subdata['x'] = '<b>'.$item4->sasaran.'<br/><br/>'.$indicators4.'</b>';
-                        $subdata['parent'] = $uid3;
-                        $subdata['color'] = '#d9d9d9';
+                        $indicators3 .= '<br/>';
+                        $subdata['x'] = $sasaran3.$indicators3;
+                        $subdata['color'] = '#00b0f0';
+                        $subdata['parent'] = $uid2;
                         $subdata['label'] = [
                             'style' => [
                                 'color' => 'black',
-                                'align' => 'left',
                             ],
                         ];
                         $data_chart[] = $subdata;
+                        foreach ($item3->perda_sub_kegias as $key4 => $item4) {
+                            $uid4 = Str::random(4);
+                            $subdata['id'] = $uid4;
+                            $sasaran4 = '<span style="font-size: 16px">Sasaran Sub Kegiatan : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item4->sasaran.'</span><br/>';
+                            $indicators4 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
+                            foreach ($item4->perda_subkegia_ins as $ins4) {
+                                $indicators4 .= '<span style="font-size: 16px; font-weight: bold">- '.$ins4->indikator.'</span><br/>';;
+                            }
+                            $indicators4 .= '<br/>';
+                            $subdata['x'] = $sasaran4.$indicators4;
+                            $subdata['parent'] = $uid3;
+                            $subdata['color'] = '#aeaaaa';
+                            $subdata['label'] = [
+                                'style' => [
+                                    'color' => 'black',
+                                ],
+                            ];
+                            $data_chart[] = $subdata;
+                        }
                     }
                 }
             }
