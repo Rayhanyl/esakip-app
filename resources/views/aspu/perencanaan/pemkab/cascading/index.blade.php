@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-center text-center pt-5">
                 <div class="col-lg-6">
-                    <h1 class="heading text-white mb-3" data-aos="fade-up">Pohon Kinerja</h1>
+                    <h1 class="heading text-white mb-3" data-aos="fade-up">Cascading</h1>
                 </div>
             </div>
         </div>
@@ -19,14 +19,13 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <x-admin.form.select label="Perangkat Daerah" name="user_id" value="{{ $user_id ?? '' }}"
+                                {{-- <x-admin.form.select label="Perangkat Daerah" name="user_id" value="{{ $user_id ?? '' }}"
                                     :lists="$user_options ?? []" id="user_id_select2" />
                                 <x-admin.form.select label="Sasaran Strategis" name="id" value="{{ $id ?? '' }}"
-                                    :lists="$sastra_options ?? []" id="sastra_select2" />
+                                    :lists="$sastra_options ?? []" id="sastra_select2" /> --}}
                             </div>
                         </div>
                         <div class="card-body">
-                            <h3 class="text-center" id="label-chart">Pilih Perda & Sasaran Strategis</h3>
                             <div id="box-chart" style="display: none">
                                 <div id="chartDiv1" style="max-width: 100%; height:800px;"></div>
                             </div>
@@ -48,14 +47,17 @@
     </style>
     @push('script-landingpage')
         <script type="text/javascript">
+        $(document).ready(function(){
+            startChart();
+
             function init_chart(data_chart, element) {
                 var chart = JSC.chart(element, {
                     debug: true,
                     export: true,
                     type: 'organizational',
                     defaultAnnotation: {
-                        padding: [20, 20],
-                        margin: [20, 20],
+                        padding: [30, 30],
+                        margin: [30, 30],
                     },
                     defaultTooltip_enabled: false,
                     defaultSeries: {
@@ -80,37 +82,12 @@
                     }],
                 });
             }
-            $('#user_id_select2').on('select2:select', function() {
-                const user_id = $(this).val();
+
+            function startChart() {
                 $.ajax({
-                    url: "{{ route('aspu.perencanaan.pohon-kinerja.get-sasaran') }}",
-                    data: {
-                        user_id
-                    },
-                    success: function(result) {
-                        let list = result.map(el => ({
-                            id: el.id,
-                            text: el.sasaran
-                        }));
-                        list.unshift({
-                            id: '',
-                            text: '- Pilih Sasaran Strategis -',
-                        })
-                        $('#sastra_select2').html('').select2({
-                            data: list,
-                            theme: 'bootstrap-5'
-                        });
-                    }
-                });
-            })
-            $('#sastra_select2').on('change', function() {
-                const id = $(this).val()
-                $.ajax({
-                    url: "{{ route('aspu.perencanaan.pohon-kinerja.get-chart') }}",
-                    data: {
-                        id
-                    },
+                    url: "{{ route('aspu.perencanaan.pemkab-cascading.get-chart') }}",
                     beforeSend: function() {
+                        $('#error-chart').hide();
                         $('#label-chart').hide();
                         $('#box-chart').hide();
                         $('#loading-chart').show();
@@ -122,11 +99,14 @@
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         if (jqXHR.status == 500) {
-                            $('#label-chart').html('Failed to Fetching Data').show();
+                            $('#loading-chart').hide();
+                            $('#box-chart').hide();
+                            $('#error-chart').show();
                         }
                     }
                 });
-            })
+            }
+        })
         </script>
     @endpush
 @endsection

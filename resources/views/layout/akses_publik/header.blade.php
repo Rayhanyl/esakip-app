@@ -96,6 +96,14 @@
                                                         Kinerja
                                                         Utama</a>
                                                 </li>
+                                                <li><a href="{{ route('aspu.perencanaan.pohon-kinerja.index') }}">Pohon
+                                                        Kinerja</a>
+                                                </li>
+                                                <li
+                                                    class="{{ Route::is('aspu.perencanaan.cascading.index') ? 'active' : '' }}">
+                                                    <a
+                                                        href="{{ route('aspu.perencanaan.cascading.index') }}">Cascading</a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li class="has-children">
@@ -124,14 +132,12 @@
                                                     <a href="{{ route('aspu.perencanaan.pemkab-iku') }}">Indikator
                                                         Kinerja Utama</a>
                                                 </li>
+                                                <li
+                                                    class="{{ Route::is('aspu.perencanaan.pemkab-cascading') ? 'active' : '' }}">
+                                                    <a
+                                                        href="{{ route('aspu.perencanaan.pemkab-cascading') }}">Cascading</a>
+                                                </li>
                                             </ul>
-                                        </li>
-                                        <li><a href="{{ route('aspu.perencanaan.pohon-kinerja.index') }}">Pohon
-                                                Kinerja</a>
-                                        </li>
-                                        <li
-                                            class="{{ Route::is('aspu.perencanaan.cascading.index') ? 'active' : '' }}">
-                                            <a href="{{ route('aspu.perencanaan.cascading.index') }}">Cascading</a>
                                         </li>
                                     </ul>
                                 </li>
