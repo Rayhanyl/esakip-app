@@ -1,46 +1,60 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Http\Controllers\Controller as Controller;
+
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller as Controller;
 
 class BaseController extends Controller
 {
     /**
-     * success response method.
+     * Success response method.
      *
-     * @return \Illuminate\Http\Response
+     * @param mixed $result
+     * @param string $message
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function sendResponse($result, $message)
+    public function sendResponse($result, $message): JsonResponse
     {
         $response = [
             'success' => true,
-            'data'    => $result,
+            'data' => $result,
             'message' => $message,
         ];
 
+        if ($result instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+            $response['data'] = $result->items();
+            $response['pagination'] = [
+                'total' => $result->total(),
+                'count' => $result->count(),
+                'per_page' => $result->perPage(),
+                'current_page' => $result->currentPage(),
+                'total_pages' => $result->lastPage(),
+            ];
+        }
 
         return response()->json($response, 200);
     }
 
-
     /**
-     * return error response.
+     * Return error response.
      *
-     * @return \Illuminate\Http\Response
+     * @param string $error
+     * @param array $errorMessages
+     * @param int $code
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function sendError($error, $errorMessages = [], $code = 404)
+    public function sendError($error, $errorMessages = [], $code = 404): JsonResponse
     {
         $response = [
             'success' => false,
             'message' => $error,
         ];
 
-
         if (!empty($errorMessages)) {
             $response['data'] = $errorMessages;
         }
-
 
         return response()->json($response, $code);
     }

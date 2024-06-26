@@ -305,7 +305,7 @@
     <p style="text-align:justify; line-height:1.5;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demikian disampaikan hasil evaluasi
         AKIP sebagai penerapan manajemen kinerja. Kami
         menghargai upaya yang telah dilakukan dalam implementasi SAKIP di {{ $user->name }}. Terhadap hasil
-        evaluasi yang telah disampaikan, Kami mengharapkan agara Saudara beserta seluruh jajaran memberikan perhatian
+        evaluasi yang telah disampaikan, Kami mengharapkan agar Saudara beserta seluruh jajaran memberikan perhatian
         yang lebih besar pada upaya implementasi SAKIP di {{ $user->name }}. dan menindaklanjuti rekomendasi
         yang telah kami sampaikan.
         <br>

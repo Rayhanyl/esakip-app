@@ -91,8 +91,8 @@
                                                 <td class="text-start">{{ $item->perda_sastra->sasaran }}</td>
                                                 <td class="text-start">{{ $item->indikator }}</td>
                                                 <td class="text-center">{{ $item->satuan->satuan }}</td>
-                                                <td class="text-start">{{ $item->sumber_data }}
                                                 <td class="text-start">{{ $item->penjelasan }}</td>
+                                                <td class="text-start">{{ $item->sumber_data }}
                                                 </td>
                                                 <td class="text-start">
                                                     <ul>

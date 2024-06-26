@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\SinergiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,10 @@ Route::controller(RegisterController::class)->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(SinergiController::class)->group(function () {
+        Route::get('perjanjian-kinerja', 'getPerjanjianKinerja');
+        Route::get('perjanjian-kinerja/{nip}', 'getPerjanjianKinerjaNip');
+        Route::get('capaian-iku', 'getCapaianIku');
+        Route::get('capaian-iku/{opd}', 'getCapaianIkuOpd');
+    });
 });
