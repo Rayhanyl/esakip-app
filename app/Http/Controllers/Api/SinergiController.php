@@ -20,19 +20,27 @@ class SinergiController extends BaseController
     public function getPerjanjianKinerja(Request $request): JsonResponse
     {
         $perPage = $request->get('per_page', 10);
+        $tahun = $request->get('tahun');
+        $user = $request->get('user');
+
+        // Query base dengan eager loading relasi
         $query = PerdaSastraIn::with(['user', 'perda_sastra', 'satuan', 'penanggung_jawabs'])
-            ->whereHas('user', function ($query) use ($request) {
-                $query->where('role', 'perda');
-                if ($request->has('perda')) {
-                    $query->where('user_id', $request->perda);
-                }
-            })
-            ->whereHas('perda_sastra', function ($query) use ($request) {
-                if ($request->has('tahun')) {
-                    $query->where('tahun', $request->tahun);
+        ->whereHas('user', function ($query) use ($user) {
+            $query->where('role', 'perda');
+            if (!empty($user)) {
+                $query->where('user_id', $user);
+            }
+        })
+            ->whereHas('perda_sastra', function ($query) use ($tahun) {
+                if (!empty($tahun)) {
+                    $query->where('tahun', $tahun);
                 }
             });
+
+        // Pagination
         $paginatedData = $query->paginate($perPage);
+
+        // Format data yang ingin ditampilkan
         $formattedData = $paginatedData->map(function ($item) {
             return [
                 'id' => $item->id,
@@ -42,6 +50,8 @@ class SinergiController extends BaseController
                 'target' => $item->target1,
             ];
         });
+
+        // Return JSON response
         return response()->json([
             'success' => true,
             'data' => $formattedData,

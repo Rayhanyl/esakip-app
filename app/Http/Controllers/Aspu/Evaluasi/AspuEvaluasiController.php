@@ -123,13 +123,13 @@ class AspuEvaluasiController extends Controller
         } else if (Str::contains($user->name, 'Dinas') == true || Str::contains($user->name, 'Badan') == true) {
             $yth = 'Kepala';
         } else if (Str::contains($user->name, 'Sekretariat Daerah') == true) {
-            $yth = 'Sekertaris daerah';
+            $yth = '';
         } else if (Str::contains($user->name, 'Sekretariat Dewan') == true) {
-            $yth = 'Sekertaris dprd';
+            $yth = '';
         } else if (Str::contains($user->name, 'Inspektorat') == true) {
             $yth = 'Inspektur';
         } else if (Str::contains($user->name, 'Pamong Praja') == true) {
-            $yth = 'Kepala satuan polisi pamong praja';
+            $yth = 'Kepala';
         } else {
             $yth = '';
         }
