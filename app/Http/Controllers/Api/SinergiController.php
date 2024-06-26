@@ -12,7 +12,7 @@ use App\Http\Resources\CapaianIkuOpdResource;
 use App\Http\Resources\PerjanjianNipResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Resources\PerjanjianKinerjaResource;
-use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Controllers\Api\BaseController as BaseController;
 
 
 class SinergiController extends BaseController
