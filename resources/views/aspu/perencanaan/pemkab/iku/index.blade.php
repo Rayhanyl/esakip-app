@@ -82,8 +82,8 @@
                                                 <td>{{ $item->pemkab_sastra->sasaran }}</td>
                                                 <td>{{ $item->indikator }}</td>
                                                 <td class="text-center">{{ $item->satuan->satuan }}</td>
-                                                <td>{{ $item->penjelasan }}</td>
                                                 <td>{{ $item->sumber_data }}</td>
+                                                <td>{{ $item->penjelasan }}</td>
                                                 <td>
                                                     <ul>
                                                         @foreach ($item->penanggung_jawabs as $penanggung_jawab)
