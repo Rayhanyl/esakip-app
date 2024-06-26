@@ -87,8 +87,8 @@ Route::prefix('/')->name('aspu.')->group(function () {
             ->name('pemkab-iku');
         Route::get('/pemkab-cascading', [PemkabCascadingController::class, 'index'])
             ->name('pemkab-cascading');
-            Route::get('/pemkab-cascading/get-chart', [PemkabCascadingController::class, 'get_chart'])
-                ->name('pemkab-cascading.get-chart');
+        Route::get('/pemkab-cascading/get-chart', [PemkabCascadingController::class, 'get_chart'])
+            ->name('pemkab-cascading.get-chart');
         Route::prefix('cascading')->name('cascading.')->group(function () {
             Route::get('/', [CascadingController::class, 'index'])
                 ->name('index');

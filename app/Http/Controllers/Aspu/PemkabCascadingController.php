@@ -28,7 +28,10 @@ class PemkabCascadingController extends Controller
      */
     public function index()
     {
-        return view('aspu.perencanaan.pemkab.cascading.index');
+        $sastra_options = PemkabSastra::all()->keyBy('id')->transform(function ($sasaran) {
+            return $sasaran->sasaran;
+        });
+        return view('aspu.perencanaan.pemkab.cascading.index', compact('sastra_options'));
     }
 
     public function getPengampuNip($nip)
@@ -105,8 +108,9 @@ class PemkabCascadingController extends Controller
         return $ret;
     }
 
-    function get_chart()
+    function get_chart(Request $request)
     {
+        $id = $request->id;
         $data_pemkab = PemkabSastra::with([
             'pemkab_sastra_ins',
             'perda_sastras',
@@ -121,7 +125,7 @@ class PemkabCascadingController extends Controller
             // 'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
             // 'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins',
             // 'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins.satuan'
-        ])->get();
+        ])->whereId($id)->get();
         $data_chart = [];
         foreach ($data_pemkab as $data) {
             $uid_pemkab = Str::random(4);
