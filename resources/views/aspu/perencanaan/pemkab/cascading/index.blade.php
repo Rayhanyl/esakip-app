@@ -19,13 +19,13 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                {{-- <x-admin.form.select label="Perangkat Daerah" name="user_id" value="{{ $user_id ?? '' }}"
-                                    :lists="$user_options ?? []" id="user_id_select2" />
                                 <x-admin.form.select label="Sasaran Strategis" name="id" value="{{ $id ?? '' }}"
-                                    :lists="$sastra_options ?? []" id="sastra_select2" /> --}}
+                                    :lists="$sastra_options ?? []" id="sastra_select2" />
                             </div>
                         </div>
                         <div class="card-body">
+                            <h3 class="text-center" id="label-chart">Pilih Perda & Sasaran Strategis</h3>
+                            <h3 class="text-center text-danger" id="error-chart" style="display: none">Failed to Fetch Data</h3>
                             <div id="box-chart" style="display: none">
                                 <div id="chartDiv1" style="max-width: 100%; height:800px;"></div>
                             </div>
@@ -47,9 +47,6 @@
     </style>
     @push('script-landingpage')
         <script type="text/javascript">
-        $(document).ready(function(){
-            startChart();
-
             function init_chart(data_chart, element) {
                 var chart = JSC.chart(element, {
                     debug: true,
@@ -82,10 +79,13 @@
                     }],
                 });
             }
-
-            function startChart() {
+            $('#sastra_select2').on('change', function() {
+                const id = $(this).val()
                 $.ajax({
                     url: "{{ route('aspu.perencanaan.pemkab-cascading.get-chart') }}",
+                    data: {
+                        id
+                    },
                     beforeSend: function() {
                         $('#error-chart').hide();
                         $('#label-chart').hide();
@@ -105,8 +105,7 @@
                         }
                     }
                 });
-            }
-        })
+            })
         </script>
     @endpush
 @endsection
