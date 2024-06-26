@@ -4,46 +4,53 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\PerdaSastraIn;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CapaianIkuResource;
+use App\Http\Resources\CapaianIkuOpdResource;
+use App\Http\Resources\PerjanjianNipResource;
+use App\Http\Resources\PerjanjianKinerjaResource;
+use App\Http\Controllers\API\BaseController as BaseController;
+use Illuminate\Pagination\LengthAwarePaginator;
 
-class SinergiController extends Controller
+
+class SinergiController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request): JsonResponse
+    public function getPerjanjianKinerja(Request $request): JsonResponse
     {
-        $perPage = $request->get('per_page', 15); // Default to 15 items per page
-        $data = PerdaSastraIn::paginate()->with('user', 'perda_sastra', 'satuan', 'penanggung_jawabs')->whereHas('user', function ($q) use ($request) {
-            $q->where('role', 'perda');
-            if ($request->perda != null) {
-                $q->where('user_id', $request->perda);
-            }
-        })->whereHas('perda_sastra', function ($r) use ($request) {
-            if ($request->tahun != null) {
-                $r->where('tahun', $request->tahun ?? '');
-            }
-        })->get();
-        return $this->sendResponse(ProductResource::collection($products), 'Data retrieved successfully.');
+        $query = PerdaSastraIn::with(['user', 'perda_sastra', 'satuan', 'penanggung_jawabs'])
+            ->whereHas('user', function ($query) use ($request) {
+                $query->where('role', 'perda');
+                if ($request->has('perda')) {
+                    $query->where('user_id', $request->perda);
+                }
+            })
+            ->whereHas('perda_sastra', function ($query) use ($request) {
+                if ($request->has('tahun')) {
+                    $query->where('tahun', $request->tahun);
+                }
+            });
+
+        $data = $query->get();
+
+        return $this->sendResponse(PerjanjianKinerjaResource::collection($data), 'Data retrieved successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id): JsonResponse
+    public function getPerjanjianKinerjaNip(Request $request): JsonResponse
     {
-        $product = Product::find($id);
-
-        if (is_null($product)) {
-            return $this->sendError('Product not found.');
-        }
-
-        return $this->sendResponse(new ProductResource($product), 'Data retrieved successfully.');
+        // 
+        return $this->sendResponse(PerjanjianNipResource::collection($products), 'Data retrieved successfully.');
     }
 
+    public function getCapaianIku(Request $request): JsonResponse
+    {
+        // 
+        return $this->sendResponse(CapaianIkuResource::collection($products), 'Data retrieved successfully.');
+    }
+
+    public function getCapaianIkuOpd(Request $request): JsonResponse
+    {
+        // 
+        return $this->sendResponse(CapaianIkuOpdResource::collection($data), 'Data retrieved successfully.');
+    }
 }
