@@ -157,7 +157,7 @@
         </tr>
     </table>
 
-    <p class="right">Majalengka, {{ $translatedDate }}</p>
+    <p class="right">Majalengka, 27 Juni 2024</p>
     <p>Nomor &nbsp;:&nbsp;&nbsp; {{ $evaluasi->no_surat ?? '' }}</p>
     <p>Hal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
         Hasil Evaluasi Akuntabilitas Kinerja <br>
