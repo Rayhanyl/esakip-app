@@ -50,7 +50,15 @@ class PemkabCascadingController extends Controller
         ])->get('https://sammara.majalengkakab.go.id/public_api/esakip/list_pengampu/' . $nip);
         $detail = json_decode($response2->getBody()->getContents());
         $result = $detail->result ?? '';
-        return $result;
+        $pengampu = '';
+        if ($result->jabatan_struktural != '') {
+            $pengampu = $result->jabatan_struktural;
+        }elseif ($result->jabatan_pelaksana != ''){
+            $pengampu = $result->jabatan_pelaksana;
+        }elseif ($result->jabatan_fungsional != ''){
+            $pengampu = $result->jabatan_fungsional;
+        }
+        return $pengampu;
     }
 
     /**
@@ -151,7 +159,7 @@ class PemkabCascadingController extends Controller
                 $subdata['id'] = $uid;
                 $sasaran_strategis = '<span style="font-size: 16px">Sasaran Strategis : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item->sasaran.'</span><br/>';
                 $pengampu = $this->getPengampuNip($item->pengampu_id);
-                $pengampus = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu->opd.'</span>';
+                $pengampus = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu.'</span>';
                 $indicators = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
                 foreach ($item->perda_sastra_ins as $ins) {
                     $indicators .= '<span style="font-size: 16px; font-weight: bold">- '.$ins->indikator.'</span><br/>';
@@ -162,83 +170,6 @@ class PemkabCascadingController extends Controller
                 $subdata['color'] = '#ffff00';
                 $subdata['parent'] = $uid_pemkab;
                 $data_chart[] = $subdata;
-                // foreach ($item->perda_progs as $key2 => $item2) {
-                //     $uid2 = Str::random(4);
-                //     $subdata['id'] = $uid2;
-                //     $sasaran2 = '<span style="font-size: 16px">Sasaran Program : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item2->sasaran.'</span><br/>';
-                //     $pengampu2 = $this->getPengampuNip($item2->pengampu_id);
-                //     $pengampus2 = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu2->opd.'</span>';
-                //     $indicators2 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
-                //     foreach ($item2->perda_prog_ins as $ins2) {
-                //         $indicators2 .= '<span style="font-size: 16px; font-weight: bold">- '.$ins2->indikator.'</span><br/>';
-                //         $indicators2 .= '<span style="font-size: 16px;">Target : '.$ins2->target.' '.$ins2->satuan->satuan.'</span><br/>';
-                //         $indicators2 .= '<span style="font-size: 16px;">Program : '.$ins2->program.'</span><br/>';
-                //         $indicators2 .= '<span style="font-size: 16px;">Anggaran : '.$ins2->anggaran.'</span><br/>';
-                //     }
-                //     $indicators2 .= '<br/>';
-                //     $subdata['x'] = $sasaran2.$indicators2.$pengampus2;
-                //     $subdata['color'] = '#0070c0';
-                //     $subdata['parent'] = $uid;
-                //     $subdata['label'] = [
-                //         'style' => [
-                //             'color' => 'white',
-                //         ],
-                //     ];
-                //     $data_chart[] = $subdata;
-                //     foreach ($item2->perda_kegias as $key3 => $item3) {
-                //         $uid3 = Str::random(4);
-                //         $subdata['id'] = $uid3;
-                //         $sasaran3 = '<span style="font-size: 16px">Sasaran Kegiatan : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item3->sasaran.'</span><br/>';
-                //         $pengampu3 = $this->getPengampuNip($item3->pengampu_id);
-                //         $pengampus3 = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu3->opd.'</span>';
-                //         $indicators3 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
-                //         foreach ($item3->perda_kegia_ins as $ins3) {
-                //             $indicators3 .= '<span style="font-size: 16px; font-weight: bold">- '.$ins3->indikator.'</span><br/>';
-                //             $indicators3 .= '<span style="font-size: 16px;">Target : '.$ins3->target.' '.$ins3->satuan->satuan.'</span><br/>';
-                //             $indicators3 .= '<span style="font-size: 16px;">Kegiatan : '.$ins3->kegiatan.'</span><br/>';
-                //             $indicators3 .= '<span style="font-size: 16px;">Anggaran : '.$ins3->anggaran.'</span><br/>';
-                //         }
-                //         $indicators3 .= '<br/>';
-                //         $subdata['x'] = $sasaran3.$indicators3.$pengampus3;
-                //         $subdata['color'] = '#00b0f0';
-                //         $subdata['parent'] = $uid2;
-                //         $subdata['label'] = [
-                //             'style' => [
-                //                 'color' => 'black',
-                //             ],
-                //         ];
-                //         $data_chart[] = $subdata;
-                //         foreach ($item3->perda_sub_kegias as $key4 => $item4) {
-                //             $uid4 = Str::random(4);
-                //             $subdata['id'] = $uid4;
-                //             $sasaran4 = '<span style="font-size: 16px">Sasaran Sub Kegiatan : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item4->sasaran.'</span><br/>';
-                //             $pengampus4 = '<br/><span style="font-size: 14px">Pengampu : </span><br/>';
-                //             foreach ($item4->perda_subkegia_pengampus as $sk_pengampu) {
-                //                 $pengampu4 = $this->getPengampuNip($sk_pengampu->pengampu_id);
-                //                 $pengampus4 .= '- <span style="font-size: 16px; font-weight: bold">'.$pengampu4->opd.'</span><br/>';
-                //             }
-                //             $pengampus4 .= '<br/>';
-                //             $indicators4 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
-                //             foreach ($item4->perda_subkegia_ins as $ins4) {
-                //                 $indicators4 .= '<span style="font-size: 16px; font-weight: bold">- '.$ins4->indikator.'</span><br/>';
-                //                 $indicators4 .= '<span style="font-size: 16px;">Target : '.$ins4->target.' '.$ins4->satuan->satuan.'</span><br/>';
-                //                 $indicators4 .= '<span style="font-size: 16px;">Pagu : '.$this->to_rp($ins4->anggaran).'</span><br/>';
-                //                 $indicators4 .= '<span style="font-size: 16px;">Sub Kegiatan : '.$ins4->subkegiatan.'</span><br/>';
-                //                 $indicators4 .= '<span style="font-size: 16px;">Anggaran : '.$ins4->anggaran.'</span><br/>';
-                //             }
-                //             $indicators4 .= '<br/>';
-                //             $subdata['x'] = $sasaran4.$indicators4.$pengampus4;
-                //             $subdata['parent'] = $uid3;
-                //             $subdata['color'] = '#aeaaaa';
-                //             $subdata['label'] = [
-                //                 'style' => [
-                //                     'color' => 'black',
-                //                 ],
-                //             ];
-                //             $data_chart[] = $subdata;
-                //         }
-                //     }
-                // }
             }
         }
         return response()->json($data_chart);

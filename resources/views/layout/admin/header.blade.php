@@ -72,9 +72,9 @@
                     <ul class="menu">
                         @if (session('role') == 'admin')
                             <li class="sidebar-title">Menu Admin</li>
-                            <x-layout.list-sidebar route="admin.index" icon="house">
+                            {{-- <x-layout.list-sidebar route="admin.index" icon="house">
                                 Dashboard
-                            </x-layout.list-sidebar>
+                            </x-layout.list-sidebar> --}}
                             <x-layout.list-sidebar route="admin.user-management.index" icon="person-fill">
                                 User Management
                             </x-layout.list-sidebar>
