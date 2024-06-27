@@ -50,7 +50,15 @@ class CascadingController extends Controller
         ])->get('https://sammara.majalengkakab.go.id/public_api/esakip/list_pengampu/' . $nip);
         $detail = json_decode($response2->getBody()->getContents());
         $result = $detail->result ?? '';
-        return $result;
+        $pengampu = '';
+        if ($result->jabatan_struktural != '') {
+            $pengampu = $result->jabatan_struktural;
+        }elseif ($result->jabatan_pelaksana != ''){
+            $pengampu = $result->jabatan_pelaksana;
+        }elseif ($result->jabatan_fungsional != ''){
+            $pengampu = $result->jabatan_fungsional;
+        }
+        return $pengampu;
     }
 
     /**
@@ -154,7 +162,7 @@ class CascadingController extends Controller
                 $subdata['id'] = $uid;
                 $sasaran_strategis = '<span style="font-size: 16px">Sasaran Strategis : </span><br/><span style="font-size: 18px; font-weight: bold">' . $item->sasaran . '</span><br/>';
                 $pengampu = $this->getPengampuNip($item->pengampu_id);
-                $pengampus = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu->opd . '</span>';
+                $pengampus = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu . '</span>';
                 $indicators = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
                 foreach ($item->perda_sastra_ins as $ins) {
                     $indicators .= '<span style="font-size: 16px; font-weight: bold">- ' . $ins->indikator . '</span><br/>';
@@ -170,7 +178,7 @@ class CascadingController extends Controller
                     $subdata['id'] = $uid2;
                     $sasaran2 = '<span style="font-size: 16px">Sasaran Program : </span><br/><span style="font-size: 18px; font-weight: bold">' . $item2->sasaran . '</span><br/>';
                     $pengampu2 = $this->getPengampuNip($item2->pengampu_id);
-                    $pengampus2 = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu2->opd . '</span>';
+                    $pengampus2 = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu2 . '</span>';
                     $indicators2 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
                     foreach ($item2->perda_prog_ins as $ins2) {
                         $indicators2 .= '<span style="font-size: 16px; font-weight: bold">- ' . $ins2->indikator . '</span><br/>';
@@ -193,7 +201,7 @@ class CascadingController extends Controller
                         $subdata['id'] = $uid3;
                         $sasaran3 = '<span style="font-size: 16px">Sasaran Kegiatan : </span><br/><span style="font-size: 18px; font-weight: bold">' . $item3->sasaran . '</span><br/>';
                         $pengampu3 = $this->getPengampuNip($item3->pengampu_id);
-                        $pengampus3 = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu3->opd . '</span>';
+                        $pengampus3 = '<br/><span style="font-size: 14px">Pengampu : </span><br/><span style="font-size: 16px; font-weight: bold">' . $pengampu3 . '</span>';
                         $indicators3 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
                         foreach ($item3->perda_kegia_ins as $ins3) {
                             $indicators3 .= '<span style="font-size: 16px; font-weight: bold">- ' . $ins3->indikator . '</span><br/>';
@@ -218,7 +226,7 @@ class CascadingController extends Controller
                             $pengampus4 = '<br/><span style="font-size: 14px">Pengampu : </span><br/>';
                             foreach ($item4->perda_subkegia_pengampus as $sk_pengampu) {
                                 $pengampu4 = $this->getPengampuNip($sk_pengampu->pengampu_id);
-                                $pengampus4 .= '- <span style="font-size: 16px; font-weight: bold">' . $pengampu4->opd . '</span><br/>';
+                                $pengampus4 .= '- <span style="font-size: 16px; font-weight: bold">' . $pengampu4 . '</span><br/>';
                             }
                             $pengampus4 .= '<br/>';
                             $indicators4 = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
