@@ -227,7 +227,6 @@ class CascadingController extends Controller
                                 $indicators4 .= '<span style="font-size: 16px;">Target : '.$ins4->target.' '.$ins4->satuan->satuan.'</span><br/>';
                                 $indicators4 .= '<span style="font-size: 16px;">Pagu : '.$this->to_rp($ins4->anggaran).'</span><br/>';
                                 $indicators4 .= '<span style="font-size: 16px;">Sub Kegiatan : '.$ins4->subkegiatan.'</span><br/>';
-                                $indicators4 .= '<span style="font-size: 16px;">Anggaran : '.$ins4->anggaran.'</span><br/>';
                             }
                             $indicators4 .= '<br/>';
                             $subdata['x'] = $sasaran4.$indicators4.$pengampus4;
