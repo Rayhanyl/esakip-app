@@ -20,6 +20,16 @@ class PerdaPengukuranTahunan extends Model
     ];
     protected $fillable = self::FILLABLE_FIELDS;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function perda_pengukuran()
+    {
+        return $this->belongsTo(PerdaPengukuran::class);
+    }
+
     public function perda_sastra()
     {
         return $this->belongsTo(PerdaSastra::class);
@@ -29,4 +39,6 @@ class PerdaPengukuranTahunan extends Model
     {
         return $this->belongsTo(PerdaSastraIn::class);
     }
+
+
 }

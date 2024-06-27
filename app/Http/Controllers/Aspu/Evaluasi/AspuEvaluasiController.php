@@ -118,25 +118,35 @@ class AspuEvaluasiController extends Controller
 
         $user = User::findOrFail($evaluasi->user_id);
         $yth = 'N/A';
-        if (Str::contains($user->name, 'Kecamatan') == true || Str::contains($user->name, 'Perangkat Daerah') == true) {
+        $yth_name = '';
+
+        if (Str::contains($user->name, 'Kecamatan') || Str::contains($user->name, 'Perangkat Daerah')) {
             $yth = 'Camat';
-        } else if (Str::contains($user->name, 'Dinas') == true || Str::contains($user->name, 'Badan') == true) {
+            $yth_name = $yth . ' ' . $user->name;
+        } else if (Str::contains($user->name, 'Dinas') || Str::contains($user->name, 'Badan')) {
             $yth = 'Kepala';
-        } else if (Str::contains($user->name, 'Sekretariat Daerah') == true) {
-            $yth = '';
-        } else if (Str::contains($user->name, 'Sekretariat Dewan') == true) {
-            $yth = '';
-        } else if (Str::contains($user->name, 'Inspektorat') == true) {
-            $yth = 'Inspektur';
-        } else if (Str::contains($user->name, 'Pamong Praja') == true) {
+            $yth_name = $yth . ' ' . $user->name;
+        } else if (Str::contains($user->name, 'Sekretariat Daerah')) {
+            $yth = 'Sekretaris';
+            $yth_name = $yth . ' Daerah';
+        } else if (Str::contains($user->name, 'Sekretariat Dewan')) {
+            $yth = 'Sekretaris';
+            $yth_name = $yth . ' Dewan';
+        } else if (Str::contains($user->name, 'Inspektorat')) {
+            $yth = 'Inspektor';
+            $yth_name = $yth . ' ' . $user->name;
+        } else if (Str::contains($user->name, 'Pamong Praja')) {
             $yth = 'Kepala';
+            $yth_name = $yth . ' ' . $user->name;
         } else {
             $yth = '';
+            $yth_name = $yth . ' ' . $user->name;
         }
 
         $pdf = PDF::loadView('aspu.evaluasi.pdf', [
             'evaluasi' => $evaluasi,
             'user' => $user,
+            'yth_name' => $yth_name,
             'yth' => $yth,
             'predikat_name' => $predikat_name,
             'predikat_description' => $predikat_description,
