@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\PerdaSastra;
 use Illuminate\Http\Request;
 use App\Models\PerdaSastraIn;
 use App\Models\PerdaPengukuran;
@@ -10,6 +11,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use App\Models\PerdaPengukuranTahunan;
 use App\Http\Controllers\Api\BaseController;
+use App\Models\PemkabSastra;
+use App\Models\PerdaKegia;
+use App\Models\PerdaProg;
+use App\Models\PerdaSubKegia;
+use App\Models\PerdaSubKegiaPengampu;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 
@@ -45,7 +51,7 @@ class SinergiController extends BaseController
         return $result;
     }
 
-    public function getPengampu()
+    public function getPengampu($nip)
     {
         $response1 = Http::withHeaders([
             'Content-Type' => 'application/json',
@@ -58,15 +64,148 @@ class SinergiController extends BaseController
         $response2 = Http::withHeaders([
             'User-Agent' => 'insomnia/2023.5.8',
             'Authorization' => 'Bearer ' . $token->result->token
-        ])->get('https://sammara.majalengkakab.go.id/public_api/esakip/list_pengampu/');
+        ])->get('https://sammara.majalengkakab.go.id/public_api/esakip/list_pengampu/' . $nip);
         $detail = json_decode($response2->getBody()->getContents());
         $result = $detail->result ?? '';
-        return $result;
+        $nama_pegawai = $result->nama_pegawai ?? '';
+        if($nama_pegawai == ''){
+            $nama_pegawai = 'Bupati Majalengka';
+        }
+        return $nama_pegawai;
     }
 
     public function getPerjanjianKinerja(Request $request): JsonResponse
     {
-        
+        $perPage = $request->get('per_page', 10);
+
+        // Initialize an empty array to store results
+        $result = [];
+
+        // Fetch data for Pemkab Sastra
+        $pemkab = PemkabSastra::with('user', 'pemkab_sastra_ins')->get();
+        foreach ($pemkab as $value) {
+            $pemkab_list = [
+                'nip' => $value->pengampu_id,
+                'nama' => $this->getPengampu($value->pengampu_id), // Assuming getPengampu returns an array with 'nip' and 'nama_pegawai'
+                'sasaran' => $value->sasaran,
+                'periode' => $value->tahun,
+                'data_indikator' => [],
+                'sasaran_atasan' => '',
+            ];
+
+            foreach ($value->pemkab_sastra_ins as $value_ins) {
+                $pemkab_list['data_indikator'][] = [
+                    'indikator' => $value_ins->indikator,
+                    'target' => $value_ins->target1,
+                ];
+            }
+
+            $result[] = $pemkab_list;
+        }
+
+        // Fetch data for Perda Sastra
+        $perda_sastra = PerdaSastra::with(['user', 'perda_sastra_ins', 'pemkab_sastra'])->get();
+        foreach ($perda_sastra as $value) {
+            $perda_list = [
+                'nip' => $value->pengampu_id,
+                'nama' => $this->getPengampu($value->pengampu_id), // Assuming getPengampu returns an array with 'nip' and 'nama_pegawai'
+                'sasaran' => $value->sasaran,
+                'periode' => $value->tahun,
+                'data_indikator' => [],
+                'sasaran_atasan' => $value->pemkab_sastra->sasaran,
+            ];
+
+            foreach ($value->perda_sastra_ins as $value_ins) {
+                $perda_list['data_indikator'][] = [
+                    'indikator' => $value_ins->indikator,
+                    'target' => $value_ins->target1,
+                ];
+            }
+
+            $result[] = $perda_list;
+        }
+
+        // Fetch data for Perda Prog
+        $perda_prog = PerdaProg::with(['user', 'perda_prog_ins', 'perda_sastra'])->get();
+        foreach ($perda_prog as $value) {
+            $perda_prog_list = [
+                'nip' => $value->pengampu_id,
+                'nama' => $this->getPengampu($value->pengampu_id), // Assuming getPengampu returns an array with 'nip' and 'nama_pegawai'
+                'sasaran' => $value->sasaran,
+                'periode' => $value->tahun,
+                'data_indikator' => [],
+                'sasaran_atasan' => $value->perda_sastra->sasaran,
+            ];
+
+            foreach ($value->perda_prog_ins as $value_ins) {
+                $perda_prog_list['data_indikator'][] = [
+                    'indikator' => $value_ins->indikator,
+                    'target' => $value_ins->target1,
+                ];
+            }
+
+            $result[] = $perda_prog_list;
+        }
+
+        // Fetch data for Perda Kegia
+        $perda_kegia = PerdaKegia::with(['user', 'perda_kegia_ins', 'perda_prog'])->get();
+        foreach ($perda_kegia as $value) {
+            $perda_kegia_list = [
+                'nip' => $value->pengampu_id,
+                'nama' => $this->getPengampu($value->pengampu_id), // Assuming getPengampu returns an array with 'nip' and 'nama_pegawai'
+                'sasaran' => $value->sasaran,
+                'periode' => $value->tahun,
+                'data_indikator' => [],
+                'sasaran_atasan' => $value->perda_prog->sasaran,
+            ];
+
+            foreach ($value->perda_kegia_ins as $value_ins) {
+                $perda_kegia_list['data_indikator'][] = [
+                    'indikator' => $value_ins->indikator,
+                    'target' => $value_ins->target1,
+                ];
+            }
+
+            $result[] = $perda_kegia_list;
+        }
+
+        // Fetch data for Perda SubKegia
+        $perda_subkegia = PerdaSubKegia::with(['user', 'perda_subkegia_ins', 'perda_kegia', 'perda_subkegia_pengampus'])->get();
+        foreach ($perda_subkegia as $value) {
+            foreach ($value->perda_subkegia_pengampus as $pengampu) {
+                $perda_subkegia_list = [
+                    'nip' => $value->pengampu_id,
+                    'nama' => $this->getPengampu($value->pengampu_id), // Assuming getPengampu returns an array with 'nip' and 'nama_pegawai'
+                    'sasaran' => $value->sasaran,
+                    'periode' => $value->tahun,
+                    'pengampu' => $pengampu->pengampu_id,
+                    'data_indikator' => [],
+                    'sasaran_atasan' => $value->perda_kegia->sasaran,
+                ];
+
+                foreach ($value->perda_subkegia_ins as $value_ins) {
+                    $perda_subkegia_list['data_indikator'][] = [
+                        'indikator' => $value_ins->indikator,
+                        'target' => $value_ins->target,
+                    ];
+                }
+
+                $result[] = $perda_subkegia_list;
+            }
+        }
+
+        // Convert $result array to a paginator instance
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $col = collect($result);
+        $perPage = 10; // Number of items per page
+        $currentPageItems = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $paginator = new LengthAwarePaginator($currentPageItems, count($col), $perPage);
+
+        return response()->json([
+            'success' => true,
+            'data' => $paginator,
+            'message' => 'Data retrieved successfully.'
+        ]);
     }
 
     public function getPerjanjianKinerjaNip(Request $request, $nip): JsonResponse
@@ -167,5 +306,4 @@ class SinergiController extends BaseController
             'message' => 'Data retrieved successfully.'
         ]);
     }
-
 }
