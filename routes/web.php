@@ -218,6 +218,8 @@ Route::middleware(['auth'])->group(function () {
                     ->name('store');
                 Route::put('/update/{id}', [SelfAssesmentController::class, 'update'])
                     ->name('update');
+                Route::get('/download/{filename}', [PerdaEvaluasiInternalController::class, 'download'])
+                    ->name('download');
             });
             Route::prefix('/evaluasi-internal')->name('evaluasi-internal.')->group(function () {
                 Route::get('/', [InspekEvaluasiInternalController::class, 'index'])
@@ -226,6 +228,8 @@ Route::middleware(['auth'])->group(function () {
                     ->name('store');
                 Route::put('/update/{id}', [InspekEvaluasiInternalController::class, 'update'])
                     ->name('update');
+                Route::get('/download/{filename}', [PerdaEvaluasiInternalController::class, 'download'])
+                    ->name('download');
             });
         });
     });
