@@ -119,8 +119,8 @@ class PerdaEvaluasiInternalController extends AdminBaseController
 
     public function download($filename)
     {
-        $filePath = storage_path('app/public/evaluasi-internal/' . $filename);
-        if (!Storage::exists('app/public/evaluasi-internal/' . $filename)) {
+        $filePath = storage_path('public/evaluasi-internal/' . $filename);
+        if (!Storage::exists('public/evaluasi-internal/' . $filename)) {
             Alert::toast('Gagal download file', 'danger');
             return redirect()->back();
         }
