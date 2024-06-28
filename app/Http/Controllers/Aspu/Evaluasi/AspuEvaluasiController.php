@@ -131,10 +131,10 @@ class AspuEvaluasiController extends Controller
             $yth_name = $yth . ' Daerah';
         } else if (Str::contains($user->name, 'Sekretariat Dewan')) {
             $yth = 'Sekretaris';
-            $yth_name = $yth . ' Dewan';
+            $yth_name = $yth . '  Dewan Perwakilan Rakyat Daerah ';
         } else if (Str::contains($user->name, 'Inspektorat')) {
-            $yth = 'Inspektor';
-            $yth_name = $yth . ' ' . $user->name;
+            $yth = 'Inspektur';
+            $yth_name = $yth;
         } else if (Str::contains($user->name, 'Pamong Praja')) {
             $yth = 'Kepala';
             $yth_name = $yth . ' ' . $user->name;
