@@ -89,7 +89,7 @@ class PemkabPohonKinerjaController extends Controller
                 $indicators_pemkab .= '<span style="font-size: 18px"> - '.$ins->indikator.'</span>';
             }
             $indicators_pemkab .= '<br/>';
-            $subdata['x'] = '<span style="font-size: 16px; font-weight: bold">'.$data->sasaran.'</span><br/><br/><span style="font-size: 16px; font-weight: bold">Indikator : </span><br/>'.$indicators_pemkab.'<br/><span style="font-size: 16px; font-weight: bold">Pengampu : </span><br/><span style="font-size: 14px; color: #555555">Bupati</span>';
+            $subdata['x'] = '<span style="font-size: 16px; font-weight: bold">'.$data->sasaran.'</span><br/><br/><span style="font-size: 16px; font-weight: bold">Indikator : </span><br/>'.$indicators_pemkab.'<br/>';
             $subdata['color'] = '#a9d08e';
             $subdata['parent'] = '';
             $subdata['label'] = [
@@ -107,7 +107,6 @@ class PemkabPohonKinerjaController extends Controller
                 $indicators = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
                 foreach ($item->perda_sastra_ins as $ins) {
                     $indicators .= '<span style="font-size: 16px; font-weight: bold">- '.$ins->indikator.'</span><br/>';
-                    $indicators .= '<span style="font-size: 16px;">Target : '.$ins->target1.' '.$ins->satuan->satuan.'</span><br/><br/>';
                 }
                 $indicators .= '<br/>';
                 $subdata['x'] = $sasaran_strategis.$indicators;
