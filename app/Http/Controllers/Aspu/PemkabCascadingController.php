@@ -124,15 +124,6 @@ class PemkabCascadingController extends Controller
             'perda_sastras',
             'perda_sastras.perda_sastra_ins',
             'perda_sastras.perda_sastra_ins.satuan',
-            // 'perda_sastras.perda_progs',
-            // 'perda_sastras.perda_progs.perda_prog_ins',
-            // 'perda_sastras.perda_progs.perda_prog_ins.satuan',
-            // 'perda_sastras.perda_progs.perda_kegias',
-            // 'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
-            // 'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins.satuan',
-            // 'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
-            // 'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins',
-            // 'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins.satuan'
         ])->whereId($id)->get();
         $data_chart = [];
         foreach ($data_pemkab as $data) {

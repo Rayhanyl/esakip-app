@@ -73,37 +73,30 @@ class PemkabPohonKinerjaController extends Controller
 
     function get_chart(Request $request)
     {
-        $id = $request->id ?? '';
+        $id = $request->id;
         $data_pemkab = PemkabSastra::with([
             'pemkab_sastra_ins',
-            'perda_sastras' => function($query) use ($id) {
-                $query->where('id', $id);
-            },
+            'perda_sastras',
             'perda_sastras.perda_sastra_ins',
-            'perda_sastras.perda_progs',
-            'perda_sastras.perda_progs.perda_prog_ins',
-            'perda_sastras.perda_progs.perda_kegias',
-            'perda_sastras.perda_progs.perda_kegias.perda_kegia_ins',
-            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias',
-            'perda_sastras.perda_progs.perda_kegias.perda_sub_kegias.perda_subkegia_ins'
-        ])->whereHas('perda_sastras', function($query) use ($id) {
-            $query->where('id', $id);
-        })->get();
+            'perda_sastras.perda_sastra_ins.satuan',
+        ])->whereId($id)->get();
         $data_chart = [];
         foreach ($data_pemkab as $data) {
             $uid_pemkab = Str::random(4);
             $subdata['id'] = $uid_pemkab;
-            $sasaran_strategis = '<span style="font-size: 18px; font-weight: bold">'.$data->sasaran.'</span><br/>';
-            $indicators_pemkab = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
+            $indicators_pemkab = '';
             foreach ($data->pemkab_sastra_ins as $ins) {
-                $indicators_pemkab .= '<span style="font-size: 16px; font-weight: bold">- '.$ins->indikator.'</span><br/>';;
+                $indicators_pemkab .= '<span style="font-size: 18px"> - '.$ins->indikator.'</span>';
             }
             $indicators_pemkab .= '<br/>';
-            $subdata['x'] = $sasaran_strategis.$indicators_pemkab;
+            $subdata['x'] = '<span style="font-size: 16px; font-weight: bold">'.$data->sasaran.'</span><br/><br/><span style="font-size: 16px; font-weight: bold">Indikator : </span><br/>'.$indicators_pemkab.'<br/><span style="font-size: 16px; font-weight: bold">Pengampu : </span><br/><span style="font-size: 14px; color: #555555">Bupati</span>';
             $subdata['color'] = '#a9d08e';
+            $subdata['parent'] = '';
             $subdata['label'] = [
                 'style' => [
                     'color' => 'black',
+                    'align' => 'left',
+                    'minHeight' => '300px',
                 ],
             ];
             $data_chart[] = $subdata;
@@ -113,7 +106,8 @@ class PemkabPohonKinerjaController extends Controller
                 $sasaran_strategis = '<span style="font-size: 16px">Sasaran Strategis : </span><br/><span style="font-size: 18px; font-weight: bold">'.$item->sasaran.'</span><br/>';
                 $indicators = '<br/><br/><span style="font-size: 14px">Indikator : </span><br/>';
                 foreach ($item->perda_sastra_ins as $ins) {
-                    $indicators .= '<span style="font-size: 16px; font-weight: bold">- '.$ins->indikator.'</span><br/>';;
+                    $indicators .= '<span style="font-size: 16px; font-weight: bold">- '.$ins->indikator.'</span><br/>';
+                    $indicators .= '<span style="font-size: 16px;">Target : '.$ins->target1.' '.$ins->satuan->satuan.'</span><br/><br/>';
                 }
                 $indicators .= '<br/>';
                 $subdata['x'] = $sasaran_strategis.$indicators;
