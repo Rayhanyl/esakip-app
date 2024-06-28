@@ -137,6 +137,11 @@
                                                     <a
                                                         href="{{ route('aspu.perencanaan.pemkab-cascading') }}">Cascading</a>
                                                 </li>
+                                                <li
+                                                    class="{{ Route::is('aspu.perencanaan.pemkab.pohon-kinerja.index') ? 'active' : '' }}">
+                                                    <a
+                                                        href="{{ route('aspu.perencanaan.pemkab.pohon-kinerja.index') }}">Pohon Kinerja</a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>

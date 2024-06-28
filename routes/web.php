@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Aspu\CascadingController;
 use App\Http\Controllers\Aspu\Pelaporan\AspuPelaporanController;
 use App\Http\Controllers\Aspu\PemkabCascadingController;
+use App\Http\Controllers\Aspu\PemkabPohonKinerjaController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuRenstraController;
 use App\Http\Controllers\Aspu\Pengukuran\AspuPengukuranController;
 use App\Http\Controllers\Aspu\Perencanaan\AspuPerjanjianController;
@@ -95,6 +96,14 @@ Route::prefix('/')->name('aspu.')->group(function () {
             Route::get('/get-sasaran', [CascadingController::class, 'get_sasaran'])
                 ->name('get-sasaran');
             Route::get('/get-chart', [CascadingController::class, 'get_chart'])
+                ->name('get-chart');
+        });
+        Route::prefix('pemkab-pohon-kinerja')->name('pemkab.pohon-kinerja.')->group(function () {
+            Route::get('/', [PemkabPohonKinerjaController::class, 'index'])
+                ->name('index');
+            Route::get('/get-sasaran', [PemkabPohonKinerjaController::class, 'get_sasaran'])
+                ->name('get-sasaran');
+            Route::get('/get-chart', [PemkabPohonKinerjaController::class, 'get_chart'])
                 ->name('get-chart');
         });
         Route::prefix('pohon-kinerja')->name('pohon-kinerja.')->group(function () {
