@@ -398,6 +398,7 @@ class SinergiController extends BaseController
             return [
                 'opd' => $item->user->name,
                 'capaian_tahunan' => $item->tahunan_capaian,
+                'tahun' => $item->perda_pengukuran->tahun,
             ];
         });
         return response()->json([
@@ -425,6 +426,7 @@ class SinergiController extends BaseController
             return [
                 'opd' => $item->user->name,
                 'capaian_tahunan' => $item->tahunan_capaian,
+                'tahun' => $item->perda_pengukuran->tahun,
             ];
         });
         return response()->json([
