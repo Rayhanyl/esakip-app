@@ -133,7 +133,8 @@
                                                                     </option>
                                                                     @foreach ($kriteria->answers as $answer)
                                                                         <option value="{{ $answer->bobot }}"
-                                                                            {{ (float) $answer->bobot == (float) ($kriteria->inspek_status ?? $kriteria->status) ? 'selected' : '' }}>
+                                                                            {{ (float) $answer->bobot == (float) ($kriteria->inspek_status ?? $kriteria->status) ? 'selected' : '' }}
+                                                                            title="{{ $answer->jawaban }} ({{ $answer->bobot }})">
                                                                             {{ $answer->jawaban }}
                                                                             ({{ $answer->bobot }})
                                                                         </option>
