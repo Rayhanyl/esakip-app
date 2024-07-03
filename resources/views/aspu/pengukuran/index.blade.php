@@ -78,9 +78,9 @@
                                         @foreach ($data as $index => $item)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">{{ $item['user']->name }}</td>
-                                                <td class="text-center">{{ $item['tahun'] }}</td>
-                                                <td class="text-center">{{ $item['tipe'] }}</td>
+                                                <td class="text-center">{{ $item['user']->name ?? '-' }}</td>
+                                                <td class="text-center">{{ $item['tahun'] ?? '-' }}</td>
+                                                <td class="text-center">{{ $item['tipe'] ?? '-' }}</td>
                                                 <td class="text-center">
                                                     @if ($item['tahunans']->isEmpty())
                                                         -
