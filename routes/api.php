@@ -21,7 +21,7 @@ Route::controller(RegisterController::class)->group(function () {
     Route::post('login', 'login');
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('api:sanctum')->group(function () {
     Route::controller(SinergiController::class)->group(function () {
         Route::get('perjanjian-kinerja', 'getPerjanjianKinerja');
         Route::get('perjanjian-kinerja/{nip}', 'getPerjanjianKinerjaNip');
