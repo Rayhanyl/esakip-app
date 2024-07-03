@@ -19,20 +19,29 @@ class AspuPengukuranController extends Controller
         $tahun = $request->tahun;
         $triwulan = $request->triwulan;
 
-        $data = PerdaPengukuran::with('user', 'tahunans', 'triwulans')
-            ->whereHas('user', function ($q) use ($perda) {
-                $q->where('role', 'perda');
-                if ($perda) {
-                    $q->where('id', $perda);
-                }
-            })
-            ->when($tahun, function ($query, $tahun) {
-                return $query->where('tahun', $tahun);
-            })
-            ->when($triwulan, function ($query, $triwulan) {
-                return $query->where('tipe', $triwulan);
-            })
-            ->get();
+        // In your controller method
+        $data_raw = PerdaPengukuran::with(['user', 'tahunans', 'triwulans'])->get();
+
+        $data = $data_raw->groupBy(function ($item) {
+            return $item->user_id . '-' . $item->tahun . '-' . $item->tipe;
+        })->map(function ($group) {
+            $triwulans = $group->pluck('triwulans')->flatten();
+            $totalTriwulans = $triwulans->count();
+            $sumCapaian = $triwulans->sum('capaian');
+            $averageCapaian = $totalTriwulans > 0 ? $sumCapaian / $totalTriwulans : 0;
+
+            return [
+                'user_id' => $group->first()->user_id,
+                'user' => $group->first()->user,
+                'tahun' => $group->first()->tahun,
+                'tipe' => $group->first()->tipe,
+                'tahunans' => $group->pluck('tahunans')->flatten(),
+                'triwulans' => $triwulans,
+                'average_capaian' => $averageCapaian,
+                'items' => $group
+            ];
+        });
+
         return view('aspu.pengukuran.index', compact('user', 'perda', 'tahun', 'triwulan', 'data'));
     }
 

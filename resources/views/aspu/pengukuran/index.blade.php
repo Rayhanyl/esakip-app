@@ -77,31 +77,29 @@
                                     <tbody>
                                         @foreach ($data as $index => $item)
                                             <tr>
-                                                <td class="text-center">{{ $index + 1 }}</td>
-                                                <td class="text-center">{{ $item->user->name }}</td>
-                                                <td class="text-center">{{ $item->tahun }}</td>
-                                                <td class="text-center">{{ $item->tipe }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $item['user']->name }}</td>
+                                                <td class="text-center">{{ $item['tahun'] }}</td>
+                                                <td class="text-center">{{ $item['tipe'] }}</td>
                                                 <td class="text-center">
-                                                    @if ($item->tahunans->isEmpty())
+                                                    @if ($item['tahunans']->isEmpty())
                                                         -
                                                     @else
-                                                        @foreach ($item->tahunans as $tahunan)
-                                                            {{ $tahunan->tahunan_capaian }}
+                                                        @foreach ($item['tahunans'] as $tahunan)
+                                                            {{ $tahunan->tahunan_capaian }}<br>
                                                         @endforeach
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    @if ($item->triwulans->isEmpty())
+                                                    @if ($item['triwulans']->isEmpty())
                                                         -
                                                     @else
-                                                        @foreach ($item->triwulans as $triwulan)
-                                                            {{ $triwulan->capaian }}
-                                                        @endforeach
+                                                        {{ number_format($item['average_capaian'], 2) }}
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
                                                     <a
-                                                        href="{{ route('aspu.pengukuran.perda-detail', ['id' => $item->id]) }}">
+                                                        href="{{ route('aspu.pengukuran.perda-detail', ['id' => $item['items']->first()->id]) }}">
                                                         Detail
                                                     </a>
                                                 </td>
