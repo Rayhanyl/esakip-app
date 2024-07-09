@@ -39,6 +39,4 @@ class PerdaPengukuranTahunan extends Model
     {
         return $this->belongsTo(PerdaSastraIn::class);
     }
-
-
 }

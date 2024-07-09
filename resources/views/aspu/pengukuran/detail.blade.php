@@ -6,10 +6,10 @@
             <div class="row align-items-center justify-content-center text-center pt-5">
                 <div class="col-lg-6">
                     <h4 class="text-white mb-3" data-aos="fade-up">
-                        Pengukuran Kinerja {{ $pengukuran->user->name }} Detail
+                        Detail Pengukuran Kinerja <b class="text-warning">{{ $users->name }}</b>
                     </h4>
                     <h1 class="heading text-white mb-3" data-aos="fade-up">
-                        Ranking ( {{ $ranking->ranking }} )
+                        Ranking ( {{ $ranking['ranking'] }} )
                     </h1>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Pengukuran Kinerja {{ $pengukuran->user->name }} Detail</h4>
+                            <h4 class="card-title">Pengukuran Kinerja {{ $users->name }} Detail</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -56,26 +56,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="font-size:12px;">
-                                            <td class="text-start">{{ $pengukuran->user->name }}</td>
-                                            <td class="text-start">{{ $triwulan->perda_sastra->sasaran }}</td>
-                                            <td class="text-start">{{ $triwulan->perda_sastra_in->indikator }}</td>
-                                            <td class="text-start">{{ $triwulan->perda_sub_kegia->sasaran }}</td>
-                                            <td class="text-start">{{ $triwulan->perda_sub_kegia_in->indikator }}</td>
-                                            <td class="text-center">{{ $triwulan->perda_sub_kegia_target }}</td>
-                                            <td class="text-center">{{ $triwulan->realisasi }}</td>
-                                            <td class="text-center">{{ $triwulan->capaian }}</td>
-                                            <td class="text-start">{{ $triwulan->anggaran_perda_sub_kegia_id }}</td>
-                                            <td class="text-center">
-                                                {{ $triwulan->anggaran_perda_sub_kegia_pagu }}
-                                            </td>
-                                            <td class="text-center">
-                                                {{ $triwulan->anggaran_perda_sub_kegia_realisasi }}
-                                            </td>
-                                            <td class="text-center">
-                                                {{ $triwulan->anggaran_perda_sub_kegia_capaian }}
-                                            </td>
-                                        </tr>
+                                        @foreach ($triwulan as $item)
+                                            @if ($item->triwulans)
+                                                @foreach ($item->triwulans as $triwulan)
+                                                    <tr style="font-size:12px;">
+                                                        <td class="text-start">{{ $users->name }}</td>
+                                                        <td class="text-start">
+                                                            {{ optional($triwulan->perda_sastra)->sasaran }}</td>
+                                                        <td class="text-start">
+                                                            {{ optional($triwulan->perda_sastra_in)->indikator }}</td>
+                                                        <td class="text-start">
+                                                            {{ optional($triwulan->perda_sub_kegia)->sasaran }}</td>
+                                                        <td class="text-start">
+                                                            {{ optional($triwulan->perda_sub_kegia_in)->indikator }}</td>
+                                                        <td class="text-center">{{ $triwulan->perda_sub_kegia_target }}
+                                                        </td>
+                                                        <td class="text-center">{{ $triwulan->realisasi }}</td>
+                                                        <td class="text-center">{{ $triwulan->capaian }}</td>
+                                                        <td class="text-start">
+                                                            {{ optional($triwulan->perda_sastra)->sasaran }}</td>
+                                                        <td class="text-center">
+                                                            {{ $triwulan->anggaran_perda_sub_kegia_pagu }}</td>
+                                                        <td class="text-center">
+                                                            {{ $triwulan->anggaran_perda_sub_kegia_realisasi }}</td>
+                                                        <td class="text-center">
+                                                            {{ $triwulan->anggaran_perda_sub_kegia_capaian }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+
                                     </tbody>
                                 </table>
                             </div>

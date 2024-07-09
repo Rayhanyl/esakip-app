@@ -6,10 +6,10 @@
             <div class="row align-items-center justify-content-center text-center pt-5">
                 <div class="col-lg-6">
                     <h4 class="text-white mb-3" data-aos="fade-up">
-                        Pengukuran Kinerja {{ $pengukuran->user->name }} Detail
+                        Detail Pengukuran Kinerja <b class="text-warning">{{ $users->name }}</b>
                     </h4>
                     <h1 class="heading text-white mb-3" data-aos="fade-up">
-                        Ranking ( {{ $ranking->ranking }} )
+                        Ranking ( {{ $ranking['ranking'] }} )
                     </h1>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Pengukuran Kinerja {{ $pengukuran->user->name }} Detail</h4>
+                            <h4 class="card-title">Pengukuran Kinerja {{ $users->name }} Detail</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -46,15 +46,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="font-size:12px;">
-                                            <td class="text-start">{{ $pengukuran->user->name }}</td>
-                                            <td class="text-center">{{ $pengukuran->tahun }}</td>
-                                            <td class="text-start">{{ $tahunan->perda_sastra->sasaran }}</td>
-                                            <td class="text-start">{{ $tahunan->perda_sastra_in->indikator }}</td>
-                                            <td class="text-center">{{ $tahunan->tahunan_target }}</td>
-                                            <td class="text-center">{{ $tahunan->tahunan_realisasi }}</td>
-                                            <td class="text-center">{{ $tahunan->tahunan_capaian }}</td>
-                                        </tr>
+                                        @foreach ($tahunan as $item)
+                                            @foreach ($item->tahunans as $tahunan)
+                                                <tr style="font-size:12px;">
+                                                    <td class="text-start">{{ $item->user->name }}</td>
+                                                    <td class="text-center">{{ $item->tahun }}</td>
+                                                    <td class="text-start">{{ $tahunan->perda_sastra->sasaran }}</td>
+                                                    <td class="text-start">{{ $tahunan->perda_sastra_in->indikator }}</td>
+                                                    <td class="text-center">{{ $tahunan->perda_sastra_in->target1 }}</td>
+                                                    <td class="text-center">{{ $tahunan->tahunan_realisasi }}</td>
+                                                    <td class="text-center">{{ $tahunan->tahunan_capaian }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

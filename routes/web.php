@@ -120,7 +120,7 @@ Route::prefix('/')->name('aspu.')->group(function () {
             ->name('perda-index');
         Route::get('/pemerintah-kabupaten/index', [AspuPengukuranController::class, 'pemkab'])
             ->name('pemkab-index');
-        Route::get('/perangkat-daerah/detail/{id}', [AspuPengukuranController::class, 'detail'])
+        Route::get('/perangkat-daerah-detail/{id}/{tahun}/{triwul}/{tipe}/{user}', [AspuPengukuranController::class, 'detail'])
             ->name('perda-detail');
     });
     Route::prefix('pelaporan')->name('pelaporan.')->group(function () {
