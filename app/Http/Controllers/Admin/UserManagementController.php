@@ -18,7 +18,8 @@ class UserManagementController extends Controller
      */
     public function index()
     {
-        // 
+        $users = User::all();
+        return view('superadmin.user_management.index', compact('users'));
     }
 
     /**
@@ -26,7 +27,7 @@ class UserManagementController extends Controller
      */
     public function create()
     {
-        // 
+        return view('superadmin.user_management.create');
     }
 
     /**
@@ -34,7 +35,29 @@ class UserManagementController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        $validator = Validator::make($request->all(), [
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'role'     => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::toast('Gagal menambahkan user', 'danger');
+            return redirect()->route('admin.user-management.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'role'     => $request->role,
+        ]);
+
+        Alert::toast('Berhasil menambahkan user', 'success');
+        return redirect()->route('admin.user-management.index');
     }
 
     /**
@@ -42,15 +65,16 @@ class UserManagementController extends Controller
      */
     public function show(User $user)
     {
-        // 
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(Request $request, $userId)
     {
-        // 
+        $user = User::findOrFail($userId);
+        return view('superadmin.user_management.edit', compact('user'));
     }
 
     public function profile(User $user, Request $request)
@@ -94,16 +118,28 @@ class UserManagementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, $userId)
     {
-        // 
+        $user = User::findOrFail($userId);
+        // Check if the user is trying to delete their own account (optional check)
+        if ($user->id === Auth::id()) {
+            Alert::toast('Tidak dapat menghapus akun Anda sendiri', 'danger');
+            return redirect()->route('admin.user-management.index');
+        }
+
+        // Delete the user
+        $user->delete();
+
+        Alert::toast('Berhasil menghapus user', 'success');
+        return redirect()->route('admin.user-management.index');
     }
+
 
     /**
      * Download the specified resource from storage.
      */
     public function download(User $user)
     {
-        // 
+        //
     }
 }

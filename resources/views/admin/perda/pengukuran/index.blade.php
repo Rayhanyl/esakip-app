@@ -62,7 +62,8 @@
                                             <x-admin.form.label-heading>
                                                 Anggaran
                                             </x-admin.form.label-heading>
-                                            <x-admin.form.text col="col-12 col-lg-6" label="Sub Kegiatan" name="anggaran_sub_kegiatan_id" readonly=true placeholder='-' />
+                                            <x-admin.form.text col="col-12 col-lg-6" label="Sub Kegiatan"
+                                                name="anggaran_sub_kegiatan_id" readonly=true placeholder='-' />
                                             <x-admin.form.text col="col-12 col-lg-6" label="Pagu" name="anggaran_pagu"
                                                 currency=true readonly=true />
                                             <x-admin.form.text col="col-12 col-lg-6" label="Realisasi"
@@ -150,9 +151,11 @@
                                                     </td>
                                                     <td class="d-flex justify-content-center gap-2">
                                                         <x-admin.form.button-edit title="Edit Pengukuran Kinerja"
-                                                            route="admin.perda.pengukuran.edit" id="{{ $item->id }}" />
+                                                            route="admin.perda.pengukuran.edit"
+                                                            id="{{ $item->id }}" />
                                                         <x-admin.form.button-delete title="Delete Pengukuran Kinerja"
-                                                            route="admin.perda.pengukuran.destroy" id="{{ $item->id }}" />
+                                                            route="admin.perda.pengukuran.destroy"
+                                                            id="{{ $item->id }}" />
                                                     </td>
                                                 </tr>
                                             @endforeach
